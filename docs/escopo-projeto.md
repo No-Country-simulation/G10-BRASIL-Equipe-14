@@ -164,4 +164,4 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 
 ## 9. Project Model Canvas
 
-<img src="../img/pmc.drawio.png"  />
+<img src="../docs/assets/project-model-canvas.png"  />
