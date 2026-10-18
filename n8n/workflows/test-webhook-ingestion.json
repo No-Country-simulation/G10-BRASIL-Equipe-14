@@ -1,0 +1,80 @@
+{
+  "name": "Test Webhook Ingestion",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "test-ingestion",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "1",
+      "name": "Webhook Receptor",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        250,
+        300
+      ],
+      "webhookId": "test-ingestion"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Validação e formatação do payload recebido\nconst items = $input.all();\nreturn items.map(item => ({\n  json: {\n    status: 'success',\n    message: '🚀 Payload recebido e processado com sucesso pelo CommunityLab!',\n    received_at: new Date().toISOString(),\n    payload_keys: Object.keys(item.json.body || item.json)\n  }\n}));"
+      },
+      "id": "2",
+      "name": "Processa Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        470,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { success: true, message: $json.message, timestamp: $json.received_at, detected_fields: $json.payload_keys } }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "3",
+      "name": "Resposta de Sucesso",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        690,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook Receptor": {
+      "main": [
+        [
+          {
+            "node": "Processa Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Processa Payload": {
+      "main": [
+        [
+          {
+            "node": "Resposta de Sucesso",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

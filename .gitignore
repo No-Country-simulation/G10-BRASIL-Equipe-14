@@ -29,17 +29,22 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+
+# Ambientes virtuais
 env/
 venv/
 .venv/
 ENV/
+!uv.lock
 
 # Streamlit
 .streamlit/secrets.toml
 
 # n8n (instância local e volumes Docker)
-n8n_data/
 .n8n/
+n8n_data/
+n8n/n8n_data/
+**/n8n_data/
 
 # Engenharia de Dados, DuckDB e Datasets Locais
 *.duckdb
@@ -48,6 +53,8 @@ data/raw/*
 !data/raw/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
+data/staging/*
+!data/staging/.gitkeep
 data/temp/*
 !data/temp/.gitkeep
 
