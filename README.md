@@ -59,7 +59,6 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 
 ```
 ├── 📁 .github/                                # Governança do GitHub
-│   |
 │   └── 📄 PULL_REQUEST_TEMPLATE.md            # Template para criação de PR
 │
 ├── 📁 data/                                   # Estrutura e contratos de dados
@@ -74,11 +73,10 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 │   ├── 📁 meetings/                           # Atas das reuniões e rituais ágeis
 │   ├── 📁 specs/                              # Especificações funcionais e técnicas (SDDs)
 │   ├── 📄 guia_github_projects.md             # Guia de uso do GitHub Projects e padrões de branches, commits e PRs para o time
-│   └── 📄 escopo_projeto.md                    # Especificação do escopo e requisitos
+│   └── 📄 escopo_projeto.md                   # Especificação do escopo e requisitos
 │
 ├── 📁 n8n/                                    # Orquestração e workflows locais
-│   ├── 📁 workflows/                          # Fluxos exportados em JSON
-│   └── 📄 docker-compose.yml                  # Configuração do container n8n self-hosted
+│   └── 📁 workflows/                          # Fluxos exportados em JSON
 │
 ├── 📁 references/                             # Materiais de consulta do projeto
 │
@@ -93,9 +91,12 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 ├── 📄 .editorconfig                           # Padronização de estilo de formatação entre diferentes editores e IDEs
 ├── 📄 .env.example                            # Modelo de exemplo de variáveis de ambiente
 ├── 📄 .gitignore                              # Regras de arquivos e diretórios ignorados pelo Git
-├── 📄 LICENSE                                 # Termos de licença de uso e distribuição do projeto
-├── 📄 README.md                               # Apresentação do projeto e instruções de inicialização
-└── 📄 requirements.txt                        # Dependências e bibliotecas Python do projeto
+├── 📄 docker-compose.yml                      # Configuração do container n8n self-hosted e serviços futuros
+├── 📄 LICENSE                                 # Termos de licença de uso do software
+├── 📄 pyproject.toml                          # Metadados, dependências e configurações do uv/Python
+├── 📄 README.md                               # Apresentação do projeto e instruções de execução
+├── 📄 requirements.txt                        # Lista de dependências e bibliotecas do projeto
+└── 📄 uv.lock                                 # Travamento das versões exatas das dependências do projeto
 
 ```
 
@@ -103,33 +104,90 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 
 ## 5. Como Executar
 
-**Pré-requisitos:**
+### Pré-requisitos
+- [Python 3.11+](https://www.python.org/)
+- [Git](https://git-scm.com/)
+- [uv](https://docs.astral.sh/uv/)
+- [Docker](https://docs.docker.com/get-docker/) e Docker Compose instalados e em execução.
 
-* Python 3.11+
-* Git
+---
 
-1. Clonar o repositório e acessar a branch `develop`
+### Passo a Passo
+
+Execute o passo a passo a seguir no terminal:
+
+#### 1. Clonar o repositório e acessar a branch `develop`
 ```bash
 git clone <URL_DO_REPOSITORIO>
 cd G10-BRASIL-Equipe-14
 git checkout develop
+
 ```
 
-2. Configurar o ambiente virtual Python
+#### 2. Instalar dependências e sincronizar o ambiente Python
+Com o uv instalado, execute na raiz do projeto:
+
 ```bash
-python -m venv .venv
+uv sync
 
-# Linux / macOS:
-source .venv/bin/activate
-
-# Windows:
-.venv/Scripts/Activate
 ```
 
-3. Instalar dependências
+O comando acima cria o ambiente virtual `.venv` e instala todas as dependências travadas no `uv.lock`.
+
+#### 3. Configurar as Variáveis de Ambiente
+
+Crie uma cópia do arquivo de exemplo `.env.example` para gerar o seu `.env` local:
+
 ```bash
-pip install --upgrade pip
-pip install -r requirements.txt
+cp .env.example .env
+
+```
+
+> Configure as chaves de API e credenciais necessárias dentro do arquivo `.env` gerado.
+
+#### 4. Iniciar os serviços com Docker
+
+Suba os containers em segundo plano (*detached mode*):
+
+```bash
+docker compose up -d
+
+```
+
+#### 5. Verificar o status da aplicação
+
+Confirme se o container está com status **Up** e ouvindo na porta **5678**:
+
+```bash
+docker compose ps
+
+```
+
+*(Opcional) Acompanhar os logs em tempo real:*
+
+```bash
+docker compose logs -f n8n
+
+```
+
+#### 6. Acessar a interface web do n8n
+
+* Abra o navegador em: [http://localhost:5678](http://localhost:5678)
+* Crie a sua conta de proprietário local (apenas no primeiro acesso).
+
+> [!TIP]
+> Todos os fluxos, credenciais e configurações criados no n8n ficam salvos no volume local mapeado (`./n8n/n8n_data`), garantindo que nenhum progresso seja perdido ao reiniciar os containers.
+
+#### 7. Parar os serviços
+
+Quando terminar o desenvolvimento, você pode pausar ou desligar os containers:
+
+```bash
+# Para pausar a execução mantendo o estado
+docker compose stop
+
+# Para encerrar os containers e liberar a rede
+docker compose down
 
 ```
 
@@ -137,11 +195,11 @@ pip install -r requirements.txt
 
 ## 6. Fluxo Git e Contribuição
 
-<p align="left>
-<a href="https://github.com/orgs/No-Country-simulation/projects/565/views/1">
-    <img src="https://img.shields.io/badge/GitHub_Project-Kanban-1074e7?style=flat-square&logo=github&logoColor=white" alt="Kanban do Projeto" />
-</a>
-</p>
+  <a href="https://github.com/orgs/No-Country-simulation/projects/565/views/1">
+      <img src="https://img.shields.io/badge/GitHub_Project-Kanban-1074e7?style=flat-square&logo=github&logoColor=white" alt="Kanban do Projeto" />
+  </a>
+
+  <br />
 
 * Desenvolvimento iterativo gerenciado pelo quadro Kanban no GitHub Projects pela equipe
 

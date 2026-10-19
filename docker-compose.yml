@@ -1,0 +1,28 @@
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:1
+    container_name: communitylab_n8n
+    restart: unless-stopped
+    ports:
+      - "${N8N_PORT:-5678}:5678"
+    environment:
+      - N8N_HOST=${N8N_HOST:-localhost}
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=${N8N_PROTOCOL:-http}
+      - NODE_ENV=production
+      - WEBHOOK_URL=${WEBHOOK_URL:-http://localhost:5678/}
+      - GENERIC_TIMEZONE=${TIMEZONE:-America/Sao_Paulo}
+      - TZ=${TIMEZONE:-America/Sao_Paulo}
+      - N8N_DEFAULT_BINARY_DATA_MODE=filesystem
+      - NODE_FUNCTION_ALLOW_BUILTIN=*
+      - NODE_FUNCTION_ALLOW_EXTERNAL=axios,lodash
+    volumes:
+      - ./n8n/n8n_data:/home/node/.n8n
+      - ./data:/home/node/data
+    networks:
+      - communitylab-network
+
+networks:
+  communitylab-network:
+    name: communitylab-network
+    driver: bridge
