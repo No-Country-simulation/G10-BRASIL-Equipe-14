@@ -1,0 +1,135 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "test-ingestion",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "278d54fb-d11a-4407-a92e-3c76740d71d8",
+      "name": "Webhook Receptor",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        272,
+        -160
+      ],
+      "webhookId": "test-ingestion"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Validação e preparação do payload para o CommunityLab\nconst items = $input.all();\n\nreturn items.map(item => {\n  const payload = item.json.body ?? item.json;\n\n  return {\n    json: {\n      status: 'success',\n      message: 'Payload recebido e processado pelo CommunityLab.',\n      received_at: new Date().toISOString(),\n      payload_keys: Object.keys(payload),\n      payload: payload\n    }\n  };\n});"
+      },
+      "id": "06f1fb37-c4ac-4b5a-8c42-1b9fa03be9f3",
+      "name": "Processa Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        496,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { success: true, message: $json.message, timestamp: $json.received_at, detected_fields: $json.payload_keys } }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "0789ba90-c969-4c1a-a91b-cfe360046b74",
+      "name": "Resposta de Sucesso",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1168,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "upload",
+        "bucketName": "communitylab-assets",
+        "fileName": "tests/communitylab-ingestion-test.json",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        944,
+        -160
+      ],
+      "id": "481bc40c-f211-4116-9fc9-60cc1a0dc37a",
+      "name": "Upload a file",
+      "credentials": {
+        "s3": {
+          "name": "OCI Object Storage S3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {
+          "fileName": "data"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        720,
+        -160
+      ],
+      "id": "b8e2048b-bcb9-4635-aca8-7dd5895a9f5d",
+      "name": "Convert to File"
+    }
+  ],
+  "connections": {
+    "Webhook Receptor": {
+      "main": [
+        [
+          {
+            "node": "Processa Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Processa Payload": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload a file": {
+      "main": [
+        [
+          {
+            "node": "Resposta de Sucesso",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Upload a file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {}
+}
