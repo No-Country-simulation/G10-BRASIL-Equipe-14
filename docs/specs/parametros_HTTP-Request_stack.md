@@ -40,7 +40,7 @@ Parâmetro | Função	| Exemplo de valor |
 _Endpoints_ que podem ser úteis para o projeto.
 
 | Tipo de dado	| Endpoint	| Parâmetros específicos úteis	| Aplicação no projeto |
-| --- | --- | --- |
+| --- | --- | --- | --- |
 | Busca textual de perguntas	| `/2.3/search` |	`intitle`, `tagged`, `nottagged`	| Encontrar discussões sobre um tema ou tecnologia |
 | Busca avançada	| `/2.3/search/advanced`	| `q`, `title`, `body`, `tagged`, `nottagged`, `accepted`, `answers`, `views`, `user`, `url`, `closed`, `wiki`	| Pesquisar perguntas com critérios mais específicos |
 | Perguntas sem respostas	| `/2.3/questions/no-answers`	| `tagged`, `fromdate`, `todate`, `sort`	| Identificar problemas ainda sem resposta |
@@ -83,6 +83,9 @@ Além dos parâmetros da API, o próprio nó `HTTP Request` tem configurações 
 | Retry on Fail	| Tenta novamente em caso de falha	| Avaliar quando o workflow estiver mais estável |
 
 A API usa paginação: `page` começa em 1 e `pagesize` pode chegar a 100. A resposta inclui `has_more`, que indica se existem mais resultados. Para coleta completa, o workflow deve considerar esse campo e respeitar os limites de requisição.
+
+A consulta total pode ser feita definindo `filter=total`, obtendo dados do Stack Exchange de um ano.
+URL de consulta com essa definição: `https://api.stackexchange.com/2.3/questions?site=stackoverflow&tagged=artificial-intelligence&fromdate=1729445640&filter=total`
 
 Existem outros parâmetros dentro desse nó, conforme pode ser visto na [Documentação oficial](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.httprequest), que também podem ser explorados conforme demanda. 
 
