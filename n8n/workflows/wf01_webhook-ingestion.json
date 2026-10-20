@@ -1,5 +1,5 @@
 {
-  "name": "Test Webhook Ingestion",
+  "name": "WF01 - Webhook Ingestion",
   "nodes": [
     {
       "parameters": {
