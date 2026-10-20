@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://communitylab.g10brasil/schemas/input_schema.json",
+  "title": "CommunityLab Input Record",
+  "description": "Contrato de entrada para itens brutos coletados das fontes da comunidade (Stack Exchange, Mastodon, Bluesky) antes do processamento com DuckDB.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identificador único do item, único por fonte (ex: question_id do Stack Exchange, status id do Mastodon/Bluesky).",
+      "minLength": 1
+    },
+    "source": {
+      "type": "string",
+      "description": "Plataforma de origem do dado.",
+      "enum": ["stackoverflow", "mastodon", "bluesky"]
+    },
+    "author": {
+      "type": "string",
+      "description": "Identificador público do autor do conteúdo (display_name, handle ou user_id).",
+      "minLength": 1
+    },
+    "content": {
+      "type": "string",
+      "description": "Conteúdo textual bruto do item (corpo da pergunta, post ou status)."
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags ou hashtags associadas ao item.",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Data e hora de criação do item na fonte original, em formato ISO 8601 (UTC).",
+      "format": "date-time"
+    },
+    "raw_metadata": {
+      "type": "object",
+      "description": "Payload bruto e campos específicos da fonte preservados para rastreabilidade (ex: score, view_count, quota_remaining, url).",
+      "additionalProperties": true
+    }
+  },
+  "required": ["id", "source", "author", "content", "created_at"],
+  "additionalProperties": false
+}
