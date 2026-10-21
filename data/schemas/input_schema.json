@@ -20,34 +20,75 @@
       "description": "Intervalo de tempo UTC coberto pelo item (ex: janela de agregação do Resumo Semanal), representado como duas datas-hora ISO 8601 separadas por '/' no formato <inicio>/<fim> (ex: 2026-10-13T00:00:00Z/2026-10-20T00:00:00Z).",
       "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z/\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$"
     },
-    "author": {
-      "type": "string",
-      "description": "Identificador público do autor do conteúdo (display_name, handle ou user_id).",
-      "minLength": 1
-    },
-    "content": {
-      "type": "string",
-      "description": "Conteúdo textual bruto do item (corpo da pergunta, post ou status)."
-    },
-    "tags": {
+    "interactions": {
       "type": "array",
-      "description": "Tags ou hashtags associadas ao item.",
+      "description": "Interações individuais coletadas para o item (ex: pergunta/resposta do Stack Exchange, status do Mastodon/Bluesky).",
       "items": {
-        "type": "string",
-        "minLength": 1
+        "type": "object",
+        "properties": {
+          "author": {
+            "type": "string",
+            "description": "Identificador público do autor do conteúdo (display_name, handle ou user_id).",
+            "minLength": 1
+          },
+          "content": {
+            "type": "string",
+            "description": "Conteúdo textual bruto do item (corpo da pergunta, post ou status)."
+          },
+          "tags": {
+            "type": "array",
+            "description": "Tags ou hashtags associadas ao item.",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "description": "Data e hora de criação do item na fonte original, em formato ISO 8601 (UTC).",
+            "format": "date-time"
+          },
+          "raw_metadata": {
+            "type": "object",
+            "description": "Payload bruto e campos específicos da fonte preservados para rastreabilidade (ex: score, view_count, quota_remaining, url).",
+            "additionalProperties": true
+          }
+        },
+        "required": ["author", "content", "created_at"],
+        "additionalProperties": false
       }
-    },
-    "created_at": {
-      "type": "string",
-      "description": "Data e hora de criação do item na fonte original, em formato ISO 8601 (UTC).",
-      "format": "date-time"
-    },
-    "raw_metadata": {
-      "type": "object",
-      "description": "Payload bruto e campos específicos da fonte preservados para rastreabilidade (ex: score, view_count, quota_remaining, url).",
-      "additionalProperties": true
     }
   },
-  "required": ["id", "source", "author", "content", "created_at"],
-  "additionalProperties": false
+  "required": ["id", "source", "interactions"],
+  "additionalProperties": false,
+  "examples": [
+    {
+      "id": "79612345",
+      "source": "stackoverflow",
+      "reference_period": "2026-10-13T00:00:00Z/2026-10-20T00:00:00Z",
+      "interactions": [
+        {
+          "author": "jdoe_dev",
+          "content": "How do I validate a JSON payload against a schema before loading it into DuckDB?",
+          "tags": ["python", "json-schema", "duckdb"],
+          "created_at": "2026-10-19T14:32:00Z",
+          "raw_metadata": {
+            "score": 12,
+            "view_count": 340,
+            "is_answered": true,
+            "link": "https://stackoverflow.com/questions/79612345"
+          }
+        },
+        {
+          "author": "asmith_qa",
+          "content": "You can use the `jsonschema` library to validate the payload before calling `duckdb.read_json`.",
+          "created_at": "2026-10-19T15:10:00Z",
+          "raw_metadata": {
+            "score": 7,
+            "is_accepted": true
+          }
+        }
+      ]
+    }
+  ]
 }
