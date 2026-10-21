@@ -15,6 +15,11 @@
       "description": "Plataforma de origem do dado.",
       "enum": ["stackoverflow", "mastodon", "bluesky"]
     },
+    "reference_period": {
+      "type": "string",
+      "description": "Intervalo de tempo UTC coberto pelo item (ex: janela de agregação do Resumo Semanal), representado como duas datas-hora ISO 8601 separadas por '/' no formato <inicio>/<fim> (ex: 2026-10-13T00:00:00Z/2026-10-20T00:00:00Z).",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z/\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$"
+    },
     "author": {
       "type": "string",
       "description": "Identificador público do autor do conteúdo (display_name, handle ou user_id).",
