@@ -191,6 +191,33 @@ docker compose down
 
 ```
 
+#### 8. Rodar os testes automatizados
+
+Com as dependências sincronizadas (passo 2), execute a suíte de testes com:
+
+```bash
+uv run pytest
+
+```
+
+Para rodar um teste específico:
+
+```bash
+uv run pytest tests/test_validator.py::test_validate_returns_no_errors_for_valid_record
+
+```
+
+#### 9. Validar um JSON externo contra o contrato de entrada
+
+O utilitário `src/utils/validator.py` valida qualquer arquivo JSON contra um JSON Schema (por padrão, o contrato de entrada em `data/schemas/input_schema.json`):
+
+```bash
+uv run python -m src.utils.validator <caminho/para/dados.json> data/schemas/input_schema.json
+
+```
+
+O comando retorna `Valid` (exit code `0`) se o arquivo estiver em conformidade, ou `Invalid` (exit code `1`) listando cada erro encontrado, caso contrário.
+
 ---
 
 ## 6. Fluxo Git e Contribuição
