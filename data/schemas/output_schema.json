@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://communitylab.g10brasil/schemas/output_schema.json",
+  "title": "CommunityLab Output Package",
+  "description": "Contrato de saída do pacote de distribuição gerado a partir das interações da comunidade, contendo o resumo do processamento, as sugestões de conteúdo por canal e o resultado da persistência no OCI Object Storage.",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "description": "Status geral do processamento do pacote.",
+      "enum": ["success", "suspended", "error"]
+    },
+    "processing_summary": {
+      "type": "object",
+      "description": "Resumo do processamento das interações da comunidade.",
+      "properties": {
+        "total_interactions": {
+          "type": "integer",
+          "description": "Quantidade total de interações processadas.",
+          "minimum": 0
+        },
+        "predominant_feeling": {
+          "type": "string",
+          "description": "Sentimento predominante identificado nas interações processadas.",
+          "enum": ["positive", "neutral", "negative"]
+        },
+        "main_topics": {
+          "type": "array",
+          "description": "Principais tópicos identificados nas interações (ex: Contratação / Conquistas, LangGraph / Nós Condicionais).",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": ["total_interactions", "predominant_feeling", "main_topics"],
+      "additionalProperties": false
+    },
+    "suggested_content": {
+      "type": "array",
+      "description": "Lista de conteúdos sugeridos, um por canal de destino.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "target": {
+            "type": "string",
+            "description": "Canal de destino recomendado para o conteúdo.",
+            "enum": ["linkedin", "newsletter", "faq", "instagram"]
+          },
+          "title": {
+            "type": "string",
+            "description": "Título do conteúdo sugerido.",
+            "minLength": 1
+          },
+          "body": {
+            "type": "string",
+            "description": "Corpo do conteúdo sugerido, já adaptado ao tom do canal de destino (inclui hashtags quando aplicável).",
+            "minLength": 1
+          },
+          "potential_engagement": {
+            "type": "string",
+            "description": "Potencial de engajamento estimado para o conteúdo.",
+            "enum": ["low", "medium", "high"]
+          }
+        },
+        "required": ["target", "title", "body", "potential_engagement"],
+        "additionalProperties": false
+      }
+    },
+    "storage": {
+      "type": "object",
+      "description": "Informações da persistência do pacote no OCI Object Storage.",
+      "properties": {
+        "bucket": {
+          "type": "string",
+          "description": "Nome do bucket do OCI Object Storage onde o pacote foi salvo.",
+          "minLength": 1
+        },
+        "object_path": {
+          "type": "string",
+          "description": "Caminho do objeto dentro do bucket (ex: ativos/2026-semana-04/pacote-distribuicao.json).",
+          "minLength": 1
+        },
+        "status": {
+          "type": "string",
+          "description": "Status da operação de persistência no bucket.",
+          "enum": ["success", "error"]
+        }
+      },
+      "required": ["bucket", "object_path", "status"],
+      "additionalProperties": false
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Data e hora de criação do pacote, em formato ISO 8601 (UTC).",
+      "format": "date-time"
+    }
+  },
+  "required": ["status", "processing_summary", "suggested_content", "storage", "created_at"],
+  "additionalProperties": false,
+  "examples": [
+    {
+      "status": "success",
+      "processing_summary": {
+        "total_interactions": 2,
+        "predominant_feeling": "positive",
+        "main_topics": ["Contratação / Conquistas", "LangGraph / Nós Condicionais"]
+      },
+      "suggested_content": [
+        {
+          "target": "linkedin",
+          "title": "Da Comunidade para o Mercado: O impacto dos projetos práticos de IA",
+          "body": "Nada nos dá mais orgulho do que ver nossos talentos conquistando o mercado de tecnologia!\n\n#TalentosTech #InteligenciaArtificial #OracleCloud #CarreiraDev",
+          "potential_engagement": "high"
+        },
+        {
+          "target": "newsletter",
+          "title": "Vitória da Semana",
+          "body": "Aluna conquista vaga dev com portfólio de IA na Oracle Cloud.",
+          "potential_engagement": "medium"
+        },
+        {
+          "target": "faq",
+          "title": "Dica Rápida: Como criar nós de retry no LangGraph",
+          "body": "Dúvida frequente levantada no canal de suporte.",
+          "potential_engagement": "low"
+        }
+      ],
+      "storage": {
+        "bucket": "communitylab-ativos-marketing",
+        "object_path": "ativos/2026-semana-04/pacote-distribuicao.json",
+        "status": "success"
+      },
+      "created_at": "2026-10-21T12:00:00Z"
+    }
+  ]
+}
