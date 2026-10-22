@@ -15,6 +15,11 @@
       "description": "Plataforma de origem do dado.",
       "enum": ["stackoverflow", "stackexchange", "mastodon", "hackernews"]
     },
+    "url": {
+      "type": "string",
+      "description": "Link para o item na plataforma de origem (ex: URL da pergunta, post ou status).",
+      "format": "uri"
+    },
     "reference_period": {
       "type": "string",
       "description": "Intervalo de tempo UTC coberto pelo item (ex: janela de agregação do Resumo Semanal), representado como duas datas-hora ISO 8601 separadas por '/' no formato <inicio>/<fim> (ex: 2026-10-13T00:00:00Z/2026-10-20T00:00:00Z).",
@@ -31,9 +36,13 @@
             "description": "Identificador público do autor do conteúdo (display_name, handle ou user_id).",
             "minLength": 1
           },
+          "title": {
+            "type": ["string", "null"],
+            "description": "Título do item, quando existir (ex: título da pergunta no Stack Exchange); nulo para fontes sem título, como status do Mastodon ou respostas."
+          },
           "content": {
-            "type": "string",
-            "description": "Conteúdo textual bruto do item (corpo da pergunta, post ou status)."
+            "type": ["string", "null"],
+            "description": "Conteúdo textual bruto do item (corpo da pergunta, post ou status); nulo quando o item não possui corpo textual."
           },
           "tags": {
             "type": "array",
