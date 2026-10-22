@@ -106,3 +106,12 @@ def test_main_exits_one_and_prints_errors_for_invalid_file(tmp_path, capsys, mon
     out = capsys.readouterr().out
     assert "Invalid" in out
     assert "is a required property" in out
+
+
+def test_validate_reports_invalid_interaction_created_at():
+    record = copy.deepcopy(VALID_RECORD)
+    record["interactions"][0]["created_at"] = "not-a-date"
+
+    errors = validate_date(record, SCHEMA)
+
+    assert any("interactions/0/created_at" in error for error in errors)
