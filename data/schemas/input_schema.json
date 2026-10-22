@@ -17,7 +17,7 @@
     },
     "url": {
       "type": "string",
-      "description": "Link para o item na plataforma de origem (ex: URL da pergunta, post ou status).",
+      "description": "URL canônica da publicação original na web.",
       "format": "uri"
     },
     "reference_period": {
@@ -68,35 +68,48 @@
       }
     }
   },
-  "required": ["id", "source", "interactions"],
+  "required": ["id", "source", "url", "interactions"],
   "additionalProperties": false,
   "examples": [
     {
       "id": "79612345",
       "source": "stackoverflow",
+      "url": "https://stackoverflow.com/questions/79612345",
       "reference_period": "2026-10-13T00:00:00Z/2026-10-20T00:00:00Z",
       "interactions": [
         {
           "author": "jdoe_dev",
-          "title": null,
+          "title": "How to load JSON with dynamic schema into DuckDB?",
           "content": "How do I validate a JSON payload against a schema before loading it into DuckDB?",
           "tags": ["python", "json-schema", "duckdb"],
           "created_at": "2026-10-19T14:32:00Z",
           "raw_metadata": {
             "score": 12,
+            "comment_count": 2,
             "view_count": 340,
             "is_answered": true,
-            "link": "https://stackoverflow.com/questions/79612345"
+            "content_license": "CC BY-SA 4.0"
           }
-        },
+        }
+      ]
+    },
+    {
+      "id": "39812731",
+      "source": "hackernews",
+      "url": "https://news.ycombinator.com/item?id=39812731",
+      "reference_period": "2025-10-21T00:00:00Z/2026-10-21T00:00:00Z",
+      "interactions": [
         {
-          "author": "asmith_qa",
-          "title": null,
-          "content": "You can use the `jsonschema` library to validate the payload before calling `duckdb.read_json`.",
-          "created_at": "2026-10-19T15:10:00Z",
+          "author": "tech_watcher",
+          "title": "Show HN: New open source LLM benchmark suite",
+          "content": null,
+          "tags": ["show_hn", "story"],
+          "created_at": "2026-10-20T11:15:00Z",
           "raw_metadata": {
-            "score": 7,
-            "is_accepted": true
+            "points": 145,
+            "num_comments": 42,
+            "story_id": 39812731,
+            "children": [50166871]
           }
         }
       ]
