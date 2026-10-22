@@ -29,6 +29,17 @@
           "description": "Quantidade total de interações processadas.",
           "minimum": 0
         },
+        "sources_breakdown": {
+          "type": "object",
+          "description": "Quantidade de interações ingeridas por plataforma de origem (chave = nome da plataforma, valor = contagem), permitindo identificar lacunas na coleta de dados antes da geração de conteúdo.",
+          "propertyNames": {
+            "minLength": 1
+          },
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
         "predominant_feeling": {
           "type": "string",
           "description": "Sentimento predominante identificado nas interações processadas.",
@@ -55,7 +66,7 @@
           "target": {
             "type": "string",
             "description": "Canal de destino recomendado para o conteúdo.",
-            "enum": ["linkedin", "newsletter", "faq", "instagram"]
+            "enum": ["linkedin", "newsletter", "faq", "instagram", "x/twitter", "discord", "blog"]
           },
           "title": {
             "type": "string",
@@ -111,8 +122,14 @@
   "examples": [
     {
       "status": "success",
+      "package_id": "2026-W43",
+      "reference_period": "2026-10-13T00:00:00Z/2026-10-20T00:00:00Z",
       "processing_summary": {
         "total_interactions": 2,
+        "sources_breakdown": {
+          "stackoverflow": 1,
+          "mastodon": 1
+        },
         "predominant_feeling": "positive",
         "main_topics": ["Contratação / Conquistas", "LangGraph / Nós Condicionais"]
       },
