@@ -10,26 +10,26 @@ from typing import Any
 from jsonschema import Draft202012Validator
 from jsonschema.validators import validator_for
 
+FORMAT_CHECKER = Draft202012Validator.FORMAT_CHECKER
+
 
 def load_json(path: str | Path) -> Any:
     return json.loads(Path(path).read_text(encoding="utf-8"))
 
 
-def validate(data: Any, schema: dict[str, Any]) -> list[str]:
-    """Validate `data` against `schema`, returning human-readable error messages (empty if valid)."""
+def validate_data(data: Any, schema: dict[str, Any]) -> list[str]:
     validator_cls = validator_for(schema, default=Draft202012Validator)
     validator_cls.check_schema(schema)
-    errors = sorted(validator_cls(schema).iter_errors(data), key=lambda e: e.path)
+    errors = sorted(validator_cls(schema, format_checker=FORMAT_CHECKER).iter_errors(data), key=lambda e: e.path)
     return [f"{'/'.join(map(str, e.path)) or '<root>'}: {e.message}" for e in errors]
 
 
 def validate_file(data_path: str | Path, schema_path: str | Path) -> list[str]:
-    """Load `data_path` and `schema_path` from disk and validate the former against the latter."""
-    return validate(load_json(data_path), load_json(schema_path))
+    return validate_data(load_json(data_path), load_json(schema_path))
 
 
 def is_valid(data: Any, schema: dict[str, Any]) -> bool:
-    return not validate(data, schema)
+    return not validate_data(data, schema)
 
 
 def _main() -> int:
