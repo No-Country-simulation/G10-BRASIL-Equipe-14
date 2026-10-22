@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://communitylab.g10brasil/schemas/output_schema.json",
+  "title": "CommunityLab Output Package",
+  "description": "Contrato de saída do pacote de distribuição gerado a partir das interações da comunidade, contendo o resumo do processamento, as sugestões de conteúdo por canal e o resultado da persistência no OCI Object Storage.",
+  "type": "object",
+  "properties": {
+    "package_id": {
+      "type": "string",
+      "description": "Identificador único do pacote gerado (UUID ou hash da execução).",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "description": "Status geral do processamento do pacote.",
+      "enum": ["success", "suspended", "error"]
+    },
+    "reference_period": {
+      "type": "string",
+      "description": "Janela temporal UTC coberta pelo pacote de dados (formato <inicio>/<fim>) (ex: 2026-10-13T00:00:00Z/2026-10-20T00:00:00Z).",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z/\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$"
+    },
+    "processing_summary": {
+      "type": "object",
+      "description": "Resumo do processamento das interações da comunidade.",
+      "properties": {
+        "total_interactions": {
+          "type": "integer",
+          "description": "Quantidade total de interações processadas com sucesso.",
+          "minimum": 0
+        },
+        "sources_breakdown": {
+          "type": "object",
+          "description": "Quantidade de interações ingeridas por plataforma de origem (chave = nome da plataforma, valor = contagem), permitindo identificar lacunas na coleta de dados antes da geração de conteúdo.",
+          "propertyNames": {
+            "minLength": 1
+          },
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "predominant_feeling": {
+          "type": "string",
+          "description": "Sentimento predominante identificado nas interações processadas.",
+          "enum": ["positive", "neutral", "negative"]
+        },
+        "main_topics": {
+          "type": "array",
+          "description": "Principais tópicos identificados nas interações (ex: Contratação / Conquistas, LangGraph / Nós Condicionais).",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": ["total_interactions", "predominant_feeling", "main_topics"],
+      "additionalProperties": false
+    },
+    "suggested_content": {
+      "type": "array",
+      "description": "Lista de conteúdos sugeridos, um por canal de destino.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "target": {
+            "type": "string",
+            "description": "Canal de destino recomendado para o conteúdo.",
+            "enum": ["linkedin", "newsletter", "faq", "instagram", "x/twitter", "discord", "blog"]
+          },
+          "title": {
+            "type": "string",
+            "description": "Título do conteúdo sugerido.",
+            "minLength": 1
+          },
+          "body": {
+            "type": "string",
+            "description": "Corpo do conteúdo sugerido, já adaptado ao tom do canal de destino (inclui hashtags quando aplicável).",
+            "minLength": 1
+          },
+          "potential_engagement": {
+            "type": "string",
+            "description": "Potencial de engajamento estimado para o conteúdo.",
+            "enum": ["low", "medium", "high"]
+          }
+        },
+        "required": ["target", "title", "body", "potential_engagement"],
+        "additionalProperties": false
+      }
+    },
+    "storage": {
+      "type": "object",
+      "description": "Informações da persistência do pacote no OCI Object Storage.",
+      "properties": {
+        "bucket": {
+          "type": "string",
+          "description": "Nome do bucket do OCI Object Storage onde o pacote foi salvo.",
+          "minLength": 1
+        },
+        "object_path": {
+          "type": "string",
+          "description": "Caminho do objeto dentro do bucket (ex: ativos/2026-semana-04/pacote-distribuicao.json).",
+          "minLength": 1
+        },
+        "status": {
+          "type": "string",
+          "description": "Status da operação de persistência no bucket.",
+          "enum": ["pending", "success", "error"]
+        }
+      },
+      "required": ["bucket", "object_path"],
+      "additionalProperties": false
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Data e hora de criação do pacote, em formato ISO 8601 (UTC).",
+      "format": "date-time"
+    }
+  },
+  "required": ["package_id", "status", "reference_period", "processing_summary", "suggested_content", "storage", "created_at"],
+  "additionalProperties": false,
+  "examples": [
+    {
+      "package_id": "pkg_2026_w42_001",
+      "status": "success",
+      "reference_period": "2026-10-13T00:00:00Z/2026-10-20T00:00:00Z",
+      "processing_summary": {
+        "total_interactions": 2,
+        "sources_breakdown": {
+          "stackoverflow": 1,
+          "mastodon": 1
+        },
+        "predominant_feeling": "positive",
+        "main_topics": ["Contratação / Conquistas", "LangGraph / Nós Condicionais"]
+      },
+      "suggested_content": [
+        {
+          "target": "linkedin",
+          "title": "Da Comunidade para o Mercado: O impacto dos projetos práticos de IA",
+          "body": "Nada nos dá mais orgulho do que ver nossos talentos conquistando o mercado de tecnologia!\n\n#TalentosTech #InteligenciaArtificial #OracleCloud #CarreiraDev",
+          "potential_engagement": "high"
+        },
+        {
+          "target": "newsletter",
+          "title": "Vitória da Semana",
+          "body": "Aluna conquista vaga dev com portfólio de IA na Oracle Cloud.",
+          "potential_engagement": "medium"
+        },
+        {
+          "target": "faq",
+          "title": "Dica Rápida: Como criar nós de retry no LangGraph",
+          "body": "Dúvida frequente levantada no canal de suporte.",
+          "potential_engagement": "low"
+        }
+      ],
+      "storage": {
+        "bucket": "communitylab-assets",
+        "object_path": "ativos/2026-semana-04/pacote-distribuicao.json",
+        "status": "success"
+      },
+      "created_at": "2026-10-21T12:00:00Z"
+    }
+  ]
+}

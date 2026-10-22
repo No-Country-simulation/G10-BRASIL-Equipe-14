@@ -7,7 +7,7 @@ requires-python = ">=3.11"
 dependencies = [
     "duckdb>=0.10.0",
     "extra-streamlit-components>=0.1.71",
-    "jsonschema>=4.22.0",
+    "jsonschema[format]>=4.22.0",
     "oci>=2.125.0",
     "pandas>=2.2.0",
     "pydantic>=2.7.0",
@@ -23,3 +23,6 @@ dev = [
 
 [tool.uv]
 package = false
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

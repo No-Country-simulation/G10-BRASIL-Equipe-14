@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://communitylab.g10brasil/schemas/input_schema.json",
+  "title": "CommunityLab Input Record",
+  "description": "Contrato de entrada para itens brutos coletados das fontes da comunidade antes do processamento com DuckDB.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identificador único do registro (ex: question_id, objectID ou status id).",
+      "minLength": 1
+    },
+    "source": {
+      "type": "string",
+      "description": "Plataforma de origem do dado.",
+      "enum": ["stackoverflow", "stackexchange", "mastodon", "hackernews"]
+    },
+    "url": {
+      "type": "string",
+      "description": "URL canônica da publicação original na web.",
+      "format": "uri"
+    },
+    "reference_period": {
+      "type": "string",
+      "description": "Intervalo de tempo UTC coberto pelo item (ex: janela de agregação do Resumo Semanal), representado como duas datas-hora ISO 8601 separadas por '/' no formato <inicio>/<fim> (ex: 2026-10-13T00:00:00Z/2026-10-20T00:00:00Z).",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z/\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$"
+    },
+    "interactions": {
+      "type": "array",
+      "description": "Conteúdo textual e interações associadas ao item.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "author": {
+            "type": "string",
+            "description": "Identificador público do autor do conteúdo (display_name, handle ou user_id).",
+            "minLength": 1
+          },
+          "title": {
+            "type": ["string", "null"],
+            "description": "Título do item, quando existir (ex: título da pergunta no Stack Exchange); nulo para fontes sem título, como status do Mastodon ou respostas."
+          },
+          "content": {
+            "type": ["string", "null"],
+            "description": "Conteúdo textual bruto do item (corpo da pergunta, post ou status); nulo quando o item não possui corpo textual."
+          },
+          "tags": {
+            "type": "array",
+            "description": "Tags ou hashtags associadas ao item.",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "description": "Data e hora de criação do item na fonte original, em formato ISO 8601 (UTC).",
+            "format": "date-time"
+          },
+          "raw_metadata": {
+            "type": "object",
+            "description": "Payload bruto e campos específicos da fonte preservados para rastreabilidade (ex: score, view_count, quota_remaining, url).",
+            "additionalProperties": true
+          }
+        },
+        "required": ["author", "created_at"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["id", "source", "url", "interactions"],
+  "additionalProperties": false,
+  "examples": [
+    {
+      "id": "79612345",
+      "source": "stackoverflow",
+      "url": "https://stackoverflow.com/questions/79612345",
+      "reference_period": "2026-10-13T00:00:00Z/2026-10-20T00:00:00Z",
+      "interactions": [
+        {
+          "author": "jdoe_dev",
+          "title": "How to load JSON with dynamic schema into DuckDB?",
+          "content": "How do I validate a JSON payload against a schema before loading it into DuckDB?",
+          "tags": ["python", "json-schema", "duckdb"],
+          "created_at": "2026-10-19T14:32:00Z",
+          "raw_metadata": {
+            "score": 12,
+            "comment_count": 2,
+            "view_count": 340,
+            "is_answered": true,
+            "content_license": "CC BY-SA 4.0"
+          }
+        }
+      ]
+    },
+    {
+      "id": "39812731",
+      "source": "hackernews",
+      "url": "https://news.ycombinator.com/item?id=39812731",
+      "reference_period": "2025-10-21T00:00:00Z/2026-10-21T00:00:00Z",
+      "interactions": [
+        {
+          "author": "tech_watcher",
+          "title": "Show HN: New open source LLM benchmark suite",
+          "content": null,
+          "tags": ["show_hn", "story"],
+          "created_at": "2026-10-20T11:15:00Z",
+          "raw_metadata": {
+            "points": 145,
+            "num_comments": 42,
+            "story_id": 39812731,
+            "children": [50166871]
+          }
+        }
+      ]
+    }
+  ]
+}
