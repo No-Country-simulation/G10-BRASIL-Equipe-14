@@ -127,7 +127,7 @@
         }
       ],
       "storage": {
-        "bucket": "communitylab-ativos-marketing",
+        "bucket": "communitylab-assets",
         "object_path": "ativos/2026-semana-04/pacote-distribuicao.json",
         "status": "success"
       },
