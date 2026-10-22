@@ -1,6 +1,7 @@
 {
   "id": "stackexchange-questions-100",
   "source": "stackoverflow",
+  "url": "https://stackoverflow.com/questions/79612345",
   "reference_period": "2025-10-27T09:21:22Z/2026-08-27T19:55:45Z",
   "interactions": [
     {
@@ -15,7 +16,6 @@
       "created_at": "2025-12-30T15:19:35Z",
       "raw_metadata": {
         "question_id": 79857625,
-        "link": "https://stackoverflow.com/questions/79857625/symfony-ai-how-to-add-additional-models-for-the-lm-studio-bridge",
         "score": 6,
         "view_count": 248,
         "answer_count": 1,
@@ -37,7 +37,6 @@
       "created_at": "2025-12-22T07:50:37Z",
       "raw_metadata": {
         "question_id": 79852692,
-        "link": "https://stackoverflow.com/questions/79852692/how-to-reorder-corpusllm-chat-bubbles-in-the-correct-order",
         "score": 3,
         "view_count": 78,
         "answer_count": 1,
@@ -57,7 +56,6 @@
       "created_at": "2026-03-24T12:23:50Z",
       "raw_metadata": {
         "question_id": 79913494,
-        "link": "https://stackoverflow.com/questions/79913494/low-transposition-table-usage-rate",
         "score": 3,
         "view_count": 103,
         "answer_count": 0,
@@ -77,7 +75,6 @@
       "created_at": "2025-12-21T03:41:30Z",
       "raw_metadata": {
         "question_id": 79852097,
-        "link": "https://stackoverflow.com/questions/79852097/how-to-use-types-correctly-and-avoid-errors-in-pddl",
         "score": 2,
         "view_count": 98,
         "answer_count": 2,
@@ -98,7 +95,6 @@
       "created_at": "2025-12-18T08:37:05Z",
       "raw_metadata": {
         "question_id": 79850130,
-        "link": "https://stackoverflow.com/questions/79850130/why-isnt-windsurfs-autocomplete-working-in-my-intellij-idea-2024",
         "score": 2,
         "view_count": 1055,
         "answer_count": 1,
@@ -118,7 +114,6 @@
       "created_at": "2025-10-27T09:21:22Z",
       "raw_metadata": {
         "question_id": 79801643,
-        "link": "https://stackoverflow.com/questions/79801643/attributeerror-nonetype-object-has-no-attribute-blocks-when-running-cache-d",
         "score": 2,
         "view_count": 89,
         "answer_count": 1,
@@ -140,7 +135,6 @@
       "created_at": "2026-05-04T06:30:05Z",
       "raw_metadata": {
         "question_id": 79935672,
-        "link": "https://stackoverflow.com/questions/79935672/input-validation-error-1-57-is-not-of-type-number-from-langchain-mcp-adapte",
         "score": 2,
         "view_count": 190,
         "answer_count": 0,
@@ -161,7 +155,6 @@
       "created_at": "2025-12-20T17:05:45Z",
       "raw_metadata": {
         "question_id": 79851882,
-        "link": "https://stackoverflow.com/questions/79851882/update-chatmessagecontent-value-in-semantic-kernel-response",
         "score": 2,
         "view_count": 383,
         "answer_count": 0,
@@ -180,7 +173,6 @@
       "created_at": "2025-12-20T06:31:18Z",
       "raw_metadata": {
         "question_id": 79851602,
-        "link": "https://stackoverflow.com/questions/79851602/architectural-considerations-for-safely-integrating-llm-based-responses-into-web",
         "score": 2,
         "view_count": 105,
         "answer_count": 1,
@@ -202,7 +194,6 @@
       "created_at": "2025-11-26T12:02:21Z",
       "raw_metadata": {
         "question_id": 79830666,
-        "link": "https://stackoverflow.com/questions/79830666/speed-up-langgraph-react-rag-multi-agent-chatbot",
         "score": 2,
         "view_count": 231,
         "answer_count": 0,
@@ -221,7 +212,6 @@
       "created_at": "2025-11-02T04:06:07Z",
       "raw_metadata": {
         "question_id": 79806927,
-        "link": "https://stackoverflow.com/questions/79806927/analyzedocumentcontent-not-found",
         "score": 2,
         "view_count": 156,
         "answer_count": 1,
@@ -240,7 +230,6 @@
       "created_at": "2026-08-27T19:55:45Z",
       "raw_metadata": {
         "question_id": 79998781,
-        "link": "https://stackoverflow.com/questions/79998781/how-do-i-disable-generate-commit-message-without-disabling-other-ai-features-i",
         "score": 1,
         "view_count": 142,
         "answer_count": 1,
@@ -262,7 +251,6 @@
       "created_at": "2026-07-07T11:00:04Z",
       "raw_metadata": {
         "question_id": 79976430,
-        "link": "https://stackoverflow.com/questions/79976430/how-can-i-build-an-ai-automation-workflow-that-extracts-email-data-stores-it-in",
         "score": 1,
         "view_count": 291,
         "answer_count": 1,
@@ -282,7 +270,6 @@
       "created_at": "2026-02-16T20:09:43Z",
       "raw_metadata": {
         "question_id": 79890443,
-        "link": "https://stackoverflow.com/questions/79890443/ai-use-in-coding",
         "score": 1,
         "view_count": 735,
         "answer_count": 5,
@@ -304,7 +291,6 @@
       "created_at": "2025-12-05T02:26:43Z",
       "raw_metadata": {
         "question_id": 79838505,
-        "link": "https://stackoverflow.com/questions/79838505/llama-index-ollama-misloading-model-issue",
         "score": 1,
         "view_count": 939,
         "answer_count": 1,
@@ -325,7 +311,6 @@
       "created_at": "2026-05-29T08:37:35Z",
       "raw_metadata": {
         "question_id": 79948345,
-        "link": "https://stackoverflow.com/questions/79948345/agentic-ai-engineering",
         "score": 1,
         "view_count": 184,
         "answer_count": 1,
@@ -347,7 +332,6 @@
       "created_at": "2026-04-13T05:00:23Z",
       "raw_metadata": {
         "question_id": 79924583,
-        "link": "https://stackoverflow.com/questions/79924583/book-recommendation-in-pytorch",
         "score": 1,
         "view_count": 136,
         "answer_count": 1,
@@ -369,7 +353,6 @@
       "created_at": "2026-01-24T16:47:17Z",
       "raw_metadata": {
         "question_id": 79875291,
-        "link": "https://stackoverflow.com/questions/79875291/run-expensive-function-containing-for-loop-on-multiple-gpus-pmap-gives-out-of",
         "score": 1,
         "view_count": 93,
         "answer_count": 0,
@@ -391,7 +374,6 @@
       "created_at": "2026-01-14T23:37:46Z",
       "raw_metadata": {
         "question_id": 79868160,
-        "link": "https://stackoverflow.com/questions/79868160/cognee-0-5-1-typeerror-milvusadapter-init-got-an-unexpected-keyword-argumen",
         "score": 1,
         "view_count": 101,
         "answer_count": 1,
@@ -412,7 +394,6 @@
       "created_at": "2025-12-15T01:07:41Z",
       "raw_metadata": {
         "question_id": 79847329,
-        "link": "https://stackoverflow.com/questions/79847329/custom-grpo-trainer-not-learning",
         "score": 1,
         "view_count": 239,
         "answer_count": 0,
@@ -432,7 +413,6 @@
       "created_at": "2025-12-09T10:31:29Z",
       "raw_metadata": {
         "question_id": 79841808,
-        "link": "https://stackoverflow.com/questions/79841808/azure-persistentagent-how-to-download-a-file-created-by-the-model",
         "score": 1,
         "view_count": 127,
         "answer_count": 0,
@@ -452,7 +432,6 @@
       "created_at": "2025-12-02T08:05:44Z",
       "raw_metadata": {
         "question_id": 79835621,
-        "link": "https://stackoverflow.com/questions/79835621/will-ai-reduce-the-demand-for-software-developers-in-the-future-and-stackoverfl",
         "score": 1,
         "view_count": 345,
         "answer_count": 3,
@@ -474,7 +453,6 @@
       "created_at": "2026-04-19T08:57:30Z",
       "raw_metadata": {
         "question_id": 79928214,
-        "link": "https://stackoverflow.com/questions/79928214/what-are-a-good-books-to-read-in-bayesian-learning",
         "score": 0,
         "view_count": 139,
         "answer_count": 1,
@@ -495,7 +473,6 @@
       "created_at": "2026-02-25T13:30:13Z",
       "raw_metadata": {
         "question_id": 79896243,
-        "link": "https://stackoverflow.com/questions/79896243/autonomous-mode-wrapper-for-claude-code",
         "score": 0,
         "view_count": 409,
         "answer_count": 3,
@@ -516,7 +493,6 @@
       "created_at": "2025-12-16T06:21:12Z",
       "raw_metadata": {
         "question_id": 79848251,
-        "link": "https://stackoverflow.com/questions/79848251/how-should-ground-truth-and-tracker-result-files-be-structured-for-trackeval",
         "score": 0,
         "view_count": 191,
         "answer_count": 1,
@@ -538,7 +514,6 @@
       "created_at": "2025-12-13T10:53:49Z",
       "raw_metadata": {
         "question_id": 79846492,
-        "link": "https://stackoverflow.com/questions/79846492/pretrained-resnet-18-model-doesnt-have-fc-layer-and-has-cls-and-pool-layers-ins",
         "score": 0,
         "view_count": 195,
         "answer_count": 1,
@@ -560,7 +535,6 @@
       "created_at": "2025-12-07T07:26:31Z",
       "raw_metadata": {
         "question_id": 79840119,
-        "link": "https://stackoverflow.com/questions/79840119/how-can-we-use-ai-and-what-is-the-main-purpose",
         "score": 0,
         "view_count": 249,
         "answer_count": 4,
@@ -580,7 +554,6 @@
       "created_at": "2026-06-24T02:43:40Z",
       "raw_metadata": {
         "question_id": 79966098,
-        "link": "https://stackoverflow.com/questions/79966098/learning-with-ai-without-becoming-dependent-on-it-or-lazy",
         "score": 0,
         "view_count": 244,
         "answer_count": 2,
@@ -602,7 +575,6 @@
       "created_at": "2026-06-22T05:19:50Z",
       "raw_metadata": {
         "question_id": 79965038,
-        "link": "https://stackoverflow.com/questions/79965038/architecting-an-ai-chat-layer-in-asp-net-core-8-with-mcp-model-context-protocol",
         "score": 0,
         "view_count": 127,
         "answer_count": 1,
@@ -623,7 +595,6 @@
       "created_at": "2026-06-16T00:15:03Z",
       "raw_metadata": {
         "question_id": 79959398,
-        "link": "https://stackoverflow.com/questions/79959398/which-program-should-i-use-to-access-anthropic-with-an-api-key-that-does-not-set",
         "score": 0,
         "view_count": 111,
         "answer_count": 1,
@@ -644,7 +615,6 @@
       "created_at": "2026-06-15T14:39:49Z",
       "raw_metadata": {
         "question_id": 79959229,
-        "link": "https://stackoverflow.com/questions/79959229/how-can-i-connect-gemini-to-my-flutter-application",
         "score": 0,
         "view_count": 172,
         "answer_count": 2,
@@ -666,7 +636,6 @@
       "created_at": "2026-06-14T10:49:07Z",
       "raw_metadata": {
         "question_id": 79958777,
-        "link": "https://stackoverflow.com/questions/79958777/cursor-ide-free-tier-usage-quota-exhausting-after-only-a-few-prompts",
         "score": 0,
         "view_count": 147,
         "answer_count": 0,
@@ -687,7 +656,6 @@
       "created_at": "2026-06-11T17:49:36Z",
       "raw_metadata": {
         "question_id": 79956705,
-        "link": "https://stackoverflow.com/questions/79956705/laravel-ai-sdk-best-practices-of-parsing-pdf-documents",
         "score": 0,
         "view_count": 202,
         "answer_count": 0,
@@ -709,7 +677,6 @@
       "created_at": "2026-06-11T14:01:48Z",
       "raw_metadata": {
         "question_id": 79956566,
-        "link": "https://stackoverflow.com/questions/79956566/microsoft-workiq-mcp-server-setup-for-custom-mcp-client",
         "score": 0,
         "view_count": 182,
         "answer_count": 1,
@@ -730,7 +697,6 @@
       "created_at": "2026-06-10T12:57:57Z",
       "raw_metadata": {
         "question_id": 79956021,
-        "link": "https://stackoverflow.com/questions/79956021/why-is-my-training-loss-not-decreasing-while-fine-tuning-qwen-with-unsloth",
         "score": 0,
         "view_count": 187,
         "answer_count": 1,
@@ -751,7 +717,6 @@
       "created_at": "2026-06-10T06:41:09Z",
       "raw_metadata": {
         "question_id": 79955889,
-        "link": "https://stackoverflow.com/questions/79955889/will-a-80-gb-gpu-and-a-48-gb-gpu-give-identical-results-on-an-open-source-text-t",
         "score": 0,
         "view_count": 142,
         "answer_count": 3,
@@ -772,7 +737,6 @@
       "created_at": "2026-06-05T18:03:26Z",
       "raw_metadata": {
         "question_id": 79952002,
-        "link": "https://stackoverflow.com/questions/79952002/recommend-llm-for-low-level-rust-or-c-for-storage-memory-core-of-database-imple",
         "score": 0,
         "view_count": 73,
         "answer_count": 0,
@@ -794,7 +758,6 @@
       "created_at": "2026-06-03T07:58:13Z",
       "raw_metadata": {
         "question_id": 79950694,
-        "link": "https://stackoverflow.com/questions/79950694/what-questions-problems-do-a-startup-company-give-a-candidate-in-a-machine-tes",
         "score": 0,
         "view_count": 108,
         "answer_count": 2,
@@ -815,7 +778,6 @@
       "created_at": "2026-05-30T11:53:49Z",
       "raw_metadata": {
         "question_id": 79948872,
-        "link": "https://stackoverflow.com/questions/79948872/can-you-prevent-ai-workslop-as-soon-as-you-receive-a-pull-request",
         "score": 0,
         "view_count": 172,
         "answer_count": 2,
@@ -837,7 +799,6 @@
       "created_at": "2026-05-26T14:13:51Z",
       "raw_metadata": {
         "question_id": 79946811,
-        "link": "https://stackoverflow.com/questions/79946811/have-you-tried-c-reflection-over-flat-mcp-tool-sets",
         "score": 0,
         "view_count": 120,
         "answer_count": 1,
@@ -857,7 +818,6 @@
       "created_at": "2026-05-20T06:32:05Z",
       "raw_metadata": {
         "question_id": 79943845,
-        "link": "https://stackoverflow.com/questions/79943845/why-is-every-new-ai-ide-forcing-a-minimalist-chat-first-ui-on-us",
         "score": 0,
         "view_count": 410,
         "answer_count": 4,
@@ -879,7 +839,6 @@
       "created_at": "2026-05-14T20:22:19Z",
       "raw_metadata": {
         "question_id": 79941418,
-        "link": "https://stackoverflow.com/questions/79941418/ffmpeg-react-video-editor-renders-successfully-but-ignores-object-recolor-and-co",
         "score": 0,
         "view_count": 109,
         "answer_count": 2,
@@ -899,7 +858,6 @@
       "created_at": "2026-05-11T11:44:08Z",
       "raw_metadata": {
         "question_id": 79939330,
-        "link": "https://stackoverflow.com/questions/79939330/issue-with-conversational-analytics-integration-in-looker-studio-data-studio",
         "score": 0,
         "view_count": 64,
         "answer_count": 0,
@@ -920,7 +878,6 @@
       "created_at": "2026-05-09T02:15:37Z",
       "raw_metadata": {
         "question_id": 79938439,
-        "link": "https://stackoverflow.com/questions/79938439/manage-context-memory-and-document-retrieval-in-ai-agent",
         "score": 0,
         "view_count": 140,
         "answer_count": 0,
@@ -942,7 +899,6 @@
       "created_at": "2026-05-02T17:23:41Z",
       "raw_metadata": {
         "question_id": 79935134,
-        "link": "https://stackoverflow.com/questions/79935134/turn-scanned-form-into-json",
         "score": 0,
         "view_count": 167,
         "answer_count": 2,
@@ -964,7 +920,6 @@
       "created_at": "2026-04-30T17:38:17Z",
       "raw_metadata": {
         "question_id": 79934348,
-        "link": "https://stackoverflow.com/questions/79934348/where-should-i-store-the-renviron-file-now-that-claude-code-cowork-can-look-int",
         "score": 0,
         "view_count": 193,
         "answer_count": 2,
@@ -986,7 +941,6 @@
       "created_at": "2026-04-30T12:34:12Z",
       "raw_metadata": {
         "question_id": 79934214,
-        "link": "https://stackoverflow.com/questions/79934214/yolov11-trash-sorting-system",
         "score": 0,
         "view_count": 59,
         "answer_count": 0,
@@ -1008,7 +962,6 @@
       "created_at": "2026-04-29T18:46:51Z",
       "raw_metadata": {
         "question_id": 79933846,
-        "link": "https://stackoverflow.com/questions/79933846/free-virtual-try-on-api-for-a-mobile-app-student-project",
         "score": 0,
         "view_count": 167,
         "answer_count": 2,
@@ -1030,7 +983,6 @@
       "created_at": "2026-04-29T14:03:14Z",
       "raw_metadata": {
         "question_id": 79933687,
-        "link": "https://stackoverflow.com/questions/79933687/extract-game-names-and-translate-them-to-english-from-google-sheet",
         "score": 0,
         "view_count": 137,
         "answer_count": 3,
@@ -1051,7 +1003,6 @@
       "created_at": "2026-04-24T09:09:17Z",
       "raw_metadata": {
         "question_id": 79931196,
-        "link": "https://stackoverflow.com/questions/79931196/what-are-the-best-methods-or-libraries-to-extract-arabic-text-from-images-or-pdf",
         "score": 0,
         "view_count": 105,
         "answer_count": 0,
@@ -1073,7 +1024,6 @@
       "created_at": "2026-04-23T08:56:01Z",
       "raw_metadata": {
         "question_id": 79930598,
-        "link": "https://stackoverflow.com/questions/79930598/how-to-use-langchain-agent-with-tools-in-a-python-project",
         "score": 0,
         "view_count": 192,
         "answer_count": 1,
@@ -1095,7 +1045,6 @@
       "created_at": "2026-04-21T01:37:56Z",
       "raw_metadata": {
         "question_id": 79929135,
-        "link": "https://stackoverflow.com/questions/79929135/how-to-go-from-theoretical-concept-of-layers-input-hidden-and-output-of-ai-ne",
         "score": 0,
         "view_count": 193,
         "answer_count": 3,
@@ -1115,7 +1064,6 @@
       "created_at": "2026-04-20T13:42:05Z",
       "raw_metadata": {
         "question_id": 79928848,
-        "link": "https://stackoverflow.com/questions/79928848/android-studio-with-ai-model-integration",
         "score": 0,
         "view_count": 121,
         "answer_count": 1,
@@ -1135,7 +1083,6 @@
       "created_at": "2026-04-20T11:54:34Z",
       "raw_metadata": {
         "question_id": 79928780,
-        "link": "https://stackoverflow.com/questions/79928780/improving-arabic-ocr-results-from-surya-handling-bad-fonts-post-processing-wi",
         "score": 0,
         "view_count": 107,
         "answer_count": 0,
@@ -1157,7 +1104,6 @@
       "created_at": "2026-04-19T09:10:50Z",
       "raw_metadata": {
         "question_id": 79928220,
-        "link": "https://stackoverflow.com/questions/79928220/boss-wants-us-to-add-more-ai-to-our-workflow",
         "score": 0,
         "view_count": 219,
         "answer_count": 1,
@@ -1179,7 +1125,6 @@
       "created_at": "2026-04-15T11:01:54Z",
       "raw_metadata": {
         "question_id": 79925937,
-        "link": "https://stackoverflow.com/questions/79925937/self-healing-in-playwright-with-typescript",
         "score": 0,
         "view_count": 143,
         "answer_count": 0,
@@ -1200,7 +1145,6 @@
       "created_at": "2026-04-11T09:48:34Z",
       "raw_metadata": {
         "question_id": 79923935,
-        "link": "https://stackoverflow.com/questions/79923935/gemini-live-api-v3-1-suddenly-stops-streaming-audio-response-intermittently",
         "score": 0,
         "view_count": 314,
         "answer_count": 3,
@@ -1222,7 +1166,6 @@
       "created_at": "2026-04-11T02:53:15Z",
       "raw_metadata": {
         "question_id": 79923862,
-        "link": "https://stackoverflow.com/questions/79923862/programmer-owns-the-architecture-ai-implements-crate-level-modules-in-rust-ho",
         "score": 0,
         "view_count": 296,
         "answer_count": 4,
@@ -1243,7 +1186,6 @@
       "created_at": "2026-03-31T09:42:35Z",
       "raw_metadata": {
         "question_id": 79917669,
-        "link": "https://stackoverflow.com/questions/79917669/how-does-cherry-studio-upload-a-pdf-file",
         "score": 0,
         "view_count": 147,
         "answer_count": 1,
@@ -1265,7 +1207,6 @@
       "created_at": "2026-03-25T11:26:22Z",
       "raw_metadata": {
         "question_id": 79914202,
-        "link": "https://stackoverflow.com/questions/79914202/how-to-convert-delphi-pas-format-ansi-files-to-pas-format-utf-files-we",
         "score": 0,
         "view_count": 488,
         "answer_count": 4,
@@ -1286,7 +1227,6 @@
       "created_at": "2026-03-24T12:36:59Z",
       "raw_metadata": {
         "question_id": 79913508,
-        "link": "https://stackoverflow.com/questions/79913508/how-can-i-get-more-useful-results-from-ai-coding-agents",
         "score": 0,
         "view_count": 623,
         "answer_count": 4,
@@ -1306,7 +1246,6 @@
       "created_at": "2026-03-20T04:13:01Z",
       "raw_metadata": {
         "question_id": 79911073,
-        "link": "https://stackoverflow.com/questions/79911073/how-to-convert-a-guide-tutorial-into-context-readible-and-feasible-for-ai",
         "score": 0,
         "view_count": 64,
         "answer_count": 0,
@@ -1328,7 +1267,6 @@
       "created_at": "2026-03-13T06:18:04Z",
       "raw_metadata": {
         "question_id": 79906686,
-        "link": "https://stackoverflow.com/questions/79906686/can-half-precision-fp16-can-transfer-hyperparameter-that-tuned-to-fp32-directly",
         "score": 0,
         "view_count": 67,
         "answer_count": 1,
@@ -1349,7 +1287,6 @@
       "created_at": "2026-03-12T04:17:09Z",
       "raw_metadata": {
         "question_id": 79905874,
-        "link": "https://stackoverflow.com/questions/79905874/numerical-meaning-of-lightgbm-gain-feature-importance",
         "score": 0,
         "view_count": 113,
         "answer_count": 1,
@@ -1370,7 +1307,6 @@
       "created_at": "2026-03-10T09:55:39Z",
       "raw_metadata": {
         "question_id": 79904455,
-        "link": "https://stackoverflow.com/questions/79904455/is-it-safe-to-use-git-config-global-credential-helper-store-on-claude-code",
         "score": 0,
         "view_count": 349,
         "answer_count": 0,
@@ -1392,7 +1328,6 @@
       "created_at": "2026-03-02T12:30:13Z",
       "raw_metadata": {
         "question_id": 79899414,
-        "link": "https://stackoverflow.com/questions/79899414/aiot-device-radius-authentication-using-php-with-message-authenticator-attribut",
         "score": 0,
         "view_count": 130,
         "answer_count": 1,
@@ -1413,7 +1348,6 @@
       "created_at": "2026-03-02T05:01:09Z",
       "raw_metadata": {
         "question_id": 79899201,
-        "link": "https://stackoverflow.com/questions/79899201/chatbot-that-converts-questions-to-sql-queries",
         "score": 0,
         "view_count": 185,
         "answer_count": 0,
@@ -1435,7 +1369,6 @@
       "created_at": "2026-03-02T02:17:40Z",
       "raw_metadata": {
         "question_id": 79899153,
-        "link": "https://stackoverflow.com/questions/79899153/wordpress-as-backend-%e2%86%92-flutter-or-react-as-the-frontend",
         "score": 0,
         "view_count": 211,
         "answer_count": 2,
@@ -1456,7 +1389,6 @@
       "created_at": "2026-02-28T03:41:13Z",
       "raw_metadata": {
         "question_id": 79898245,
-        "link": "https://stackoverflow.com/questions/79898245/how-can-i-estimate-or-count-input-tokens-for-a-pdf-before-sending-it-to-aws-bedr",
         "score": 0,
         "view_count": 680,
         "answer_count": 2,
@@ -1478,7 +1410,6 @@
       "created_at": "2026-02-27T13:03:04Z",
       "raw_metadata": {
         "question_id": 79897835,
-        "link": "https://stackoverflow.com/questions/79897835/best-technique-for-retrieving-large-set-of-documents-for-local-llm",
         "score": 0,
         "view_count": 257,
         "answer_count": 1,
@@ -1500,7 +1431,6 @@
       "created_at": "2026-02-21T03:43:24Z",
       "raw_metadata": {
         "question_id": 79893379,
-        "link": "https://stackoverflow.com/questions/79893379/model-context-protocol",
         "score": 0,
         "view_count": 78,
         "answer_count": 2,
@@ -1522,7 +1452,6 @@
       "created_at": "2026-02-20T10:14:34Z",
       "raw_metadata": {
         "question_id": 79892835,
-        "link": "https://stackoverflow.com/questions/79892835/data-processing-and-automation-of-template-filling",
         "score": 0,
         "view_count": 152,
         "answer_count": 0,
@@ -1544,7 +1473,6 @@
       "created_at": "2026-02-16T14:20:44Z",
       "raw_metadata": {
         "question_id": 79890282,
-        "link": "https://stackoverflow.com/questions/79890282/sensitive-data-and-ai",
         "score": 0,
         "view_count": 98,
         "answer_count": 0,
@@ -1565,7 +1493,6 @@
       "created_at": "2026-02-14T00:59:29Z",
       "raw_metadata": {
         "question_id": 79889100,
-        "link": "https://stackoverflow.com/questions/79889100/is-there-an-encoder-decoder-model-that-allows-editing-latent-embeddings-and-rege",
         "score": 0,
         "view_count": 81,
         "answer_count": 1,
@@ -1587,7 +1514,6 @@
       "created_at": "2026-02-11T22:47:31Z",
       "raw_metadata": {
         "question_id": 79887762,
-        "link": "https://stackoverflow.com/questions/79887762/looking-for-a-local-ai-model-and-server-that-can-do-copilot-agent-mode-in-vscode",
         "score": 0,
         "view_count": 453,
         "answer_count": 1,
@@ -1607,7 +1533,6 @@
       "created_at": "2026-02-09T16:03:51Z",
       "raw_metadata": {
         "question_id": 79885996,
-        "link": "https://stackoverflow.com/questions/79885996/what-are-the-actual-parameters-of-run-of-inmemoryrunner-class",
         "score": 0,
         "view_count": 71,
         "answer_count": 0,
@@ -1629,7 +1554,6 @@
       "created_at": "2026-02-06T17:08:06Z",
       "raw_metadata": {
         "question_id": 79884491,
-        "link": "https://stackoverflow.com/questions/79884491/how-does-account-authentication-work-for-github-copilot-and-other-ai-providers-i",
         "score": 0,
         "view_count": 463,
         "answer_count": 2,
@@ -1650,7 +1574,6 @@
       "created_at": "2026-02-04T14:50:36Z",
       "raw_metadata": {
         "question_id": 79882835,
-        "link": "https://stackoverflow.com/questions/79882835/can-you-run-moltbot-as-a-container",
         "score": 0,
         "view_count": 69,
         "answer_count": 1,
@@ -1671,7 +1594,6 @@
       "created_at": "2026-02-03T11:16:49Z",
       "raw_metadata": {
         "question_id": 79881852,
-        "link": "https://stackoverflow.com/questions/79881852/stream-text-from-node-socket-to-freeswitch-using-azure-tts",
         "score": 0,
         "view_count": 76,
         "answer_count": 0,
@@ -1693,7 +1615,6 @@
       "created_at": "2026-01-23T04:35:41Z",
       "raw_metadata": {
         "question_id": 79874274,
-        "link": "https://stackoverflow.com/questions/79874274/ai-makes-me-stop-upgrading-my-skills-ended-up-making-a-vibe-coder-rather-than-a",
         "score": 0,
         "view_count": 462,
         "answer_count": 7,
@@ -1715,7 +1636,6 @@
       "created_at": "2026-01-20T16:13:18Z",
       "raw_metadata": {
         "question_id": 79872156,
-        "link": "https://stackoverflow.com/questions/79872156/career-advice-which-programming-language-should-an-android-developer-learn-for",
         "score": 0,
         "view_count": 155,
         "answer_count": 3,
@@ -1737,7 +1657,6 @@
       "created_at": "2026-01-16T10:10:25Z",
       "raw_metadata": {
         "question_id": 79869294,
-        "link": "https://stackoverflow.com/questions/79869294/python-genai-llm-best-practices-for-asking-follow-up-questions-to-clarify-user",
         "score": 0,
         "view_count": 126,
         "answer_count": 0,
@@ -1759,7 +1678,6 @@
       "created_at": "2026-01-04T11:31:43Z",
       "raw_metadata": {
         "question_id": 79860119,
-        "link": "https://stackoverflow.com/questions/79860119/how-can-i-fix-the-exceeded-quota-issue-when-using-ai-to-generate-articles-in-l",
         "score": 0,
         "view_count": 526,
         "answer_count": 7,
@@ -1780,7 +1698,6 @@
       "created_at": "2025-12-28T14:33:48Z",
       "raw_metadata": {
         "question_id": 79856228,
-        "link": "https://stackoverflow.com/questions/79856228/looking-for-ideas-for-a-master-s-thesis-topic-in-data-science-ai-banking-fr",
         "score": 0,
         "view_count": 180,
         "answer_count": 3,
@@ -1802,7 +1719,6 @@
       "created_at": "2025-12-26T16:52:40Z",
       "raw_metadata": {
         "question_id": 79855418,
-        "link": "https://stackoverflow.com/questions/79855418/i-am-confused-when-to-use-tensorflow-and-pytorch",
         "score": 0,
         "view_count": 228,
         "answer_count": 4,
@@ -1824,7 +1740,6 @@
       "created_at": "2025-12-25T08:39:16Z",
       "raw_metadata": {
         "question_id": 79854747,
-        "link": "https://stackoverflow.com/questions/79854747/how-can-i-correctly-change-the-llama3-default-maxtoken-256-in-blazor-app-on-net",
         "score": 0,
         "view_count": 131,
         "answer_count": 0,
@@ -1846,7 +1761,6 @@
       "created_at": "2025-12-23T19:48:48Z",
       "raw_metadata": {
         "question_id": 79853945,
-        "link": "https://stackoverflow.com/questions/79853945/asp-net-with-ai",
         "score": 0,
         "view_count": 195,
         "answer_count": 1,
@@ -1867,7 +1781,6 @@
       "created_at": "2025-12-23T13:28:03Z",
       "raw_metadata": {
         "question_id": 79853690,
-        "link": "https://stackoverflow.com/questions/79853690/autogen-unable-to-create-the-single-conversational-chat-agent-application",
         "score": 0,
         "view_count": 46,
         "answer_count": 0,
@@ -1889,7 +1802,6 @@
       "created_at": "2025-12-18T15:52:38Z",
       "raw_metadata": {
         "question_id": 79850479,
-        "link": "https://stackoverflow.com/questions/79850479/is-it-possible-to-create-a-custom-gpt-and-connect-it-to-external-services-like-n",
         "score": 0,
         "view_count": 194,
         "answer_count": 2,
@@ -1911,7 +1823,6 @@
       "created_at": "2025-12-16T17:42:56Z",
       "raw_metadata": {
         "question_id": 79848775,
-        "link": "https://stackoverflow.com/questions/79848775/why-is-openai-s-chatgpt-sdk-preferred-at-the-enterprise-level-over-google-gemini",
         "score": 0,
         "view_count": 164,
         "answer_count": 3,
@@ -1932,7 +1843,6 @@
       "created_at": "2025-12-15T19:18:31Z",
       "raw_metadata": {
         "question_id": 79847967,
-        "link": "https://stackoverflow.com/questions/79847967/ai-tools-for-java-spring-boot-kafka-stack-chatgpt-pro-or-claude-pro",
         "score": 0,
         "view_count": 523,
         "answer_count": 3,
@@ -1954,7 +1864,6 @@
       "created_at": "2025-12-10T20:42:15Z",
       "raw_metadata": {
         "question_id": 79843424,
-        "link": "https://stackoverflow.com/questions/79843424/how-do-i-create-apis-for-training-ml-models-to-play-games-reference-request",
         "score": 0,
         "view_count": 75,
         "answer_count": 0,
@@ -1976,7 +1885,6 @@
       "created_at": "2025-12-06T21:44:27Z",
       "raw_metadata": {
         "question_id": 79839973,
-        "link": "https://stackoverflow.com/questions/79839973/building-a-task-automation-tool-using-ocr-and-icons-detection-with-logics-setup",
         "score": 0,
         "view_count": 75,
         "answer_count": 0,
@@ -1997,7 +1905,6 @@
       "created_at": "2025-12-05T21:49:07Z",
       "raw_metadata": {
         "question_id": 79839330,
-        "link": "https://stackoverflow.com/questions/79839330/how-to-make-koog-ai-agent-aware-of-the-previous-messages-in-a-whatsapp-api-situa",
         "score": 0,
         "view_count": 60,
         "answer_count": 0,
@@ -2018,7 +1925,6 @@
       "created_at": "2025-12-04T06:59:52Z",
       "raw_metadata": {
         "question_id": 79837611,
-        "link": "https://stackoverflow.com/questions/79837611/how-to-fix-eof-server-ollama-error-when-embedding",
         "score": 0,
         "view_count": 1368,
         "answer_count": 0,
@@ -2038,7 +1944,6 @@
       "created_at": "2025-12-02T15:29:57Z",
       "raw_metadata": {
         "question_id": 79836048,
-        "link": "https://stackoverflow.com/questions/79836048/how-to-use-coding-ais-and-services-e-g-github-copliot-to-achieve-the-best-and",
         "score": 0,
         "view_count": 115,
         "answer_count": 2,
@@ -2059,7 +1964,6 @@
       "created_at": "2025-11-30T07:52:53Z",
       "raw_metadata": {
         "question_id": 79833746,
-        "link": "https://stackoverflow.com/questions/79833746/generating-logos-with-different-styles-i-get-distorted-results",
         "score": 0,
         "view_count": 49,
         "answer_count": 2,
@@ -2081,7 +1985,6 @@
       "created_at": "2025-11-29T15:53:03Z",
       "raw_metadata": {
         "question_id": 79833354,
-        "link": "https://stackoverflow.com/questions/79833354/data-scheme-enriched-with-meaningful-explanations-for-ai",
         "score": 0,
         "view_count": 68,
         "answer_count": 1,
@@ -2103,7 +2006,6 @@
       "created_at": "2025-11-28T13:33:19Z",
       "raw_metadata": {
         "question_id": 79832600,
-        "link": "https://stackoverflow.com/questions/79832600/what-s-the-best-architecture-for-mixing-local-ai-cloud-ai-inside-a-react-js-ap",
         "score": 0,
         "view_count": 117,
         "answer_count": 1,
@@ -2125,7 +2027,6 @@
       "created_at": "2025-11-28T08:33:46Z",
       "raw_metadata": {
         "question_id": 79832379,
-        "link": "https://stackoverflow.com/questions/79832379/how-to-build-an-ocr-system-in-flutter-that-can-extract-structured-data-from-mult",
         "score": 0,
         "view_count": 310,
         "answer_count": 1,
@@ -2145,7 +2046,6 @@
       "created_at": "2026-08-20T09:15:00Z",
       "raw_metadata": {
         "question_id": 79900001,
-        "link": "https://stackoverflow.com/questions/79900001",
         "score": 5,
         "view_count": 120,
         "answer_count": 1,
@@ -2165,7 +2065,6 @@
       "created_at": "2026-08-21T13:40:00Z",
       "raw_metadata": {
         "question_id": 79900002,
-        "link": "https://stackoverflow.com/questions/79900002",
         "score": 3,
         "view_count": 95,
         "answer_count": 1,
@@ -2184,7 +2083,6 @@
       "created_at": "2026-08-22T08:30:00Z",
       "raw_metadata": {
         "question_id": 79900003,
-        "link": "https://stackoverflow.com/questions/79900003",
         "score": 8,
         "view_count": 210,
         "answer_count": 1,
@@ -2204,7 +2102,6 @@
       "created_at": "2026-08-23T11:20:00Z",
       "raw_metadata": {
         "question_id": 79900004,
-        "link": "https://stackoverflow.com/questions/79900004",
         "score": 2,
         "view_count": 60,
         "answer_count": 0,
@@ -2223,7 +2120,6 @@
       "created_at": "2026-08-24T16:45:00Z",
       "raw_metadata": {
         "question_id": 79900005,
-        "link": "https://stackoverflow.com/questions/79900005",
         "score": 4,
         "view_count": 88,
         "answer_count": 0,
@@ -2243,7 +2139,6 @@
       "created_at": "2026-08-25T10:05:00Z",
       "raw_metadata": {
         "question_id": 79900006,
-        "link": "https://stackoverflow.com/questions/79900006",
         "score": 6,
         "view_count": 150,
         "answer_count": 0,
@@ -2263,7 +2158,6 @@
       "created_at": "2026-08-25T14:30:00Z",
       "raw_metadata": {
         "question_id": 79900007,
-        "link": "https://stackoverflow.com/questions/79900007",
         "score": 7,
         "view_count": 175,
         "answer_count": 1,
@@ -2283,7 +2177,6 @@
       "created_at": "2026-08-26T09:00:00Z",
       "raw_metadata": {
         "question_id": 79900008,
-        "link": "https://stackoverflow.com/questions/79900008",
         "score": 3,
         "view_count": 70,
         "answer_count": 1,
@@ -2303,7 +2196,6 @@
       "created_at": "2026-08-27T12:10:00Z",
       "raw_metadata": {
         "question_id": 79900009,
-        "link": "https://stackoverflow.com/questions/79900009",
         "score": 5,
         "view_count": 110,
         "answer_count": 0,
