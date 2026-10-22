@@ -63,7 +63,7 @@
             "additionalProperties": true
           }
         },
-        "required": ["author", "content", "created_at"],
+        "required": ["author", "created_at"],
         "additionalProperties": false
       }
     }
@@ -78,6 +78,7 @@
       "interactions": [
         {
           "author": "jdoe_dev",
+          "title": null,
           "content": "How do I validate a JSON payload against a schema before loading it into DuckDB?",
           "tags": ["python", "json-schema", "duckdb"],
           "created_at": "2026-10-19T14:32:00Z",
@@ -90,6 +91,7 @@
         },
         {
           "author": "asmith_qa",
+          "title": null,
           "content": "You can use the `jsonschema` library to validate the payload before calling `duckdb.read_json`.",
           "created_at": "2026-10-19T15:10:00Z",
           "raw_metadata": {
