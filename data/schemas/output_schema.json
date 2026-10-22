@@ -10,6 +10,16 @@
       "description": "Status geral do processamento do pacote.",
       "enum": ["success", "suspended", "error"]
     },
+    "package_id": {
+      "type": "string",
+      "description": "Identificador único do pacote, usado para correlacionar diretamente o pacote de saída com o lote de entrada que o originou.",
+      "minLength": 1
+    },
+    "reference_period": {
+      "type": "string",
+      "description": "Janela de tempo UTC analisada, correspondente ao lote de entrada, representada como duas datas-hora ISO 8601 separadas por '/' no formato <inicio>/<fim> (ex: 2026-10-13T00:00:00Z/2026-10-20T00:00:00Z).",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z/\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$"
+    },
     "processing_summary": {
       "type": "object",
       "description": "Resumo do processamento das interações da comunidade.",
