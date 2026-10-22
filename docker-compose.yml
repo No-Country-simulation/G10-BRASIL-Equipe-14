@@ -1,6 +1,6 @@
 services:
   n8n:
-    image: docker.n8n.io/n8nio/n8n:1
+    image: docker.n8n.io/n8nio/n8n:${N8N_VERSION:-2.41.3}
     container_name: communitylab_n8n
     restart: unless-stopped
     ports:
@@ -14,8 +14,12 @@ services:
       - GENERIC_TIMEZONE=${TIMEZONE:-America/Sao_Paulo}
       - TZ=${TIMEZONE:-America/Sao_Paulo}
       - N8N_DEFAULT_BINARY_DATA_MODE=filesystem
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
       - NODE_FUNCTION_ALLOW_BUILTIN=*
       - NODE_FUNCTION_ALLOW_EXTERNAL=axios,lodash
+      - EXECUTIONS_DATA_PRUNE=true
+      - EXECUTIONS_DATA_MAX_AGE=168
+      - EXECUTIONS_DATA_PRUNE_MAX_COUNT=10000
     volumes:
       - ./n8n/n8n_data:/home/node/.n8n
       - ./data:/home/node/data
