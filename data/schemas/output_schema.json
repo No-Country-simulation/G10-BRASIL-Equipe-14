@@ -5,19 +5,19 @@
   "description": "Contrato de saída do pacote de distribuição gerado a partir das interações da comunidade, contendo o resumo do processamento, as sugestões de conteúdo por canal e o resultado da persistência no OCI Object Storage.",
   "type": "object",
   "properties": {
+    "package_id": {
+      "type": "string",
+      "description": "Identificador único do pacote gerado (UUID ou hash da execução).",
+      "minLength": 1
+    },
     "status": {
       "type": "string",
       "description": "Status geral do processamento do pacote.",
       "enum": ["success", "suspended", "error"]
     },
-    "package_id": {
-      "type": "string",
-      "description": "Identificador único do pacote, usado para correlacionar diretamente o pacote de saída com o lote de entrada que o originou.",
-      "minLength": 1
-    },
     "reference_period": {
       "type": "string",
-      "description": "Janela de tempo UTC analisada, correspondente ao lote de entrada, representada como duas datas-hora ISO 8601 separadas por '/' no formato <inicio>/<fim> (ex: 2026-10-13T00:00:00Z/2026-10-20T00:00:00Z).",
+      "description": "Janela temporal UTC coberta pelo pacote de dados (formato <inicio>/<fim>) (ex: 2026-10-13T00:00:00Z/2026-10-20T00:00:00Z).",
       "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z/\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$"
     },
     "processing_summary": {
@@ -26,7 +26,7 @@
       "properties": {
         "total_interactions": {
           "type": "integer",
-          "description": "Quantidade total de interações processadas.",
+          "description": "Quantidade total de interações processadas com sucesso.",
           "minimum": 0
         },
         "sources_breakdown": {
@@ -117,12 +117,12 @@
       "format": "date-time"
     }
   },
-  "required": ["status", "processing_summary", "suggested_content", "storage", "created_at"],
+  "required": ["package_id", "status", "reference_period", "processing_summary", "suggested_content", "storage", "created_at"],
   "additionalProperties": false,
   "examples": [
     {
+      "package_id": "pkg_2026_w42_001",
       "status": "success",
-      "package_id": "2026-W43",
       "reference_period": "2026-10-13T00:00:00Z/2026-10-20T00:00:00Z",
       "processing_summary": {
         "total_interactions": 2,
