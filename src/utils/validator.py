@@ -17,19 +17,19 @@ def load_json(path: str | Path) -> Any:
     return json.loads(Path(path).read_text(encoding="utf-8"))
 
 
-def validate_data(data: Any, schema: dict[str, Any]) -> list[str]:
+def validate_date(data: Any, schema: dict[str, Any]) -> list[str]:
     validator_cls = validator_for(schema, default=Draft202012Validator)
     validator_cls.check_schema(schema)
-    errors = sorted(validator_cls(schema, format_checker=FORMAT_CHECKER).iter_errors(data), key=lambda e: e.path)
-    return [f"{'/'.join(map(str, e.path)) or '<root>'}: {e.message}" for e in errors]
+    errors = sorted(validator_cls(schema, format_checker=FORMAT_CHECKER).iter_errors(data), key=lambda e: list(e.path))
+    return [f"{'/'.join(map(str, list(e.path))) or '<root>'}: {e.message}" for e in errors]
 
 
 def validate_file(data_path: str | Path, schema_path: str | Path) -> list[str]:
-    return validate_data(load_json(data_path), load_json(schema_path))
+    return validate_date(load_json(data_path), load_json(schema_path))
 
 
 def is_valid(data: Any, schema: dict[str, Any]) -> bool:
-    return not validate_data(data, schema)
+    return not validate_date(data, schema)
 
 
 def _main() -> int:
