@@ -1,8 +1,10 @@
-# ADR-001: Definição do escopo e stack base
+# ADR-001: Definição do Escopo e Stack Base
 
+- **Projeto:** CommunityLab - Motor Inteligente
+de Transformação e Distribuição para Comunidades Digitais
+- **Responsáveis:** Equipe 14 - Turma G10
 * **Status:** Aprovado
 * **Data de Elaboração:** 17 de Outubro de 2026
-* **Autores:** Equipe 14 - Turma G10
 
 ---
 

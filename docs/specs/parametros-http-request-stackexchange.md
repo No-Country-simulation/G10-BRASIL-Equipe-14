@@ -1,10 +1,30 @@
-# Consulta a Stack Exchange
+# Consulta à API da Stack Exchange
 
-Mapeamento dos parâmetros para que o workflow `WF02 - Coleta Stack Exchange` possa atender a diferentes demandas do projeto de acordo com o **endpoint da API**.
+- **Projeto:** CommunityLab - Motor Inteligente
+de Transformação e Distribuição para Comunidades Digitais
+- **Responsáveis:** Equipe 14 - Turma G10
+- **Status:** Aprovado / Em Implementação
+- **Versão:** 1.0 (Semana 1)
+- **Última Atualização:** 20 de Outubro de 2026
+
+---
+
+## Sumário
+
+- [1. Objetivo](#1-objetivo)
+- [2. Parâmetros úteis para consultar perguntas](#2-parâmetros-úteis-para-consultar-perguntas)
+- [3. Endpoints oficiais](#3-endpoints-oficiais)
+- [4. Parâmetros comuns que vale mapear no n8n](#4-parâmetros-comuns-que-vale-mapear-no-n8n)
+- [5. Parâmetros de controle e qualidade dos dados](#5-parâmetros-de-controle-e-qualidade-dos-dados)
+
+---
+
+## 1. Objetivo
+Mapear os parâmetros para que o workflow `WF02 - Coleta Stack Exchange` possa atender a diferentes demandas do projeto de acordo com o **endpoint da API**.
 
 A consulta de perguntas, por exemplo, aceita parâmetros diferentes dos endpoints de respostas, usuários, comentários e tags.
 
-## 1. Parâmetros úteis para consultar perguntas
+## 2. Parâmetros úteis para consultar perguntas
 
 O endpoint utilizado no teste inicial: `GET https://api.stackexchange.com/2.3/questions`
 
@@ -35,7 +55,7 @@ Parâmetro | Função	| Exemplo de valor |
 * `filter` é útil para reduzir o volume de dados transferidos, mas precisa ser configurado de acordo com os campos necessários.
 * `min` e `max` dependem do campo de ordenação selecionado; não são filtros universais para qualquer atributo.
 
-## 2. Endpoints oficiais
+## 3. Endpoints oficiais
 
 _Endpoints_ que podem ser úteis para o projeto.
 
@@ -64,7 +84,7 @@ A disponibilidade e a interpretação dos parâmetros dependem do endpoint. Segu
 * [Tags](https://api.stackexchange.com/docs/tags?utm_source=chatgpt.com)
 
 
-## 3. Parâmetros comuns que vale mapear no n8n
+## 4. Parâmetros comuns que vale mapear no n8n
 
 Além dos parâmetros da API, o próprio nó `HTTP Request` tem configurações que afetam como a coleta funciona. A coluna _Recomendação_ mostra o que é útil para início do projeto, sendo possível alterar conforme demanda.
 
@@ -84,13 +104,13 @@ Além dos parâmetros da API, o próprio nó `HTTP Request` tem configurações 
 
 A API usa paginação: `page` começa em 1 e `pagesize` pode chegar a 100. A resposta inclui `has_more`, que indica se existem mais resultados. Para coleta completa, o workflow deve considerar esse campo e respeitar os limites de requisição.
 
-A consulta total pode ser feita definindo `filter=total`, obtendo dados do Stack Exchange de um ano.
-URL de consulta com essa definição: `https://api.stackexchange.com/2.3/questions?site=stackoverflow&tagged=artificial-intelligence&fromdate=1729445640&filter=total`
+A consulta total pode ser feita definindo `filter=total`, obtendo dados do Stack Exchange no periodo de um ano.
+URL de consulta com essa definição: `https://api.stackexchange.com/2.3/questions?site=stackoverflow&tagged=artificial-intelligence&fromdate=1761027120&filter=total`
 
 Existem outros parâmetros dentro desse nó, conforme pode ser visto na [Documentação oficial](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.httprequest), que também podem ser explorados conforme demanda. 
 
 
-## 4. Parâmetros de controle e qualidade dos dados
+## 5. Parâmetros de controle e qualidade dos dados
 
 Estes campos da resposta podem ser considerados pelo workflow, pois ajudam a controlar a coleta.
 

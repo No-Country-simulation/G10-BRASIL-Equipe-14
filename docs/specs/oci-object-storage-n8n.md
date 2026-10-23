@@ -1,5 +1,29 @@
 # Integração do OCI Object Storage com n8n
 
+- **Projeto:** CommunityLab - Motor Inteligente
+de Transformação e Distribuição para Comunidades Digitais
+- **Responsáveis:** Equipe 14 - Turma G10
+- **Status:** Aprovado / Em Implementação
+- **Versão:** 1.0 (Semana 1)
+- **Última Atualização:** 19 de Outubro de 2026
+
+---
+
+## Sumário
+
+- [1. Objetivo](#1-objetivo)
+- [2. Infraestrutura](#2-infraestrutura)
+- [3. Workflow n8n](#3-workflow-n8n)
+    - [3.1. Fluxo de Processamento ](#31-fluxo-de-processamento)
+    - [3.2. Endpoint de Teste](#32-endpoint-de-teste)
+    - [3.3. Destino do Objeto](#33-destino-do-objeto)
+- [4. Configuração das Credenciais](#4-configuração-das-credenciais)
+- [5. Evidências de Validação](#5-evidências-de-validação)
+- [6. Segurança e Limitações](#6-segurança-e-limitações)
+- [7. Próximas Etapas](#7-próximas-etapas)
+
+---
+
 ## 1. Objetivo
 
 Documentar a integração entre o n8n e o Oracle Cloud Infrastructure (OCI) Object Storage para o projeto CommunityLab, incluindo a infraestrutura utilizada, o workflow de ingestão, os requisitos de configuração, as evidências de validação e os cuidados de segurança.
@@ -86,12 +110,18 @@ Esses resultados validam o envio e a recuperação do objeto no ambiente utiliza
 ## 6. Segurança e limitações
 
 - Manter o bucket privado.
+
 - Não versionar Access Key IDs associados a credenciais privadas quando não forem necessários, Secret Access Keys, tokens, senhas ou exportações de credenciais.
+
 - Não compartilhar chaves pessoais da OCI entre integrantes.
+
 - Configurar as credenciais separadamente em cada instância do n8n, conforme as permissões concedidas.
+
 - Respeitar as cotas e condições aplicáveis ao OCI Always Free.
 - Não utilizar dados sensíveis nos payloads de teste.
+
 - Considerar que o caminho do objeto está fixo e que execuções concorrentes podem sobrescrever o mesmo arquivo.
+
 - Reconhecer que o workflow atual realiza a ingestão e o armazenamento de objetos, mas não implementa um endpoint geral de download autenticado.
 
 ## 7. Próximas etapas
@@ -99,4 +129,3 @@ Esses resultados validam o envio e a recuperação do objeto no ambiente utiliza
 Em uma tarefa posterior, definir e validar um mecanismo autorizado para que os integrantes do CommunityLab possam enviar e recuperar objetos do bucket.
 
 Essa solução deverá contemplar autenticação, autorização, controle de acesso aos objetos e registro das operações realizadas.
-

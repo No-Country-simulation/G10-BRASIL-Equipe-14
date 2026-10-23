@@ -1,26 +1,27 @@
 # Especificação de Arquitetura do Sistema
 
-- **Projeto:** CommunityLab - Motor Inteligente de Transformação e Distribuição para Comunidades Digitais
-- **Programa:** ONE - Oracle Next Education
-- **Equipe:** Equipe 14 - Turma G10
-- **Versão:** 1.0 (Semana 0)
+- **Projeto:** CommunityLab - Motor Inteligente
+de Transformação e Distribuição para Comunidades Digitais
+- **Responsáveis:** Equipe 14 - Turma G10
 - **Status:** Aprovado / Em Implementação
-- **Última Atualização:** 18 de Outubro de 2026
+- **Versão:** 2.0 (Semana 1)
+- **Última Atualização:** 23 de Outubro de 2026
 
 ---
 
 ## Sumário
 
-* [1. Visão Geral e Princípios Arquiteturais](#1-visão-geral-e-princípios-arquiteturais)
-* [2. Diagrama de Arquitetura Conceitual](#2-diagrama-de-arquitetura-conceitual)
-* [3. Detalhamento dos Componentes](#3-detalhamento-dos-componentes)
-* [4. Pipeline de Dados e Fluxo de Execução](#4-pipeline-de-dados-e-fluxo-de-execução)
+- [1. Visão Geral e Princípios Arquiteturais](#1-visão-geral-e-princípios-arquiteturais)
+- [2. Diagrama de Arquitetura Conceitual](#2-diagrama-de-arquitetura-conceitual)
+- [3. Detalhamento dos Componentes](#3-detalhamento-dos-componentes)
+- [4. Pipeline de Dados e Fluxo de Execução](#4-pipeline-de-dados-e-fluxo-de-execução)
    - [4.1. Estágio 1: Ingestão Primária e Armazenamento Bruto](#41-estágio-1-ingestão-primária-e-armazenamento-bruto)
    - [4.2. Estágio 2: Engenharia de Dados e Normalização com DuckDB](#42-estágio-2-engenharia-de-dados-e-normalização-com-duckdb)
    - [4.3. Estágio 3: Enriquecimento Cognitivo e Roteamento (LLM Engine)](#43-estágio-3-enriquecimento-cognitivo-e-roteamento-llm-engine)
    - [4.4. Estágio 4: Adapters de Copy por Canal](#44-estágio-4-adapters-de-copy-por-canal)
    - [4.5. Estágio 5: Curadoria Humana (HITL) e Persistência no OCI](#45-estágio-5-curadoria-humana-hitl-e-persistência-no-oci)
-* [5. Contratos de Dados e Interfaces](#5-contratos-de-dados-e-interfaces)
+- [5. Contratos de Dados e Interfaces](#5-contratos-de-dados-e-interfaces)
+- [6. Registro de Alterações](#6-registro-de-alterações)
 
 ---
 
@@ -30,7 +31,7 @@ O **CommunityLab** é um ecossistema projetado para transformar discussões, dú
 
 A arquitetura orienta-se por cinco princípios fundamentais:
 
-1. **Custo Zero Estrito (Cost-Free):** Operação total dentro das cotas Always Free da Oracle Cloud Infrastructure (OCI) e planos gratuitos de APIs (Google Gemini, Groq, Stack Exchange, Mastodon).
+1. **Custo Zero Estrito (Cost-Free):** Operação total dentro das cotas Always Free da Oracle Cloud Infrastructure (OCI) e planos gratuitos de APIs (Google Gemini, Groq, Stack Exchange API, Mastodon API e Hacker News API).
 
 2. **Desacoplamento por Contratos (Contract-Driven):** As camadas comunicam-se exclusivamente via esquemas contratuais em JSON Schema (`input_schema.json` e `output_schema.json`), permitindo desenvolvimento e testes independentes.
 
@@ -42,7 +43,7 @@ A arquitetura orienta-se por cinco princípios fundamentais:
 
 ---
 
-## 2. Diagrama de Arquitetura Conceitual
+## 2. Diagrama de Arquitetura Conceitual 
 
 ```mermaid
 flowchart TD
@@ -59,6 +60,7 @@ flowchart TD
     subgraph Sources ["1. Fontes da Comunidade"]
         SRC_SO["Stack Overflow / Stack Exchange API"]:::source
         SRC_MST["Mastodon API - Instâncias Tech"]:::source
+        SRC_HN["Hacker News API"]:::source
     end
 
     %% 2. Ingestão Primária
@@ -107,6 +109,7 @@ flowchart TD
     %% Conexões Lineares Integradas
     SRC_SO -->|"REST API"| HOOK
     SRC_MST -->|"REST API"| HOOK
+    SRC_HN -->|"REST API"| HOOK
 
     HOOK --> RAW_SAVE
     RAW_SAVE --> DUCK_CLEAN
@@ -220,3 +223,12 @@ Para garantir o desacoplamento e a governança entre as etapas do pipeline, os f
 * **Contrato de Entrada (`data/schemas/input_schema.json`):** Padroniza a estrutura das interações brutas provenientes das fontes externas antes do processamento analítico.
 
 * **Contrato de Saída (`data/schemas/output_schema.json`):** Define a estrutura do pacote final de distribuição consolidado pela curadoria humana e persistido no OCI Object Storage.
+
+---
+
+## 6. Registro de Alterações
+
+| Versão | Data de Alteração | Alteração Realizada |
+|---|---|---|
+| Versão 1.0 | 18/10/26 | Adicionadas as especificações da arquitetura do projeto.|
+| Versão 2.0 | 23/10/26 | Adicionada a Hacker News API como fonte de dados, junto ao Stack Overflow/Stack Exchange API e Mastodon API. |
