@@ -1,926 +1,610 @@
 [
   {
     "source_id": "79857625",
-    "owner": "QuenK",
-    "title": "Symfony AI: How to add additional models for the LM Studio bridge?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79852692",
-    "owner": "J Moral",
-    "title": "How to reorder Corpus+LLM chat bubbles in the correct order?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79913494",
-    "owner": "littlesky33",
-    "title": "Low Transposition Table Usage Rate",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79852097",
-    "owner": "Melina",
-    "title": "How to use types correctly and avoid errors in PDDL",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79850130",
-    "owner": "llewyn lau",
-    "title": "Why isn&#39;t Windsurf&#39;s autocomplete working in my IntelliJ IDEA 2024?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79801643",
-    "owner": "傅靖茹",
-    "title": "AttributeError: &#39;NoneType&#39; object has no attribute &#39;blocks&#39; when running Cache-DiT example with Wan2.2 model",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79935672",
-    "owner": "Aashishkumar",
-    "title": "Input validation error: &#39;1.57&#39; is not of type &#39;number&#39; from langchain_mcp_adapter",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79851882",
-    "owner": "dododo",
-    "title": "Update ChatMessageContent value in Semantic Kernel response",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79851602",
-    "owner": "Thiago",
-    "title": "Architectural considerations for safely integrating LLM-based responses into web automation",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79830666",
-    "owner": "adarsh verma",
-    "title": "Speed up LangGraph REACT + RAG.(Multi-Agent Chatbot)",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79806927",
-    "owner": "nathan",
-    "title": "AnalyzeDocumentContent not found",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79998781",
-    "owner": "Stevoisiak",
-    "title": "How do I disable &quot;Generate Commit Message&quot; without disabling other AI features in VS Code?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79976430",
-    "owner": "Suraj",
-    "title": "How can I build an AI automation workflow that extracts email data, stores it in a CRM, sends follow-up messages without creating duplicate records?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79890443",
-    "owner": "hele",
-    "title": "AI use in coding",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79838505",
-    "owner": "Kemp",
-    "title": "llama_index Ollama misloading model issue",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79948345",
-    "owner": "Manish S shetty",
-    "title": "Agentic AI engineering",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79924583",
-    "owner": "Kev",
-    "title": "Book Recommendation in PyTorch",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79875291",
-    "owner": "Businessman9874",
-    "title": "Run expensive function (containing for loop) on multiple GPUs. pmap gives out of memory error",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79868160",
-    "owner": "Cristofer BackEnd",
-    "title": "Cognee 0.5.1 - TypeError: MilvusAdapter.init() got an unexpected keyword argument &#39;database_name&#39;",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79847329",
-    "owner": "csnate",
-    "title": "Custom GRPO Trainer not Learning",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79841808",
-    "owner": "Sankaranarayanan Rajkumar",
-    "title": "Azure PersistentAgent - How to download a file created by the model",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79835621",
-    "owner": "Umer Fayyaz",
-    "title": "Will AI reduce the demand for software developers in the future? and stackoverflow effect due to AI",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79928214",
-    "owner": "Gaming Music",
-    "title": "What are a good books to read in Bayesian Learning?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79896243",
-    "owner": "Yodogawa Mikio",
-    "title": "Autonomous mode / wrapper for Claude Code?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79848251",
-    "owner": "NOURA",
-    "title": "How should ground-truth and tracker result files be structured for TrackEval?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79846492",
-    "owner": "Ekim",
-    "title": "Pretrained resnet 18 model doesn&#39;t have fc layer and has cls and pool layers instead? &quot;Missing key (s) in state_dict: &quot;fc.weight&quot;, &quot;fc.bias&quot;.&quot;",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79840119",
-    "owner": "Hri100",
-    "title": "How can we use AI, and what is the main purpose?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79966098",
-    "owner": "Chinedu Victor",
-    "title": "Learning with AI without becoming dependent on it or lazy",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79965038",
-    "owner": "SP007",
-    "title": "Architecting an AI Chat Layer in ASP.NET Core 8 with MCP (Model Context Protocol)",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79959398",
-    "owner": "joy.kumagai",
-    "title": "Which program should I use to access Anthropic with an API key that does not set token limits?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79959229",
-    "owner": "Jonathan Ba&#241;o",
-    "title": "How can I connect Gemini to my flutter application?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79958777",
-    "owner": "Henok Emyaye",
-    "title": "Cursor IDE free tier usage quota exhausting after only a few prompts",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79956705",
-    "owner": "Riza Khan",
-    "title": "Laravel AI SDK: Best practices of parsing PDF documents",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79956566",
-    "owner": "Destroyer",
-    "title": "Microsoft WorkIQ MCP server setup for custom MCP client",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79956021",
-    "owner": "Ali-Yaser",
-    "title": "Why is my training loss not decreasing while fine-tuning Qwen with Unsloth?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79955889",
-    "owner": "Ayush",
-    "title": "Will a 80 GB GPU and a 48 GB GPU give identical results on an open source text-to-video model for the same quantization and seed?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79952002",
-    "owner": "Angry Evil Cookie",
-    "title": "Recommend LLM for low level Rust or c# for storage/memory core of database implementation",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79950694",
-    "owner": "Dhrubojyoti Hazra",
-    "title": "What questions / problems do a startup company give a candidate in a machine test?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79948872",
-    "owner": "Marc Le Bihan",
-    "title": "Can you prevent AI Workslop as soon as you receive a Pull Request?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79946811",
-    "owner": "YouthDuGan",
-    "title": "Have you tried C++ reflection over flat MCP tool sets?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79943845",
-    "owner": "Wayo Ismee",
-    "title": "Why is every new AI IDE forcing a minimalist, &quot;chat-first&quot; UI on us?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79941418",
-    "owner": "Dwayne Wayne",
-    "title": "FFmpeg/React video editor renders successfully but ignores object recolor and color grading",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79939330",
-    "owner": "Paweł Zemka",
-    "title": "Issue with Conversational Analytics integration in Looker Studio (Data Studio)",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79938439",
-    "owner": "Maria Valcos",
-    "title": "Manage context memory and Document retrieval in AI Agent",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79935134",
-    "owner": "tobiasBora",
-    "title": "Turn scanned form into json",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79934348",
-    "owner": "Gonzalo T F",
-    "title": "Where should I store the .Renviron file now that claude code/cowork can look into my project files?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79934214",
-    "owner": "CodingMcQueen",
-    "title": "YOLOv11 Trash Sorting System",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79933846",
-    "owner": "Yassine",
-    "title": "Free virtual try-on API for a mobile app (student project)?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79933687",
-    "owner": "Soraya Khene",
-    "title": "Extract game names and translate them to english from google sheet",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79931196",
-    "owner": "Marwa",
-    "title": "What are the best methods or libraries to extract Arabic text from images or PDFs without using Surya OCR?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79930598",
-    "owner": "Milan Suryavanshi",
-    "title": "How to use LangChain Agent with tools in a Python project?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79929135",
-    "owner": "Wasthisit",
-    "title": "How to go from theoretical Concept of Layers (Input, Hidden and Output) of AI Neural Network and Write in CODE",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79928848",
-    "owner": "Fomani",
-    "title": "Android Studio with AI model integration",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79928780",
-    "owner": "Marwa",
-    "title": "Improving Arabic OCR results from Surya (handling bad fonts / post-processing with LLM)",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79928220",
-    "owner": "Abdullx200",
-    "title": "Boss wants us to add more AI to our workflow",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79925937",
-    "owner": "Chandini",
-    "title": "Self healing in Playwright with Typescript",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79923935",
-    "owner": "developer_1",
-    "title": "Gemini Live API (v3.1) suddenly stops streaming audio response intermittently",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79923862",
-    "owner": "杨尚山",
-    "title": "Programmer owns the architecture, AI implements crate-level modules in Rust — how does this compare to other languages?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79917669",
-    "owner": "followait",
-    "title": "How does Cherry Studio upload a pdf file?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79914202",
-    "owner": "TomR",
-    "title": "How to convert Delphi *.pas &quot;format ANSI&quot; files to *.pas &quot;format UTF&quot; files? (We are starting to use Cursor IDE on Delphi projects)",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79913508",
-    "owner": "waxingsatirical",
-    "title": "How can I get more useful results from ai coding agents",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79911073",
-    "owner": "Adam Darx",
-    "title": "How to convert a guide tutorial into context readible and feasible for AI?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79906686",
-    "owner": "Suebpong Pruttipattanapong",
-    "title": "Can half-precision fp16 can transfer hyperparameter that tuned to fp32 directly or not?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79905874",
-    "owner": "airforce-001",
-    "title": "Numerical meaning of Lightgbm Gain feature importance",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79904455",
-    "owner": "Ammar",
-    "title": "Is it safe to use `git config --global credential.helper store` on Claude Code?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79899414",
-    "owner": "P95747001",
-    "title": "AIoT device: Radius Authentication using PHP with Message-Authenticator attribute",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79899201",
-    "owner": "VIVEK VK",
-    "title": "Chatbot that converts questions to SQL queries",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79899153",
-    "owner": "Anthony Blomfield",
-    "title": "WordPress as backend → Flutter or React as the frontend",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79898245",
-    "owner": "Raman",
-    "title": "How can I estimate or count input tokens for a PDF before sending it to AWS Bedrock, since CountTokens API doesn&#39;t support document input?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79897835",
-    "owner": "bud",
-    "title": "Best technique for retrieving large set of documents for local LLM",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79893379",
-    "owner": "Lokesha M V",
-    "title": "Model context protocol",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79892835",
-    "owner": "fampkin",
-    "title": "Data processing and automation of template filling",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79890282",
-    "owner": "Felipe",
-    "title": "Sensitive data and AI",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79889100",
-    "owner": "Moritz Roessler",
-    "title": "Is there an encoder–decoder model that allows editing latent embeddings and regenerating text?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79887762",
-    "owner": "NewEndian",
-    "title": "Looking for a local AI model and server that can do Copilot Agent mode in VSCode",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79885996",
-    "owner": "Devanand J",
-    "title": "What are the actual parameters of run() of InMemoryRunner class",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79884491",
-    "owner": "Richard Smith-Uchotski",
-    "title": "How does account authentication work for GitHub Copilot and other AI providers in IntelliJ AI Assistant?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79882835",
-    "owner": "salton winona",
-    "title": "Can you run Moltbot as a container?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79881852",
-    "owner": "Dhruv Upadhyay",
-    "title": "Stream text from node socket to freeswitch using azure TTS",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79874274",
-    "owner": "Cxainnz",
-    "title": "AI makes me stop upgrading my skills, ended up making a vibe coder rather than a actual coder",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79872156",
-    "owner": "Shaik Athaulla",
-    "title": "Career Advice: Which programming language should an Android developer learn for the AI-driven era?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79869294",
-    "owner": "Przemysław Ozga",
-    "title": "Python/GenAI/LLM: Best practices for asking follow‑up questions to clarify user intent in a chatbot",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79860119",
-    "owner": "Razvan Zamfir",
-    "title": "How can I fix the &quot;exceeded quota&quot; issue when using AI to generate articles in Laravel?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79855418",
-    "owner": "Shrinivas Nadager",
-    "title": "I am confused, when to use tensorflow and pytorch",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79854747",
-    "owner": "Fillo",
-    "title": "How can i correctly change the LLAMA3 default maxtoken=256 in Blazor app on .NET 10.0?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79853945",
-    "owner": "Samy Mohamed",
-    "title": "ASP.NET With AI",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79853690",
-    "owner": "AdhiHari",
-    "title": "Autogen- Unable to create the single conversational chat agent application",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79850479",
-    "owner": "unique_alex020",
-    "title": "Is it possible to create a custom GPT and connect it to external services like Notion?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79848775",
-    "owner": "Mandar Mawale",
-    "title": "Why is OpenAI’s ChatGPT SDK preferred at the enterprise level over Google Gemini?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79847967",
-    "owner": "David Franco",
-    "title": "AI Tools for Java + Spring Boot + Kafka Stack: ChatGPT Pro or Claude Pro?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79843424",
-    "owner": "cgmil",
-    "title": "How do I create APIs for training ML models to play games? (Reference request)",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79839973",
-    "owner": "Mec New",
-    "title": "Building a Task automation tool using OCR and Icons detection with logics setup by persons in Python",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79839330",
-    "owner": "Karim Sinouh",
-    "title": "How to make Koog AI Agent aware of the previous messages in a Whatsapp API situation",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79837611",
-    "owner": "Leslie Joe",
-    "title": "How to fix EOF Server Ollama Error when embedding",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79836048",
-    "owner": "knnorou2",
-    "title": "How to Use Coding AIs and Services (e.g. Github Copliot) to Achieve the Best and Closest Results?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79833746",
-    "owner": "Daniel S",
-    "title": "Generating Logo&#39;s with different styles - I get distorted results",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79833354",
-    "owner": "Ivan Holovach",
-    "title": "Data-scheme enriched with meaningful explanations for AI",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79832600",
-    "owner": "Eli",
-    "title": "What’s the best architecture for mixing local AI + cloud AI inside a React/JS app without turning the codebase into spaghetti?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79832379",
-    "owner": "Manish sahu",
-    "title": "How to build an OCR system in Flutter that can extract structured data from multiple bill formats?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79831170",
-    "owner": "Grant Curell",
-    "title": "How do you disable the &quot;Potentially dangerous command&quot; warning in the continue extension for vscode?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79827749",
-    "owner": "Junaid",
-    "title": "How to handle bearer token acquisition across multiple layers in a multi-agent system using Microsoft Entra ID",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79826863",
-    "owner": "Polored",
-    "title": "Speech-to-AI generated image",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79826757",
-    "owner": "DucTruong",
-    "title": "How can I design “story-driven NPCs” in a reinforcement-learned environment? Looking for development directions and architectural advice",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79825232",
-    "owner": "ssp",
-    "title": "Best method to manage metrics of prompts that are stored in a git repository",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79825223",
-    "owner": "ssp",
-    "title": "Prompt managing storing in git v.s. db",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79805801",
-    "owner": "Rakka Rage",
-    "title": "Proper way to weight whole tag group same, based on code?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79799901",
-    "owner": "Md Vicky",
-    "title": "Chat model returns empty content when I inject a delayed ToolMessage from a scheduled callback",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79796571",
-    "owner": "da Rocha Pires",
-    "title": "Gemini Nano AICore prompt failing with 11-RESPONSE_PROCESSING_ERROR on Android",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79972441",
-    "owner": "Milad",
-    "title": "I encountered something odd with the Claude Code extension for VS Code. Do you know how tool calling works in Claude Code for VS Code?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79872592",
-    "owner": "PETCHIVARADHAN L",
-    "title": "What exactly does AI do beyond ML models and rule-based logic?",
-    "content_license": null
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79806152",
-    "owner": "Shaffan",
-    "title": "ModuleNotFoundError when importing ConversationBufferMemory and ConversationalRetrievalChain from LangChain",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79965487",
-    "owner": "Tatakaw",
-    "title": "How do I code without being completely dependent on AI?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79885067",
-    "owner": "Enji",
-    "title": "Seeking good general advice about current state of play with AI Agents/LLMs",
-    "content_license": null
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79972019",
-    "owner": "Manik",
-    "title": "Is coding going to be obsolete?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79865973",
-    "owner": "Kaushik Viradiya",
-    "title": "What is an MCP server, and what core concepts should an entry-level developer understand?",
-    "content_license": null
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79960475",
-    "owner": "Hafiz Muzamal",
-    "title": "Best AI Tools For Magento Enterprise Level Projects",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79948787",
-    "owner": "Ninja GhostWriter",
-    "title": "What&#39;s the best &quot;FreeTier&quot; resource, Generative-ai, text-prompt/image-upload_to_video fullstack llmm application that&#39;s pipelined through HuggingFace?",
-    "content_license": "CC BY-SA 4.0"
-  },
-  {
-    "source_id": "79946603",
-    "owner": "Munshi Nahiyan",
-    "title": "Need Project Ideas That Solve a Real-World Problem?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79934472",
-    "owner": "ryn hbijan",
-    "title": "Are Programmer ViberCoder?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79930634",
-    "owner": "Rom Questa AI",
-    "title": "How can I prevent sensitive data leakage when sending user input to an AI API in Python?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79928463",
-    "owner": "DrxgxM21",
-    "title": "Coqui TTS hallucinating with German voice cloning – outputs gibberish",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79920330",
-    "owner": "F4th1Q",
-    "title": "Can i make a Neural network And simply ML Model using a smartphone? (Ain&#39;t Have Pc/Laptop Btw)",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79909411",
-    "owner": "BECAF",
-    "title": "Is there any point of learning new programing languages with the rise of AI?",
-    "content_license": null
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79907944",
-    "owner": "蘇芳儀",
-    "title": "How to implement an efficient Human-in-the-loop workflow for AI-driven ERP risk analysis?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79906038",
-    "owner": "Leonid",
-    "title": "Meta prompting how to optimize",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79904353",
-    "owner": "Rishabh Sharma",
-    "title": "2 YOE Full‑Stack dev: how to choose between AI and Blockchain?",
-    "content_license": null
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79903962",
-    "owner": "Jasneet Arora",
-    "title": "Best Way to a Multi-Agent Orchestration System?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79900580",
-    "owner": "Sornab",
-    "title": "Private AI Chatbot",
-    "content_license": null
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79899823",
-    "owner": "Specified One",
-    "title": "How to meaningfully represent unseen but defined data in AI?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79899053",
-    "owner": "Furkan Yılmaz",
-    "title": "In 2026, what field should a computer engineering student focus on, and what roadmap should they take?",
-    "content_license": null
-  },
-  {
-    "source_id": "79897963",
-    "owner": "hrithik.k",
-    "title": "How can I build my own offline text recognition library like Google ML Kit that gives text and bounding boxes, but supports my own custom language?",
-    "content_license": null
-  },
-  {
-    "source_id": "79897531",
-    "owner": "Yuki Lin",
-    "title": "Designing a real-time anti-scam detection system for voice and text — what features and architecture should I consider?",
-    "content_license": null
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79891841",
-    "owner": "DPM",
-    "title": "Random generated string detection",
-    "content_license": null
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79882933",
-    "owner": "Mrokos",
-    "title": "What will be next time?",
-    "content_license": null
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79880274",
-    "owner": "James Burch",
-    "title": "Best practice for extracting structured numeric data from PDFs returned by an API for calculations",
-    "content_license": null
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79869652",
-    "owner": "Shibashish Mohapatra",
-    "title": "Issues converting Figma designs to a full WordPress theme using Open AI",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79861609",
-    "owner": "Shridhar Kulkarni",
-    "title": "Step wise pattern prediction of prices",
-    "content_license": null
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79821532",
-    "owner": "yxtiblya",
-    "title": "How to make an AI model come alive?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79811708",
-    "owner": "todd_dsm",
-    "title": "AI/IDE Integration: Claude Code for VS Code vs. Cursor Models",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79907967",
-    "owner": "ewiwi",
-    "title": "What are the best-practice architectural workflows for LLM-based contract compliance agents?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79877585",
-    "owner": "Vokult",
-    "title": "Need advice on how to handle data and find groupings using ML/AI/DS",
-    "content_license": null
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79924528",
-    "owner": "Sameer Nakhuda",
-    "title": "Vibe Coding Is Also Right Way?",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79826779",
-    "owner": "Ad Du",
-    "title": "My Code With Openrouter api is not working",
-    "content_license": null
-  },
-  {
-    "source_id": "79897886",
-    "owner": "PFE M2",
-    "title": "Looking for a database of fish diseases (especially tilapia)",
-    "content_license": null
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79893146",
-    "owner": "user32032534",
-    "title": "I can&#39;t code without the feature of auto complete bt AI",
-    "content_license": null
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79884375",
-    "owner": "Tech Guru Nate",
-    "title": "Should I use GCE or GKE for AI machines running on the cloud and how?",
-    "content_license": null
+    "content_license_question": "CC BY-SA 4.0"
+  },
+  {
+    "source_id": "79946603",
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79975203",
-    "owner": "TheGamerInMyBasement",
-    "title": "Neural Network using multiple input layers and hidden layers",
-    "content_license": null
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79861943",
-    "owner": "onlycparra",
-    "title": "Crafting a roadmap to learn AI, (perhaps using Rust?)",
-    "content_license": null
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79856228",
-    "owner": "lilo",
-    "title": "Looking for ideas for a Master’s thesis topic in Data Science &amp; AI (Banking – Fraud Detection – PDF Analysis)",
-    "content_license": null
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79874746",
-    "owner": "Maria Alvi",
-    "title": "Good resources for learning GPU acceleration &amp; distributed LLM training?",
-    "content_license": null
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79934194",
-    "owner": "Bertuz",
-    "title": "how to make intellij copilot plugin read ad-hoc agents outside the project",
-    "content_license": "CC BY-SA 4.0"
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79847200",
-    "owner": "user30175238",
-    "title": "Advice related to npmai(https://pypi.org/project/npmai)",
-    "content_license": null
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "79968931",
-    "owner": "Stealthclan",
-    "title": "Need recommendation for a CRM with API access and if possible, capability to design IVR",
-    "content_license": null
+    "content_license_question": "CC BY-SA 4.0"
+  },
+  {
+    "source_id": "80012148",
+    "content_license_question": "CC BY-SA 4.0"
   },
   {
     "source_id": "80010621",
-    "owner": "juztcode",
-    "title": "Building an AI chatbot app with managing your own context",
-    "content_license": null
+    "content_license_question": "CC BY-SA 4.0"
   }
 ]
