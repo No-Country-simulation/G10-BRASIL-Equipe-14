@@ -20,8 +20,13 @@ def load_json(path: str | Path) -> Any:
 def validate_date(data: Any, schema: dict[str, Any]) -> list[str]:
     validator_cls = validator_for(schema, default=Draft202012Validator)
     validator_cls.check_schema(schema)
-    errors = sorted(validator_cls(schema, format_checker=FORMAT_CHECKER).iter_errors(data), key=lambda e: list(e.path))
-    return [f"{'/'.join(map(str, list(e.path))) or '<root>'}: {e.message}" for e in errors]
+    errors = sorted(
+        validator_cls(schema, format_checker=FORMAT_CHECKER).iter_errors(data),
+        key=lambda e: list(e.path),
+    )
+    return [
+        f"{'/'.join(map(str, list(e.path))) or '<root>'}: {e.message}" for e in errors
+    ]
 
 
 def validate_file(data_path: str | Path, schema_path: str | Path) -> list[str]:
@@ -33,7 +38,9 @@ def is_valid(data: Any, schema: dict[str, Any]) -> bool:
 
 
 def _main() -> int:
-    parser = argparse.ArgumentParser(description="Validate a JSON file against a JSON Schema.")
+    parser = argparse.ArgumentParser(
+        description="Validate a JSON file against a JSON Schema."
+    )
     parser.add_argument("data", help="Path to the JSON file to validate.")
     parser.add_argument("schema", help="Path to the JSON Schema file.")
     args = parser.parse_args()
