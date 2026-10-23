@@ -1,0 +1,527 @@
+{
+  "name": "WF04 - Integração Stack Exchange",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -736,
+        -96
+      ],
+      "id": "4c04366f-c8f7-4396-941a-18bae08d4093",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "bucketName": "communitylab-assets",
+        "fileKey": "samples/stackexchange-questions.json"
+      },
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        -64,
+        -336
+      ],
+      "id": "7e244e30-211d-43d3-8d93-a6fd0fadbdb8",
+      "name": "Download Questions",
+      "credentials": {
+        "s3": {
+          "id": "WG22ysIkwCiyk8dj",
+          "name": "OCI Object Storage S3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "bucketName": "communitylab-assets",
+        "fileKey": "samples/stackexchange-questions-licenses.json"
+      },
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        -64,
+        -144
+      ],
+      "id": "d6864d0a-042a-491d-a6ec-8eb69323f46a",
+      "name": "Download Licenses",
+      "credentials": {
+        "s3": {
+          "id": "WG22ysIkwCiyk8dj",
+          "name": "OCI Object Storage S3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "fieldsToMatchString": "source_id",
+        "joinMode": "enrichInput1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        832,
+        -240
+      ],
+      "id": "060a8310-0088-4cdb-9970-7defeee9ecc1",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        384,
+        -336
+      ],
+      "id": "67863736-a4be-45a1-ae9d-a888e2d73508",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        384,
+        -144
+      ],
+      "id": "464fc541-b1c0-4fb6-a364-26276b82822c",
+      "name": "Split Out1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// WF04 - Validação dos dados após o Merge\n// Modo: Run Once for All Items\n\nconst items = $input.all();\nconst totalItems = items.length;\n\nconst missingQuestionId = [];\nconst missingContentLicense = [];\nconst duplicateQuestionIds = [];\nconst questionIds = new Set();\n\nfor (let i = 0; i < items.length; i++) {\n  const data = items[i].json;\n  const questionId = data.source_id;\n\n  // Verifica source_id\n  if (\n    questionId === undefined ||\n    questionId === null ||\n    String(questionId).trim() === \"\"\n  ) {\n    missingQuestionId.push(i);\n  } else {\n    const id = String(questionId);\n\n    if (questionIds.has(id)) {\n      duplicateQuestionIds.push(id);\n    } else {\n      questionIds.add(id);\n    }\n  }\n\n  // Verifica content_license\n  if (\n    data.content_license === undefined ||\n    data.content_license === null ||\n    String(data.content_license).trim() === \"\"\n  ) {\n    missingContentLicense.push(\n      questionId ?? `índice ${i}`\n    );\n  }\n}\n\nconst checks = {\n  quantidadeEsperada: totalItems === 154,\n  todosPossuemQuestionId: missingQuestionId.length === 0,\n  todosPossuemContentLicense: missingContentLicense.length === 0,\n  semQuestionIdDuplicado: duplicateQuestionIds.length === 0,\n};\n\nconst valid = Object.values(checks).every(Boolean);\n\nreturn [\n  {\n    json: {\n      valid,\n      totalItems,\n      questionIdsUnicos: questionIds.size,\n      checks,\n      problemas: {\n        questionIdAusenteNosIndices: missingQuestionId,\n        contentLicenseAusenteNasPerguntas: missingContentLicense,\n        questionIdsDuplicados: [...new Set(duplicateQuestionIds)],\n      },\n    },\n  },\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1056,
+        -336
+      ],
+      "id": "2fc48ff8-cc7a-47f1-9c5a-2a303ad94f10",
+      "name": "Verifica dados"
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {
+          "format": true,
+          "fileName": "stackexchange-questions-enriched.json"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1056,
+        -144
+      ],
+      "id": "a578fbb3-ec6e-4c34-bc97-04125716ae5b",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "operation": "upload",
+        "bucketName": "communitylab-assets",
+        "fileName": "={{ \"samples/\" + $binary.data.fileName }}",
+        "additionalFields": {},
+        "tagsUi": {
+          "tagsValues": []
+        }
+      },
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        1280,
+        -144
+      ],
+      "id": "458feb4c-26e7-42bf-a690-5d7b6af3fb21",
+      "name": "Upload a file",
+      "credentials": {
+        "s3": {
+          "id": "WG22ysIkwCiyk8dj",
+          "name": "OCI Object Storage S3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Validação de unicidade de source_id\n// Mode: Run Once for All Items\n\nconst items = $input.all();\nconst occurrences = new Map();\nconst missingIds = [];\n\nfor (let i = 0; i < items.length; i++) {\n  const rawId = items[i].json.source_id;\n\n  if (\n    rawId === undefined ||\n    rawId === null ||\n    String(rawId).trim() === \"\"\n  ) {\n    missingIds.push(i);\n    continue;\n  }\n\n  const id = String(rawId).trim();\n\n  if (!occurrences.has(id)) {\n    occurrences.set(id, []);\n  }\n\n  occurrences.get(id).push(i);\n}\n\nconst duplicates = [...occurrences.entries()]\n  .filter(([id, indexes]) => indexes.length > 1)\n  .map(([source_id, indexes]) => ({\n    source_id,\n    occurrences: indexes.length,\n    itemIndexes: indexes,\n  }));\n\nif (missingIds.length > 0 || duplicates.length > 0) {\n  throw new Error(\n    [\n      \"Falha de integridade: source_id ausente ou duplicado.\",\n      `IDs ausentes: ${missingIds.length}.`,\n      `IDs duplicados: ${duplicates.length}.`,\n      `Detalhes: ${JSON.stringify({\n        missingIdIndexes: missingIds,\n        duplicates,\n      })}`,\n    ].join(\" \")\n  );\n}\n\n// Sem duplicidades e sem IDs ausentes:\n// preserva todos os registros originais.\nreturn items;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        608,
+        -336
+      ],
+      "id": "063d29b2-8cdd-41a1-a7b3-9c815d2bc6a7",
+      "name": "Check duplicated id"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Validação de unicidade de source_id\n// Mode: Run Once for All Items\n\nconst items = $input.all();\nconst occurrences = new Map();\nconst missingIds = [];\n\nfor (let i = 0; i < items.length; i++) {\n  const rawId = items[i].json.source_id;\n\n  if (\n    rawId === undefined ||\n    rawId === null ||\n    String(rawId).trim() === \"\"\n  ) {\n    missingIds.push(i);\n    continue;\n  }\n\n  const id = String(rawId).trim();\n\n  if (!occurrences.has(id)) {\n    occurrences.set(id, []);\n  }\n\n  occurrences.get(id).push(i);\n}\n\nconst duplicates = [...occurrences.entries()]\n  .filter(([id, indexes]) => indexes.length > 1)\n  .map(([source_id, indexes]) => ({\n    source_id,\n    occurrences: indexes.length,\n    itemIndexes: indexes,\n  }));\n\nif (missingIds.length > 0 || duplicates.length > 0) {\n  throw new Error(\n    [\n      \"Falha de integridade: source_id ausente ou duplicado.\",\n      `IDs ausentes: ${missingIds.length}.`,\n      `IDs duplicados: ${duplicates.length}.`,\n      `Detalhes: ${JSON.stringify({\n        missingIdIndexes: missingIds,\n        duplicates,\n      })}`,\n    ].join(\" \")\n  );\n}\n\n// Sem duplicidades e sem IDs ausentes:\n// preserva todos os registros originais.\nreturn items;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        608,
+        -144
+      ],
+      "id": "9f1f57f8-b3d9-489a-8b7d-31016420bc03",
+      "name": "Check duplicated id 2"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "wf04-integracao-stack-exchange",
+        "authentication": "headerAuth",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -736,
+        -384
+      ],
+      "id": "5153769c-a721-4cc0-8532-b6161eddef50",
+      "name": "Webhook",
+      "webhookId": "b4b83012-aa76-4b4b-8b92-b790faa08e04",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "QNmmh3RzZbp9CXSq",
+          "name": "Hackathon CommunityLab"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://bot.rsa.ia.br/webhook/wf02-coleta-stack-exchange",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    tagged: $json.body?.tagged ?? 'artificial-intelligence',\n    fromdate: Number($json.body?.fromdate ?? 1760929200),\n    pagesize: Number($json.body?.pagesize ?? 100)\n  }\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -512,
+        -336
+      ],
+      "id": "f954e5dd-283b-43a4-9cea-6778c5818d7d",
+      "name": "Executar WF02 - Coletar Perguntas",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "42qVcgGiSp3kXsRY",
+          "name": "Hackathon CommunityLab - HTTP Request"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://bot.rsa.ia.br/webhook/wf03-coleta-stack-exchange-licenses",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    tagged: $json.body?.tagged ?? 'artificial-intelligence',\n    fromdate: Number($json.body?.fromdate ?? 1760929200),\n    pagesize: Number($json.body?.pagesize ?? 100)\n  }\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -512,
+        -144
+      ],
+      "id": "ccfc8678-3c1d-4309-9ed1-c0137710b576",
+      "name": "Executar WF03 - Coletar Licenças",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "42qVcgGiSp3kXsRY",
+          "name": "Hackathon CommunityLab - HTTP Request"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "chooseBranch"
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -288,
+        -240
+      ],
+      "id": "9671cc1a-dfe7-4beb-85a9-d2e9f8e21167",
+      "name": "Aguardar WF02 e WF03"
+    },
+    {
+      "parameters": {
+        "operation": "fromJson",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        160,
+        -336
+      ],
+      "id": "fd63d758-a606-4eaa-b635-232e405b6cd1",
+      "name": "Extract from File Questions"
+    },
+    {
+      "parameters": {
+        "operation": "fromJson",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        160,
+        -144
+      ],
+      "id": "9016c5ab-ec20-4323-84f1-460f50f2458a",
+      "name": "Extract from File Licenses"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{\n  {\n    status: \"success\",\n    message: \"Coleta integrada concluída e arquivo enriquecido disponibilizado no bucket OCI.\",\n    file: \"samples/stackexchange-questions-enriched.json\",\n    records: $(\"Merge\").all().length,\n    download_url: \"https://bot.rsa.ia.br/webhook/wf05-download-stack-exchange\"\n  }\n}}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1504,
+        -144
+      ],
+      "id": "6bf62508-2834-473c-9046-b7d8f1ca66bf",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Executar WF02 - Coletar Perguntas",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Executar WF03 - Coletar Licenças",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Licenses": {
+      "main": [
+        [
+          {
+            "node": "Extract from File Licenses",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Questions": {
+      "main": [
+        [
+          {
+            "node": "Extract from File Questions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Check duplicated id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        [
+          {
+            "node": "Check duplicated id 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Verifica dados",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Upload a file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check duplicated id": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check duplicated id 2": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Executar WF02 - Coletar Perguntas",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Executar WF03 - Coletar Licenças",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Executar WF02 - Coletar Perguntas": {
+      "main": [
+        [
+          {
+            "node": "Aguardar WF02 e WF03",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Executar WF03 - Coletar Licenças": {
+      "main": [
+        [
+          {
+            "node": "Aguardar WF02 e WF03",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Extract from File Questions": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File Licenses": {
+      "main": [
+        [
+          {
+            "node": "Split Out1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload a file": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aguardar WF02 e WF03": {
+      "main": [
+        [
+          {
+            "node": "Download Questions",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Download Licenses",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "1731c87c-da51-4f5b-ac5a-8bb10492f417",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
+  },
+  "nodeGroups": [],
+  "id": "isOQBFvMgwqasvuU",
+  "tags": []
+}

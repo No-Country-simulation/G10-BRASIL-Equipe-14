@@ -1,0 +1,542 @@
+{
+  "name": "WF02 - Coleta Stack Exchange Integrada",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        -16
+      ],
+      "id": "655772ea-14c4-4563-8314-98cade1d1e83",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://api.stackexchange.com/2.3/questions",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "site",
+              "value": "stackoverflow"
+            },
+            {
+              "name": "pagesize",
+              "value": "={{ $json.pagesize }}"
+            },
+            {
+              "name": "order",
+              "value": "desc"
+            },
+            {
+              "name": "sort",
+              "value": "votes"
+            },
+            {
+              "name": "tagged",
+              "value": "={{ $json.tagged }}"
+            },
+            {
+              "name": "filter",
+              "value": "!*Mg4PjfqKhwRM7nE"
+            },
+            {
+              "name": "fromdate",
+              "value": "={{ $json.fromdate }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            }
+          ]
+        },
+        "options": {
+          "pagination": {
+            "pagination": {
+              "parameters": {
+                "parameters": [
+                  {
+                    "name": "page",
+                    "value": "={{ $pageCount + 1 }}"
+                  }
+                ]
+              },
+              "paginationCompleteWhen": "other",
+              "completeExpression": "={{ $response.body.has_more === false }}"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        816,
+        -208
+      ],
+      "id": "7e691f4a-96a1-459f-80b1-cd2c7edef6a3",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "items",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        -208
+      ],
+      "id": "62cb7082-ae64-4581-b448-14fc21331745",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "90939727-afbb-4018-b1e2-cf349d806f8f",
+              "name": "source_id",
+              "value": "={{ $json.question_id }}",
+              "type": "string"
+            },
+            {
+              "id": "d0ecc9f6-c481-4527-85bf-adc3673ba912",
+              "name": "owner",
+              "value": "={{ $json.owner.display_name }}",
+              "type": "string"
+            },
+            {
+              "id": "918ea582-2651-4138-9457-5629ae607c47",
+              "name": "title",
+              "value": "={{ $json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "307d08ea-6486-4ada-8c24-4418ae87e7a9",
+              "name": "body",
+              "value": "={{ $json.body }}",
+              "type": "string"
+            },
+            {
+              "id": "9911571b-4c33-4e87-9981-3f4fdd2de560",
+              "name": "link",
+              "value": "={{ $json.link }}",
+              "type": "string"
+            },
+            {
+              "id": "6466d2a5-8e82-4941-b6fa-fa4358f07288",
+              "name": "tags",
+              "value": "={{ $json.tags }}",
+              "type": "array"
+            },
+            {
+              "id": "9cc47bba-1dfa-4fbe-b962-e3dd3b26573b",
+              "name": "score",
+              "value": "={{ $json.score }}",
+              "type": "number"
+            },
+            {
+              "id": "8b9a7027-e66f-4a19-9f19-f4736049cb2f",
+              "name": "creation_date",
+              "value": "={{ $json.creation_date }}",
+              "type": "number"
+            },
+            {
+              "id": "6d46baab-acb4-4ac6-90e3-7c79b1238859",
+              "name": "last_activity_date",
+              "value": "={{ $json.last_activity_date }}",
+              "type": "number"
+            },
+            {
+              "id": "9a2c16e6-cbd8-4e4a-84f8-eaf8444d6f66",
+              "name": "is_answered",
+              "value": "={{ $json.is_answered }}",
+              "type": "boolean"
+            },
+            {
+              "id": "4bbff1c6-c346-4d40-9ef2-2b7154366038",
+              "name": "answer_count",
+              "value": "={{ $json.answer_count }}",
+              "type": "number"
+            },
+            {
+              "id": "60795b01-4ff8-4ab4-b68b-c1b786cfcb57",
+              "name": "accepted_answer_id",
+              "value": "={{ $json.accepted_answer_id }}",
+              "type": "number"
+            },
+            {
+              "id": "7e0346fc-513b-4171-86b7-d1753198ca13",
+              "name": "view_count",
+              "value": "={{ $json.view_count }}",
+              "type": "number"
+            },
+            {
+              "id": "d15ae5da-c17c-4059-9f0d-ad3ac6ee7b14",
+              "name": "comment_count",
+              "value": "={{ $json.comment_count }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1264,
+        -208
+      ],
+      "id": "e87dec72-5baa-4267-837b-c67b4593bbfa",
+      "name": "Padronizar Perguntas"
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {
+          "format": true,
+          "fileName": "stackexchange-questions.json"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1712,
+        -208
+      ],
+      "id": "722ad234-1852-4b84-9fb7-d3440a12de6f",
+      "name": "Gerar JSON de Perguntas"
+    },
+    {
+      "parameters": {
+        "operation": "upload",
+        "bucketName": "communitylab-assets",
+        "fileName": "={{ \"samples/\" + $binary.data.fileName }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        1936,
+        -208
+      ],
+      "id": "c7663737-0006-4443-92dd-545f924ebe71",
+      "name": "Upload a file",
+      "credentials": {
+        "s3": {
+          "id": "WG22ysIkwCiyk8dj",
+          "name": "OCI Object Storage S3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "57af477e-861d-4b4c-87c8-cb11b08936a0",
+              "name": "=tagged",
+              "value": "={{ $json.body?.tagged ?? 'artificial-intelligence' }}",
+              "type": "string"
+            },
+            {
+              "id": "9d4b765f-9ede-45a4-af3c-95ea6727982f",
+              "name": "=fromdate",
+              "value": "={{ Number($json.body?.fromdate ?? 1760929200) }}",
+              "type": "number"
+            },
+            {
+              "id": "77559db9-b31d-4f85-beeb-4868d00fe9fe",
+              "name": "=pagesize",
+              "value": "={{ Number($json.body?.pagesize ?? 100) }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        144,
+        -112
+      ],
+      "id": "f16310cf-5975-47b2-ab09-581661694eb5",
+      "name": "Definir Parâmetros de Busca"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "wf02-coleta-stack-exchange",
+        "authentication": "headerAuth",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -80,
+        -208
+      ],
+      "id": "a37a1648-8be4-428e-ae7a-16cdea3021c2",
+      "name": "Webhook",
+      "webhookId": "8e51e7b2-11a9-48a4-9d90-8766c9752797",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "QNmmh3RzZbp9CXSq",
+          "name": "Hackathon CommunityLab"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"status\": \"success\",\n  \"message\": \"Coleta de perguntas concluída e arquivo disponibilizado no bucket OCI.\"\n}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        2160,
+        -208
+      ],
+      "id": "7318554d-c20d-4f87-a459-71b57d4b23aa",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst isNonEmptyString = (value) =>\n  typeof value === 'string' && value.trim().length > 0;\n\nconst normalizeText = (value) =>\n  typeof value === 'string'\n    ? value.trim().replace(/\\s+/g, ' ')\n    : value;\n\nconst sanitized = [];\nlet rejected = 0;\n\nfor (const item of items) {\n  const q = item.json;\n\n  // Validar os campos essenciais para identificar a pergunta.\n  if (\n    q.source_id === null ||\n    q.source_id === undefined ||\n    !isNonEmptyString(q.title) ||\n    !isNonEmptyString(q.body) ||\n    !isNonEmptyString(q.link)\n  ) {\n    rejected++;\n    continue;\n  }\n\n  // Preservar o HTML de body, incluindo exemplos de código.\n  const body =\n    typeof q.body === 'string' ? q.body.trim() : '';\n\n  // Garantir que tags seja sempre um array de strings.\n  const tags = Array.isArray(q.tags)\n    ? q.tags\n        .filter((tag) => typeof tag === 'string')\n        .map((tag) => tag.trim())\n        .filter((tag) => tag.length > 0)\n    : [];\n\n  sanitized.push({\n    json: {\n      ...q,\n      source_id: String(q.source_id).trim(),\n      owner: normalizeText(q.owner ?? ''),\n      title: normalizeText(q.title),\n      body,\n      link: q.link.trim(),\n      tags,\n    },\n  });\n}\n\nconsole.log(\n  `Sanitização concluída: ${sanitized.length} registros válidos; ${rejected} rejeitados.`\n);\n\nreturn sanitized;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1488,
+        -208
+      ],
+      "id": "ad6cf6b6-11c0-4013-a1b2-19ffe418cbe0",
+      "name": "Sanitizar e Validar Perguntas"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nreturn items.map((item) => {\n  const q = item.json;\n  const errors = [];\n\n  const { tagged, fromdate, pagesize } = q;\n\n  // Validar as tags de busca.\n  if (\n    typeof tagged !== 'string' ||\n    tagged.trim().length === 0 ||\n    tagged.trim().length > 200 ||\n    !/^[a-zA-Z0-9.+#_;-]+$/.test(tagged.trim())\n  ) {\n    errors.push(\n      'tagged deve conter tags válidas separadas por ponto e vírgula.'\n    );\n  }\n\n  // Validar o timestamp Unix em segundos.\n  if (\n    !Number.isSafeInteger(fromdate) ||\n    fromdate <= 0\n  ) {\n    errors.push(\n      'fromdate deve ser um timestamp Unix inteiro positivo em segundos.'\n    );\n  } else if (fromdate > Math.floor(Date.now() / 1000)) {\n    errors.push('fromdate não pode estar no futuro.');\n  }\n\n  // Validar o tamanho da página.\n  if (\n    !Number.isInteger(pagesize) ||\n    pagesize < 1 ||\n    pagesize > 100\n  ) {\n    errors.push(\n      'pagesize deve ser um inteiro entre 1 e 100.'\n    );\n  }\n\n  if (errors.length > 0) {\n    return {\n      json: {\n        ...q,\n        _validation: {\n          valid: false,\n          message: errors.join(' '),\n        },\n      },\n    };\n  }\n\n  return {\n    json: {\n      ...q,\n      tagged: tagged.trim(),\n      fromdate,\n      pagesize,\n      _validation: {\n        valid: true,\n        message: '',\n      },\n    },\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        368,
+        -112
+      ],
+      "id": "3bf0551d-115c-4f31-ae3b-50226787674f",
+      "name": "Validar Parâmetros de Busca"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "a0b8b364-27de-44c3-8f09-45af3321ebc8",
+              "leftValue": "={{ $json._validation.valid }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        592,
+        -112
+      ],
+      "id": "2e8e195e-4dcf-489e-8c38-674ac5358e86",
+      "name": "Parâmetros Válidos?"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{\n  {\n    status: \"error\",\n    message: \"Parâmetros de busca inválidos.\",\n    details: $json._validation.message\n  }\n}}",
+        "options": {
+          "responseCode": 400
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        816,
+        -16
+      ],
+      "id": "6d154145-9d07-4830-86d6-1de261b91884",
+      "name": "Responder Erro de Validação"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Definir Parâmetros de Busca",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Padronizar Perguntas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Padronizar Perguntas": {
+      "main": [
+        [
+          {
+            "node": "Sanitizar e Validar Perguntas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gerar JSON de Perguntas": {
+      "main": [
+        [
+          {
+            "node": "Upload a file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Definir Parâmetros de Busca": {
+      "main": [
+        [
+          {
+            "node": "Validar Parâmetros de Busca",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Definir Parâmetros de Busca",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload a file": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sanitizar e Validar Perguntas": {
+      "main": [
+        [
+          {
+            "node": "Gerar JSON de Perguntas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validar Parâmetros de Busca": {
+      "main": [
+        [
+          {
+            "node": "Parâmetros Válidos?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parâmetros Válidos?": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Responder Erro de Validação",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "timezone": "America/Sao_Paulo"
+  },
+  "versionId": "6f731506-a404-4375-b765-2e9fcb160be3",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
+  },
+  "nodeGroups": [],
+  "id": "wqk8QZ8kzymX4ix4",
+  "tags": []
+}
