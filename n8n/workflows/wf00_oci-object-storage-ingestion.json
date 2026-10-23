@@ -1,4 +1,5 @@
 {
+  "name": "WF00 - OCI Object Storage Ingestion",
   "nodes": [
     {
       "parameters": {
