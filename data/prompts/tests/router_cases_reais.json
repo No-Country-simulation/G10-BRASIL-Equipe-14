@@ -1,0 +1,685 @@
+[
+  {
+    "case": "real_se_duvida_com_resposta_aceita_llamaindex",
+    "origem": "real",
+    "nota_revisao": "Resposta aceita com código. 939 views (< 1000) e score 1: faixa 60–79, não 80+.",
+    "input": {
+      "id": "se-79838505",
+      "source": "stackoverflow",
+      "url": "https://stackoverflow.com/questions/79838505/llama-index-ollama-misloading-model-issue",
+      "interactions": [
+        {
+          "author": "Kemp",
+          "title": "llama_index Ollama misloading model issue",
+          "content": "<p>I'm working with LlamaIndex and trying to run LLM in local using Ollama. I pulled phi3:mini model successfully and tested it in terminal. but if I load it  with llama_index.llms.ollama, it keeps following erros &quot;ollama._types.ResponseError: model requires more system memory (45.3 GiB) than is available (16.8 GiB) (status code: 500)&quot; meaning trying to load phi3 rather than phi3:mini. anyone knows why? I appreciate your reply.</p>\n<pre><code>from llama_index.llms.ollama import Ollama\nimport os\nfrom dotenv import load_dotenv\n\nload_dotenv()\n\n\nllm = Ollama(\n    model = &quot;phi3:mini&quot;,\n    temperature = 0.7,\n    max_tokens = 100,\n    # provider = &quot;auto&quot;\n)\n\nresponse = llm.complete(&quot;Hello, how are you?&quot;)\nprint(response)\n</code></pre>\n<p>Error:</p>\n<blockquote>\n<p>anaconda3\\envs\\hf2025\\Lib\\site-packages\\ollama_client.py&quot;, line 133, in _request_raw\nraise ResponseError(e.response.text, e.response.status_code) from None\nollama._types.ResponseError: model requires more system memory (45.3 GiB) than is available (13.9 GiB) (status code: 500)</p>\n</blockquote>\n<p>Running from the terminal:</p>\n<pre class=\"lang-bash prettyprint-override\"><code>ollama run phi3:mini &quot;Hello, how are you?&quot;\n</code></pre>\n<p>output:</p>\n<blockquote>\n<p>I'm doing well! Thank you for asking. How about yourself? Please remember that as an AI I don't have feelings but\nit's always nice to know how others are feeling too. Now, what can I help you with today? Do let me assist in\nimproving your day or answering any questions you might have!</p>\n</blockquote>\n",
+          "tags": [
+            "python",
+            "artificial-intelligence",
+            "large-language-model",
+            "llama-index",
+            "ollama"
+          ],
+          "created_at": "2025-12-05T02:26:43Z",
+          "raw_metadata": {
+            "question_id": 79838505,
+            "link": "https://stackoverflow.com/questions/79838505/llama-index-ollama-misloading-model-issue",
+            "score": 1,
+            "view_count": 939,
+            "answer_count": 1,
+            "is_answered": true,
+            "comment_count": 2,
+            "accepted_answer_id": 79839411,
+            "content_license": "CC BY-SA 4.0",
+            "enriched_from": "api.stackexchange.com 2.3 (consultado em 2026-10-21)"
+          }
+        },
+        {
+          "author": "Ajeet Verma",
+          "content": "<p>This seems like a LlamaIndex–Ollama integration bug, that's why you don't get the error when  you run it directly from the terminal using ollama command.</p>\n<p>But, when using the Ollama from the llamaIndex integration, this error occurs perhaps because LlamaIndex tries loading the base &quot;phi3&quot; model during the metadata call (even though phi3:mini is mentioned). And this issue occurs for other models as well (for example, llama3.2)</p>\n<p>A simple fix is to <strong>explicitly</strong> add a <code>context_window</code> and you'll no longer receieve the ResponseError.</p>\n<pre class=\"lang-py prettyprint-override\"><code>from llama_index.llms.ollama import Ollama\n\nllm = Ollama(\n    model = &quot;phi3:mini&quot;,\n    temperature = 0.7,\n    max_tokens = 100,\n    context_window=8000,\n)\n\nresponse = llm.complete(&quot;Hello, how are you?&quot;)\nprint(response)\n</code></pre>\n<p>output:</p>\n<blockquote>\n<p>I'm an AI developed by Microsoft and do not have feelings, but I'm here to help! How can I assist you today? If you need information or support on a variety of topics, feel free to ask.</p>\n</blockquote>\n",
+          "created_at": "2025-12-06T00:45:56Z",
+          "raw_metadata": {
+            "answer_id": 79839411,
+            "score": 2,
+            "is_accepted": true,
+            "content_license": "CC BY-SA 4.0",
+            "enriched_from": "api.stackexchange.com 2.3 (consultado em 2026-10-21)"
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "has_answer": true,
+      "suggested_route": "faq",
+      "min_score": 60,
+      "max_score": 79
+    }
+  },
+  {
+    "case": "real_se_duvida_com_resposta_aceita_vscode",
+    "origem": "real",
+    "nota_revisao": "Resposta aceita curta (1 configuração). Tema de ferramenta: topic_category dev_tools.",
+    "input": {
+      "id": "se-79998781",
+      "source": "stackoverflow",
+      "url": "https://stackoverflow.com/questions/79998781/how-do-i-disable-generate-commit-message-without-disabling-other-ai-features-i",
+      "interactions": [
+        {
+          "author": "Stevoisiak",
+          "title": "How do I disable \"Generate Commit Message\" without disabling other AI features in VS Code?",
+          "content": "<p>VS Code added a sparkling button for AI generating commit messages. I want to disable commit message generation, <a href=\"https://stackoverflow.com/questions/79777875/how-can-i-remove-generate-commit-message-and-other-ai-features-in-1-102-0-and\">but unlike a similar question</a>, I'm not looking to disable all AI features. I want to keep things like <a href=\"https://code.visualstudio.com/docs/agents/run/chat-view\" rel=\"nofollow noreferrer\">Copilot Chat</a> enabled.</p>\n<p>How can I disable the &quot;Generate Commit Message&quot; button without disabling other AI features?</p>\n<p><img src=\"https://i.sstatic.net/8MSoerNT.png\" alt=\"Generate commit messages button\" /></p>\n",
+          "tags": [
+            "vs-code",
+            "artificial-intelligence"
+          ],
+          "created_at": "2026-08-27T19:55:45Z",
+          "raw_metadata": {
+            "question_id": 79998781,
+            "link": "https://stackoverflow.com/questions/79998781/how-do-i-disable-generate-commit-message-without-disabling-other-ai-features-i",
+            "score": 1,
+            "view_count": 142,
+            "answer_count": 1,
+            "is_answered": true,
+            "comment_count": 4,
+            "accepted_answer_id": 79998800,
+            "content_license": "CC BY-SA 4.0",
+            "enriched_from": "api.stackexchange.com 2.3 (consultado em 2026-10-21)"
+          }
+        },
+        {
+          "author": "Michael",
+          "content": "<p>I was looking for the same thing. You can hide just this button without disabling the other AI features.</p>\n<p>Open the Command Palette (<code>Ctrl+Shift+P</code> / <code>Cmd+Shift+P</code> on macOS), select <strong>Preferences: Open User Settings (JSON)</strong>, and add:</p>\n<pre><code>&quot;scm.showInputActionButton&quot;: false\n</code></pre>\n",
+          "created_at": "2026-08-27T21:39:03Z",
+          "raw_metadata": {
+            "answer_id": 79998800,
+            "score": 4,
+            "is_accepted": true,
+            "content_license": "CC BY-SA 4.0",
+            "enriched_from": "api.stackexchange.com 2.3 (consultado em 2026-10-21)"
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "has_answer": true,
+      "suggested_route": "faq",
+      "min_score": 60,
+      "max_score": 79
+    }
+  },
+  {
+    "case": "real_se_duvida_com_resposta_aceita_symfony_ai",
+    "origem": "real",
+    "nota_revisao": "Mesma pergunta que inspirou o caso sintético t05. Na vida real ela TEM resposta aceita.",
+    "input": {
+      "id": "se-79857625",
+      "source": "stackoverflow",
+      "url": "https://stackoverflow.com/questions/79857625/symfony-ai-how-to-add-additional-models-for-the-lm-studio-bridge",
+      "interactions": [
+        {
+          "author": "QuenK",
+          "title": "Symfony AI: How to add additional models for the LM Studio bridge?",
+          "content": "<p>I’m working with <strong>Symfony AI</strong> and the <strong>LM Studio bridge</strong> to manage my language models locally.<br />\nMy goal is to <strong>add custom models</strong> that are not included in Symfony’s default <code>ModelCatalog</code>.</p>\n<p>My YAML configuration looks like this:</p>\n<pre><code>ai:\n  platform:\n    lmstudio:\n      host_url: &quot;http://127.0.0.1:1234&quot;\n\n  agent:\n    test:\n      platform: 'ai.platform.lmstudio'\n      model: 'ministral-3-3b'\n      tools: false\n</code></pre>\n<p>Even though the model is loaded in LM Studio, Symfony <strong>does not detect it</strong>.</p>\n<hr />\n<p>I created a custom <code>ModelCatalog</code>:</p>\n<pre><code>&lt;?php\nnamespace App\\Service;\n\nuse Symfony\\AI\\Platform\\Bridge\\Generic\\CompletionsModel;\nuse Symfony\\AI\\Platform\\Capability;\nuse Symfony\\AI\\Platform\\ModelCatalog\\AbstractModelCatalog;\n\nfinal class LMModelCatalog extends AbstractModelCatalog\n{\n    public function __construct()\n    {\n        $additionalModels = [\n            'ministral-3-3b' =&gt; [\n                'class' =&gt; CompletionsModel::class,\n                'capabilities' =&gt; [\n                    Capability::INPUT_MESSAGES,\n                    Capability::OUTPUT_TEXT,\n                    Capability::OUTPUT_STREAMING,\n                ],\n            ],\n        ];\n\n        parent::__construct($additionalModels);\n    }\n}\n</code></pre>\n<hr />\n<h3>What I understood</h3>\n<ul>\n<li><p>The LM Studio <code>ModelCatalog</code> is <strong>hardcoded</strong>, and some models are not included by default.</p>\n</li>\n<li><p>The official documentation does not clearly explain how to <strong>extend the catalog</strong>.</p>\n</li>\n<li><p>It seems that we need to <strong>inject a custom <code>ModelCatalog</code> service</strong> instead of using YAML, but I haven’t found a recent concrete example.</p>\n</li>\n</ul>\n<hr />\n<h3>My question</h3>\n<p>How can we <strong>add additional models</strong> for the LM Studio bridge in Symfony AI in a clean way compatible with the current bundle configuration?</p>\n<ol>\n<li><p>Can this be done via YAML, or only via <code>services.yaml</code>?</p>\n</li>\n<li><p>If it is via <code>services.yaml</code>, what is the recommended snippet to <strong>declare custom models with their capabilities</strong>?</p>\n</li>\n</ol>\n",
+          "tags": [
+            "php",
+            "symfony",
+            "artificial-intelligence"
+          ],
+          "created_at": "2025-12-30T15:19:35Z",
+          "raw_metadata": {
+            "question_id": 79857625,
+            "link": "https://stackoverflow.com/questions/79857625/symfony-ai-how-to-add-additional-models-for-the-lm-studio-bridge",
+            "score": 6,
+            "view_count": 248,
+            "answer_count": 1,
+            "is_answered": true,
+            "comment_count": 0,
+            "accepted_answer_id": 79858113,
+            "content_license": "CC BY-SA 4.0",
+            "enriched_from": "api.stackexchange.com 2.3 (consultado em 2026-10-21)"
+          }
+        },
+        {
+          "author": "Olivier",
+          "content": "<p>The feature doesn't seem to be documented indeed, set let's dig into the <a href=\"https://github.com/symfony/ai/blob/45c8e2f8d950501474d84305149d4b91d9ff1774/src/ai-bundle/src/AiBundle.php#L156\" rel=\"noreferrer\">source</a> that parses the configuration file (ai.yaml):</p>\n<pre><code>public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void\n{\n    $container-&gt;import('../config/services.php');\n\n    foreach ($config['platform'] ?? [] as $type =&gt; $platform) {\n        $this-&gt;processPlatformConfig($type, $platform, $builder);\n    }\n\n    // Process model configuration and pass to ModelCatalog services\n    foreach ($config['model'] ?? [] as $platformName =&gt; $models) {\n        $this-&gt;processModelConfig($platformName, $models, $builder);\n    }\n</code></pre>\n<p>After reading the <code>platform</code> key, the <code>model</code> key is processed by <a href=\"https://github.com/symfony/ai/blob/45c8e2f8d950501474d84305149d4b91d9ff1774/src/ai-bundle/src/AiBundle.php#L2224\" rel=\"noreferrer\"><code>processModelConfig()</code></a> to add extra models:</p>\n<pre><code>/**\n * Process model configuration and pass it to ModelCatalog services.\n *\n * @param array&lt;string, array{class: class-string, capabilities: list&lt;Capability|string&gt;}&gt; $models\n */\nprivate function processModelConfig(string $platformName, array $models, ContainerBuilder $builder): void\n{\n    $modelCatalogId = 'ai.platform.model_catalog.'.$platformName;\n\n    // Handle special cases for platform name mapping\n    if ('vertexai' === $platformName) {\n        $modelCatalogId = 'ai.platform.model_catalog.vertexai.gemini';\n    }\n\n    if (!$builder-&gt;hasDefinition($modelCatalogId)) {\n        return;\n    }\n\n    $additionalModels = [];\n    foreach ($models as $modelName =&gt; $modelConfig) {\n        $additionalModels[$modelName] = [\n            'class' =&gt; $modelConfig['class'],\n            'capabilities' =&gt; $modelConfig['capabilities'],\n        ];\n    }\n\n    if ([] === $additionalModels) {\n        return;\n    }\n\n    $definition = $builder-&gt;getDefinition($modelCatalogId);\n    $definition-&gt;setArguments([$additionalModels]);\n}\n</code></pre>\n<p>According to the code, your ai.yaml file should look something like this:</p>\n<pre class=\"lang-yaml prettyprint-override\"><code>ai:\n  platform:\n    lmstudio:\n      host_url: &quot;http://127.0.0.1:1234&quot;\n\n  model:\n    lmstudio:\n      ministral-3-3b:\n        class: 'Symfony\\AI\\Platform\\Bridge\\Generic\\CompletionsModel'\n        capabilities:\n          - !php/const 'Symfony\\AI\\Platform\\Capability::INPUT_MESSAGES'\n          - !php/const 'Symfony\\AI\\Platform\\Capability::OUTPUT_TEXT'\n          - !php/const 'Symfony\\AI\\Platform\\Capability::OUTPUT_STREAMING'\n\n  agent:\n    test:\n      platform: 'ai.platform.lmstudio'\n      model: 'ministral-3-3b'\n      tools: false\n</code></pre>\n",
+          "created_at": "2025-12-31T11:35:20Z",
+          "raw_metadata": {
+            "answer_id": 79858113,
+            "score": 5,
+            "is_accepted": true,
+            "content_license": "CC BY-SA 4.0",
+            "enriched_from": "api.stackexchange.com 2.3 (consultado em 2026-10-21)"
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "has_answer": true,
+      "suggested_route": "faq",
+      "min_score": 60,
+      "max_score": 79
+    }
+  },
+  {
+    "case": "real_se_resposta_nao_aceita_windsurf",
+    "origem": "real",
+    "nota_revisao": "Resposta NÃO aceita, de 1 linha (\"ative Detect Proxy\"). Desde a v0.3, só resposta aceita conta como has_answer (na v0.2 o esperado era faq; o Gemini já tratava como sem resposta).",
+    "input": {
+      "id": "se-79850130",
+      "source": "stackoverflow",
+      "url": "https://stackoverflow.com/questions/79850130/why-isnt-windsurfs-autocomplete-working-in-my-intellij-idea-2024",
+      "interactions": [
+        {
+          "author": "llewyn lau",
+          "title": "Why isn't Windsurf's autocomplete working in my IntelliJ IDEA 2024?",
+          "content": "<p>Just installed Windsurf in IDEA 2024 and enabled autocomplete. The Chat agent works fine (I'm in China, so probably not a full network block).</p>\n<p>But inline suggestions aren't appearing at all. Example: I write a complete getUser endpoint in a Spring Controller (full annotations, params, return type). Then on a new line I start typing getScore — nothing is suggested, no ghost text, no similar method structure.</p>\n<p>Tabnine used to do this perfectly (suggesting patterned code based on existing methods), but it stopped working after a recent IDEA update.</p>\n<p>Any ideas why Windsurf isn't triggering contextual completions? Missing setting, or is it just less proactive than Tabnine for whole-method suggestions?</p>\n",
+          "tags": [
+            "intellij-idea",
+            "artificial-intelligence",
+            "intellij-plugin",
+            "code-completion"
+          ],
+          "created_at": "2025-12-18T08:37:05Z",
+          "raw_metadata": {
+            "question_id": 79850130,
+            "link": "https://stackoverflow.com/questions/79850130/why-isnt-windsurfs-autocomplete-working-in-my-intellij-idea-2024",
+            "score": 2,
+            "view_count": 1055,
+            "answer_count": 1,
+            "is_answered": true,
+            "comment_count": 1,
+            "content_license": "CC BY-SA 4.0",
+            "enriched_from": "api.stackexchange.com 2.3 (consultado em 2026-10-21)"
+          }
+        },
+        {
+          "author": "Sebastian Spyrzewski",
+          "content": "<p>For me going to Tools-&gt;Windsurf Settings and enabling Detect Proxy option worked</p>\n",
+          "created_at": "2026-01-13T13:30:17Z",
+          "raw_metadata": {
+            "answer_id": 79866979,
+            "score": 1,
+            "is_accepted": false,
+            "content_license": "CC BY-SA 4.0",
+            "enriched_from": "api.stackexchange.com 2.3 (consultado em 2026-10-21)"
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "has_answer": false,
+      "suggested_route": "newsletter_only",
+      "min_score": 40,
+      "max_score": 59
+    }
+  },
+  {
+    "case": "real_se_duvida_sem_resposta_muito_vista",
+    "origem": "real",
+    "nota_revisao": "1.373 views e 0 respostas. Bom candidato para FAQ \"[PRECISA DE REVISÃO TÉCNICA]\" e para a mentoria.",
+    "input": {
+      "id": "se-79837611",
+      "source": "stackoverflow",
+      "url": "https://stackoverflow.com/questions/79837611/how-to-fix-eof-server-ollama-error-when-embedding",
+      "interactions": [
+        {
+          "author": "Leslie Joe",
+          "title": "How to fix EOF Server Ollama Error when embedding",
+          "content": "<p>I built the RAG system in Laravel with Neuron AI framework. I tried to store docs to the vectorstore but I got error:</p>\n<pre><code>[2025-12-04 06:49:45] local.ERROR: Server error: `POST http://localhost:11434/api/embeddings` resulted in a `500 Internal Server Error` response:\n{&quot;error&quot;:&quot;do embedding request: Post \\&quot;http://127.0.0.1:56021/embedding\\&quot;: EOF&quot;}\n {&quot;exception&quot;:&quot;[object] (GuzzleHttp\\\\Exception\\\\ServerException(code: 500): Server error: `POST http://localhost:11434/api/embeddings` resulted in a `500 Internal Server Error` response:\n{\\&quot;error\\&quot;:\\&quot;do embedding request: Post \\\\\\&quot;http://127.0.0.1:56021/embedding\\\\\\&quot;: EOF\\&quot;} \n</code></pre>\n<p>I tried Claude and GPT to find solution but to no avail.</p>\n<p>Custom OllamaEmbeddingsProvider with the abstract class to extends AbstractEmbeddingsProvider class</p>\n<pre><code>&lt;?php\n\nnamespace App\\Neuron\\Providers;\n\nuse GuzzleHttp\\Client;\nuse GuzzleHttp\\RequestOptions;\nuse Illuminate\\Support\\Facades\\Log;\nuse NeuronAI\\RAG\\Embeddings\\AbstractEmbeddingsProvider;\n\nclass FixedOllamaEmbeddingsProvider extends AbstractEmbeddingsProvider\n{\n    protected Client $client;\n\n    public function __construct(\n        protected string $model,\n        protected string $url = 'http://localhost:11434/api',\n        protected array $parameters = [],\n    ) {\n        $this-&gt;client = new Client([\n            'base_uri' =&gt; trim($this-&gt;url, '/') . '/',\n            'timeout' =&gt; 60,\n        ]);\n    }\n\n    public function embedText(string $text): array\n    {\n        $response = $this-&gt;client-&gt;post('embeddings', [\n            RequestOptions::JSON =&gt; [\n                'model' =&gt; $this-&gt;model,\n                'prompt' =&gt; $text,\n                ...$this-&gt;parameters,\n            ],\n            RequestOptions::HTTP_ERRORS =&gt; true,\n            'timeout' =&gt; 60,\n            'connect_timeout' =&gt; 5,\n        ])-&gt;getBody()-&gt;getContents();\n\n        $response = json_decode($response, true);\n\n        return $response['embedding'];\n    }\n}\n</code></pre>\n<p>MyChatBos class used Neuron AI Framework</p>\n<pre><code>protected function embeddings(): EmbeddingsProviderInterface\n    {\n        return new FixedOllamaEmbeddingsProvider(\n            url: config('services.neuron.ollama.url'),\n            model: config('services.neuron.ollama.embeddings_model')\n        );\n        \n        // return new OpenAIEmbeddingsProvider(\n        //     key: config('services.neuron.openai.key'),\n        //     model: config('services.neuron.openai.embedding_model')\n        // );\n    }\n\n    public function vectorStore(): VectorStoreInterface\n    {\n        // if (!File::exists(storage_path('rag_vectors/chatbot.store'))) {\n        //     throw new \\Exception('Vector store not found');\n        // }\n\n        return new FileVectorStore(\n            directory: storage_path('rag_vectors'),\n            name: 'laravel-docs',\n            ext: &quot;.store&quot;,\n            topK: 4\n        );\n    }\n</code></pre>\n<p>Your help is highly appreciated!.</p>\n",
+          "tags": [
+            "laravel",
+            "artificial-intelligence",
+            "embedding",
+            "ollama"
+          ],
+          "created_at": "2025-12-04T06:59:52Z",
+          "raw_metadata": {
+            "question_id": 79837611,
+            "link": "https://stackoverflow.com/questions/79837611/how-to-fix-eof-server-ollama-error-when-embedding",
+            "score": 0,
+            "view_count": 1373,
+            "answer_count": 0,
+            "is_answered": false,
+            "comment_count": 5,
+            "content_license": "CC BY-SA 4.0",
+            "enriched_from": "api.stackexchange.com 2.3 (consultado em 2026-10-21)"
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "has_answer": false,
+      "suggested_route": "newsletter_only",
+      "min_score": 40,
+      "max_score": 59
+    }
+  },
+  {
+    "case": "real_se_duvida_sem_resposta_langchain_mcp",
+    "origem": "real",
+    "nota_revisao": "Bem descrita (erro + código), sem resposta.",
+    "input": {
+      "id": "se-79935672",
+      "source": "stackoverflow",
+      "url": "https://stackoverflow.com/questions/79935672/input-validation-error-1-57-is-not-of-type-number-from-langchain-mcp-adapte",
+      "interactions": [
+        {
+          "author": "Aashishkumar",
+          "title": "Input validation error: '1.57' is not of type 'number' from langchain_mcp_adapter",
+          "content": "<p>I am getting the following error:</p>\n<pre><code>An error occurred: Input validation error: '1.57' is not of type 'number'\n</code></pre>\n<p>From what I understand, this happens before the MCP server is called: LangChain’s MCP adapter is validating the tool call arguments against the JSON Schema and the model is emitting <code>&quot;1.57&quot;</code> as a string instead of <code>1.57</code> as a number, so the validation fails.</p>\n<p>Is that understanding correct? And what’s the recommended way to deal with this when using <code>create_agent(model, tools)</code> and MCP tools</p>\n<p>Code:</p>\n<pre><code>import os\nimport asyncio\nfrom dotenv import load_dotenv\nfrom langchain.agents import create_agent\nfrom langchain.chat_models import init_chat_model\nfrom langchain_mcp_adapters.client import MultiServerMCPClient\nimport logging\n\nlogging.basicConfig(level=logging.DEBUG)\n\nlogging.getLogger(&quot;langchain_mcp_adapters&quot;).setLevel(logging.DEBUG)\nlogging.getLogger(&quot;mcp&quot;).setLevel(logging.DEBUG)\n\nload_dotenv()\n\nasync def main():\n    try:\n        # 1.Get tools from MCP server\n        mcp_server_url = os.getenv(&quot;MCP_SERVER_URL&quot;, &quot;http://localhost:3001/mcp&quot;)\n        client = MultiServerMCPClient({\n            &quot;nav2_mcp_server&quot;: {\n                &quot;transport&quot;: &quot;streamable_http&quot;,\n                &quot;url&quot;: mcp_server_url,\n            }\n        })\n\n        print(&quot;🔧 Fetching tools from Nav2 MCP server...&quot;)\n        tools = await client.get_tools()\n\n        print(f&quot;✅ Retrieved {len(tools)} tools from physical-agentic-robot-mcp server:&quot;)\n        for tool in tools:\n            # print(f&quot;   • {tool.name}: {tool.description}&quot;)\n            print(f&quot;   • {tool.name}: {tool.args_schema}&quot;)\n\n        # 2.Create LLM model\n        model = init_chat_model(model = &quot;llama3.2:3b&quot;, model_provider=&quot;ollama&quot;)\n\n\n        # 3. Create agent with tools from MCP server\n        agent = create_agent(model, tools, system_prompt=&quot;You are the brains of the robot and need to call the correct tools with correct tool json schema arguments.&quot;)\n\n        # 4. Use the agent to get documentation\n        # query = &quot;Is there any green trash can in environment, can you move there?&quot;\n        query = &quot;Navigate 1m forward, then turn 90 degrees to the right, and move another 1m forward.&quot;\n        print(f&quot;👤 User: {query}\\n&quot;)\n\n        response = await agent.ainvoke({&quot;messages&quot;: [(&quot;human&quot;, query)]})\n        last_message = response[&quot;messages&quot;][-1]\n\n        print(f&quot;🤖 Agent: {last_message.content}\\n&quot;)\n    except Exception as e:\n        print(f&quot;❌ An error occurred: {e}&quot;)\n\n    finally:\n        print(&quot;✅ MCP client connection closed&quot;)\n\n\nif __name__ == &quot;__main__&quot;:\n    asyncio.run(main())\n</code></pre>\n<p>MCP server tool example</p>\n<pre><code>    @mcp.tool(\n        name='navigate_to_pose',\n        description=&quot;&quot;&quot;Navigate the robot to a specific pose (position and\n        orientation) in the map frame.\n\n        Example usage:\n        - navigate to position (2.0, 3.0) with orientation 1.57\n        - go to x=2 y=3 with yaw=90 degrees\n        - move to coordinates (2, 3) facing north\n        &quot;&quot;&quot;,\n        tags={'navigate', 'go to', 'move to', 'navigate to pose', 'position'},\n        annotations={\n            'title': 'Navigate To Pose',\n            'readOnlyHint': False,\n            'openWorldHint': False\n        },\n    )\n    async def navigate_to_pose(\n        x: Annotated[float, 'X coordinate of target pose in map frame'],\n        y: Annotated[float, 'Y coordinate of target pose in map frame'],\n        yaw: Annotated[\n            float,\n            'Orientation in radians (0=east, π/2=north, π=west, 3π/2=south)'\n        ] = 0.0,\n        ctx: Annotated[\n            Optional[Context],\n            'MCP context used for logging and progress msgs'\n        ] = None,\n    ) -&gt; str:\n</code></pre>\n",
+          "tags": [
+            "python",
+            "artificial-intelligence",
+            "langchain",
+            "model-context-protocol",
+            "langchain-agents"
+          ],
+          "created_at": "2026-05-04T06:30:05Z",
+          "raw_metadata": {
+            "question_id": 79935672,
+            "link": "https://stackoverflow.com/questions/79935672/input-validation-error-1-57-is-not-of-type-number-from-langchain-mcp-adapte",
+            "score": 2,
+            "view_count": 191,
+            "answer_count": 0,
+            "is_answered": false,
+            "comment_count": 3,
+            "content_license": "CC BY-SA 4.0",
+            "enriched_from": "api.stackexchange.com 2.3 (consultado em 2026-10-21)"
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "has_answer": false,
+      "suggested_route": "newsletter_only",
+      "min_score": 40,
+      "max_score": 59
+    }
+  },
+  {
+    "case": "real_se_limitacao_de_ferramenta_tom_objetivo",
+    "origem": "real",
+    "nota_revisao": "Testa se reclamação de ferramenta em tom objetivo NÃO vai para moderação. Na v0.1 era ambíguo.",
+    "input": {
+      "id": "se-79958777",
+      "source": "stackoverflow",
+      "url": "https://stackoverflow.com/questions/79958777/cursor-ide-free-tier-usage-quota-exhausting-after-only-a-few-prompts",
+      "interactions": [
+        {
+          "author": "Henok Emyaye",
+          "title": "Cursor IDE free tier usage quota exhausting after only a few prompts",
+          "content": "<p>I am using Cursor IDE on the free tier for web development. Recently, my usage quota is exhausting almost immediately.</p>\n<p>usually after only 2 or 3 prompts in a session.  I know the free plan has limits, but this behavior started suddenly, and previously the allowance lasted much longer.</p>\n<p><strong>What I've checked:</strong></p>\n<ul>\n<li><p>Context Size: I am not manually attaching massive files, but it feels like a huge amount of tokens are being consumed per request.</p>\n</li>\n<li><p>Model: I am using the standard default models in the chat window.</p>\n</li>\n<li><p>Account: My dashboard simply says the limit is reached without a granular breakdown.</p>\n</li>\n</ul>\n<p><strong>My questions:</strong></p>\n<ul>\n<li><p>Are there specific background settings (like automatic codebase indexing or semantic search context) that I should disable to prevent a single prompt from eating up the entire quota?</p>\n</li>\n<li><p>Has anyone else experienced this drastic drop in free tier limits recently, or is there a known bug with token calculation?  Thanks for any help or workarounds!</p>\n</li>\n</ul>\n",
+          "tags": [
+            "model",
+            "artificial-intelligence",
+            "agent",
+            "cursor-ide",
+            "best-practices"
+          ],
+          "created_at": "2026-06-14T10:49:07Z",
+          "raw_metadata": {
+            "question_id": 79958777,
+            "link": "https://stackoverflow.com/questions/79958777/cursor-ide-free-tier-usage-quota-exhausting-after-only-a-few-prompts",
+            "score": 0,
+            "view_count": 147,
+            "answer_count": 0,
+            "is_answered": false,
+            "comment_count": 0,
+            "content_license": "CC BY-SA 4.0",
+            "enriched_from": "api.stackexchange.com 2.3 (consultado em 2026-10-21)"
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "has_answer": false,
+      "suggested_route": "newsletter_only",
+      "min_score": 40,
+      "max_score": 59
+    }
+  },
+  {
+    "case": "real_se_desanimo_pessoal_vibe_coder",
+    "origem": "real",
+    "nota_revisao": "Pedido de conselho em tom construtivo (\"I want to be an actual coder\"). Desde a v0.3 é neutral; só desistência declarada vai para moderação (na v0.2 o esperado era moderation, e o Gemini leu como neutral).",
+    "input": {
+      "id": "se-79874274",
+      "source": "stackoverflow",
+      "url": "https://stackoverflow.com/questions/79874274/ai-makes-me-stop-upgrading-my-skills-ended-up-making-a-vibe-coder-rather-than-a",
+      "interactions": [
+        {
+          "author": "Cxainnz",
+          "title": "AI makes me stop upgrading my skills, ended up making a vibe coder rather than a actual coder",
+          "content": "<p>Well I am a beginner programmer and I was working in programming form my high school around 2019, but now I have some doubts I directly ask from AI and earlier I used to google it but I can't find some good answer. So I ended up asking AI, which make me think that I can't work on my skills any practices, that can help me? and also I dont like vibe-coding I want to be a actual coder who rads documentation and work on it</p>\n",
+          "tags": [
+            "swift",
+            "swiftui",
+            "artificial-intelligence",
+            "project",
+            "best-practices"
+          ],
+          "created_at": "2026-01-23T04:35:41Z",
+          "raw_metadata": {
+            "question_id": 79874274,
+            "link": "https://stackoverflow.com/questions/79874274/ai-makes-me-stop-upgrading-my-skills-ended-up-making-a-vibe-coder-rather-than-a",
+            "score": 0,
+            "view_count": 463,
+            "answer_count": 7,
+            "is_answered": false,
+            "comment_count": 0,
+            "content_license": "CC BY-SA 4.0",
+            "enriched_from": "api.stackexchange.com 2.3 (consultado em 2026-10-21)"
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "debate",
+      "sentiment": "neutral",
+      "has_answer": false,
+      "suggested_route": "newsletter_only",
+      "min_score": 40,
+      "max_score": 59
+    }
+  },
+  {
+    "case": "real_se_debate_mercado_com_respostas",
+    "origem": "real",
+    "nota_revisao": "Uma das respostas é negativa (\"my salary had 50% loss\"), mas o sentimento é do post original.",
+    "input": {
+      "id": "se-79835621",
+      "source": "stackoverflow",
+      "url": "https://stackoverflow.com/questions/79835621/will-ai-reduce-the-demand-for-software-developers-in-the-future-and-stackoverfl",
+      "interactions": [
+        {
+          "author": "Umer Fayyaz",
+          "title": "Will AI reduce the demand for software developers in the future? and stackoverflow effect due to AI",
+          "content": "<p>I'm noticing rapid improvements in AI tools (ChatGPT, GitHub Copilot, etc.), and I'm concerned about how this will impact developer jobs in the next few years.<br />\nWill AI replace developers, or will it just change the way we work?<br />\nWhat skills should developers focus on to stay relevant?</p>\n",
+          "tags": [
+            "artificial-intelligence",
+            "chatgpt-api",
+            "best-practices"
+          ],
+          "created_at": "2025-12-02T08:05:44Z",
+          "raw_metadata": {
+            "question_id": 79835621,
+            "link": "https://stackoverflow.com/questions/79835621/will-ai-reduce-the-demand-for-software-developers-in-the-future-and-stackoverfl",
+            "score": 1,
+            "view_count": 346,
+            "answer_count": 3,
+            "is_answered": true,
+            "comment_count": 0,
+            "content_license": "CC BY-SA 4.0",
+            "enriched_from": "api.stackexchange.com 2.3 (consultado em 2026-10-21)"
+          }
+        },
+        {
+          "author": "Munir",
+          "content": "<p>Stackoverflow traffic is reduced. I can see very less questions are coming into stackoverflow. But, good thing is new questions are very specific to niche area or deep problem.</p>\n",
+          "created_at": "2025-12-02T09:32:57Z",
+          "raw_metadata": {
+            "answer_id": 79835684,
+            "score": 1,
+            "is_accepted": false,
+            "content_license": "CC BY-SA 4.0",
+            "enriched_from": "api.stackexchange.com 2.3 (consultado em 2026-10-21)"
+          }
+        },
+        {
+          "author": "Peter Pointer",
+          "content": "<p>The AI you are referring to is the <em>vibe-based</em> coding using natural language. In this case the AI is a human speech interface for coding. It makes non-developers able to create programs/apps/games, which wasn't quite possible like that before. It democratizes creating programs. The same way the printing press made spreading ideas easier. That's generally a good thing.</p>\n<p>If you're not letting it create full programs, it can still be nice as a human language interface to problem solving. It helps with analyzing code, refactoring, create or help plan new features. As a developer you still need to know if the code it produces is useful. Or prompt it to validate its own code and cross your fingers.</p>\n<p>In all cases you will need to set up tests that prove your program does what you want it to and keep updating the tests as you go along. The job hasn't changed there.</p>\n<p>Of course companies could replace their software developers if that gets sophisticated enough. They could also be smart and multiply the use of each developer, instead of handing them over to the competition.</p>\n<p>When AI goes wrong it is very annoying to talk to this all-knowing 8-year old, which understandably is very frustrating in a way that betrays the AI's premise - makes me want to go back to keywords and syntax. So now we have to use speech in a certain way instead of using our natural language. Almost like a programming language of its own.</p>\n<p>Humanity will also need to produce more code to train AI on. I suspect it will become more of an ecosystem of traditional developers together with AI-based developers. It's just currently shifting where each company wants to position itself.</p>\n<p>MicroSoft made a nice set of presentations about using AI. It's free on GitHub:<br />\n<a href=\"https://github.com/microsoft/generative-ai-for-beginners\" rel=\"nofollow noreferrer\">https://github.com/microsoft/generative-ai-for-beginners</a></p>\n",
+          "created_at": "2025-12-02T09:47:25Z",
+          "raw_metadata": {
+            "answer_id": 79835697,
+            "score": 0,
+            "is_accepted": false,
+            "content_license": "CC BY-SA 4.0",
+            "enriched_from": "api.stackexchange.com 2.3 (consultado em 2026-10-21)"
+          }
+        },
+        {
+          "author": "byebai",
+          "content": "<p>who knows!! its hard to say, but software developer will more cheaper, my salary had 50% loss this year</p>\n",
+          "created_at": "2025-12-02T09:11:02Z",
+          "raw_metadata": {
+            "answer_id": 79835664,
+            "score": -1,
+            "is_accepted": false,
+            "content_license": "CC BY-SA 4.0",
+            "enriched_from": "api.stackexchange.com 2.3 (consultado em 2026-10-21)"
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "debate",
+      "sentiment": "neutral",
+      "has_answer": false,
+      "suggested_route": "newsletter_only",
+      "min_score": 40,
+      "max_score": 59
+    }
+  },
+  {
+    "case": "real_se_pergunta_vaga_ruido",
+    "origem": "real",
+    "nota_revisao": "Ruído/não aproveitável: pergunta vaga, sem erro, código, versão nem o que já tentou. Na rodada da v0.2, o Gemini deu 45 (falha); a v0.3 tornou a checagem de pergunta vaga um passo separado.",
+    "input": {
+      "id": "se-79893379",
+      "source": "stackoverflow",
+      "url": "https://stackoverflow.com/questions/79893379/model-context-protocol",
+      "interactions": [
+        {
+          "author": "Lokesha M V",
+          "title": "Model context protocol",
+          "content": "<p>I am using this in my project so I need to start mcp server for my project how can I do this mcp hosting in java. I need to monitor the traffic of the mcp server outgoing and incoming data packets how can I achieve this.</p>\n",
+          "tags": [
+            "java",
+            "security",
+            "artificial-intelligence",
+            "model-context-protocol",
+            "tooling-recommendation"
+          ],
+          "created_at": "2026-02-21T03:43:24Z",
+          "raw_metadata": {
+            "question_id": 79893379,
+            "link": "https://stackoverflow.com/questions/79893379/model-context-protocol",
+            "score": 0,
+            "view_count": 78,
+            "answer_count": 2,
+            "is_answered": false,
+            "comment_count": 0,
+            "content_license": "CC BY-SA 4.0",
+            "enriched_from": "api.stackexchange.com 2.3 (consultado em 2026-10-21)"
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "has_answer": false,
+      "suggested_route": "discard",
+      "max_score": 39
+    }
+  },
+  {
+    "case": "real_mastodon_bot_politica",
+    "origem": "real",
+    "nota_revisao": "Bot de RSS (Politico), assunto político, hashtags em excesso.",
+    "input": {
+      "id": "mst-117476946010510390",
+      "source": "mastodon",
+      "url": "https://social.espeweb.net/objects/1e47f634-677d-44c1-bfde-7c8292f2db8d",
+      "interactions": [
+        {
+          "author": "politico_eu_bot@social.espeweb.net",
+          "title": null,
+          "content": "Brussels goes looking for billions to fund Ukraine <a href=\"https://www.politico.eu/podcast/brussels-playbook-podcast/brussels-goes-looking-for-billions-to-fund-ukraine/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication\" rel=\"nofollow noopener\" target=\"_blank\">https://www.politico.eu/podcast/brussels-playbook-podcast/brussels-goes-looking-for-billions-to-fund-ukraine/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/artificialintelligence\" rel=\"nofollow noopener\" target=\"_blank\">#ArtificialIntelligence</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/europeanpolitics\" rel=\"nofollow noopener\" target=\"_blank\">#Europeanpolitics</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/europeandefense\" rel=\"nofollow noopener\" target=\"_blank\">#EuropeanDefense</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/defensebudgets\" rel=\"nofollow noopener\" target=\"_blank\">#Defensebudgets</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/foreignaffairs\" rel=\"nofollow noopener\" target=\"_blank\">#ForeignAffairs</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/cybersecurity\" rel=\"nofollow noopener\" target=\"_blank\">#Cybersecurity</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/warinukraine\" rel=\"nofollow noopener\" target=\"_blank\">#WarinUkraine</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/copyright\" rel=\"nofollow noopener\" target=\"_blank\">#Copyright</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/farright\" rel=\"nofollow noopener\" target=\"_blank\">#Farright</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/politics\" rel=\"nofollow noopener\" target=\"_blank\">#Politics</a>",
+          "tags": [
+            "artificialintelligence",
+            "copyright",
+            "cybersecurity",
+            "defensebudgets",
+            "europeandefense",
+            "EuropeanPolitics",
+            "farright",
+            "foreignaffairs",
+            "politics",
+            "WARINUKRAINE"
+          ],
+          "created_at": "2026-10-21T04:12:17.261Z",
+          "raw_metadata": {
+            "url": "https://social.espeweb.net/objects/1e47f634-677d-44c1-bfde-7c8292f2db8d",
+            "language": null,
+            "in_reply_to_id": null,
+            "replies_count": 0,
+            "reblogs_count": 0,
+            "favourites_count": 0,
+            "account_bot": true,
+            "account_display_name": " Politico.eu (Unofficial RSS)"
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "noise",
+      "suggested_route": "discard",
+      "max_score": 19
+    }
+  },
+  {
+    "case": "real_mastodon_noticia_ia_rss",
+    "origem": "real",
+    "nota_revisao": "DECISÃO DO TIME: notícia de IA relevante (Mistral Timestral), mas repassada por feed sem comentário. Hoje é noise; se o time quiser notícias na newsletter, precisamos de um type novo.",
+    "input": {
+      "id": "mst-117476765783818325",
+      "source": "mastodon",
+      "url": "https://igeek.gamer-geek-news.com/@feed/statuses/01M5E7XZ67XQ1TNNZSKEZE65HS",
+      "interactions": [
+        {
+          "author": "feed@igeek.gamer-geek-news.com",
+          "title": null,
+          "content": "<p>📰 <strong>Mistral AI Releases Timestral: A 209M Forecasting Model Family That Outperforms Google’s TimesFM-3</strong></p><p>Mistral released Timestral, a time series foundation model family from 5M to 209M parameters. The 209M model leads GIFT-Eval, TIME and fev-bench among zero-shot models and runs on CPU.</p><p>📰 Source: MarkTechPost<br>🔗 Link: <a href=\"https://www.marktechpost.com/2026/10/18/mistral-timestral-time-series-foundation-model/\" rel=\"nofollow noopener\" target=\"_blank\">https://www.marktechpost.com/2026/10/18/mistral-timestral-time-series-foundation-model/</a></p><p><a href=\"https://igeek.gamer-geek-news.com/tags/ai\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>AI</span></a> <a href=\"https://igeek.gamer-geek-news.com/tags/artificialintelligence\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>ArtificialIntelligence</span></a></p>",
+          "tags": [
+            "ai",
+            "artificialintelligence"
+          ],
+          "created_at": "2026-10-21T03:26:28.000Z",
+          "raw_metadata": {
+            "url": "https://igeek.gamer-geek-news.com/@feed/statuses/01M5E7XZ67XQ1TNNZSKEZE65HS",
+            "language": "en",
+            "in_reply_to_id": null,
+            "replies_count": 0,
+            "reblogs_count": 0,
+            "favourites_count": 0,
+            "account_bot": false,
+            "account_display_name": "input"
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "noise",
+      "suggested_route": "discard",
+      "max_score": 19
+    }
+  },
+  {
+    "case": "real_mastodon_opiniao_com_link",
+    "origem": "real",
+    "nota_revisao": "Única opinião própria da amostra (professor comentando um link). Zero interações. Na rodada da v0.2, o Gemini descartou como notícia (falha); a v0.3 explicita que link com comentário próprio é debate.",
+    "input": {
+      "id": "mst-117476661482589915",
+      "source": "mastodon",
+      "url": "https://mastodon.social/@DrMikeWatts/117476661482589915",
+      "interactions": [
+        {
+          "author": "DrMikeWatts",
+          "title": null,
+          "content": "<p>This should be obvious-an <a href=\"https://mastodon.social/tags/AI\" class=\"mention hashtag\" rel=\"tag\">#<span>AI</span></a> is only as good as the data used to create it, even my first-year students know that: <a href=\"https://www.hpcwire.com/bigdatawire/2026/10/12/ai-is-only-as-smart-as-the-data-behind-it/\" target=\"_blank\" rel=\"nofollow noopener\" translate=\"no\"><span class=\"invisible\">https://www.</span><span class=\"ellipsis\">hpcwire.com/bigdatawire/2026/1</span><span class=\"invisible\">0/12/ai-is-only-as-smart-as-the-data-behind-it/</span></a> <a href=\"https://mastodon.social/tags/ArtificialIntelligence\" class=\"mention hashtag\" rel=\"tag\">#<span>ArtificialIntelligence</span></a></p>",
+          "tags": [
+            "ai",
+            "artificialintelligence"
+          ],
+          "created_at": "2026-10-21T02:59:57.333Z",
+          "raw_metadata": {
+            "url": "https://mastodon.social/@DrMikeWatts/117476661482589915",
+            "language": "en",
+            "in_reply_to_id": null,
+            "replies_count": 0,
+            "reblogs_count": 0,
+            "favourites_count": 0,
+            "account_bot": false,
+            "account_display_name": "Mike Watts"
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "debate",
+      "sentiment": "neutral",
+      "suggested_route": "newsletter_only",
+      "min_score": 40,
+      "max_score": 59
+    }
+  },
+  {
+    "case": "real_mastodon_japones_metadado_errado",
+    "origem": "real",
+    "nota_revisao": "Post em japonês com raw_metadata.language = \"en\". Testa se o idioma vem do texto.",
+    "input": {
+      "id": "mst-117476505156844059",
+      "source": "mastodon",
+      "url": "https://jforo.com/@yayafa/117476504987784757",
+      "interactions": [
+        {
+          "author": "yayafa@jforo.com",
+          "title": null,
+          "content": "<p>ＧＭＯ、MCP対応でAIによる契約業務の自動化を支援する新オプション – VOIX biz <a href=\"https://www.yayafa.com/2915778/\" rel=\"nofollow noopener\" translate=\"no\" target=\"_blank\"><span class=\"invisible\">https://www.</span><span class=\"\">yayafa.com/2915778/</span><span class=\"invisible\"></span></a> <a href=\"https://jforo.com/tags/AgenticAi\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>AgenticAi</span></a> <a href=\"https://jforo.com/tags/AI\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>AI</span></a> <a href=\"https://jforo.com/tags/ArtificialGeneralIntelligence\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>ArtificialGeneralIntelligence</span></a> <a href=\"https://jforo.com/tags/ArtificialIntelligence\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>ArtificialIntelligence</span></a> <a href=\"https://jforo.com/tags/DX\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>DX</span></a> <a href=\"https://jforo.com/tags/%E3%82%A8%E3%83%BC%E3%82%B8%E3%82%A7%E3%83%B3%E3%83%88%E5%9E%8BAI\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>エージェント型AI</span></a> <a href=\"https://jforo.com/tags/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>人工知能</span></a> <a href=\"https://jforo.com/tags/%E6%B1%8E%E7%94%A8%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>汎用人工知能</span></a> <a href=\"https://jforo.com/tags/%E8%A6%8F%E5%88%B6%E3%83%BB%E8%AA%8D%E8%A8%BC\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>規制・認証</span></a></p>",
+          "tags": [
+            "agenticai",
+            "ai",
+            "artificialgeneralintelligence",
+            "artificialintelligence",
+            "dx",
+            "エージェント型ai",
+            "人工知能",
+            "汎用人工知能",
+            "規制・認証"
+          ],
+          "created_at": "2026-10-21T02:20:09.000Z",
+          "raw_metadata": {
+            "url": "https://jforo.com/@yayafa/117476504987784757",
+            "language": "en",
+            "in_reply_to_id": null,
+            "replies_count": 0,
+            "reblogs_count": 0,
+            "favourites_count": 0,
+            "account_bot": false,
+            "account_display_name": "YAYAFA"
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "noise",
+      "original_language": "other",
+      "suggested_route": "discard",
+      "max_score": 19
+    }
+  }
+]
