@@ -3,8 +3,9 @@
 ## Detalhes da Reunião
 
 - **Projeto:** CommunityLab – Motor Inteligente de Transformação e Distribuição para Comunidades Digitais | Hackathon - ONE G10
-- **Data:** 19 de Outubro de 2026 (Segunda-feira)
+- **Data:** 19 de Outubro de 2026 (Segunda-feira, 20:00h)
 - **Participantes Presentes:** Michael Dambock, Rodrigo Aguiar, Rodrigo Silva, Ricieri Rosa, Vitor Pires
+- **Ausências:** David Lima, Everton (sem contato desde o início do projeto), Gustavo Silva
 - **Assunto:** Alinhamento técnico, divisão de tarefas da Semana 1 e infraestrutura de ingestão
 
 ---
@@ -48,8 +49,8 @@ Alinhamento das atividades iniciais do projeto na **Semana 1**, focando no levan
 
 ## 4. Próxima Reunião
 
-- **Reunião Obrigatória:** Daily.
+- **Reunião Obrigatória:** Daily
 
-- **Data:** 20 de Outubro de 2026 (Terça-feira).
+- **Data:** 20 de Outubro de 2026 (Terça-feira)
 
-- **Horário:** 19h30.
+- **Horário:** 19h30
