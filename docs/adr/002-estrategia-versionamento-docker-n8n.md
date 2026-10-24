@@ -3,18 +3,18 @@
 - **Projeto:** CommunityLab - Motor Inteligente
 de Transformação e Distribuição para Comunidades Digitais
 - **Responsáveis:** Equipe 14 - Turma G10
-* **Status:** Aprovado
-* **Data de Elaboração:** 23 de Outubro de 2026
+- **Status:** Aprovado
+- **Data de Elaboração:** 23 de Outubro de 2026
 
 ---
 
 ## Sumário
 
-* [1. Contexto e Problema](#1-contexto-e-problema)
-* [2. Decisão Tomada](#2-decisão-tomada)
-* [3. Consequências](#3-consequências)
-  * [3.1. Prós / Vantagens](#31-prós--vantagens)
-  * [3.2. Contras / Limitações e Riscos Mitigados](#32-contras--limitações-e-riscos-mitigados)
+- [1. Contexto e Problema](#1-contexto-e-problema)
+- [2. Decisão Tomada](#2-decisão-tomada)
+- [3. Consequências](#3-consequências)
+  - [3.1. Prós / Vantagens](#31-prós--vantagens)
+  - [3.2. Contras / Limitações e Riscos Mitigados](#32-contras--limitações-e-riscos-mitigados)
     
 ---
 
@@ -46,12 +46,12 @@ Adoção da estratégia de **fixação estrita de versão por patch (Patch Pinni
 
 ### 3.1. Prós / Vantagens
 
-* **Paridade de Ambientes:** Garantia de que workflows JSON exportados e validados localmente funcionam de forma idêntica na instância OCI.
+- **Paridade de Ambientes:** Garantia de que workflows JSON exportados e validados localmente funcionam de forma idêntica na instância OCI.
 
-* **Previsibilidade Operacional:** Nenhuma atualização de patch ocorre de forma silenciosa ou acidental ao reiniciar os contêiners.
+- **Previsibilidade Operacional:** Nenhuma atualização de patch ocorre de forma silenciosa ou acidental ao reiniciar os contêiners.
 
-* **Depuração Confiável:** Isola a causa de eventuais anomalias em workflows sem a incerteza de alterações invisíveis de versões no motor.
+- **Depuração Confiável:** Isola a causa de eventuais anomalias em workflows sem a incerteza de alterações invisíveis de versões no motor.
 
 ### 3.2. Contras / Limitações e Riscos Mitigados
 
-* **Atualização Deliberada:** Correções de bugs ou patches de segurança exigem atualização explícita do valor da tag no arquivo `.env` ou `docker-compose.yml` e novo commit no repositório.
+- **Atualização Deliberada:** Correções de bugs ou patches de segurança exigem atualização explícita do valor da tag no arquivo `.env` ou `docker-compose.yml` e novo commit no repositório.

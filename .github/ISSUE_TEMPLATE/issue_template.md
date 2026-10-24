@@ -18,7 +18,7 @@ projects: ["No-Country-simulation/565"]
 ---
 
 ### Critério de Aceitação (DoD)
-<!-- Descreva de forma clara e objetiva os principais critérios de aceitação do projeto, as principais validações da entrega do projeto em formato de checklist (`- [ ]`) -->
+<!-- Liste os requisitos obrigatórios para que a tarefa seja considerada concluída. Mantenha os itens em formato de lista Markdown (`- [ ]`) para que se tornem checkboxes interativos: -->
 
 - [ ] 
 - [ ] 
@@ -28,7 +28,7 @@ projects: ["No-Country-simulation/565"]
 
 ### Metadados e Rastreabilidade
 
-<!-- Liste os componentes e artefatos adicionados/modificados -->
+<!-- Descrever os componentes/módulos impactados, os artefatos gerados/alterados e a documentação de referência, se houver.s -->
 
 - **Componentes / Módulos impactados:** [ex.: APIs, Workflows, Schemas, Documentação]
 - **Artefatos gerados/alterados:** [ex.: links de PRs, arquivos gerados, relatórios]
@@ -37,7 +37,7 @@ projects: ["No-Country-simulation/565"]
 
 ### Checklist de Entrega
 
-<!-- Marque no checklist os parâmetros mínimos de entrega do projeto -->
+<!-- Ao término da task, verificar se os requisitos foram atendidos. -->
 
 - [ ] **Execução / Entrega principal concluída:** O objetivo central da tarefa foi executado e testado com sucesso.
 - [ ] **Parâmetros e escopo validados:** Regras de negócio, limites, filtros ou requisitos definidos foram atendidos.

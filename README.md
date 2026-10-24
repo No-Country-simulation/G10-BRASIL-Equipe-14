@@ -214,7 +214,7 @@ uv run pytest tests/test_schema_validator.py::test_validate_returns_no_errors_fo
 O script `src/validation/schema_validator.py` valida qualquer arquivo JSON contra um JSON Schema (por padrão, o contrato de entrada em `data/schemas/input_schema.json`):
 
 ```bash
-uv run python -m src.utils.validator <caminho/para/dados.json> data/schemas/input_schema.json
+uv run python -m src.validation.schema_validator <caminho/para/dados.json> data/schemas/input_schema.json
 
 ```
 

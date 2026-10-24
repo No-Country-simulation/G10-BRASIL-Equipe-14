@@ -122,7 +122,7 @@ Antes de submeter, confira a barra lateral direita do GitHub:
 
 2. **Labels:** Adicione a tag da área correspondente (Ex.: Eng Dados) e a atividade da task (enhancement, bug ou documentation).
 
-3. **Projects:** Verifique se o card foi adicionado automaticamente ao quadro do projeto (graças ao cabeçalho nativo projects: ["Kanban G10-Brasil-Equipe-14"]). Caso não tenha entrado, selecione o projeto manualmente.
+3. **Projects:** Verifique se o card foi adicionado automaticamente ao quadro do projeto: "Kanban G10-Brasil-Equipe-14". Caso não tenha sido adicionado, selecione o projeto manualmente.
 
 4. **Milestone:** Adicione o marco (milestone) referente à semana correspondente [Semana 0] a [Semana 6].
 
