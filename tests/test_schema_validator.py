@@ -7,7 +7,7 @@ from src.validation.schema_validator import (
     _main,
     is_valid,
     load_json,
-    validate_date,
+    validate_data,
     validate_file,
 )
 
@@ -17,33 +17,32 @@ SCHEMA = load_json(INPUT_SCHEMA_PATH)
 VALID_RECORD = SCHEMA["examples"][0]
 
 
-def test_validate_date_returns_no_errors_for_valid_record():
-    assert validate_date(VALID_RECORD, SCHEMA) == []
+def test_validate_data_returns_no_errors_for_valid_record():
+    assert validate_data(VALID_RECORD, SCHEMA) == []
 
 
-def test_validate_date_reports_missing_required_top_level_property():
+def test_validate_data_reports_missing_required_top_level_property():
     record = copy.deepcopy(VALID_RECORD)
     del record["source"]
 
-    errors = validate_date(record, SCHEMA)
+    errors = validate_data(record, SCHEMA)
 
     assert any("'source' is a required property" in error for error in errors)
 
 
-def test_validate_date_reports_invalid_source_enum_value():
+def test_validate_data_reports_invalid_source_enum_value():
     record = copy.deepcopy(VALID_RECORD)
     record["source"] = "twitter"
 
-    errors = validate_date(record, SCHEMA)
-
+    errors = validate_data(record, SCHEMA)
     assert any("'twitter' is not one of" in error for error in errors)
 
 
-def test_validate_date_reports_missing_required_interaction_property():
+def test_validate_data_reports_missing_required_interaction_property():
     record = copy.deepcopy(VALID_RECORD)
     del record["interactions"][0]["author"]
 
-    errors = validate_date(record, SCHEMA)
+    errors = validate_data(record, SCHEMA)
 
     assert any(
         "interactions/0" in error and "'author' is a required property" in error
@@ -51,20 +50,20 @@ def test_validate_date_reports_missing_required_interaction_property():
     )
 
 
-def test_validate_date_reports_malformed_reference_period():
+def test_validate_data_reports_malformed_reference_period():
     record = copy.deepcopy(VALID_RECORD)
     record["reference_period"] = "not-a-period"
 
-    errors = validate_date(record, SCHEMA)
+    errors = validate_data(record, SCHEMA)
 
     assert any("reference_period" in error for error in errors)
 
 
-def test_validate_date_rejects_unknown_top_level_property():
+def test_validate_data_rejects_unknown_top_level_property():
     record = copy.deepcopy(VALID_RECORD)
     record["unexpected"] = "nope"
 
-    errors = validate_date(record, SCHEMA)
+    errors = validate_data(record, SCHEMA)
 
     assert any("Additional properties are not allowed" in error for error in errors)
 
@@ -130,6 +129,6 @@ def test_validate_reports_invalid_interaction_created_at():
     record = copy.deepcopy(VALID_RECORD)
     record["interactions"][0]["created_at"] = "not-a-date"
 
-    errors = validate_date(record, SCHEMA)
+    errors = validate_data(record, SCHEMA)
 
     assert any("interactions/0/created_at" in error for error in errors)
