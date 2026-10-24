@@ -2,28 +2,28 @@
 
 * **Projeto:** CommunityLab - Motor Inteligente
 de Transformação e Distribuição para Comunidades Digitais
-* **Programa:** ONE - Oracle One Next Education
 * **Responsáveis:** Equipe 14 - Turma G10
-* **Versão:** 1.0 (Semana 0)
-* **Data de Elaboração:** 17 de Outubro de 2026
+* **Versão:** 2.0 (Semana 1)
+* **Data de Elaboração:** 22 de Outubro de 2026
 
 ---
 
 ## Sumário
 
-* [1. Visão Geral e Justificativa](#1-visão-geral-e-justificativa)
-* [2. Objetivos do Projeto](#2-objetivos-do-projeto)
-* [3. Fontes de Dados Primárias](#3-fontes-de-dados-primárias)
-* [4. Requisitos do Sistema](#4-requisitos-do-sistema)
-   * [4.1. Requisitos Funcionais (RF)](#41-requisitos-funcionais-rf)
-   * [4.2. Requisitos Não Funcionais (RNF)](#42-requisitos-não-funcionais-rnf)
-* [5. Arquitetura do Projeto](#5-arquitetura-do-projeto)
-* [6. Limites do Escopo](#6-limites-do-escopo)
-   * [6.1. Dentro do Escopo (In Scope))](#61-dentro-do-escopo-in-scope)
-   * [6.2. Fora do Escopo (Out of Scope)](#62-fora-do-escopo-out-of-scope)
-* [7. Governança e Gestão](#7-governança-e-gestão)
-* [8. Cronograma Geral](#8-cronograma-geral)
-* [9. Project Model Canvas](#9-project-model-canvas)
+- [1. Visão Geral e Justificativa](#1-visão-geral-e-justificativa)
+- [2. Objetivos do Projeto](#2-objetivos-do-projeto)
+- [3. Fontes de Dados Primárias](#3-fontes-de-dados-primárias)
+- [4. Requisitos do Sistema](#4-requisitos-do-sistema)
+   - [4.1. Requisitos Funcionais (RF)](#41-requisitos-funcionais-rf)
+   - [4.2. Requisitos Não Funcionais (RNF)](#42-requisitos-não-funcionais-rnf)
+- [5. Arquitetura do Projeto](#5-arquitetura-do-projeto)
+- [6. Limites do Escopo](#6-limites-do-escopo)
+   - [6.1. Dentro do Escopo (In Scope))](#61-dentro-do-escopo-in-scope)
+   - [6.2. Fora do Escopo (Out of Scope)](#62-fora-do-escopo-out-of-scope)
+- [7. Project Model Canvas](#7-project-model-canvas)
+- [8. Governança e Gestão](#8-governança-e-gestão)
+- [9. Cronograma Geral](#9-cronograma-geral)
+- [10. Registro de Alterações](#10-registro-de-alterações)
 
 ---
 
@@ -62,7 +62,9 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 
 * **Stack Exchange / Stack Overflow API:** Coleta de dúvidas técnicas, erros frequentes e discussões (foco em IA e programação).
 
-* **Mastodon:** Monitoramento de instâncias públicas de tecnologia e comunidades abertas via API sem custos.
+* **Mastodon API:** Monitoramento de instâncias públicas de tecnologia e comunidades abertas via API sem custos.
+
+* **Hacker News (Algolia Search API):** Captura de notícias, discussões da indústria e lançamentos de tendências em tecnologia.
 
 * Como alternativa pode ser utilizado o dataset [LMSYS](https://huggingface.co/datasets/lmsys/lmsys-chat-1m) do Hugging Face, como complemento às demais fontes.
 
@@ -131,7 +133,13 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 
 ---
 
-## 7. Governança e Gestão
+## 7. Project Model Canvas
+
+<img src="../docs/assets/project-model-canvas.png"  />
+
+---
+
+## 8. Governança e Gestão
 
 * **Duração Total:** 6 Semanas (Semanas 0 a 5).
 
@@ -147,7 +155,7 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 
 ---
 
-## 8. Cronograma Geral
+## 9. Cronograma Geral
 
 | Etapa | Data/Período | Foco |
 |---|---|---|
@@ -162,6 +170,9 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 
 ---
 
-## 9. Project Model Canvas
+## 10. Registro de Alterações
 
-<img src="../docs/assets/project-model-canvas.png"  />
+| Versão | Data de Alteração | Alteração Realizada |
+|---|---|---|
+| Versão 1.0 | 18/10/26 | Adicionadas as especificações da arquitetura do projeto.|
+| Versão 2.0 | 22/10/26 | Adicionada a Hacker News API como fonte de dados, junto ao Stack Overflow/Stack Exchange API e Mastodon API. Reorganização do tópico 7. Project Model Canvas após o tópico 6. Limites do Escopo para manter o mesmo contexto de leitura. |

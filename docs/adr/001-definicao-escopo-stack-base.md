@@ -1,18 +1,20 @@
-# ADR-001: Definição do escopo e stack base
+# ADR-001: Definição do Escopo e Stack Base
 
-* **Status:** Aprovado
-* **Data de Elaboração:** 17 de Outubro de 2026
-* **Autores:** Equipe 14 - Turma G10
+- **Projeto:** CommunityLab - Motor Inteligente
+de Transformação e Distribuição para Comunidades Digitais
+- **Responsáveis:** Equipe 14 - Turma G10
+- **Status:** Aprovado
+- **Data de Elaboração:** 17 de Outubro de 2026
 
 ---
 
 ## Sumário
 
-* [1. Contexto e Problema](#1-contexto-e-problema)
-* [2. Decisão Tomada](#2-decisão-tomada)
-* [3. Consequências](#3-consequências)
-  * [3.1. Prós / Vantagens](#31-prós--vantagens)
-  * [3.2. Contras / Limitações e Riscos Mitigados](#32-contras--limitações-e-riscos-mitigados)
+- [1. Contexto e Problema](#1-contexto-e-problema)
+- [2. Decisão Tomada](#2-decisão-tomada)
+- [3. Consequências](#3-consequências)
+  - [3.1. Prós / Vantagens](#31-prós--vantagens)
+  - [3.2. Contras / Limitações e Riscos Mitigados](#32-contras--limitações-e-riscos-mitigados)
     
 ---
 
@@ -56,18 +58,18 @@ Ingestão a partir do **Stack Exchange / Stack Overflow API** e instâncias púb
 
 ### 3.1. Prós / Vantagens
 
-* **Custo Zero Real:** Nenhuma dependência de cartões de crédito para APIs comerciais (OpenAI/Claude) ou ferramentas SaaS pagas (n8n Cloud oficial).
+- **Custo Zero Real:** Nenhuma dependência de cartões de crédito para APIs comerciais (OpenAI/Claude) ou ferramentas SaaS pagas (n8n Cloud oficial).
 
-* **Viabilidade Técnica Imediata:** APIs abertas (Stack Exchange e Mastodon) não impõem os bloqueios severos de plataformas como X/Twitter ou LinkedIn.
+- **Viabilidade Técnica Imediata:** APIs abertas (Stack Exchange e Mastodon) não impõem os bloqueios severos de plataformas como X/Twitter ou LinkedIn.
 
-* **Alinhamento com o Edital:** Cumpre os critérios de persistência no OCI Object Storage, nós condicionais no n8n e geração de múltiplos formatos (LinkedIn, Newsletter, FAQ).
+- **Alinhamento com o Edital:** Cumpre os critérios de persistência no OCI Object Storage, nós condicionais no n8n e geração de múltiplos formatos (LinkedIn, Newsletter, FAQ).
 
-* **Desempenho com DuckDB:** Redução drástica de overhead computacional para manipulação analítica local sem necessidade de manter um servidor de banco pesado rodando.
+- **Desempenho com DuckDB:** Redução drástica de overhead computacional para manipulação analítica local sem necessidade de manter um servidor de banco pesado rodando.
 
 ### 3.2. Contras / Limitações e Riscos Mitigados
 
-* **Restrições de Hardware da OCI:** A camada *Always Free* tem limites de RAM e CPU. 
-    * *Mitigação:* manter a fase de prototipagem em Docker local e só migrar o container n8n para a VM da Oracle após os fluxos estarem estabilizados.
+- **Restrições de Hardware da OCI:** A camada *Always Free* tem limites de RAM e CPU. 
+    - *Mitigação:* manter a fase de prototipagem em Docker local e só migrar o container n8n para a VM da Oracle após os fluxos estarem estabilizados.
 
-* **Heterogeneidade de Dados:** Discussões técnicas costumam ter ruídos, códigos longos e múltiplos idiomas. 
-    * *Mitigação:* implementação de nós de sanitização e prompts com instruções rígidas de normalização.
+- **Heterogeneidade de Dados:** Discussões técnicas costumam ter ruídos, códigos longos e múltiplos idiomas. 
+    - *Mitigação:* implementação de nós de sanitização e prompts com instruções rígidas de normalização.

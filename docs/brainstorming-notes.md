@@ -2,9 +2,7 @@
 
 * **Projeto:** CommunityLab - Motor Inteligente
 de Transformação e Distribuição para Comunidades Digitais
-* **Programa:** ONE - Oracle One Next Education
 * **Responsáveis:** Equipe 14 - Turma G10
-* **Versão:** 1.0 (Semana 0)
 * **Data de Elaboração:** 13 de Outubro de 2026
 
 ---

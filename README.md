@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./docs/assets/social_media_wallpaper.jpg" width="100%"  alt="Capa do projeto" />
+  <img src="./docs/assets/social-media-wallpaper.jpg" width="100%"  alt="Capa do projeto" />
 </p>
 
 ---
@@ -48,7 +48,7 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 ## 3. Arquitetura
 
 <p align="center">
-  <img src="./docs/assets/arquitetura-conceitual.png" alt="Arquitetura conceitual do pipeline multicanal" />
+  <img src="./docs/assets/pipeline-architecture.png" alt="Arquitetura conceitual do pipeline multicanal" />
   <br>
   <em>Fig.01 - Arquitetura conceitual do pipeline multicanal</em>
 </p>
@@ -59,6 +59,7 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 
 ```
 ├── 📁 .github/                                # Governança do GitHub
+│   ├── 📁 ISSUE_TEMPLATE/                     # Template para criação de issues
 │   └── 📄 PULL_REQUEST_TEMPLATE.md            # Template para criação de PR
 │
 ├── 📁 data/                                   # Estrutura e contratos de dados
@@ -76,14 +77,15 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 │   └── 📄 escopo_projeto.md                   # Especificação do escopo e requisitos
 │
 ├── 📁 n8n/                                    # Orquestração e workflows locais
-│   └── 📁 workflows/                          # Fluxos exportados em JSON
+│   └── 📁 workflows/                          # Fluxos do n8n exportados em JSON
 │
 ├── 📁 references/                             # Materiais de consulta do projeto
 │
 ├── 📁 src/                                    # Código-fonte da aplicação
-│   ├── 📁 pipeline/                           # Ingestão, processamento e validações
+│   ├── 📁 pipeline/                           # Orquestração do fluxo de dados
 │   ├── 📁 services/                           # Integrações com serviços externos
 │   ├── 📁 utils/                              # Funções utilitárias e helpers
+│   ├── 📁 validator/                          # Validação contratual dos schemas
 │   └── 📁 views/                              # Telas e interfaces modulares do Streamlit
 │
 ├── 📁 tests/                                  # Testes automatizados
@@ -203,16 +205,16 @@ uv run pytest
 Para rodar um teste específico:
 
 ```bash
-uv run pytest tests/test_validator.py::test_validate_returns_no_errors_for_valid_record
+uv run pytest tests/test_schema_validator.py::test_validate_returns_no_errors_for_valid_record
 
 ```
 
 #### 9. Validar um JSON externo contra o contrato de entrada
 
-O utilitário `src/utils/validator.py` valida qualquer arquivo JSON contra um JSON Schema (por padrão, o contrato de entrada em `data/schemas/input_schema.json`):
+O script `src/validation/schema_validator.py` valida qualquer arquivo JSON contra um JSON Schema (por padrão, o contrato de entrada em `data/schemas/input_schema.json`):
 
 ```bash
-uv run python -m src.utils.validator <caminho/para/dados.json> data/schemas/input_schema.json
+uv run python -m src.validation.schema_validator <caminho/para/dados.json> data/schemas/input_schema.json
 
 ```
 
@@ -246,16 +248,15 @@ O comando retorna `Valid` (exit code `0`) se o arquivo estiver em conformidade, 
 
 ## 7. Cronograma Geral
 
-| Etapa | Data/Período | Foco |
-|---|---|---|
-| Semana 0 | 12/10/2026 a 18/10/2026 | Alinhamento estratégico, documentação inicial e configurações base | 
-| Semana 1 | 19/10/2026 a 25/10/2026 | Engenharia de prompts, datasets e ingestão |
-| Semana 2 | 26/10/2026 a 01/11/2026 | Orquestração condicional n8n e Módulos da interface | 
-| Semana 3 | 02/11/2026 a 08/11/2026 | Geração consolidada, persistência e curadoria |
-| Semana 4 | 09/11/2026 a 15/11/2026 | Homologação, OCI Compute e revisão
-| Semana 5 | 16/11/2026 a 22/11/2026 | Documentação, preparação da apresentação e revisão final |
-| Demo Day 1 | 24/11/2026 | Apresentação
-| Demo Day 2 | 26/11/2026 | Apresentação
+| Etapa | Data/Período | Foco | Status |
+|:---|:---|:---|:---|
+| Semana 0 | 12/10/2026 a 18/10/2026 | Alinhamento estratégico, documentação inicial e configurações base | Concluído ✅ |
+| Semana 1 | 19/10/2026 a 25/10/2026 | Engenharia de prompts, datasets e ingestão | Em andamento 🔄 |
+| Semana 2 | 26/10/2026 a 01/11/2026 | Orquestração condicional n8n e Módulos da interface | A iniciar ⏳ | 
+| Semana 3 | 02/11/2026 a 08/11/2026 | Geração consolidada, persistência e curadoria | A iniciar ⏳ |
+| Semana 4 | 09/11/2026 a 15/11/2026 | Homologação, OCI Compute e revisão | A iniciar ⏳ |
+| Semana 5 | 16/11/2026 a 22/11/2026 | Documentação, preparação da apresentação e revisão final | A iniciar ⏳ |
+| Semana 6 | 24/11/2026 e 26/11/2026 | Demo Day | A iniciar ⏳ |
 
 ---
 
@@ -270,7 +271,5 @@ O comando retorna `Valid` (exit code `0`) se o arquivo estiver em conformidade, 
 [Ricieri Rosa](https://github.com/garcezrosa)
 
 [Rodrigo Aguiar](https://github.com/RAguiarEng)
-
-[Rodrigo Silva](https://github.com/prospera-analytics)
 
 [Vitor Pires](https://github.com/vikpires)

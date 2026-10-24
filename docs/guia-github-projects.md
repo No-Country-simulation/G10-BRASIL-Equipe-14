@@ -4,19 +4,135 @@ Este guia orienta o uso do **GitHub Projects** para acompanhar o progresso das t
 
 ---
 
-## 1. Conceitos Básicos
+## Sumário
 
-* **Issue**: É o "card" da tarefa. Contém a descrição, o responsável e o checklist de entrega (*Definition of Done*).
-
-* **Project (Quadro)**: O painel visual onde organizamos todas as issues em colunas (estilo Kanban) ou tabelas.
-
-* **Milestone**: O marco temporal (nossas semanas de entrega: *Semana 0* até *Semana 6*).
-
-* **Assignee**: A(s) pessoa(s) responsável(is) por executar e entregar a tarefa.
+- [1. Conceitos Básicos](#1-conceitos-básicos)
+- [2. Criação de Issues (Template Padrão)](#2-criação-de-issues-template-padrão)
+- [3. Rotina Diária: Como Trabalhar com as Tasks](#3-rotina-diária-como-trabalhar-com-as-tasks)
+- [4. Visualizações Mais Úteis](#4-visualizações-mais-úteis)
+- [5. Boas Práticas](#5-boas-práticas)
 
 ---
 
-## 2. Rotina Diária: Como Trabalhar com as Tarefas (tasks)
+## 1. Conceitos Básicos
+
+- **Issue**: É o "card" da tarefa. Contém a descrição, o responsável e o checklist de entrega (*Definition of Done*).
+
+- **Project (Quadro)**: O painel visual onde organizamos todas as issues em colunas (estilo Kanban) ou tabelas.
+
+- **Milestone**: O marco temporal (nossas semanas de entrega: *Semana 0* até *Semana 6*).
+
+- **Assignee**: A(s) pessoa(s) responsável(is) por executar e entregar a tarefa.
+
+---
+
+
+## 2. Criação de Issues (Template Padrão)
+
+### Passo 1: Localizar o Template no Repositório
+
+1. No menu superior do repositório no GitHub, acesse a aba Issues.
+
+2. Clique no botão verde New issue (canto superior direito).
+
+3. Na lista de templates disponíveis, localize Task / Tarefa e clique no botão Get started.
+
+### Passo 2: Ajustar o Título da Issue
+
+O título já virá pré-preenchido com a convenção de nomenclatura do projeto:
+
+```text
+[SX-XX] [Área]: <Nome conciso da tarefa>
+```
+
+- Substitua `[SX-XX]` pelo identificador da sprint e número do item (ex.: [S1-01]).
+
+- Substitua `[Área]` pelo contexto funcional correspondente, como:
+  - [Automação]  
+  - [Backend]
+  - [Data Science]
+  - [Eng. Dados]
+  - [Equipe]
+  - [Gestão]  
+  - [Infra]  
+  - [QA]
+  - [UI]
+
+- Adicione um título claro que descreva o entregável. 
+
+Exemplo: [S1-01] [Eng. Dados] Especificar Schemas JSON de Entrada e Saída
+
+### Passo 3: Detalhar a Descrição
+Preencha seção principal do corpo da issue:
+
+- Descrição da Tarefa: Especifique o que deve ser desenvolvido, ajustado ou configurado de forma clara e objetiva.
+
+```markdown
+Ex.:
+
+### Descrição
+
+- Elaborar ou revisar a documentação do projeto na Semana X, incluindo revisões do escopo, arquitetura do projeto, fontes de dados e elaboração de documentos adicionais, se necessário.
+
+```
+
+### Passo 4: Definir os Critérios de Aceitação (DoD - Definition of Done)
+Liste os requisitos obrigatórios para que a tarefa seja considerada concluída. Mantenha os itens em formato de lista Markdown (`- [ ]`) para que se tornem checkboxes interativos:
+
+```markdown
+Ex.:
+
+### Critérios de Aceitação (DoD)
+
+- [ ] Revisão da documentação principal: escopo do projeto, especificações de arquitetura,  
+- [ ] Adicionar documentação adicional (se houver): guias, ADRs, Specs ou similar.
+- [ ] Arquivos salvos no diretório de documentação: Arquivos de documentação gerados e disponibilizados no diretório `docs/`, preferencialmente no formato Markdown (`.md`).
+```
+
+### Passo 5: Listar os metadados relacionados à tarefa
+Descrever os componentes/módulos impactados, os artefatos gerados/alterados e a documentação de referência, se houver.
+
+```markdown
+### Metadados e Rastreabilidade
+
+- **Componentes / Módulos impactados:** [ex.: APIs, Workflows, Schemas, Documentação]
+- **Artefatos gerados/alterados:** [ex.: links de PRs, arquivos gerados, relatórios]
+```
+
+### Passo 6: Checklist de Entrega
+Ao término da task, verificar se os requisitos foram atendidos. Mantenha os itens em formato de lista Markdown (`- [ ]`) para que se tornem checkboxes interativos:
+
+```markdown
+### Checklist de Entrega
+
+- [ ] **Execução / Entrega principal concluída:** O objetivo central da tarefa foi executado e testado com sucesso.
+
+- [ ] **Parâmetros e escopo validados:** Regras de negócio, limites, filtros ou requisitos definidos foram atendidos.
+
+- [ ] **Validação de qualidade / formato:** Artefatos gerados, código ou documentos seguem os padrões estabelecidos do projeto.
+
+- [ ] **Persistência / Registro:** Arquivos, saídas ou documentações foram devidamente versionados e disponibilizados no local correto.
+```
+
+### Passo 7: Conferir a Barra Lateral (Sidebar) e Publicar
+
+Antes de submeter, confira a barra lateral direita do GitHub:
+
+1. Assignees: Atribua a tarefa a você ou ao responsável pela execução.
+
+2. **Labels:** Adicione a tag da área correspondente (Ex.: Eng Dados) e a atividade da task (enhancement, bug ou documentation).
+
+3. **Projects:** Verifique se o card foi adicionado automaticamente ao quadro do projeto: "Kanban G10-Brasil-Equipe-14". Caso não tenha sido adicionado, selecione o projeto manualmente.
+
+4. **Milestone:** Adicione o marco (milestone) referente à semana correspondente [Semana 0] a [Semana 6].
+
+5. Clique no botão verde **Submit new issue**.
+
+6. A nova issue irá sincronizar automaticamente no GitHub Projects na coluna **Backlog** no marco (milestone) correspondente.
+
+---
+
+## 3. Rotina Diária: Como Trabalhar com as Tasks
 
 ### Passo 1: Selecionar uma tarefa para fazer
 
@@ -40,7 +156,7 @@ git checkout -b feat/S1-XX-webhook-n8n
 
 ```
 
-* Exemplo de Estrutura de branches:
+- Exemplo de Estrutura de branches:
 ```
 main (produção / releases estáveis)
   ↑
@@ -84,11 +200,11 @@ git push -u origin feat/S1-XX-webhook-n8n
 
 ### Passo 5: Concluir a tarefa
 
-* Após o PR ser aprovado e mesclado (*squash/merge*), o card vai automaticamente para a coluna **Done** (Concluído). Se não for automático, arraste-o manualmente.
+- Após o PR ser aprovado e mesclado (*squash/merge*), o card vai automaticamente para a coluna **Done** (Concluído). Caso não seja movido automaticamente após alguns segundos, arraste-o manualmente.
 
 ---
 
-## 3. Visualizações Mais Úteis
+## 4. Visualizações Mais Úteis
 
 Você pode alternar as abas no topo do projeto:
 
@@ -100,10 +216,10 @@ Você pode alternar as abas no topo do projeto:
 
 ---
 
-## 4. Dicas
+## 5. Boas Práticas
 
-* **Filtre por você mesmo**: No campo de busca do projeto, digite `assignee:@me` para ver instantaneamente apenas as suas tarefas.
+- **Filtre por você mesmo**: No campo de busca do projeto, digite `assignee:@me` para ver instantaneamente apenas as suas tarefas.
 
-* **Mantenha o card atualizado**: Se travou em algo, deixe um comentário na issue marcando o colega com `@usuario` para pedir ajuda.
+- **Mantenha o card atualizado**: Se travou em algo, deixe um comentário na issue marcando o colega com `@usuario` para pedir ajuda.
 
-* **Critério de Aceite (DoD)**: Só passe uma tarefa para *Done* se todos os itens da descrição dela tiverem sido testados e a documentação associada atualizada.
+- **Critério de Aceite (DoD)**: Só passe uma tarefa para *Done* se todos os itens da descrição dela tiverem sido testados e a documentação associada atualizada.
