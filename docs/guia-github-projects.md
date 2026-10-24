@@ -16,13 +16,13 @@ Este guia orienta o uso do **GitHub Projects** para acompanhar o progresso das t
 
 ## 1. Conceitos Básicos
 
-* **Issue**: É o "card" da tarefa. Contém a descrição, o responsável e o checklist de entrega (*Definition of Done*).
+- **Issue**: É o "card" da tarefa. Contém a descrição, o responsável e o checklist de entrega (*Definition of Done*).
 
-* **Project (Quadro)**: O painel visual onde organizamos todas as issues em colunas (estilo Kanban) ou tabelas.
+- **Project (Quadro)**: O painel visual onde organizamos todas as issues em colunas (estilo Kanban) ou tabelas.
 
-* **Milestone**: O marco temporal (nossas semanas de entrega: *Semana 0* até *Semana 6*).
+- **Milestone**: O marco temporal (nossas semanas de entrega: *Semana 0* até *Semana 6*).
 
-* **Assignee**: A(s) pessoa(s) responsável(is) por executar e entregar a tarefa.
+- **Assignee**: A(s) pessoa(s) responsável(is) por executar e entregar a tarefa.
 
 ---
 
@@ -156,7 +156,7 @@ git checkout -b feat/S1-XX-webhook-n8n
 
 ```
 
-* Exemplo de Estrutura de branches:
+- Exemplo de Estrutura de branches:
 ```
 main (produção / releases estáveis)
   ↑
@@ -200,7 +200,7 @@ git push -u origin feat/S1-XX-webhook-n8n
 
 ### Passo 5: Concluir a tarefa
 
-* Após o PR ser aprovado e mesclado (*squash/merge*), o card vai automaticamente para a coluna **Done** (Concluído). Caso não seja movido automaticamente após alguns segundos, arraste-o manualmente.
+- Após o PR ser aprovado e mesclado (*squash/merge*), o card vai automaticamente para a coluna **Done** (Concluído). Caso não seja movido automaticamente após alguns segundos, arraste-o manualmente.
 
 ---
 
@@ -218,8 +218,8 @@ Você pode alternar as abas no topo do projeto:
 
 ## 5. Boas Práticas
 
-* **Filtre por você mesmo**: No campo de busca do projeto, digite `assignee:@me` para ver instantaneamente apenas as suas tarefas.
+- **Filtre por você mesmo**: No campo de busca do projeto, digite `assignee:@me` para ver instantaneamente apenas as suas tarefas.
 
-* **Mantenha o card atualizado**: Se travou em algo, deixe um comentário na issue marcando o colega com `@usuario` para pedir ajuda.
+- **Mantenha o card atualizado**: Se travou em algo, deixe um comentário na issue marcando o colega com `@usuario` para pedir ajuda.
 
-* **Critério de Aceite (DoD)**: Só passe uma tarefa para *Done* se todos os itens da descrição dela tiverem sido testados e a documentação associada atualizada.
+- **Critério de Aceite (DoD)**: Só passe uma tarefa para *Done* se todos os itens da descrição dela tiverem sido testados e a documentação associada atualizada.

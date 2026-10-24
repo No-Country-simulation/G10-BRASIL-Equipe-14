@@ -10,7 +10,6 @@ projects: ["No-Country-simulation/565"]
 ---
 
 ### Descrição
-
 <!-- Descreva de forma clara e objetiva o contexto, o objetivo principal e o resultado esperado desta entrega. -->
 
 - 
@@ -27,7 +26,6 @@ projects: ["No-Country-simulation/565"]
 ---
 
 ### Metadados e Rastreabilidade
-
 <!-- Descrever os componentes/módulos impactados, os artefatos gerados/alterados e a documentação de referência, se houver.s -->
 
 - **Componentes / Módulos impactados:** [ex.: APIs, Workflows, Schemas, Documentação]
@@ -36,7 +34,6 @@ projects: ["No-Country-simulation/565"]
 ---
 
 ### Checklist de Entrega
-
 <!-- Ao término da task, verificar se os requisitos foram atendidos. -->
 
 - [ ] **Execução / Entrega principal concluída:** O objetivo central da tarefa foi executado e testado com sucesso.
