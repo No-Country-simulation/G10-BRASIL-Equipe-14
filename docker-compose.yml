@@ -26,6 +26,23 @@ services:
     networks:
       - communitylab-network
 
+  streamlit:
+    build:
+      context: .
+      dockerfile: .setup/build/streamlit/Dockerfile
+    container_name: communitylab_streamlit
+    restart: unless-stopped
+    ports:
+      - "${STREAMLIT_PORT:-8501}:8501"
+    env_file:
+      - .env
+    environment:
+      - TZ=${TIMEZONE:-America/Sao_Paulo}
+    volumes:
+      - ./data:/code/data
+    networks:
+      - communitylab-network
+
 networks:
   communitylab-network:
     name: communitylab-network
