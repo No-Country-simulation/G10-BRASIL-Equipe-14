@@ -1,0 +1,17 @@
+.git
+.github
+.idea
+.junie
+.qodo
+.claude
+.venv
+.pytest_cache
+__pycache__
+*.pyc
+.env
+n8n/n8n_data
+data/raw
+data/processed
+docs
+references
+tests
