@@ -1,0 +1,1295 @@
+[
+  {
+    "id": "117476949784328612",
+    "created_at": "2026-10-20T20:21:27.000Z",
+    "in_reply_to_id": null,
+    "in_reply_to_account_id": null,
+    "sensitive": false,
+    "spoiler_text": "",
+    "visibility": "public",
+    "language": "en",
+    "uri": "https://web.brid.gy/r/https://www.truthdig.com/articles/ai-industry-leader-wants-50-free-kills/?utm_source=rss&utm_medium=rss&utm_campaign=ai-industry-leader-wants-50-free-kills",
+    "url": "https://fed.brid.gy/r/https://www.truthdig.com/articles/ai-industry-leader-wants-50-free-kills/?utm_source=rss&utm_medium=rss&utm_campaign=ai-industry-leader-wants-50-free-kills",
+    "replies_count": 0,
+    "reblogs_count": 0,
+    "favourites_count": 0,
+    "quotes_count": 0,
+    "edited_at": null,
+    "content": "<p><strong>AI Industry Leader Wants 50 Free Kills</strong></p>\n\n<p><a href=\"https://fed.brid.gy/r/https://www.truthdig.com/articles/ai-industry-leader-wants-50-free-kills/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=ai-industry-leader-wants-50-free-kills\" rel=\"nofollow noopener\" translate=\"no\" target=\"_blank\"><span class=\"invisible\">https://</span><span class=\"ellipsis\">fed.brid.gy/r/https://www.trut</span><span class=\"invisible\">hdig.com/articles/ai-industry-leader-wants-50-free-kills/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=ai-industry-leader-wants-50-free-kills</span></a></p>",
+    "reblog": null,
+    "account": {
+      "id": "114311556156238117",
+      "username": "truthdig.com",
+      "acct": "truthdig.com@web.brid.gy",
+      "display_name": "Truthdig [Unofficial]",
+      "locked": false,
+      "bot": false,
+      "discoverable": true,
+      "indexable": true,
+      "group": false,
+      "created_at": "2025-04-10T00:00:00.000Z",
+      "note": "An Independent, Progressive Journal of News and Opinion.<br><br>🌉 <a href=\"https://fed.brid.gy/web/truthdig.com\" rel=\"nofollow noopener\" target=\"_blank\">bridged</a> from 🌐 <a href=\"https://truthdig.com/\" rel=\"nofollow noopener\" target=\"_blank\">truthdig.com</a> by <a href=\"https://fed.brid.gy/\" rel=\"nofollow noopener\" target=\"_blank\">Bridgy Fed</a>",
+      "url": "https://web.brid.gy/r/https://truthdig.com/",
+      "uri": "https://web.brid.gy/truthdig.com",
+      "avatar": "https://files.mastodon.social/cache/accounts/avatars/114/311/556/156/238/117/original/57c241acf32204dd.png",
+      "avatar_static": "https://files.mastodon.social/cache/accounts/avatars/114/311/556/156/238/117/original/57c241acf32204dd.png",
+      "avatar_description": "",
+      "header": "https://files.mastodon.social/cache/accounts/headers/114/311/556/156/238/117/original/21f51ca045629e49.png",
+      "header_static": "https://files.mastodon.social/cache/accounts/headers/114/311/556/156/238/117/original/21f51ca045629e49.png",
+      "header_description": "",
+      "followers_count": 13,
+      "following_count": 0,
+      "statuses_count": 50,
+      "last_status_at": "2026-10-20",
+      "hide_collections": false,
+      "show_media": true,
+      "show_media_replies": true,
+      "show_featured": true,
+      "feature_approval": {
+        "automatic": [],
+        "manual": [],
+        "current_user": "denied"
+      },
+      "emojis": [],
+      "fields": [
+        {
+          "name": "Web site",
+          "value": "<a rel=\"nofollow noopener\" href=\"https://truthdig.com\" target=\"_blank\"><span class=\"invisible\">https://</span>truthdig.com</a>",
+          "verified_at": null
+        },
+        {
+          "name": "Link",
+          "value": "<a rel=\"nofollow noopener\" href=\"https://www.truthdig.com\" target=\"_blank\"><span class=\"invisible\">https://</span>www.truthdig.com</a>",
+          "verified_at": null
+        }
+      ]
+    },
+    "media_attachments": [
+      {
+        "id": "117476949737825442",
+        "type": "image",
+        "url": "https://files.mastodon.social/cache/media_attachments/files/117/476/949/737/825/442/original/f9647aeb4ad10d1b.jpeg",
+        "preview_url": "https://files.mastodon.social/cache/media_attachments/files/117/476/949/737/825/442/small/f9647aeb4ad10d1b.jpeg",
+        "remote_url": "https://truthdig.b-cdn.net/wp-content/uploads/2026/10/AdobeStock_330513365-scaled.jpeg?width=1040&height=585",
+        "preview_remote_url": null,
+        "text_url": null,
+        "meta": {
+          "original": {
+            "width": 1040,
+            "height": 585,
+            "size": "1040x585",
+            "aspect": 1.7777777777777777
+          },
+          "small": {
+            "width": 640,
+            "height": 360,
+            "size": "640x360",
+            "aspect": 1.7777777777777777
+          }
+        },
+        "description": null,
+        "blurhash": "UOB24T}XWA5-ofo0jZa}1LAEoK-9WrWWaybG"
+      }
+    ],
+    "mentions": [],
+    "tags": [
+      {
+        "name": "news",
+        "url": "https://mastodon.social/tags/news"
+      },
+      {
+        "name": "anthropicai",
+        "url": "https://mastodon.social/tags/anthropicai"
+      },
+      {
+        "name": "artificialintelligence",
+        "url": "https://mastodon.social/tags/artificialintelligence"
+      },
+      {
+        "name": "congress",
+        "url": "https://mastodon.social/tags/congress"
+      },
+      {
+        "name": "politics",
+        "url": "https://mastodon.social/tags/politics"
+      }
+    ],
+    "emojis": [],
+    "tagged_collections": [],
+    "quote": null,
+    "card": null,
+    "poll": null,
+    "quote_approval": {
+      "automatic": [
+        "public"
+      ],
+      "manual": [],
+      "current_user": "denied"
+    }
+  },
+  {
+    "id": "117476946010510390",
+    "created_at": "2026-10-21T04:12:17.261Z",
+    "in_reply_to_id": null,
+    "in_reply_to_account_id": null,
+    "sensitive": false,
+    "spoiler_text": "",
+    "visibility": "public",
+    "language": null,
+    "uri": "https://social.espeweb.net/objects/1e47f634-677d-44c1-bfde-7c8292f2db8d",
+    "url": "https://social.espeweb.net/objects/1e47f634-677d-44c1-bfde-7c8292f2db8d",
+    "replies_count": 0,
+    "reblogs_count": 0,
+    "favourites_count": 0,
+    "quotes_count": 0,
+    "edited_at": null,
+    "content": "Brussels goes looking for billions to fund Ukraine <a href=\"https://www.politico.eu/podcast/brussels-playbook-podcast/brussels-goes-looking-for-billions-to-fund-ukraine/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication\" rel=\"nofollow noopener\" target=\"_blank\">https://www.politico.eu/podcast/brussels-playbook-podcast/brussels-goes-looking-for-billions-to-fund-ukraine/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/artificialintelligence\" rel=\"nofollow noopener\" target=\"_blank\">#ArtificialIntelligence</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/europeanpolitics\" rel=\"nofollow noopener\" target=\"_blank\">#Europeanpolitics</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/europeandefense\" rel=\"nofollow noopener\" target=\"_blank\">#EuropeanDefense</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/defensebudgets\" rel=\"nofollow noopener\" target=\"_blank\">#Defensebudgets</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/foreignaffairs\" rel=\"nofollow noopener\" target=\"_blank\">#ForeignAffairs</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/cybersecurity\" rel=\"nofollow noopener\" target=\"_blank\">#Cybersecurity</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/warinukraine\" rel=\"nofollow noopener\" target=\"_blank\">#WarinUkraine</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/copyright\" rel=\"nofollow noopener\" target=\"_blank\">#Copyright</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/farright\" rel=\"nofollow noopener\" target=\"_blank\">#Farright</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/politics\" rel=\"nofollow noopener\" target=\"_blank\">#Politics</a>",
+    "reblog": null,
+    "account": {
+      "id": "108154761073932933",
+      "username": "politico_eu_bot",
+      "acct": "politico_eu_bot@social.espeweb.net",
+      "display_name": " Politico.eu (Unofficial RSS)",
+      "locked": false,
+      "bot": true,
+      "discoverable": false,
+      "indexable": false,
+      "group": false,
+      "created_at": "2022-04-12T00:00:00.000Z",
+      "note": "Fetching from <a href=\"https://www.politico.eu/feed/\" rel=\"nofollow noopener\" target=\"_blank\">https://www.politico.eu/feed/</a>",
+      "url": "https://social.espeweb.net/users/politico_eu_bot",
+      "uri": "https://social.espeweb.net/users/politico_eu_bot",
+      "avatar": "https://files.mastodon.social/cache/accounts/avatars/108/154/761/073/932/933/original/4107fdcac359601f.jpg",
+      "avatar_static": "https://files.mastodon.social/cache/accounts/avatars/108/154/761/073/932/933/original/4107fdcac359601f.jpg",
+      "avatar_description": "",
+      "header": "https://mastodon.social/headers/original/missing.png",
+      "header_static": "https://mastodon.social/headers/original/missing.png",
+      "header_description": "",
+      "followers_count": 2086,
+      "following_count": 0,
+      "statuses_count": 14575,
+      "last_status_at": "2026-10-21",
+      "hide_collections": false,
+      "show_media": true,
+      "show_media_replies": true,
+      "show_featured": true,
+      "feature_approval": {
+        "automatic": [],
+        "manual": [],
+        "current_user": "denied"
+      },
+      "emojis": [],
+      "fields": []
+    },
+    "media_attachments": [],
+    "mentions": [],
+    "tags": [
+      {
+        "name": "artificialintelligence",
+        "url": "https://mastodon.social/tags/artificialintelligence"
+      },
+      {
+        "name": "copyright",
+        "url": "https://mastodon.social/tags/copyright"
+      },
+      {
+        "name": "cybersecurity",
+        "url": "https://mastodon.social/tags/cybersecurity"
+      },
+      {
+        "name": "defensebudgets",
+        "url": "https://mastodon.social/tags/defensebudgets"
+      },
+      {
+        "name": "europeandefense",
+        "url": "https://mastodon.social/tags/europeandefense"
+      },
+      {
+        "name": "EuropeanPolitics",
+        "url": "https://mastodon.social/tags/EuropeanPolitics"
+      },
+      {
+        "name": "farright",
+        "url": "https://mastodon.social/tags/farright"
+      },
+      {
+        "name": "foreignaffairs",
+        "url": "https://mastodon.social/tags/foreignaffairs"
+      },
+      {
+        "name": "politics",
+        "url": "https://mastodon.social/tags/politics"
+      },
+      {
+        "name": "WARINUKRAINE",
+        "url": "https://mastodon.social/tags/WARINUKRAINE"
+      }
+    ],
+    "emojis": [],
+    "tagged_collections": [],
+    "quote": null,
+    "card": {
+      "url": "https://www.politico.eu/podcast/brussels-playbook-podcast/brussels-goes-looking-for-billions-to-fund-ukraine/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication",
+      "title": "Brussels goes looking for billions to fund Ukraine",
+      "description": "With Washington’s support for Kyiv increasingly uncertain, Brussels is looking to its allies to help keep Ukraine afloat. The price tag: €70 billion. On today’s show, Zoya Sheftalovich …",
+      "language": "en",
+      "type": "link",
+      "author_name": "Zoya Sheftalovich",
+      "author_url": "https://www.politico.eu/author/zoya-sheftalovich/",
+      "provider_name": "POLITICO",
+      "provider_url": "",
+      "html": "",
+      "width": 662,
+      "height": 348,
+      "image": "https://files.mastodon.social/cache/preview_cards/images/211/621/033/original/afd6f99a4c8fc805.png",
+      "image_description": "",
+      "embed_url": "",
+      "blurhash": "UN6[OlNiRlxTtWWXazoIM_e,oebJf,ahjsf+",
+      "published_at": "2026-10-21T04:05:00.000Z",
+      "authors": [
+        {
+          "name": "Zoya Sheftalovich",
+          "url": "https://www.politico.eu/author/zoya-sheftalovich/",
+          "account": null
+        }
+      ]
+    },
+    "poll": null,
+    "quote_approval": {
+      "automatic": [],
+      "manual": [],
+      "current_user": "denied"
+    }
+  },
+  {
+    "id": "117476897963023485",
+    "created_at": "2026-10-21T04:00:05.736Z",
+    "in_reply_to_id": null,
+    "in_reply_to_account_id": null,
+    "sensitive": false,
+    "spoiler_text": "",
+    "visibility": "public",
+    "language": "en",
+    "uri": "https://mastodon.social/users/lowyat/statuses/117476897963023485",
+    "url": "https://mastodon.social/@lowyat/117476897963023485",
+    "replies_count": 0,
+    "reblogs_count": 0,
+    "favourites_count": 0,
+    "quotes_count": 0,
+    "edited_at": null,
+    "content": "<p>Google Rolls Out Gemini Personal Intelligence For Android Auto, Android Automotive <a href=\"https://mastodon.social/tags/artificialintelligence\" class=\"mention hashtag\" rel=\"tag\">#<span>artificialintelligence</span></a> <a href=\"https://mastodon.social/tags/google\" class=\"mention hashtag\" rel=\"tag\">#<span>google</span></a> <a href=\"https://mastodon.social/tags/personalintelligence\" class=\"mention hashtag\" rel=\"tag\">#<span>personalintelligence</span></a></p><p><a href=\"https://www.lowyat.net/2026/407990/google-personal-intelligence-android-auto/\" target=\"_blank\" rel=\"nofollow noopener\" translate=\"no\"><span class=\"invisible\">https://www.</span><span class=\"ellipsis\">lowyat.net/2026/407990/google-</span><span class=\"invisible\">personal-intelligence-android-auto/</span></a></p>",
+    "reblog": null,
+    "application": {
+      "name": "Lowyat.NET",
+      "website": null
+    },
+    "account": {
+      "id": "110506661348597661",
+      "username": "lowyat",
+      "acct": "lowyat",
+      "display_name": "Lowyat.NET",
+      "locked": false,
+      "bot": true,
+      "discoverable": true,
+      "indexable": false,
+      "group": false,
+      "created_at": "2023-06-08T00:00:00.000Z",
+      "note": "<p>Unofficial. We keep you updated with everything that&#39;s going on in the tech world and more!</p>",
+      "url": "https://mastodon.social/@lowyat",
+      "uri": "https://mastodon.social/users/lowyat",
+      "avatar": "https://files.mastodon.social/accounts/avatars/110/506/661/348/597/661/original/52418dc8980e62e2.jpg",
+      "avatar_static": "https://files.mastodon.social/accounts/avatars/110/506/661/348/597/661/original/52418dc8980e62e2.jpg",
+      "avatar_description": "",
+      "header": "https://files.mastodon.social/accounts/headers/110/506/661/348/597/661/original/fe732d8646b397e6.jpg",
+      "header_static": "https://files.mastodon.social/accounts/headers/110/506/661/348/597/661/original/fe732d8646b397e6.jpg",
+      "header_description": "",
+      "followers_count": 115,
+      "following_count": 0,
+      "statuses_count": 11793,
+      "last_status_at": "2026-10-21",
+      "hide_collections": false,
+      "show_media": true,
+      "show_media_replies": true,
+      "show_featured": true,
+      "noindex": false,
+      "feature_approval": {
+        "automatic": [
+          "public"
+        ],
+        "manual": [],
+        "current_user": "denied"
+      },
+      "emojis": [],
+      "roles": [],
+      "fields": [
+        {
+          "name": "Lowyat.NET",
+          "value": "<a href=\"https://www.lowyat.net\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://www.</span><span class=\"\">lowyat.net</span><span class=\"invisible\"></span></a>",
+          "verified_at": null
+        },
+        {
+          "name": "Bot Status",
+          "value": "<a href=\"https://status.moekai.com\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">status.moekai.com</span><span class=\"invisible\"></span></a>",
+          "verified_at": null
+        },
+        {
+          "name": "Bot Support",
+          "value": "<span class=\"h-card\" translate=\"no\"><a href=\"https://sakurajima.social/@irfan\" class=\"u-url mention\">@<span>irfan@sakurajima.social</span></a></span>",
+          "verified_at": null
+        }
+      ]
+    },
+    "media_attachments": [],
+    "mentions": [],
+    "tags": [
+      {
+        "name": "artificialintelligence",
+        "url": "https://mastodon.social/tags/artificialintelligence"
+      },
+      {
+        "name": "google",
+        "url": "https://mastodon.social/tags/google"
+      },
+      {
+        "name": "personalintelligence",
+        "url": "https://mastodon.social/tags/personalintelligence"
+      }
+    ],
+    "emojis": [],
+    "tagged_collections": [],
+    "quote": null,
+    "card": {
+      "url": "https://www.lowyat.net/2026/407990/google-personal-intelligence-android-auto/",
+      "title": "Google Rolls Out Gemini Personal Intelligence For Android Auto, Android Automotive - Lowyat.NET",
+      "description": "Google has announced that it will roll out Personal Intelligence for Gemini on Android Auto today, while Android Automotive has to wait longer.",
+      "language": "en",
+      "type": "link",
+      "author_name": "",
+      "author_url": "",
+      "provider_name": "Lowyat.NET",
+      "provider_url": "",
+      "html": "",
+      "width": 639,
+      "height": 360,
+      "image": "https://files.mastodon.social/cache/preview_cards/images/211/620/049/original/41a8160432dc26bf.webp",
+      "image_description": "Google Rolling Out Gemini Personal Intelligence",
+      "embed_url": "",
+      "blurhash": "UYQ0gjj[_4xutPj]ogjY-;j?IAWE%MjsWBbH",
+      "published_at": "2026-10-21T02:56:09.000Z",
+      "authors": []
+    },
+    "poll": null,
+    "quote_approval": {
+      "automatic": [
+        "public"
+      ],
+      "manual": [],
+      "current_user": "denied"
+    }
+  },
+  {
+    "id": "117476765783818325",
+    "created_at": "2026-10-21T03:26:28.000Z",
+    "in_reply_to_id": null,
+    "in_reply_to_account_id": null,
+    "sensitive": false,
+    "spoiler_text": "",
+    "visibility": "public",
+    "language": "en",
+    "uri": "https://igeek.gamer-geek-news.com/users/feed/statuses/01M5E7XZ67XQ1TNNZSKEZE65HS",
+    "url": "https://igeek.gamer-geek-news.com/@feed/statuses/01M5E7XZ67XQ1TNNZSKEZE65HS",
+    "replies_count": 0,
+    "reblogs_count": 0,
+    "favourites_count": 0,
+    "quotes_count": 0,
+    "edited_at": null,
+    "content": "<p>📰 <strong>Mistral AI Releases Timestral: A 209M Forecasting Model Family That Outperforms Google’s TimesFM-3</strong></p><p>Mistral released Timestral, a time series foundation model family from 5M to 209M parameters. The 209M model leads GIFT-Eval, TIME and fev-bench among zero-shot models and runs on CPU.</p><p>📰 Source: MarkTechPost<br>🔗 Link: <a href=\"https://www.marktechpost.com/2026/10/18/mistral-timestral-time-series-foundation-model/\" rel=\"nofollow noopener\" target=\"_blank\">https://www.marktechpost.com/2026/10/18/mistral-timestral-time-series-foundation-model/</a></p><p><a href=\"https://igeek.gamer-geek-news.com/tags/ai\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>AI</span></a> <a href=\"https://igeek.gamer-geek-news.com/tags/artificialintelligence\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>ArtificialIntelligence</span></a></p>",
+    "reblog": null,
+    "account": {
+      "id": "116070447239053927",
+      "username": "feed",
+      "acct": "feed@igeek.gamer-geek-news.com",
+      "display_name": "input",
+      "locked": false,
+      "bot": false,
+      "discoverable": false,
+      "indexable": false,
+      "group": false,
+      "created_at": "2026-02-13T00:00:00.000Z",
+      "note": "<p>Curated feed of news sources that I find of interest, best effort made to remove promotional links</p>",
+      "url": "https://igeek.gamer-geek-news.com/@feed",
+      "uri": "https://igeek.gamer-geek-news.com/users/feed",
+      "avatar": "https://files.mastodon.social/cache/accounts/avatars/116/070/447/239/053/927/original/3d061316f2df51d6.jpeg",
+      "avatar_static": "https://files.mastodon.social/cache/accounts/avatars/116/070/447/239/053/927/original/3d061316f2df51d6.jpeg",
+      "avatar_description": "",
+      "header": "https://files.mastodon.social/cache/accounts/headers/116/070/447/239/053/927/original/9dfbfb3b530213e6.jpeg",
+      "header_static": "https://files.mastodon.social/cache/accounts/headers/116/070/447/239/053/927/original/9dfbfb3b530213e6.jpeg",
+      "header_description": "",
+      "followers_count": 235,
+      "following_count": 246,
+      "statuses_count": 89139,
+      "last_status_at": "2026-10-21",
+      "hide_collections": false,
+      "show_media": true,
+      "show_media_replies": true,
+      "show_featured": true,
+      "feature_approval": {
+        "automatic": [],
+        "manual": [],
+        "current_user": "denied"
+      },
+      "emojis": [],
+      "fields": [
+        {
+          "name": "content",
+          "value": "games, technology, data science, retro",
+          "verified_at": null
+        }
+      ]
+    },
+    "media_attachments": [],
+    "mentions": [],
+    "tags": [
+      {
+        "name": "ai",
+        "url": "https://mastodon.social/tags/ai"
+      },
+      {
+        "name": "artificialintelligence",
+        "url": "https://mastodon.social/tags/artificialintelligence"
+      }
+    ],
+    "emojis": [],
+    "tagged_collections": [],
+    "quote": null,
+    "card": {
+      "url": "https://www.marktechpost.com/2026/10/18/mistral-timestral-time-series-foundation-model/",
+      "title": "Mistral AI Releases Timestral: A 209M Forecasting Model Family That Outperforms Google’s TimesFM-3",
+      "description": "Mistral Timestral is a time series foundation model family, 5M to 209M parameters, forecasting zero-shot on a CPU.",
+      "language": "en",
+      "type": "link",
+      "author_name": "",
+      "author_url": "",
+      "provider_name": "MarkTechPost",
+      "provider_url": "",
+      "html": "",
+      "width": 554,
+      "height": 416,
+      "image": "https://files.mastodon.social/cache/preview_cards/images/211/340/659/original/f68c6bfead5fb2e8.png",
+      "image_description": "",
+      "embed_url": "",
+      "blurhash": "UDAlnRx]v}9u~BOswbNGJ8EQt5xDVqv#XSog",
+      "published_at": "2026-10-19T01:18:17.000Z",
+      "authors": []
+    },
+    "poll": null,
+    "quote_approval": {
+      "automatic": [],
+      "manual": [],
+      "current_user": "denied"
+    }
+  },
+  {
+    "id": "117476742427106878",
+    "created_at": "2026-10-21T03:20:31.000Z",
+    "in_reply_to_id": null,
+    "in_reply_to_account_id": null,
+    "sensitive": false,
+    "spoiler_text": "",
+    "visibility": "public",
+    "language": "en",
+    "uri": "https://theblower.au/users/bignose/statuses/117476742349072339",
+    "url": "https://theblower.au/@bignose/117476742349072339",
+    "replies_count": 0,
+    "reblogs_count": 0,
+    "favourites_count": 0,
+    "quotes_count": 0,
+    "edited_at": null,
+    "content": "<p>“For general reasoning, a system should maintain an epistemic state that represents what the system holds as settled, what it doubts, what it has ruled out, which questions stay open.</p><p>“Reasoning can then be understood as a sequence of moves that change the epistemic state to advance knowledge and reduce uncertainty: deducing consequences, breaking problems into parts, and—crucially—deciding what question to ask, calculation to perform, or experiment to run next.</p><p>“Society needs such creative moves in drug discovery, materials, climate, diagnosis—fields where the board looks nothing like a Go board and nobody hands us the rules. We will get such insights only from systems that reason—systems whose conclusions arise from an auditable sequence of evidence, inference, and belief revision rather than from a convincing story told after the fact.”</p><p><a href=\"https://www.technologyreview.com/2026/10/02/1145639/dont-be-fooled-llms-dont-reason/\" rel=\"nofollow noopener\" translate=\"no\" target=\"_blank\"><span class=\"invisible\">https://www.</span><span class=\"ellipsis\">technologyreview.com/2026/10/0</span><span class=\"invisible\">2/1145639/dont-be-fooled-llms-dont-reason/</span></a></p><p><a href=\"https://theblower.au/tags/LLM\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>LLM</span></a> <a href=\"https://theblower.au/tags/ArtificialIntelligence\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>ArtificialIntelligence</span></a></p>",
+    "reblog": null,
+    "account": {
+      "id": "109334690278892912",
+      "username": "bignose",
+      "acct": "bignose@theblower.au",
+      "display_name": "bignose",
+      "locked": false,
+      "bot": false,
+      "discoverable": false,
+      "indexable": false,
+      "group": false,
+      "created_at": "2022-11-12T00:00:00.000Z",
+      "note": "",
+      "url": "https://theblower.au/@bignose",
+      "uri": "https://theblower.au/users/bignose",
+      "avatar": "https://files.mastodon.social/cache/accounts/avatars/109/334/690/278/892/912/original/c7ba7c694a21f475.jpeg",
+      "avatar_static": "https://files.mastodon.social/cache/accounts/avatars/109/334/690/278/892/912/original/c7ba7c694a21f475.jpeg",
+      "avatar_description": "",
+      "header": "https://files.mastodon.social/cache/accounts/headers/109/334/690/278/892/912/original/ce02a19c79a34705.jpeg",
+      "header_static": "https://files.mastodon.social/cache/accounts/headers/109/334/690/278/892/912/original/ce02a19c79a34705.jpeg",
+      "header_description": "",
+      "followers_count": 84,
+      "following_count": 38,
+      "statuses_count": 2441,
+      "last_status_at": "2026-10-21",
+      "hide_collections": false,
+      "show_media": true,
+      "show_media_replies": true,
+      "show_featured": true,
+      "feature_approval": {
+        "automatic": [
+          "disabled"
+        ],
+        "manual": [],
+        "current_user": "denied"
+      },
+      "emojis": [],
+      "fields": [
+        {
+          "name": "Pronouns",
+          "value": "<a href=\"https://pronoun.is/he\" rel=\"nofollow noopener\" translate=\"no\" target=\"_blank\"><span class=\"invisible\">https://</span><span class=\"\">pronoun.is/he</span><span class=\"invisible\"></span></a>",
+          "verified_at": null
+        },
+        {
+          "name": "Residence",
+          "value": "Melbourne, Australia",
+          "verified_at": null
+        }
+      ]
+    },
+    "media_attachments": [],
+    "mentions": [],
+    "tags": [
+      {
+        "name": "llm",
+        "url": "https://mastodon.social/tags/llm"
+      },
+      {
+        "name": "artificialintelligence",
+        "url": "https://mastodon.social/tags/artificialintelligence"
+      }
+    ],
+    "emojis": [],
+    "tagged_collections": [],
+    "quote": null,
+    "card": {
+      "url": "https://www.technologyreview.com/2026/10/02/1145639/dont-be-fooled-llms-dont-reason/",
+      "title": "Don’t be fooled—LLMs don’t reason",
+      "description": "Ten years after AlphaGo’s match against Go champion Lee Sedol, today’s AI still isn’t tapping into the machinery that made that win possible.",
+      "language": "en",
+      "type": "link",
+      "author_name": "Thore Graepel",
+      "author_url": "",
+      "provider_name": "MIT Technology Review",
+      "provider_url": "",
+      "html": "",
+      "width": 0,
+      "height": 0,
+      "image": "https://files.mastodon.social/cache/preview_cards/images/209/325/681/original/468fd22b39c2c0dc.jpg",
+      "image_description": "",
+      "embed_url": "",
+      "blurhash": "U7N8w2*4$bk=yq*zj0PljFOrr_P9:.t*xWvO",
+      "published_at": "2026-10-02T08:00:00.000Z",
+      "authors": [
+        {
+          "name": "Thore Graepel",
+          "url": "",
+          "account": null
+        }
+      ]
+    },
+    "poll": null,
+    "quote_approval": {
+      "automatic": [
+        "public"
+      ],
+      "manual": [],
+      "current_user": "denied"
+    }
+  },
+  {
+    "id": "117476661482589915",
+    "created_at": "2026-10-21T02:59:57.333Z",
+    "in_reply_to_id": null,
+    "in_reply_to_account_id": null,
+    "sensitive": false,
+    "spoiler_text": "",
+    "visibility": "public",
+    "language": "en",
+    "uri": "https://mastodon.social/users/DrMikeWatts/statuses/117476661482589915",
+    "url": "https://mastodon.social/@DrMikeWatts/117476661482589915",
+    "replies_count": 0,
+    "reblogs_count": 0,
+    "favourites_count": 0,
+    "quotes_count": 0,
+    "edited_at": null,
+    "content": "<p>This should be obvious-an <a href=\"https://mastodon.social/tags/AI\" class=\"mention hashtag\" rel=\"tag\">#<span>AI</span></a> is only as good as the data used to create it, even my first-year students know that: <a href=\"https://www.hpcwire.com/bigdatawire/2026/10/12/ai-is-only-as-smart-as-the-data-behind-it/\" target=\"_blank\" rel=\"nofollow noopener\" translate=\"no\"><span class=\"invisible\">https://www.</span><span class=\"ellipsis\">hpcwire.com/bigdatawire/2026/1</span><span class=\"invisible\">0/12/ai-is-only-as-smart-as-the-data-behind-it/</span></a> <a href=\"https://mastodon.social/tags/ArtificialIntelligence\" class=\"mention hashtag\" rel=\"tag\">#<span>ArtificialIntelligence</span></a></p>",
+    "reblog": null,
+    "application": {
+      "name": "Web",
+      "website": null
+    },
+    "account": {
+      "id": "111050542539840625",
+      "username": "DrMikeWatts",
+      "acct": "DrMikeWatts",
+      "display_name": "Mike Watts",
+      "locked": false,
+      "bot": false,
+      "discoverable": null,
+      "indexable": false,
+      "group": false,
+      "created_at": "2023-09-12T00:00:00.000Z",
+      "note": "<p>PhD in artificial intelligence, research experience in IT and ecology. Scientist. Engineer. Educator. Husband. Father.</p>",
+      "url": "https://mastodon.social/@DrMikeWatts",
+      "uri": "https://mastodon.social/users/DrMikeWatts",
+      "avatar": "https://files.mastodon.social/accounts/avatars/111/050/542/539/840/625/original/6a76a6585f89495b.webp",
+      "avatar_static": "https://files.mastodon.social/accounts/avatars/111/050/542/539/840/625/original/6a76a6585f89495b.webp",
+      "avatar_description": "",
+      "header": "https://files.mastodon.social/accounts/headers/111/050/542/539/840/625/original/13f68a8c258f9fce.jpg",
+      "header_static": "https://files.mastodon.social/accounts/headers/111/050/542/539/840/625/original/13f68a8c258f9fce.jpg",
+      "header_description": "",
+      "followers_count": 65,
+      "following_count": 5,
+      "statuses_count": 4417,
+      "last_status_at": "2026-10-21",
+      "hide_collections": null,
+      "show_media": true,
+      "show_media_replies": true,
+      "show_featured": true,
+      "noindex": false,
+      "feature_approval": {
+        "automatic": [],
+        "manual": [],
+        "current_user": "denied"
+      },
+      "emojis": [],
+      "roles": [],
+      "fields": [
+        {
+          "name": "Homepage",
+          "value": "<a href=\"https://mike.watts.net.nz\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">mike.watts.net.nz</span><span class=\"invisible\"></span></a>",
+          "verified_at": "2025-12-23T22:22:21.015+00:00"
+        },
+        {
+          "name": "LinkedIn",
+          "value": "<a href=\"https://www.linkedin.com/in/drmikewatts/\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://www.</span><span class=\"\">linkedin.com/in/drmikewatts/</span><span class=\"invisible\"></span></a>",
+          "verified_at": null
+        },
+        {
+          "name": "Instagram",
+          "value": "<a href=\"https://www.instagram.com/drmikewatts/\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://www.</span><span class=\"\">instagram.com/drmikewatts/</span><span class=\"invisible\"></span></a>",
+          "verified_at": null
+        }
+      ]
+    },
+    "media_attachments": [],
+    "mentions": [],
+    "tags": [
+      {
+        "name": "ai",
+        "url": "https://mastodon.social/tags/ai"
+      },
+      {
+        "name": "artificialintelligence",
+        "url": "https://mastodon.social/tags/artificialintelligence"
+      }
+    ],
+    "emojis": [],
+    "tagged_collections": [],
+    "quote": null,
+    "card": null,
+    "poll": null,
+    "quote_approval": {
+      "automatic": [
+        "public"
+      ],
+      "manual": [],
+      "current_user": "denied"
+    }
+  },
+  {
+    "id": "117476628936104141",
+    "created_at": "2026-10-21T02:51:40.712Z",
+    "in_reply_to_id": null,
+    "in_reply_to_account_id": null,
+    "sensitive": false,
+    "spoiler_text": "",
+    "visibility": "public",
+    "language": "en",
+    "uri": "https://mastodon.social/users/rswebsols/statuses/117476628936104141",
+    "url": "https://mastodon.social/@rswebsols/117476628936104141",
+    "replies_count": 0,
+    "reblogs_count": 0,
+    "favourites_count": 0,
+    "quotes_count": 0,
+    "edited_at": null,
+    "content": "<p>Google Introduces Enhanced Android AI Safeguards to Prevent Scam Calls, Phishing Attempts, and OTP Fraud <a href=\"https://mastodon.social/tags/internet\" class=\"mention hashtag\" rel=\"tag\">#<span>internet</span></a> <a href=\"https://mastodon.social/tags/cybersecurity\" class=\"mention hashtag\" rel=\"tag\">#<span>cybersecurity</span></a> <a href=\"https://mastodon.social/tags/artificialintelligence\" class=\"mention hashtag\" rel=\"tag\">#<span>artificialintelligence</span></a></p><p>Google rolls out enhanced Android AI safeguards to curb scam calls, phishing, and OTP fraud. On-device Gemini Nano analyzes unfamiliar links, Enhanced Protection in Messages, warnings for unknown numbers, and call-forwarding/OTP protections. Read more: <a href=\"https://ift.tt/h7igXVN\" target=\"_blank\" rel=\"nofollow noopener\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">ift.tt/h7igXVN</span><span class=\"invisible\"></span></a></p><p>Source: <a href=\"https://ift.tt/h7igXVN\" target=\"_blank\" rel=\"nofollow noopener\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">ift.tt/h7igXVN</span><span class=\"invisible\"></span></a> | Image: <a href=\"https://ift.tt/nwxadX6\" target=\"_blank\" rel=\"nofollow noopener\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">ift.tt/nwxadX6</span><span class=\"invisible\"></span></a></p>",
+    "reblog": null,
+    "application": {
+      "name": "IFTTT",
+      "website": "https://ifttt.com/mastodon_social"
+    },
+    "account": {
+      "id": "114793049881257920",
+      "username": "rswebsols",
+      "acct": "rswebsols",
+      "display_name": "RS Web Solutions (RSWEBSOLS)",
+      "locked": false,
+      "bot": false,
+      "discoverable": true,
+      "indexable": true,
+      "group": false,
+      "created_at": "2025-07-04T00:00:00.000Z",
+      "note": "<p>We are a Web Resource Library providing tips, tutorials, and reviews on Web Design, Programming, SEO, Marketing, eCommerce, Technology, Gadgets, Apps &amp; Software.</p>",
+      "url": "https://mastodon.social/@rswebsols",
+      "uri": "https://mastodon.social/users/rswebsols",
+      "avatar": "https://files.mastodon.social/accounts/avatars/114/793/049/881/257/920/original/34fac4268c249909.png",
+      "avatar_static": "https://files.mastodon.social/accounts/avatars/114/793/049/881/257/920/original/34fac4268c249909.png",
+      "avatar_description": "",
+      "header": "https://files.mastodon.social/accounts/headers/114/793/049/881/257/920/original/ab479cc0f1810948.jpg",
+      "header_static": "https://files.mastodon.social/accounts/headers/114/793/049/881/257/920/original/ab479cc0f1810948.jpg",
+      "header_description": "",
+      "followers_count": 25,
+      "following_count": 6,
+      "statuses_count": 3704,
+      "last_status_at": "2026-10-21",
+      "hide_collections": null,
+      "show_media": true,
+      "show_media_replies": true,
+      "show_featured": true,
+      "noindex": false,
+      "feature_approval": {
+        "automatic": [
+          "public"
+        ],
+        "manual": [],
+        "current_user": "denied"
+      },
+      "emojis": [],
+      "roles": [],
+      "fields": [
+        {
+          "name": "Website",
+          "value": "<a href=\"https://www.rswebsols.com/\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://www.</span><span class=\"\">rswebsols.com/</span><span class=\"invisible\"></span></a>",
+          "verified_at": "2025-07-04T05:09:23.455+00:00"
+        },
+        {
+          "name": "Facebook",
+          "value": "<a href=\"https://www.facebook.com/in.rswebsols\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://www.</span><span class=\"\">facebook.com/in.rswebsols</span><span class=\"invisible\"></span></a>",
+          "verified_at": null
+        },
+        {
+          "name": "Twitter (X)",
+          "value": "<a href=\"https://x.com/rswebsols\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">x.com/rswebsols</span><span class=\"invisible\"></span></a>",
+          "verified_at": null
+        },
+        {
+          "name": "LinkedIn",
+          "value": "<a href=\"https://www.linkedin.com/company/rswebsols\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://www.</span><span class=\"\">linkedin.com/company/rswebsols</span><span class=\"invisible\"></span></a>",
+          "verified_at": null
+        }
+      ]
+    },
+    "media_attachments": [],
+    "mentions": [],
+    "tags": [
+      {
+        "name": "internet",
+        "url": "https://mastodon.social/tags/internet"
+      },
+      {
+        "name": "cybersecurity",
+        "url": "https://mastodon.social/tags/cybersecurity"
+      },
+      {
+        "name": "artificialintelligence",
+        "url": "https://mastodon.social/tags/artificialintelligence"
+      }
+    ],
+    "emojis": [],
+    "tagged_collections": [],
+    "quote": null,
+    "card": {
+      "url": "https://ift.tt/h7igXVN",
+      "title": "Google Launches Advanced Android AI Safeguards Against Scam Calls and Fraud",
+      "description": "Google launches advanced Android AI safeguards to block scam calls, phishing attempts, and OTP fraud, boosting user security like never before.",
+      "language": "en",
+      "type": "link",
+      "author_name": "",
+      "author_url": "",
+      "provider_name": "RS Web Solutions (RSWEBSOLS)",
+      "provider_url": "",
+      "html": "",
+      "width": 588,
+      "height": 392,
+      "image": "https://files.mastodon.social/cache/preview_cards/images/211/615/750/original/b3fc0fa000601a91.jpg",
+      "image_description": "A man holding up a sign that says fraud.",
+      "embed_url": "",
+      "blurhash": "UKDnt$%EC6xuO]Vzi~V{0KM}?IRl-;tPITt5",
+      "published_at": "2026-10-21T02:00:00.000Z",
+      "authors": [
+        {
+          "name": "",
+          "url": "",
+          "account": {
+            "id": "114793049881257920",
+            "username": "rswebsols",
+            "acct": "rswebsols",
+            "display_name": "RS Web Solutions (RSWEBSOLS)",
+            "locked": false,
+            "bot": false,
+            "discoverable": true,
+            "indexable": true,
+            "group": false,
+            "created_at": "2025-07-04T00:00:00.000Z",
+            "note": "<p>We are a Web Resource Library providing tips, tutorials, and reviews on Web Design, Programming, SEO, Marketing, eCommerce, Technology, Gadgets, Apps &amp; Software.</p>",
+            "url": "https://mastodon.social/@rswebsols",
+            "uri": "https://mastodon.social/users/rswebsols",
+            "avatar": "https://files.mastodon.social/accounts/avatars/114/793/049/881/257/920/original/34fac4268c249909.png",
+            "avatar_static": "https://files.mastodon.social/accounts/avatars/114/793/049/881/257/920/original/34fac4268c249909.png",
+            "avatar_description": "",
+            "header": "https://files.mastodon.social/accounts/headers/114/793/049/881/257/920/original/ab479cc0f1810948.jpg",
+            "header_static": "https://files.mastodon.social/accounts/headers/114/793/049/881/257/920/original/ab479cc0f1810948.jpg",
+            "header_description": "",
+            "followers_count": 25,
+            "following_count": 6,
+            "statuses_count": 3704,
+            "last_status_at": "2026-10-21",
+            "hide_collections": null,
+            "show_media": true,
+            "show_media_replies": true,
+            "show_featured": true,
+            "noindex": false,
+            "feature_approval": {
+              "automatic": [
+                "public"
+              ],
+              "manual": [],
+              "current_user": "denied"
+            },
+            "emojis": [],
+            "roles": [],
+            "fields": [
+              {
+                "name": "Website",
+                "value": "<a href=\"https://www.rswebsols.com/\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://www.</span><span class=\"\">rswebsols.com/</span><span class=\"invisible\"></span></a>",
+                "verified_at": "2025-07-04T05:09:23.455+00:00"
+              },
+              {
+                "name": "Facebook",
+                "value": "<a href=\"https://www.facebook.com/in.rswebsols\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://www.</span><span class=\"\">facebook.com/in.rswebsols</span><span class=\"invisible\"></span></a>",
+                "verified_at": null
+              },
+              {
+                "name": "Twitter (X)",
+                "value": "<a href=\"https://x.com/rswebsols\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">x.com/rswebsols</span><span class=\"invisible\"></span></a>",
+                "verified_at": null
+              },
+              {
+                "name": "LinkedIn",
+                "value": "<a href=\"https://www.linkedin.com/company/rswebsols\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://www.</span><span class=\"\">linkedin.com/company/rswebsols</span><span class=\"invisible\"></span></a>",
+                "verified_at": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "poll": null,
+    "quote_approval": {
+      "automatic": [
+        "public"
+      ],
+      "manual": [],
+      "current_user": "denied"
+    }
+  },
+  {
+    "id": "117476574518689509",
+    "created_at": "2026-10-21T02:37:50.000Z",
+    "in_reply_to_id": null,
+    "in_reply_to_account_id": null,
+    "sensitive": false,
+    "spoiler_text": "",
+    "visibility": "public",
+    "language": "en",
+    "uri": "https://igeek.gamer-geek-news.com/users/feed/statuses/01M5E54X5KWE36REZZTZWMPBCW",
+    "url": "https://igeek.gamer-geek-news.com/@feed/statuses/01M5E54X5KWE36REZZTZWMPBCW",
+    "replies_count": 0,
+    "reblogs_count": 0,
+    "favourites_count": 0,
+    "quotes_count": 0,
+    "edited_at": null,
+    "content": "<p>🤖 <strong>Ex-Nvidia-turned-VC Amulya Vishwanath: ‘Physical AI is in its LEGO era’</strong></p><p>It’s the moment everyone is waiting for — the ChatGPT moment for robotics, Amulya Vishwanath explained to TechCrunch’s Equity.</p><p>📰 Source: AI News &amp; Artificial Intelligence | TechCrunch<br>🔗 Link: <a href=\"https://techcrunch.com/2026/10/20/ex-nvidia-turned-vc-amulya-vishwanath-physical-ai-is-in-its-lego-era/\" rel=\"nofollow noopener\" target=\"_blank\">https://techcrunch.com/2026/10/20/ex-nvidia-turned-vc-amulya-vishwanath-physical-ai-is-in-its-lego-era/</a></p><p><a href=\"https://igeek.gamer-geek-news.com/tags/ai\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>AI</span></a> <a href=\"https://igeek.gamer-geek-news.com/tags/artificialintelligence\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>ArtificialIntelligence</span></a> <a href=\"https://igeek.gamer-geek-news.com/tags/chatgpt\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>ChatGPT</span></a></p>",
+    "reblog": null,
+    "account": {
+      "id": "116070447239053927",
+      "username": "feed",
+      "acct": "feed@igeek.gamer-geek-news.com",
+      "display_name": "input",
+      "locked": false,
+      "bot": false,
+      "discoverable": false,
+      "indexable": false,
+      "group": false,
+      "created_at": "2026-02-13T00:00:00.000Z",
+      "note": "<p>Curated feed of news sources that I find of interest, best effort made to remove promotional links</p>",
+      "url": "https://igeek.gamer-geek-news.com/@feed",
+      "uri": "https://igeek.gamer-geek-news.com/users/feed",
+      "avatar": "https://files.mastodon.social/cache/accounts/avatars/116/070/447/239/053/927/original/3d061316f2df51d6.jpeg",
+      "avatar_static": "https://files.mastodon.social/cache/accounts/avatars/116/070/447/239/053/927/original/3d061316f2df51d6.jpeg",
+      "avatar_description": "",
+      "header": "https://files.mastodon.social/cache/accounts/headers/116/070/447/239/053/927/original/9dfbfb3b530213e6.jpeg",
+      "header_static": "https://files.mastodon.social/cache/accounts/headers/116/070/447/239/053/927/original/9dfbfb3b530213e6.jpeg",
+      "header_description": "",
+      "followers_count": 235,
+      "following_count": 246,
+      "statuses_count": 89139,
+      "last_status_at": "2026-10-21",
+      "hide_collections": false,
+      "show_media": true,
+      "show_media_replies": true,
+      "show_featured": true,
+      "feature_approval": {
+        "automatic": [],
+        "manual": [],
+        "current_user": "denied"
+      },
+      "emojis": [],
+      "fields": [
+        {
+          "name": "content",
+          "value": "games, technology, data science, retro",
+          "verified_at": null
+        }
+      ]
+    },
+    "media_attachments": [],
+    "mentions": [],
+    "tags": [
+      {
+        "name": "ai",
+        "url": "https://mastodon.social/tags/ai"
+      },
+      {
+        "name": "artificialintelligence",
+        "url": "https://mastodon.social/tags/artificialintelligence"
+      },
+      {
+        "name": "chatgpt",
+        "url": "https://mastodon.social/tags/chatgpt"
+      }
+    ],
+    "emojis": [],
+    "tagged_collections": [],
+    "quote": null,
+    "card": {
+      "url": "https://techcrunch.com/2026/10/20/ex-nvidia-turned-vc-amulya-vishwanath-physical-ai-is-in-its-lego-era/",
+      "title": "Ex-Nvidia-turned-VC Amulya Vishwanath: 'Physical AI is in its LEGO era' | TechCrunch",
+      "description": "It’s the moment everyone is waiting for — the ChatGPT moment for robotics, Amulya Vishwanath explained to TechCrunch’s Equity. ",
+      "language": "en",
+      "type": "link",
+      "author_name": "",
+      "author_url": "",
+      "provider_name": "TechCrunch",
+      "provider_url": "",
+      "html": "",
+      "width": 640,
+      "height": 360,
+      "image": "https://files.mastodon.social/cache/preview_cards/images/211/562/727/original/fd737c0555581ba5.jpg",
+      "image_description": "",
+      "embed_url": "",
+      "blurhash": "UJEnFg{NM#;5J8NbSfW:odsAjGOq=d,Z$PbZ",
+      "published_at": "2026-10-20T16:20:06.000Z",
+      "authors": []
+    },
+    "poll": null,
+    "quote_approval": {
+      "automatic": [],
+      "manual": [],
+      "current_user": "denied"
+    }
+  },
+  {
+    "id": "117476540757104584",
+    "created_at": "2026-10-21T02:29:12.000Z",
+    "in_reply_to_id": null,
+    "in_reply_to_account_id": null,
+    "sensitive": false,
+    "spoiler_text": "",
+    "visibility": "public",
+    "language": "en",
+    "uri": "https://jforo.com/users/yayafa/statuses/117476540590703933",
+    "url": "https://jforo.com/@yayafa/117476540590703933",
+    "replies_count": 0,
+    "reblogs_count": 0,
+    "favourites_count": 0,
+    "quotes_count": 0,
+    "edited_at": null,
+    "content": "<p>メディアジーンとインフォバーン、人とAIの双方に届ける「AIコンテンツマーケティング支援事業」に向けた取り組みを開始──AI時代にふさわしい「真の影響力」を提供できるメディア企業グループへ── || メディアジーン | Mediagene <a href=\"https://www.yayafa.com/2915780/\" rel=\"nofollow noopener\" translate=\"no\" target=\"_blank\"><span class=\"invisible\">https://www.</span><span class=\"\">yayafa.com/2915780/</span><span class=\"invisible\"></span></a> <a href=\"https://jforo.com/tags/AgenticAi\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>AgenticAi</span></a> <a href=\"https://jforo.com/tags/AI\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>AI</span></a> <a href=\"https://jforo.com/tags/ArtificialGeneralIntelligence\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>ArtificialGeneralIntelligence</span></a> <a href=\"https://jforo.com/tags/ArtificialIntelligence\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>ArtificialIntelligence</span></a> <a href=\"https://jforo.com/tags/mediagene\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>mediagene</span></a> <a href=\"https://jforo.com/tags/%E3%82%A8%E3%83%BC%E3%82%B8%E3%82%A7%E3%83%B3%E3%83%88%E5%9E%8BAI\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>エージェント型AI</span></a> <a href=\"https://jforo.com/tags/%E3%82%AA%E3%83%B3%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%91%E3%83%96%E3%83%AA%E3%83%83%E3%82%B7%E3%83%A3%E3%83%BC\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>オンラインパブリッシャー</span></a> <a href=\"https://jforo.com/tags/%E3%82%BF%E3%83%BC%E3%82%B2%E3%83%83%E3%83%88%E3%83%BB%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>ターゲット・メディア</span></a> <a href=\"https://jforo.com/tags/%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%82%B8%E3%83%BC%E3%83%B3\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>メディアジーン</span></a> <a href=\"https://jforo.com/tags/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>人工知能</span></a> <a href=\"https://jforo.com/tags/%E6%B1%8E%E7%94%A8%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>汎用人工知能</span></a></p>",
+    "reblog": null,
+    "account": {
+      "id": "113978073284208744",
+      "username": "yayafa",
+      "acct": "yayafa@jforo.com",
+      "display_name": "YAYAFA",
+      "locked": false,
+      "bot": false,
+      "discoverable": true,
+      "indexable": true,
+      "group": false,
+      "created_at": "2025-02-10T00:00:00.000Z",
+      "note": "<p><a href=\"https://jforo.com/tags/JAPAN\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>JAPAN</span></a><br><a href=\"https://jforo.com/tags/NEWS\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>NEWS</span></a><br><a href=\"https://jforo.com/tags/BUSINESS\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>BUSINESS</span></a><br><a href=\"https://jforo.com/tags/ENTERTAINMENT\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>ENTERTAINMENT</span></a></p>",
+      "url": "https://jforo.com/@yayafa",
+      "uri": "https://jforo.com/users/yayafa",
+      "avatar": "https://files.mastodon.social/cache/accounts/avatars/113/978/073/284/208/744/original/fbeba39d891deaef.png",
+      "avatar_static": "https://files.mastodon.social/cache/accounts/avatars/113/978/073/284/208/744/original/fbeba39d891deaef.png",
+      "avatar_description": "",
+      "header": "https://files.mastodon.social/cache/accounts/headers/113/978/073/284/208/744/original/13944be39dfd4780.jpg",
+      "header_static": "https://files.mastodon.social/cache/accounts/headers/113/978/073/284/208/744/original/13944be39dfd4780.jpg",
+      "header_description": "",
+      "followers_count": 134,
+      "following_count": 0,
+      "statuses_count": 8317,
+      "last_status_at": "2026-10-21",
+      "hide_collections": false,
+      "show_media": true,
+      "show_media_replies": true,
+      "show_featured": true,
+      "feature_approval": {
+        "automatic": [],
+        "manual": [],
+        "current_user": "denied"
+      },
+      "emojis": [],
+      "fields": [
+        {
+          "name": "Website",
+          "value": "<a href=\"https://www.yayafa.com\" rel=\"nofollow noopener\" translate=\"no\" target=\"_blank\"><span class=\"invisible\">https://www.</span><span class=\"\">yayafa.com</span><span class=\"invisible\"></span></a>",
+          "verified_at": null
+        }
+      ]
+    },
+    "media_attachments": [
+      {
+        "id": "117476540648728816",
+        "type": "image",
+        "url": "https://files.mastodon.social/cache/media_attachments/files/117/476/540/648/728/816/original/2111363b4ba1d182.png",
+        "preview_url": "https://files.mastodon.social/cache/media_attachments/files/117/476/540/648/728/816/small/2111363b4ba1d182.png",
+        "remote_url": "https://media.jforo.com/media_attachments/files/117/476/540/503/021/161/original/bd520c49ffaef559.png",
+        "preview_remote_url": null,
+        "text_url": null,
+        "meta": {
+          "original": {
+            "width": 1024,
+            "height": 567,
+            "size": "1024x567",
+            "aspect": 1.8059964726631392
+          },
+          "small": {
+            "width": 645,
+            "height": 357,
+            "size": "645x357",
+            "aspect": 1.8067226890756303
+          }
+        },
+        "description": "メディアジーンとインフォバーン、人とAIの双方に届ける「AIコンテンツマーケティング支援事業」に向けた取り組みを開始──AI時代にふさわしい「真の影響力」を提供できるメディア企業グループへ── || メディアジーン | Mediagene",
+        "blurhash": "UDS$ovt8of%M-;fRfQfQ~qt6WBWC-;j[fQj["
+      }
+    ],
+    "mentions": [],
+    "tags": [
+      {
+        "name": "agenticai",
+        "url": "https://mastodon.social/tags/agenticai"
+      },
+      {
+        "name": "ai",
+        "url": "https://mastodon.social/tags/ai"
+      },
+      {
+        "name": "artificialgeneralintelligence",
+        "url": "https://mastodon.social/tags/artificialgeneralintelligence"
+      },
+      {
+        "name": "artificialintelligence",
+        "url": "https://mastodon.social/tags/artificialintelligence"
+      },
+      {
+        "name": "mediagene",
+        "url": "https://mastodon.social/tags/mediagene"
+      },
+      {
+        "name": "エージェント型ai",
+        "url": "https://mastodon.social/tags/%E3%82%A8%E3%83%BC%E3%82%B8%E3%82%A7%E3%83%B3%E3%83%88%E5%9E%8Bai"
+      },
+      {
+        "name": "オンラインパブリッシャー",
+        "url": "https://mastodon.social/tags/%E3%82%AA%E3%83%B3%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%91%E3%83%96%E3%83%AA%E3%83%83%E3%82%B7%E3%83%A3%E3%83%BC"
+      },
+      {
+        "name": "ターゲット・メディア",
+        "url": "https://mastodon.social/tags/%E3%82%BF%E3%83%BC%E3%82%B2%E3%83%83%E3%83%88%E3%83%BB%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2"
+      },
+      {
+        "name": "メディアジーン",
+        "url": "https://mastodon.social/tags/%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%82%B8%E3%83%BC%E3%83%B3"
+      },
+      {
+        "name": "人工知能",
+        "url": "https://mastodon.social/tags/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD"
+      },
+      {
+        "name": "汎用人工知能",
+        "url": "https://mastodon.social/tags/%E6%B1%8E%E7%94%A8%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD"
+      }
+    ],
+    "emojis": [],
+    "tagged_collections": [],
+    "quote": null,
+    "card": null,
+    "poll": null,
+    "quote_approval": {
+      "automatic": [],
+      "manual": [],
+      "current_user": "denied"
+    }
+  },
+  {
+    "id": "117476505156844059",
+    "created_at": "2026-10-21T02:20:09.000Z",
+    "in_reply_to_id": null,
+    "in_reply_to_account_id": null,
+    "sensitive": false,
+    "spoiler_text": "",
+    "visibility": "public",
+    "language": "en",
+    "uri": "https://jforo.com/users/yayafa/statuses/117476504987784757",
+    "url": "https://jforo.com/@yayafa/117476504987784757",
+    "replies_count": 0,
+    "reblogs_count": 0,
+    "favourites_count": 0,
+    "quotes_count": 0,
+    "edited_at": null,
+    "content": "<p>ＧＭＯ、MCP対応でAIによる契約業務の自動化を支援する新オプション – VOIX biz <a href=\"https://www.yayafa.com/2915778/\" rel=\"nofollow noopener\" translate=\"no\" target=\"_blank\"><span class=\"invisible\">https://www.</span><span class=\"\">yayafa.com/2915778/</span><span class=\"invisible\"></span></a> <a href=\"https://jforo.com/tags/AgenticAi\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>AgenticAi</span></a> <a href=\"https://jforo.com/tags/AI\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>AI</span></a> <a href=\"https://jforo.com/tags/ArtificialGeneralIntelligence\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>ArtificialGeneralIntelligence</span></a> <a href=\"https://jforo.com/tags/ArtificialIntelligence\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>ArtificialIntelligence</span></a> <a href=\"https://jforo.com/tags/DX\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>DX</span></a> <a href=\"https://jforo.com/tags/%E3%82%A8%E3%83%BC%E3%82%B8%E3%82%A7%E3%83%B3%E3%83%88%E5%9E%8BAI\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>エージェント型AI</span></a> <a href=\"https://jforo.com/tags/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>人工知能</span></a> <a href=\"https://jforo.com/tags/%E6%B1%8E%E7%94%A8%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>汎用人工知能</span></a> <a href=\"https://jforo.com/tags/%E8%A6%8F%E5%88%B6%E3%83%BB%E8%AA%8D%E8%A8%BC\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>規制・認証</span></a></p>",
+    "reblog": null,
+    "account": {
+      "id": "113978073284208744",
+      "username": "yayafa",
+      "acct": "yayafa@jforo.com",
+      "display_name": "YAYAFA",
+      "locked": false,
+      "bot": false,
+      "discoverable": true,
+      "indexable": true,
+      "group": false,
+      "created_at": "2025-02-10T00:00:00.000Z",
+      "note": "<p><a href=\"https://jforo.com/tags/JAPAN\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>JAPAN</span></a><br><a href=\"https://jforo.com/tags/NEWS\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>NEWS</span></a><br><a href=\"https://jforo.com/tags/BUSINESS\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>BUSINESS</span></a><br><a href=\"https://jforo.com/tags/ENTERTAINMENT\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>ENTERTAINMENT</span></a></p>",
+      "url": "https://jforo.com/@yayafa",
+      "uri": "https://jforo.com/users/yayafa",
+      "avatar": "https://files.mastodon.social/cache/accounts/avatars/113/978/073/284/208/744/original/fbeba39d891deaef.png",
+      "avatar_static": "https://files.mastodon.social/cache/accounts/avatars/113/978/073/284/208/744/original/fbeba39d891deaef.png",
+      "avatar_description": "",
+      "header": "https://files.mastodon.social/cache/accounts/headers/113/978/073/284/208/744/original/13944be39dfd4780.jpg",
+      "header_static": "https://files.mastodon.social/cache/accounts/headers/113/978/073/284/208/744/original/13944be39dfd4780.jpg",
+      "header_description": "",
+      "followers_count": 134,
+      "following_count": 0,
+      "statuses_count": 8317,
+      "last_status_at": "2026-10-21",
+      "hide_collections": false,
+      "show_media": true,
+      "show_media_replies": true,
+      "show_featured": true,
+      "feature_approval": {
+        "automatic": [],
+        "manual": [],
+        "current_user": "denied"
+      },
+      "emojis": [],
+      "fields": [
+        {
+          "name": "Website",
+          "value": "<a href=\"https://www.yayafa.com\" rel=\"nofollow noopener\" translate=\"no\" target=\"_blank\"><span class=\"invisible\">https://www.</span><span class=\"\">yayafa.com</span><span class=\"invisible\"></span></a>",
+          "verified_at": null
+        }
+      ]
+    },
+    "media_attachments": [
+      {
+        "id": "117476505038069083",
+        "type": "image",
+        "url": "https://files.mastodon.social/cache/media_attachments/files/117/476/505/038/069/083/original/a4e24fceeca8834c.png",
+        "preview_url": "https://files.mastodon.social/cache/media_attachments/files/117/476/505/038/069/083/small/a4e24fceeca8834c.png",
+        "remote_url": "https://media.jforo.com/media_attachments/files/117/476/504/892/614/421/original/1708737669ec406b.png",
+        "preview_remote_url": null,
+        "text_url": null,
+        "meta": {
+          "original": {
+            "width": 768,
+            "height": 403,
+            "size": "768x403",
+            "aspect": 1.9057071960297767
+          },
+          "small": {
+            "width": 663,
+            "height": 348,
+            "size": "663x348",
+            "aspect": 1.9051724137931034
+          }
+        },
+        "description": "ＧＭＯ、MCP対応でAIによる契約業務の自動化を支援する新オプション",
+        "blurhash": "U95iyvtmXTbwyZX9kWkW9ZW=tRkDo~tRkWWV"
+      }
+    ],
+    "mentions": [],
+    "tags": [
+      {
+        "name": "agenticai",
+        "url": "https://mastodon.social/tags/agenticai"
+      },
+      {
+        "name": "ai",
+        "url": "https://mastodon.social/tags/ai"
+      },
+      {
+        "name": "artificialgeneralintelligence",
+        "url": "https://mastodon.social/tags/artificialgeneralintelligence"
+      },
+      {
+        "name": "artificialintelligence",
+        "url": "https://mastodon.social/tags/artificialintelligence"
+      },
+      {
+        "name": "dx",
+        "url": "https://mastodon.social/tags/dx"
+      },
+      {
+        "name": "エージェント型ai",
+        "url": "https://mastodon.social/tags/%E3%82%A8%E3%83%BC%E3%82%B8%E3%82%A7%E3%83%B3%E3%83%88%E5%9E%8Bai"
+      },
+      {
+        "name": "人工知能",
+        "url": "https://mastodon.social/tags/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD"
+      },
+      {
+        "name": "汎用人工知能",
+        "url": "https://mastodon.social/tags/%E6%B1%8E%E7%94%A8%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD"
+      },
+      {
+        "name": "規制・認証",
+        "url": "https://mastodon.social/tags/%E8%A6%8F%E5%88%B6%E3%83%BB%E8%AA%8D%E8%A8%BC"
+      }
+    ],
+    "emojis": [],
+    "tagged_collections": [],
+    "quote": null,
+    "card": null,
+    "poll": null,
+    "quote_approval": {
+      "automatic": [],
+      "manual": [],
+      "current_user": "denied"
+    }
+  }
+]
