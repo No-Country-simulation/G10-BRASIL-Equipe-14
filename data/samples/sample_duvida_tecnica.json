@@ -1,0 +1,27 @@
+{
+  "id": "79857625",
+  "source": "stackoverflow",
+  "url": "https://stackoverflow.com/questions/79857625/symfony-ai-how-to-add-additional-models-for-the-lm-studio-bridge",
+  "interactions": [
+    {
+      "author": "QuenK",
+      "content": "I’m working with Symfony AI and the LM Studio bridge to manage my language models locally.\n\nMy goal is to add custom models that are not included in Symfony’s default ModelCatalog .\n\n My YAML configuration looks like this:\n\n ai:\n platform:\n lmstudio:\n host_url: \"http://127.0.0.1:1234\"\n\n agent:\n test:\n platform: 'ai.platform.lmstudio'\n model: 'ministral-3-3b'\n tools: false\n \n Even though the model is loaded in LM Studio, Symfony does not detect it .\n\n \n I created a custom ModelCatalog :\n\n <?php\nnamespace App\\Service;\n\nuse Symfony\\AI\\Platform\\Bridge\\Generic\\CompletionsModel;\nuse Symfony\\AI\\Platform\\Capability;\nuse Symfony\\AI\\Platform\\ModelCatalog\\AbstractModelCatalog;\n\nfinal class LMModelCatalog extends AbstractModelCatalog\n{\n public function __construct()\n {\n $additionalModels = [\n 'ministral-3-3b' => [\n 'class' => CompletionsModel::class,\n 'capabilities' => [\n Capability::INPUT_MESSAGES,\n Capability::OUTPUT_TEXT,\n Capability::OUTPUT_STREAMING,\n ],\n ],\n ];\n\n parent::__construct($additionalModels);\n }\n}\n \n \n What I understood \n \n The LM Studio ModelCatalog is hardcoded , and some models are not included by default.\n\n \n The official documentation does not clearly explain how to extend the catalog .\n\n \n It seems that we need to inject a custom ModelCatalog service instead of using YAML, but I haven’t found a recent concrete example.\n\n \n \n \n My question \n How can we add additional models for the LM Studio bridge in Symfony AI in a clean way compatible with the current bundle configuration?\n\n \n Can this be done via YAML, or only via services.yaml ?\n\n \n If it is via services.yaml , what is the recommended snippet to declare custom models with their capabilities ?",
+      "tags": [
+        "php",
+        "symfony",
+        "artificial-intelligence"
+      ],
+      "created_at": "2025-12-30T15:19:35Z",
+      "raw_metadata": {
+        "title": "Symfony AI: How to add additional models for the LM Studio bridge?",
+        "score": 6,
+        "view_count": 248,
+        "comment_count": 0,
+        "is_answered": true,
+        "accepted_answer_id": "79858113",
+        "link": "https://stackoverflow.com/questions/79857625/symfony-ai-how-to-add-additional-models-for-the-lm-studio-bridge",
+        "content_license": "CC BY-SA 4.0"
+      }
+    }
+  ]
+}
