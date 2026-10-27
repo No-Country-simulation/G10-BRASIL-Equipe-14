@@ -1,0 +1,272 @@
+{
+  "name": "WF07 - Coleta Hacker News",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        32
+      ],
+      "id": "23a1aa92-2830-44c5-8a0f-8f079701a1c6",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {
+          "format": true,
+          "fileName": "sample_hacker-news-search.json"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        672,
+        -160
+      ],
+      "id": "29ab2ef8-e5c8-4dd5-8b7e-ccceb365be04",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "operation": "upload",
+        "bucketName": "communitylab-assets",
+        "fileName": "={{ $binary.data.fileName }}",
+        "additionalFields": {},
+        "tagsUi": {
+          "tagsValues": []
+        }
+      },
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        896,
+        -160
+      ],
+      "id": "f1a91f95-3e86-4184-b877-f1d21c9eae47",
+      "name": "Upload a file",
+      "credentials": {
+        "s3": {
+          "id": "WG22ysIkwCiyk8dj",
+          "name": "OCI Object Storage S3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "path": "hacker-news-search",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        -160
+      ],
+      "id": "9559eb93-f1b5-4ddb-a446-ed94267f5e44",
+      "name": "Webhook",
+      "webhookId": "4cb5e69f-07c2-4bf9-9e76-faae494a09ee"
+    },
+    {
+      "parameters": {
+        "url": "https://hn.algolia.com/api/v1/search",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "query",
+              "value": "={{ $json.query.query?.trim() || (() => { throw new Error('O parâmetro query é obrigatório e não pode estar vazio.') })() }}"
+            },
+            {
+              "name": "tags",
+              "value": "={{ $json.query.type ? $json.query.type : 'story' }}"
+            },
+            {
+              "name": "hitsPerPage",
+              "value": "={{ Math.min(100, Math.max(1, Number($json.query.limit) || 100)) }}"
+            },
+            {
+              "name": "numericFilters",
+              "value": "={{\n  'created_at_i>=' +\n  Math.floor(\n    Number($json.query?.fromdate ?? $json.body?.fromdate) ||\n    (Date.now() / 1000 - 30 * 24 * 60 * 60)\n  ) +\n  (\n    ($json.query?.type ?? 'story') === 'story'\n      ? ',points>=' + Math.max(0, Number($json.query?.minPoints) || 0)\n      : ''\n  )\n}}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        448,
+        -160
+      ],
+      "id": "d519a233-85e6-4976-864b-0659bfc74842",
+      "name": "Pesquisar Hacker News"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $('Pesquisar Hacker News').first().json }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1120,
+        -160
+      ],
+      "id": "4fe08195-2bd8-470a-a9a7-3b450e25dbf7",
+      "name": "Responder Pesquisa Hacker News"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "3bc6f3b6-875f-413d-84c3-fd8db7c4fd9b",
+              "leftValue": "={{ $json.query.query ?? '' }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        224,
+        -64
+      ],
+      "id": "77b77e77-db61-49db-8143-c6b8de07ca2b",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"error\": \"Parâmetro obrigatório ausente\",\n  \"message\": \"Informe o parâmetro query com o tema que deseja pesquisar.\"\n}",
+        "options": {
+          "responseCode": 400
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        448,
+        32
+      ],
+      "id": "0b1e5fd1-a182-4ebf-917f-a8f29993d795",
+      "name": "Responder Query Inválida"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Upload a file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pesquisar Hacker News": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload a file": {
+      "main": [
+        [
+          {
+            "node": "Responder Pesquisa Hacker News",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Pesquisar Hacker News",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Responder Query Inválida",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "9fc5e97c-b2ba-4ac8-9c0c-8824a5a0b950",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
+  },
+  "nodeGroups": [],
+  "id": "GSt04wCSnpgFwNgT",
+  "tags": []
+}
