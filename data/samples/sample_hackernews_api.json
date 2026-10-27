@@ -1,486 +1,509 @@
-[
-  {
-    "exhaustive": {
-      "nbHits": false,
-      "typo": false
+{
+  "exhaustive": {
+    "nbHits": false,
+    "typo": false
+  },
+  "exhaustiveNbHits": false,
+  "exhaustiveTypo": false,
+  "hits": [
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "anigbrowl"
+        },
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "artificial",
+            "intelligence"
+          ],
+          "value": "US President says he will ban the term '<em>artificial intelligence'</em>"
+        },
+        "url": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "artificial",
+            "intelligence"
+          ],
+          "value": "https://thehill.com/homenews/administration/6175633-trump-bans-<em>artificial-intelligence</em>-term/"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_anigbrowl",
+        "story_50264228"
+      ],
+      "author": "anigbrowl",
+      "children": [
+        50264874,
+        50264447,
+        50264512,
+        50264433,
+        50264303,
+        50265916,
+        50264819,
+        50264677,
+        50265810,
+        50265018,
+        50264520,
+        50265081,
+        50264807,
+        50264851,
+        50265048,
+        50264820,
+        50264696,
+        50264671,
+        50265030,
+        50264965,
+        50264933,
+        50264777,
+        50264860,
+        50265321,
+        50265374,
+        50264876,
+        50264546,
+        50264966,
+        50264766,
+        50264562,
+        50264802
+      ],
+      "created_at": "2026-10-27T19:11:31Z",
+      "created_at_i": 1793128291,
+      "num_comments": 76,
+      "objectID": "50264228",
+      "points": 69,
+      "story_id": 50264228,
+      "title": "US President says he will ban the term 'artificial intelligence'",
+      "updated_at": "2026-10-27T21:15:39Z",
+      "url": "https://thehill.com/homenews/administration/6175633-trump-bans-artificial-intelligence-term/"
     },
-    "exhaustiveNbHits": false,
-    "exhaustiveTypo": false,
-    "hits": [
-      {
-        "_highlightResult": {
-          "author": {
-            "matchLevel": "none",
-            "matchedWords": [],
-            "value": "nazmul_ai"
-          },
-          "title": {
-            "fullyHighlighted": false,
-            "matchLevel": "partial",
-            "matchedWords": [
-              "intelligence"
-            ],
-            "value": "Show HN: TinyML AI – A New Architecture to Control Embedded <em>Intelligence</em>"
-          },
-          "url": {
-            "fullyHighlighted": false,
-            "matchLevel": "partial",
-            "matchedWords": [
-              "artificial"
-            ],
-            "value": "https://github.com/dib-<em>artificial</em>/pluto-flash"
-          }
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "TrackerFF"
         },
-        "_tags": [
-          "story",
-          "author_nazmul_ai",
-          "story_50167955",
-          "show_hn"
-        ],
-        "author": "nazmul_ai",
-        "created_at": "2026-10-20T15:33:09Z",
-        "created_at_i": 1792510389,
-        "num_comments": 0,
-        "objectID": "50167955",
-        "points": 2,
-        "story_id": 50167955,
-        "title": "Show HN: TinyML AI – A New Architecture to Control Embedded Intelligence",
-        "updated_at": "2026-10-20T15:38:01Z",
-        "url": "https://github.com/dib-artificial/pluto-flash"
-      },
-      {
-        "_highlightResult": {
-          "author": {
-            "matchLevel": "none",
-            "matchedWords": [],
-            "value": "johnchoud"
-          },
-          "story_text": {
-            "fullyHighlighted": false,
-            "matchLevel": "full",
-            "matchedWords": [
-              "artificial",
-              "intelligence"
-            ],
-            "value": "Hi HN,<p>I'm John, a knowledge management and AI enablement professional. I created Standard Topic, an AI and RSS-powered news and resource platform, with assistance from Claude Code.<p>Standard Topic uses AI integrations and RSS feeds to curate news and resources across relevant topics and presents these in the form of top stories, trending items, and a curated prompt library to easily gather further context on a given topic (examples of topics being World News, Politics, Business, Technology, Sports, Science, Health and more.)<p>On topic hubs, you can find a regularly updated at-a-glance AI briefings providing relevant updates, top stories with AI insights and cited sources, and additional recent news coverage. A governance system is in place with AI assisting in ranking stories, retiring items from the top stories section, determining which additional news is displayed, and more.<p>An AI-generated briefing podcast, in the format of a radio news program, releases each morning and evening (5 AM and 5 PM ET), covering the latest global news.<p>While in the past I've released apps and websites that felt duct-taped together and which I stopped using after some time, with this one I've actually found myself using it more than Twitter/X and other daily news briefing platforms, while also leading me to more frequently engage directly with publishing platforms cited on Standard Topic.<p>My recent work in AI has been around finding practical uses in the content and knowledge management areas for integrating the technology, and Standard Topic has developed into what I see as a product that uses structured outputs and automated insights to deliver consistent and trustworthy, cited content while maintaining transparency about being primarily powered by <em>artificial</em> <em>intelligence</em>.<p>There's still some kinks to work out in terms of automated workflows, design aspects and more.<p>Let me know what you think!"
-          },
-          "title": {
-            "matchLevel": "none",
-            "matchedWords": [],
-            "value": "Show HN: Standard Topic – An AI and RSS-powered news and resource platform"
-          },
-          "url": {
-            "matchLevel": "none",
-            "matchedWords": [],
-            "value": "https://www.standardtopic.com/"
-          }
+        "title": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "artificial",
+            "intelligence"
+          ],
+          "value": "Trump says he will ban everyone from using the phrase '<em>artificial intelligence'</em>"
         },
-        "_tags": [
-          "story",
-          "author_johnchoud",
-          "story_50166827",
-          "show_hn"
-        ],
-        "author": "johnchoud",
-        "children": [
-          50166871
-        ],
-        "created_at": "2026-10-20T14:16:55Z",
-        "created_at_i": 1792505815,
-        "num_comments": 0,
-        "objectID": "50166827",
-        "points": 3,
-        "story_id": 50166827,
-        "story_text": "Hi HN,<p>I&#x27;m John, a knowledge management and AI enablement professional. I created Standard Topic, an AI and RSS-powered news and resource platform, with assistance from Claude Code.<p>Standard Topic uses AI integrations and RSS feeds to curate news and resources across relevant topics and presents these in the form of top stories, trending items, and a curated prompt library to easily gather further context on a given topic (examples of topics being World News, Politics, Business, Technology, Sports, Science, Health and more.)<p>On topic hubs, you can find a regularly updated at-a-glance AI briefings providing relevant updates, top stories with AI insights and cited sources, and additional recent news coverage. A governance system is in place with AI assisting in ranking stories, retiring items from the top stories section, determining which additional news is displayed, and more.<p>An AI-generated briefing podcast, in the format of a radio news program, releases each morning and evening (5 AM and 5 PM ET), covering the latest global news.<p>While in the past I&#x27;ve released apps and websites that felt duct-taped together and which I stopped using after some time, with this one I&#x27;ve actually found myself using it more than Twitter&#x2F;X and other daily news briefing platforms, while also leading me to more frequently engage directly with publishing platforms cited on Standard Topic.<p>My recent work in AI has been around finding practical uses in the content and knowledge management areas for integrating the technology, and Standard Topic has developed into what I see as a product that uses structured outputs and automated insights to deliver consistent and trustworthy, cited content while maintaining transparency about being primarily powered by artificial intelligence.<p>There&#x27;s still some kinks to work out in terms of automated workflows, design aspects and more.<p>Let me know what you think!",
-        "title": "Show HN: Standard Topic – An AI and RSS-powered news and resource platform",
-        "updated_at": "2026-10-20T15:42:48Z",
-        "url": "https://www.standardtopic.com/"
+        "url": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "artificial",
+            "intelligence"
+          ],
+          "value": "https://www.independent.co.uk/news/world/americas/us-politics/trump-ban-<em>artificial-intelligence</em>-phrase-b3074397.html"
+        }
       },
-      {
-        "_highlightResult": {
-          "author": {
-            "matchLevel": "none",
-            "matchedWords": [],
-            "value": "mmnfrdmcx"
-          },
-          "title": {
-            "matchLevel": "none",
-            "matchedWords": [],
-            "value": "Training Your Own Models Is a Stupid Idea"
-          },
-          "url": {
-            "fullyHighlighted": false,
-            "matchLevel": "full",
-            "matchedWords": [
-              "artificial",
-              "intelligence"
-            ],
-            "value": "https://www.<em>artificialintelligence</em>madesimple.com/p/training-your-own-models-is-an-incredibly"
-          }
-        },
-        "_tags": [
-          "story",
-          "author_mmnfrdmcx",
-          "story_50162978"
-        ],
-        "author": "mmnfrdmcx",
-        "created_at": "2026-10-20T08:30:35Z",
-        "created_at_i": 1792485035,
-        "num_comments": 0,
-        "objectID": "50162978",
-        "points": 4,
-        "story_id": 50162978,
-        "title": "Training Your Own Models Is a Stupid Idea",
-        "updated_at": "2026-10-20T09:07:32Z",
-        "url": "https://www.artificialintelligencemadesimple.com/p/training-your-own-models-is-an-incredibly"
-      },
-      {
-        "_highlightResult": {
-          "author": {
-            "matchLevel": "none",
-            "matchedWords": [],
-            "value": "LichenStone"
-          },
-          "title": {
-            "matchLevel": "none",
-            "matchedWords": [],
-            "value": "AI and the future of human made music (2023)"
-          },
-          "url": {
-            "fullyHighlighted": false,
-            "matchLevel": "full",
-            "matchedWords": [
-              "artificial",
-              "intelligence"
-            ],
-            "value": "https://www.furious.com/perfect/<em>artificialintelligence</em>music.html"
-          }
-        },
-        "_tags": [
-          "story",
-          "author_LichenStone",
-          "story_50154170"
-        ],
-        "author": "LichenStone",
-        "children": [
-          50154171
-        ],
-        "created_at": "2026-10-19T16:11:17Z",
-        "created_at_i": 1792426277,
-        "num_comments": 1,
-        "objectID": "50154170",
-        "points": 1,
-        "story_id": 50154170,
-        "title": "AI and the future of human made music (2023)",
-        "updated_at": "2026-10-19T16:13:29Z",
-        "url": "https://www.furious.com/perfect/artificialintelligencemusic.html"
-      },
-      {
-        "_highlightResult": {
-          "author": {
-            "matchLevel": "none",
-            "matchedWords": [],
-            "value": "whatdowecallu"
-          },
-          "title": {
-            "matchLevel": "none",
-            "matchedWords": [],
-            "value": "AI lab offers free plumbing and HVAC repairs across three cities to train robots"
-          },
-          "url": {
-            "fullyHighlighted": false,
-            "matchLevel": "full",
-            "matchedWords": [
-              "artificial",
-              "intelligence"
-            ],
-            "value": "https://www.tomshardware.com/tech-industry/<em>artificial</em>-<em>intelligence</em>/ai-lab-offers-free-plumbing-and-hvac-repairs-across-three-cities-to-train-ai-robots-wearable-sensors-record-video-of-repair-work-for-robotics-training-free-services-also-include-electrical-work-air-duct-cleaning-and-carpet-cleaning"
-          }
-        },
-        "_tags": [
-          "story",
-          "author_whatdowecallu",
-          "story_50154060"
-        ],
-        "author": "whatdowecallu",
-        "children": [
-          50154264,
-          50154442,
-          50154267,
-          50154418,
-          50154474,
-          50154557,
-          50154596,
-          50154339,
-          50154208,
-          50154543,
-          50154432,
-          50155795,
-          50154478,
-          50154456,
-          50154088,
-          50154556,
-          50154337,
-          50154218,
-          50154342,
-          50154133,
-          50154266,
-          50154247
-        ],
-        "created_at": "2026-10-19T16:03:29Z",
-        "created_at_i": 1792425809,
-        "num_comments": 78,
-        "objectID": "50154060",
-        "points": 33,
-        "story_id": 50154060,
-        "title": "AI lab offers free plumbing and HVAC repairs across three cities to train robots",
-        "updated_at": "2026-10-20T16:46:19Z",
-        "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/ai-lab-offers-free-plumbing-and-hvac-repairs-across-three-cities-to-train-ai-robots-wearable-sensors-record-video-of-repair-work-for-robotics-training-free-services-also-include-electrical-work-air-duct-cleaning-and-carpet-cleaning"
-      },
-      {
-        "_highlightResult": {
-          "author": {
-            "matchLevel": "none",
-            "matchedWords": [],
-            "value": "dkobia"
-          },
-          "title": {
-            "matchLevel": "none",
-            "matchedWords": [],
-            "value": "A hacker broke into John Deere and SharkNinja with an army of AI agents"
-          },
-          "url": {
-            "fullyHighlighted": false,
-            "matchLevel": "full",
-            "matchedWords": [
-              "artificial",
-              "intelligence"
-            ],
-            "value": "https://www.theverge.com/ai-<em>artificial</em>-<em>intelligence</em>/1013643/ai-agents-hack-john-deere-shark-ninja-cummins"
-          }
-        },
-        "_tags": [
-          "story",
-          "author_dkobia",
-          "story_50152877"
-        ],
-        "author": "dkobia",
-        "children": [
-          50154032,
-          50154273
-        ],
-        "created_at": "2026-10-19T14:23:17Z",
-        "created_at_i": 1792419797,
-        "num_comments": 3,
-        "objectID": "50152877",
-        "points": 59,
-        "story_id": 50152877,
-        "title": "A hacker broke into John Deere and SharkNinja with an army of AI agents",
-        "updated_at": "2026-10-20T08:03:45Z",
-        "url": "https://www.theverge.com/ai-artificial-intelligence/1013643/ai-agents-hack-john-deere-shark-ninja-cummins"
-      },
-      {
-        "_highlightResult": {
-          "author": {
-            "matchLevel": "none",
-            "matchedWords": [],
-            "value": "ragu4u"
-          },
-          "story_text": {
-            "fullyHighlighted": false,
-            "matchLevel": "full",
-            "matchedWords": [
-              "artificial",
-              "intelligence"
-            ],
-            "value": "<a href=\"https://www.reuters.com/legal/government/how-one-hacker-used-ai-agents-few-thousand-dollars-break-into-scores-sites-2026-10-19/\" rel=\"nofollow\">https://www.reuters.com/legal/government/how-one-hacker-used...</a><p><a href=\"https://www.theverge.com/ai-artificial-intelligence/1013643/ai-agents-hack-john-deere-shark-ninja-cummins\" rel=\"nofollow\">https://www.theverge.com/ai-<em>artificial</em>-<em>intelligence</em>/1013643/...</a>"
-          },
-          "title": {
-            "matchLevel": "none",
-            "matchedWords": [],
-            "value": "Cairn: Open windows into AI-driven cyber operations"
-          },
-          "url": {
-            "matchLevel": "none",
-            "matchedWords": [],
-            "value": "https://norforge.com/blog/inside_cairn"
-          }
-        },
-        "_tags": [
-          "story",
-          "author_ragu4u",
-          "story_50152302"
-        ],
-        "author": "ragu4u",
-        "children": [
-          50154351,
-          50157182,
-          50155445,
-          50156394,
-          50158359,
-          50159055,
-          50158113
-        ],
-        "created_at": "2026-10-19T13:35:12Z",
-        "created_at_i": 1792416912,
-        "num_comments": 9,
-        "objectID": "50152302",
-        "points": 29,
-        "story_id": 50152302,
-        "story_text": "<a href=\"https:&#x2F;&#x2F;www.reuters.com&#x2F;legal&#x2F;government&#x2F;how-one-hacker-used-ai-agents-few-thousand-dollars-break-into-scores-sites-2026-10-19&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;www.reuters.com&#x2F;legal&#x2F;government&#x2F;how-one-hacker-used...</a><p><a href=\"https:&#x2F;&#x2F;www.theverge.com&#x2F;ai-artificial-intelligence&#x2F;1013643&#x2F;ai-agents-hack-john-deere-shark-ninja-cummins\" rel=\"nofollow\">https:&#x2F;&#x2F;www.theverge.com&#x2F;ai-artificial-intelligence&#x2F;1013643&#x2F;...</a>",
-        "title": "Cairn: Open windows into AI-driven cyber operations",
-        "updated_at": "2026-10-20T17:14:16Z",
-        "url": "https://norforge.com/blog/inside_cairn"
-      },
-      {
-        "_highlightResult": {
-          "author": {
-            "matchLevel": "none",
-            "matchedWords": [],
-            "value": "wondersky"
-          },
-          "story_text": {
-            "fullyHighlighted": false,
-            "matchLevel": "full",
-            "matchedWords": [
-              "artificial",
-              "intelligence"
-            ],
-            "value": "<a href=\"https://www.theverge.com/ai-artificial-intelligence/1013643/ai-agents-hack-john-deere-shark-ninja-cummins\" rel=\"nofollow\">https://www.theverge.com/ai-<em>artificial</em>-<em>intelligence</em>/1013643/...</a>"
-          },
-          "title": {
-            "matchLevel": "none",
-            "matchedWords": [],
-            "value": "One hacker used AI agents and a few thousand dollars to break into 100 sites"
-          },
-          "url": {
-            "matchLevel": "none",
-            "matchedWords": [],
-            "value": "https://www.reuters.com/legal/government/how-one-hacker-used-ai-agents-few-thousand-dollars-break-into-scores-sites-2026-10-19/"
-          }
-        },
-        "_tags": [
-          "story",
-          "author_wondersky",
-          "story_50152072"
-        ],
-        "author": "wondersky",
-        "children": [
-          50156155
-        ],
-        "created_at": "2026-10-19T13:16:59Z",
-        "created_at_i": 1792415819,
-        "num_comments": 1,
-        "objectID": "50152072",
-        "points": 7,
-        "story_id": 50152072,
-        "story_text": "<a href=\"https:&#x2F;&#x2F;www.theverge.com&#x2F;ai-artificial-intelligence&#x2F;1013643&#x2F;ai-agents-hack-john-deere-shark-ninja-cummins\" rel=\"nofollow\">https:&#x2F;&#x2F;www.theverge.com&#x2F;ai-artificial-intelligence&#x2F;1013643&#x2F;...</a>",
-        "title": "One hacker used AI agents and a few thousand dollars to break into 100 sites",
-        "updated_at": "2026-10-20T01:01:30Z",
-        "url": "https://www.reuters.com/legal/government/how-one-hacker-used-ai-agents-few-thousand-dollars-break-into-scores-sites-2026-10-19/"
-      },
-      {
-        "_highlightResult": {
-          "author": {
-            "matchLevel": "none",
-            "matchedWords": [],
-            "value": "vrganj"
-          },
-          "title": {
-            "fullyHighlighted": false,
-            "matchLevel": "full",
-            "matchedWords": [
-              "artificial",
-              "intelligence"
-            ],
-            "value": "Did Karl Marx Predict <em>Artificial</em> <em>Intelligence</em> 170 Years Ago?"
-          },
-          "url": {
-            "fullyHighlighted": false,
-            "matchLevel": "full",
-            "matchedWords": [
-              "artificial",
-              "intelligence"
-            ],
-            "value": "https://medium.com/@MichaelMcBride/did-karl-marx-predict-<em>artificial</em>-<em>intelligence</em>-170-years-ago-4fd7c23505ef"
-          }
-        },
-        "_tags": [
-          "story",
-          "author_vrganj",
-          "story_50151262"
-        ],
-        "author": "vrganj",
-        "created_at": "2026-10-19T11:53:56Z",
-        "created_at_i": 1792410836,
-        "num_comments": 0,
-        "objectID": "50151262",
-        "points": 5,
-        "story_id": 50151262,
-        "title": "Did Karl Marx Predict Artificial Intelligence 170 Years Ago?",
-        "updated_at": "2026-10-19T12:23:42Z",
-        "url": "https://medium.com/@MichaelMcBride/did-karl-marx-predict-artificial-intelligence-170-years-ago-4fd7c23505ef"
-      },
-      {
-        "_highlightResult": {
-          "author": {
-            "matchLevel": "none",
-            "matchedWords": [],
-            "value": "fintech_guru"
-          },
-          "title": {
-            "fullyHighlighted": false,
-            "matchLevel": "full",
-            "matchedWords": [
-              "artificial",
-              "intelligence"
-            ],
-            "value": "Does <em>Artificial</em> <em>Intelligence</em> Democratize Science? Evidence from AlphaFold"
-          },
-          "url": {
-            "matchLevel": "none",
-            "matchedWords": [],
-            "value": "https://papers.ssrn.com/abstract=5130373"
-          }
-        },
-        "_tags": [
-          "story",
-          "author_fintech_guru",
-          "story_50149650"
-        ],
-        "author": "fintech_guru",
-        "children": [
-          50149651
-        ],
-        "created_at": "2026-10-19T08:06:45Z",
-        "created_at_i": 1792397205,
-        "num_comments": 1,
-        "objectID": "50149650",
-        "points": 2,
-        "story_id": 50149650,
-        "title": "Does Artificial Intelligence Democratize Science? Evidence from AlphaFold",
-        "updated_at": "2026-10-19T08:56:43Z",
-        "url": "https://papers.ssrn.com/abstract=5130373"
-      }
-    ],
-    "hitsPerPage": 10,
-    "nbHits": 1331,
-    "nbPages": 100,
-    "page": 0,
-    "params": "query=artificial+intelligence&tags=story&numericFilters=created_at_i%3E1760981550&hitsPerPage=10&advancedSyntax=true&analyticsTags=backend",
-    "processingTimeMS": 13,
-    "processingTimingsMS": {
-      "_request": {
-        "roundTrip": 22
-      },
-      "fetch": {
-        "query": 10,
-        "scanning": 1,
-        "total": 12
-      },
-      "total": 13
+      "_tags": [
+        "story",
+        "author_TrackerFF",
+        "story_50263699"
+      ],
+      "author": "TrackerFF",
+      "children": [
+        50264205,
+        50265532,
+        50265058,
+        50263833,
+        50264856
+      ],
+      "created_at": "2026-10-27T18:33:47Z",
+      "created_at_i": 1793126027,
+      "num_comments": 5,
+      "objectID": "50263699",
+      "points": 27,
+      "story_id": 50263699,
+      "title": "Trump says he will ban everyone from using the phrase 'artificial intelligence'",
+      "updated_at": "2026-10-27T21:15:26Z",
+      "url": "https://www.independent.co.uk/news/world/americas/us-politics/trump-ban-artificial-intelligence-phrase-b3074397.html"
     },
-    "query": "artificial intelligence",
-    "serverTimeMS": 14
-  }
-]
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "dpflan"
+        },
+        "title": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "Amazon Is Gutting Its AI Division After Sustained Failure"
+        },
+        "url": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "artificial",
+            "intelligence"
+          ],
+          "value": "https://futurism.com/<em>artificial-intelligence</em>/amazon-ai-division-failure-nova"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_dpflan",
+        "story_50261589",
+        "front_page"
+      ],
+      "author": "dpflan",
+      "children": [
+        50265738,
+        50263623,
+        50262537,
+        50265761,
+        50265625,
+        50265572,
+        50264194,
+        50264776,
+        50264854,
+        50264057,
+        50262460,
+        50264281,
+        50265300,
+        50265669,
+        50265080,
+        50265491,
+        50265203,
+        50263655,
+        50263661,
+        50264028,
+        50265227,
+        50262343,
+        50265619,
+        50264690,
+        50264085,
+        50264275
+      ],
+      "created_at": "2026-10-27T16:25:30Z",
+      "created_at_i": 1793118330,
+      "num_comments": 66,
+      "objectID": "50261589",
+      "points": 139,
+      "story_id": 50261589,
+      "title": "Amazon Is Gutting Its AI Division After Sustained Failure",
+      "updated_at": "2026-10-27T21:15:39Z",
+      "url": "https://futurism.com/artificial-intelligence/amazon-ai-division-failure-nova"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "simonebrunozzi"
+        },
+        "title": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "Empires of AI"
+        },
+        "url": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "artificial",
+            "intelligence"
+          ],
+          "value": "https://www.foreignaffairs.com/china/empires-<em>artificial-intelligence</em>-niall-ferguson-eric-schmidt"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_simonebrunozzi",
+        "story_50245540"
+      ],
+      "author": "simonebrunozzi",
+      "created_at": "2026-10-26T15:36:05Z",
+      "created_at_i": 1793028965,
+      "num_comments": 0,
+      "objectID": "50245540",
+      "points": 2,
+      "story_id": 50245540,
+      "title": "Empires of AI",
+      "updated_at": "2026-10-27T08:42:52Z",
+      "url": "https://www.foreignaffairs.com/china/empires-artificial-intelligence-niall-ferguson-eric-schmidt"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "isaacfrond"
+        },
+        "title": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "R/open source just banned AI, non-English speakers, and more"
+        },
+        "url": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "artificial",
+            "intelligence"
+          ],
+          "value": "https://www.theverge.com/ai-<em>artificial-intelligence</em>/1018217/reddit-opensource-ai-ban"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_isaacfrond",
+        "story_50244212"
+      ],
+      "author": "isaacfrond",
+      "children": [
+        50246937,
+        50259258
+      ],
+      "created_at": "2026-10-26T14:22:31Z",
+      "created_at_i": 1793024551,
+      "num_comments": 1,
+      "objectID": "50244212",
+      "points": 1,
+      "story_id": 50244212,
+      "title": "R/open source just banned AI, non-English speakers, and more",
+      "updated_at": "2026-10-27T13:49:09Z",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1018217/reddit-opensource-ai-ban"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "NordStreamYacht"
+        },
+        "title": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "R/opensource bans AI-made and AI-focused projects and non-English speakers"
+        },
+        "url": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "artificial",
+            "intelligence"
+          ],
+          "value": "https://www.tomshardware.com/tech-industry/<em>artificial-intelligence</em>/reddits-r-opensource-bans-ai-made-and-ai-focused-projects-also-bans-non-english-speakers-sweeping-new-rules-spark-backlash-over-linux-kernel-contributions-and-solo-developers"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_NordStreamYacht",
+        "story_50242884"
+      ],
+      "author": "NordStreamYacht",
+      "children": [
+        50246564,
+        50244786,
+        50254043,
+        50244793,
+        50244230,
+        50242908,
+        50243103
+      ],
+      "created_at": "2026-10-26T13:00:51Z",
+      "created_at_i": 1793019651,
+      "num_comments": 29,
+      "objectID": "50242884",
+      "points": 20,
+      "story_id": 50242884,
+      "title": "R/opensource bans AI-made and AI-focused projects and non-English speakers",
+      "updated_at": "2026-10-27T16:49:11Z",
+      "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/reddits-r-opensource-bans-ai-made-and-ai-focused-projects-also-bans-non-english-speakers-sweeping-new-rules-spark-backlash-over-linux-kernel-contributions-and-solo-developers"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "Brajeshwar"
+        },
+        "title": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "r/open source just banned AI, non-English speakers and more"
+        },
+        "url": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "artificial",
+            "intelligence"
+          ],
+          "value": "https://www.theverge.com/ai-<em>artificial-intelligence</em>/1018217/reddit-opensource-ai-ban"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_Brajeshwar",
+        "story_50231744"
+      ],
+      "author": "Brajeshwar",
+      "children": [
+        50231833,
+        50234358
+      ],
+      "created_at": "2026-10-25T14:06:54Z",
+      "created_at_i": 1792937214,
+      "num_comments": 3,
+      "objectID": "50231744",
+      "points": 3,
+      "story_id": 50231744,
+      "title": "r/open source just banned AI, non-English speakers and more",
+      "updated_at": "2026-10-26T08:18:19Z",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1018217/reddit-opensource-ai-ban"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "bryanrasmussen"
+        },
+        "title": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "Empires of AI: The Rise and Fall of a New Global Order"
+        },
+        "url": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "artificial",
+            "intelligence"
+          ],
+          "value": "https://www.foreignaffairs.com/china/empires-<em>artificial-intelligence</em>-niall-ferguson-eric-schmidt"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_bryanrasmussen",
+        "story_50231492"
+      ],
+      "author": "bryanrasmussen",
+      "created_at": "2026-10-25T13:41:46Z",
+      "created_at_i": 1792935706,
+      "num_comments": 0,
+      "objectID": "50231492",
+      "points": 2,
+      "story_id": 50231492,
+      "title": "Empires of AI: The Rise and Fall of a New Global Order",
+      "updated_at": "2026-10-25T17:13:32Z",
+      "url": "https://www.foreignaffairs.com/china/empires-artificial-intelligence-niall-ferguson-eric-schmidt"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "geox"
+        },
+        "title": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "To make AI morally good, tech companies are turning to religion"
+        },
+        "url": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "artificial",
+            "intelligence"
+          ],
+          "value": "https://apnews.com/article/anthropic-moral-<em>artificial-intelligence</em>-religion-2bb91e3334fd6d732edf22288cabf4ec"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_geox",
+        "story_50231369"
+      ],
+      "author": "geox",
+      "children": [
+        50231896,
+        50231415,
+        50231688
+      ],
+      "created_at": "2026-10-25T13:29:41Z",
+      "created_at_i": 1792934981,
+      "num_comments": 4,
+      "objectID": "50231369",
+      "points": 2,
+      "story_id": 50231369,
+      "title": "To make AI morally good, tech companies are turning to religion",
+      "updated_at": "2026-10-26T22:25:36Z",
+      "url": "https://apnews.com/article/anthropic-moral-artificial-intelligence-religion-2bb91e3334fd6d732edf22288cabf4ec"
+    },
+    {
+      "_highlightResult": {
+        "author": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "saikatsg"
+        },
+        "title": {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "Claude did not invent scorpion antivenom"
+        },
+        "url": {
+          "fullyHighlighted": false,
+          "matchLevel": "full",
+          "matchedWords": [
+            "artificial",
+            "intelligence"
+          ],
+          "value": "https://www.theverge.com/ai-<em>artificial-intelligence</em>/1016443/anthropic-claude-citrini-vibecoding-scorpion-antivenom"
+        }
+      },
+      "_tags": [
+        "story",
+        "author_saikatsg",
+        "story_50222339"
+      ],
+      "author": "saikatsg",
+      "created_at": "2026-10-24T15:41:06Z",
+      "created_at_i": 1792856466,
+      "num_comments": 0,
+      "objectID": "50222339",
+      "points": 6,
+      "story_id": 50222339,
+      "title": "Claude did not invent scorpion antivenom",
+      "updated_at": "2026-10-24T16:28:44Z",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1016443/anthropic-claude-citrini-vibecoding-scorpion-antivenom"
+    }
+  ],
+  "hitsPerPage": 10,
+  "nbHits": 1296,
+  "nbPages": 100,
+  "page": 0,
+  "params": "query=artificial-intelligence&tags=story&hitsPerPage=10&numericFilters=created_at_i%3E%3D1761027120&advancedSyntax=true&analyticsTags=backend",
+  "processingTimeMS": 15,
+  "processingTimingsMS": {
+    "_request": {
+      "queue": 9,
+      "roundTrip": 26
+    },
+    "fetch": {
+      "query": 12,
+      "scanning": 1,
+      "total": 14
+    },
+    "total": 15
+  },
+  "query": "artificial-intelligence",
+  "serverTimeMS": 25
+}
