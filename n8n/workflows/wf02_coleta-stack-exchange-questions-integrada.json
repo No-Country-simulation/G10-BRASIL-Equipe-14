@@ -1,5 +1,5 @@
 {
-  "name": "WF02 - Coleta Stack Exchange Integrada",
+  "name": "WF02 - Coleta Stack Exchange Questions Integrada",
   "nodes": [
     {
       "parameters": {},
@@ -20,7 +20,7 @@
           "parameters": [
             {
               "name": "site",
-              "value": "stackoverflow"
+              "value": "={{ $json.site }}"
             },
             {
               "name": "pagesize",
@@ -109,25 +109,25 @@
             },
             {
               "id": "d0ecc9f6-c481-4527-85bf-adc3673ba912",
-              "name": "owner",
+              "name": "owner_question",
               "value": "={{ $json.owner.display_name }}",
               "type": "string"
             },
             {
               "id": "918ea582-2651-4138-9457-5629ae607c47",
-              "name": "title",
+              "name": "title_question",
               "value": "={{ $json.title }}",
               "type": "string"
             },
             {
               "id": "307d08ea-6486-4ada-8c24-4418ae87e7a9",
-              "name": "body",
+              "name": "body_question",
               "value": "={{ $json.body }}",
               "type": "string"
             },
             {
               "id": "9911571b-4c33-4e87-9981-3f4fdd2de560",
-              "name": "link",
+              "name": "link_question",
               "value": "={{ $json.link }}",
               "type": "string"
             },
@@ -139,49 +139,49 @@
             },
             {
               "id": "9cc47bba-1dfa-4fbe-b962-e3dd3b26573b",
-              "name": "score",
+              "name": "score_question",
               "value": "={{ $json.score }}",
               "type": "number"
             },
             {
               "id": "8b9a7027-e66f-4a19-9f19-f4736049cb2f",
-              "name": "creation_date",
+              "name": "creation_date_question",
               "value": "={{ $json.creation_date }}",
               "type": "number"
             },
             {
               "id": "6d46baab-acb4-4ac6-90e3-7c79b1238859",
-              "name": "last_activity_date",
+              "name": "last_activity_date_question",
               "value": "={{ $json.last_activity_date }}",
               "type": "number"
             },
             {
               "id": "9a2c16e6-cbd8-4e4a-84f8-eaf8444d6f66",
-              "name": "is_answered",
+              "name": "is_answered_question",
               "value": "={{ $json.is_answered }}",
               "type": "boolean"
             },
             {
               "id": "4bbff1c6-c346-4d40-9ef2-2b7154366038",
-              "name": "answer_count",
+              "name": "answer_count_question",
               "value": "={{ $json.answer_count }}",
               "type": "number"
             },
             {
               "id": "60795b01-4ff8-4ab4-b68b-c1b786cfcb57",
-              "name": "accepted_answer_id",
+              "name": "accepted_answer_id_question",
               "value": "={{ $json.accepted_answer_id }}",
               "type": "number"
             },
             {
               "id": "7e0346fc-513b-4171-86b7-d1753198ca13",
-              "name": "view_count",
+              "name": "view_count_question",
               "value": "={{ $json.view_count }}",
               "type": "number"
             },
             {
               "id": "d15ae5da-c17c-4059-9f0d-ad3ac6ee7b14",
-              "name": "comment_count",
+              "name": "comment_count_question",
               "value": "={{ $json.comment_count }}",
               "type": "number"
             }
@@ -203,7 +203,7 @@
         "operation": "toJson",
         "options": {
           "format": true,
-          "fileName": "stackexchange-questions.json"
+          "fileName": "={{ \"sample_\" + $('Definir Parâmetros de Busca').item.json.site + \"-questions_\" + $('Definir Parâmetros de Busca').item.json.tagged + \".json\" }}"
         }
       },
       "type": "n8n-nodes-base.convertToFile",
@@ -219,7 +219,7 @@
       "parameters": {
         "operation": "upload",
         "bucketName": "communitylab-assets",
-        "fileName": "={{ \"samples/\" + $binary.data.fileName }}",
+        "fileName": "={{ $binary.data.fileName }}",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.s3",
@@ -258,6 +258,12 @@
               "name": "=pagesize",
               "value": "={{ Number($json.body?.pagesize ?? 100) }}",
               "type": "number"
+            },
+            {
+              "id": "85aa55ff-c242-40c1-81b0-50a320edd308",
+              "name": "site",
+              "value": "={{ $json.body?.site ?? 'stackoverflow' }}",
+              "type": "string"
             }
           ]
         },
@@ -315,20 +321,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all();\n\nconst isNonEmptyString = (value) =>\n  typeof value === 'string' && value.trim().length > 0;\n\nconst normalizeText = (value) =>\n  typeof value === 'string'\n    ? value.trim().replace(/\\s+/g, ' ')\n    : value;\n\nconst sanitized = [];\nlet rejected = 0;\n\nfor (const item of items) {\n  const q = item.json;\n\n  // Validar os campos essenciais para identificar a pergunta.\n  if (\n    q.source_id === null ||\n    q.source_id === undefined ||\n    !isNonEmptyString(q.title) ||\n    !isNonEmptyString(q.body) ||\n    !isNonEmptyString(q.link)\n  ) {\n    rejected++;\n    continue;\n  }\n\n  // Preservar o HTML de body, incluindo exemplos de código.\n  const body =\n    typeof q.body === 'string' ? q.body.trim() : '';\n\n  // Garantir que tags seja sempre um array de strings.\n  const tags = Array.isArray(q.tags)\n    ? q.tags\n        .filter((tag) => typeof tag === 'string')\n        .map((tag) => tag.trim())\n        .filter((tag) => tag.length > 0)\n    : [];\n\n  sanitized.push({\n    json: {\n      ...q,\n      source_id: String(q.source_id).trim(),\n      owner: normalizeText(q.owner ?? ''),\n      title: normalizeText(q.title),\n      body,\n      link: q.link.trim(),\n      tags,\n    },\n  });\n}\n\nconsole.log(\n  `Sanitização concluída: ${sanitized.length} registros válidos; ${rejected} rejeitados.`\n);\n\nreturn sanitized;"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1488,
-        -208
-      ],
-      "id": "ad6cf6b6-11c0-4013-a1b2-19ffe418cbe0",
-      "name": "Sanitizar e Validar Perguntas"
-    },
-    {
-      "parameters": {
-        "jsCode": "const items = $input.all();\n\nreturn items.map((item) => {\n  const q = item.json;\n  const errors = [];\n\n  const { tagged, fromdate, pagesize } = q;\n\n  // Validar as tags de busca.\n  if (\n    typeof tagged !== 'string' ||\n    tagged.trim().length === 0 ||\n    tagged.trim().length > 200 ||\n    !/^[a-zA-Z0-9.+#_;-]+$/.test(tagged.trim())\n  ) {\n    errors.push(\n      'tagged deve conter tags válidas separadas por ponto e vírgula.'\n    );\n  }\n\n  // Validar o timestamp Unix em segundos.\n  if (\n    !Number.isSafeInteger(fromdate) ||\n    fromdate <= 0\n  ) {\n    errors.push(\n      'fromdate deve ser um timestamp Unix inteiro positivo em segundos.'\n    );\n  } else if (fromdate > Math.floor(Date.now() / 1000)) {\n    errors.push('fromdate não pode estar no futuro.');\n  }\n\n  // Validar o tamanho da página.\n  if (\n    !Number.isInteger(pagesize) ||\n    pagesize < 1 ||\n    pagesize > 100\n  ) {\n    errors.push(\n      'pagesize deve ser um inteiro entre 1 e 100.'\n    );\n  }\n\n  if (errors.length > 0) {\n    return {\n      json: {\n        ...q,\n        _validation: {\n          valid: false,\n          message: errors.join(' '),\n        },\n      },\n    };\n  }\n\n  return {\n    json: {\n      ...q,\n      tagged: tagged.trim(),\n      fromdate,\n      pagesize,\n      _validation: {\n        valid: true,\n        message: '',\n      },\n    },\n  };\n});"
+        "jsCode": "const items = $input.all();\n\nconst ALLOWED_SITE_PATTERN = /^[a-z0-9.-]+$/;\nconst ALLOWED_TAGGED_PATTERN = /^[a-zA-Z0-9.+#_;-]+$/;\n\nreturn items.map((item) => {\n  const q = item.json;\n  const errors = [];\n\n  const { tagged, fromdate, pagesize, site } = q;\n\n  // Validar as tags de busca.\n  if (\n    typeof tagged !== 'string' ||\n    tagged.trim().length === 0 ||\n    tagged.trim().length > 200 ||\n    !ALLOWED_TAGGED_PATTERN.test(tagged.trim())\n  ) {\n    errors.push(\n      'tagged deve conter tags válidas separadas por ponto e vírgula.'\n    );\n  }\n\n  // Validar o identificador do site.\n  if (\n    typeof site !== 'string' ||\n    site.trim().length === 0 ||\n    site.trim().length > 100 ||\n    !ALLOWED_SITE_PATTERN.test(site.trim())\n  ) {\n    errors.push(\n      'site deve ser um identificador válido, como stackoverflow.'\n    );\n  }\n\n  // Validar o timestamp Unix em segundos.\n  if (\n    !Number.isSafeInteger(fromdate) ||\n    fromdate <= 0\n  ) {\n    errors.push(\n      'fromdate deve ser um timestamp Unix inteiro positivo em segundos.'\n    );\n  } else if (fromdate > Math.floor(Date.now() / 1000)) {\n    errors.push('fromdate não pode estar no futuro.');\n  }\n\n  // Validar o tamanho da página.\n  if (\n    !Number.isInteger(pagesize) ||\n    pagesize < 1 ||\n    pagesize > 100\n  ) {\n    errors.push(\n      'pagesize deve ser um inteiro entre 1 e 100.'\n    );\n  }\n\n  // Retornar os parâmetros e o resultado da validação.\n  if (errors.length > 0) {\n    return {\n      json: {\n        ...q,\n        _validation: {\n          valid: false,\n          message: errors.join(' '),\n        },\n      },\n    };\n  }\n\n  return {\n    json: {\n      ...q,\n      tagged: tagged.trim(),\n      fromdate,\n      pagesize,\n      site: site.trim().toLowerCase(),\n      _validation: {\n        valid: true,\n        message: '',\n      },\n    },\n  };\n});"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -389,6 +382,19 @@
       ],
       "id": "6d154145-9d07-4830-86d6-1de261b91884",
       "name": "Responder Erro de Validação"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst isNonEmptyString = (value) =>\n  typeof value === 'string' && value.trim().length > 0;\n\nconst normalizeText = (value) =>\n  typeof value === 'string'\n    ? value.trim().replace(/\\s+/g, ' ')\n    : value;\n\nconst sanitized = [];\nlet rejected = 0;\n\nfor (const item of items) {\n  const q = item.json;\n\n  // Validar os campos essenciais para identificar a pergunta.\n  if (\n    q.source_id === null ||\n    q.source_id === undefined ||\n    !isNonEmptyString(q.title_question) ||\n    !isNonEmptyString(q.body_question) ||\n    !isNonEmptyString(q.link_question)\n  ) {\n    rejected++;\n    continue;\n  }\n\n  // Preservar o HTML de body, incluindo exemplos de código.\n  const body_question =\n    typeof q.body_question === 'string' ? q.body_question.trim() : '';\n\n  // Garantir que tags seja sempre um array de strings.\n  const tags = Array.isArray(q.tags)\n    ? q.tags\n        .filter((tag) => typeof tag === 'string')\n        .map((tag) => tag.trim())\n        .filter((tag) => tag.length > 0)\n    : [];\n\n  sanitized.push({\n    json: {\n      ...q,\n      source_id: String(q.source_id).trim(),\n      owner_question: normalizeText(q.owner_question ?? ''),\n      title_question: normalizeText(q.title_question),\n      body_question,\n      link_question: q.link_question.trim(),\n      tags,\n    },\n  });\n}\n\nconsole.log(\n  `Sanitização concluída: ${sanitized.length} registros válidos; ${rejected} rejeitados.`\n);\n\nreturn sanitized;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1488,
+        -208
+      ],
+      "id": "ad6cf6b6-11c0-4013-a1b2-19ffe418cbe0",
+      "name": "Sanitizar e Validar Perguntas"
     }
   ],
   "pinData": {},
@@ -481,17 +487,6 @@
         ]
       ]
     },
-    "Sanitizar e Validar Perguntas": {
-      "main": [
-        [
-          {
-            "node": "Gerar JSON de Perguntas",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Validar Parâmetros de Busca": {
       "main": [
         [
@@ -520,6 +515,17 @@
           }
         ]
       ]
+    },
+    "Sanitizar e Validar Perguntas": {
+      "main": [
+        [
+          {
+            "node": "Gerar JSON de Perguntas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
@@ -531,7 +537,7 @@
     "availableInMCP": false,
     "timezone": "America/Sao_Paulo"
   },
-  "versionId": "6f731506-a404-4375-b765-2e9fcb160be3",
+  "versionId": "522fad5e-9e82-4cfc-bbe7-c0d07407b0d2",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"

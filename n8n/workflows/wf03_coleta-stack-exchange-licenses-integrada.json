@@ -102,7 +102,7 @@
         "operation": "toJson",
         "options": {
           "format": true,
-          "fileName": "stackexchange-questions-licenses.json"
+          "fileName": "={{ \"sample_\" + $('Definir Parâmetros de Busca').item.json.site + \"-questions-licenses_\" + $('Definir Parâmetros de Busca').item.json.tagged + \".json\" }}"
         }
       },
       "type": "n8n-nodes-base.convertToFile",
@@ -118,7 +118,7 @@
       "parameters": {
         "operation": "upload",
         "bucketName": "communitylab-assets",
-        "fileName": "={{ \"samples/\" + $binary.data.fileName }}",
+        "fileName": "={{ $binary.data.fileName }}",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.s3",
@@ -157,6 +157,12 @@
               "name": "=pagesize",
               "value": "={{ Number($json.body?.pagesize ?? 100) }}",
               "type": "number"
+            },
+            {
+              "id": "711df311-cdf2-430a-a6cf-29070384c6a7",
+              "name": "site",
+              "value": "={{ $json.body?.site ?? 'stackoverflow' }}",
+              "type": "string"
             }
           ]
         },
@@ -214,7 +220,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all();\nconst sanitized = [];\nlet rejected = 0;\n\nfor (const item of items) {\n  const q = item.json;\n  const sourceId = String(q.source_id ?? '').trim();\n\n  if (!sourceId) {\n    rejected++;\n    continue;\n  }\n\n  const license =\n    typeof q.content_license === 'string'\n      ? q.content_license.trim() || null\n      : null;\n\n  sanitized.push({\n    json: {\n      source_id: sourceId,\n      content_license: license,\n    },\n  });\n}\n\nconsole.log(\n  `Registros preservados: ${sanitized.length}; rejeitados por falta de source_id: ${rejected}.`\n);\n\nreturn sanitized;"
+        "jsCode": "const items = $input.all();\nconst sanitized = [];\nlet rejected = 0;\n\nfor (const item of items) {\n  const q = item.json;\n  const sourceId = String(q.source_id ?? '').trim();\n\n  if (!sourceId) {\n    rejected++;\n    continue;\n  }\n\n  const license_question =\n    typeof q.content_license_question === 'string'\n      ? q.content_license_question.trim() || null\n      : null;\n\n  sanitized.push({\n    json: {\n      source_id: sourceId,\n      content_license_question: license_question,\n    },\n  });\n}\n\nconsole.log(\n  `Registros preservados: ${sanitized.length}; rejeitados por falta de source_id: ${rejected}.`\n);\n\nreturn sanitized;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -227,7 +233,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all();\n\nreturn items.map((item) => {\n  const q = item.json;\n  const errors = [];\n\n  const { tagged, fromdate, pagesize } = q;\n\n  // Validar as tags de busca.\n  if (\n    typeof tagged !== 'string' ||\n    tagged.trim().length === 0 ||\n    tagged.trim().length > 200 ||\n    !/^[a-zA-Z0-9.+#_;-]+$/.test(tagged.trim())\n  ) {\n    errors.push(\n      'tagged deve conter tags válidas separadas por ponto e vírgula.'\n    );\n  }\n\n  // Validar o timestamp Unix em segundos.\n  if (\n    !Number.isSafeInteger(fromdate) ||\n    fromdate <= 0\n  ) {\n    errors.push(\n      'fromdate deve ser um timestamp Unix inteiro positivo em segundos.'\n    );\n  } else if (fromdate > Math.floor(Date.now() / 1000)) {\n    errors.push('fromdate não pode estar no futuro.');\n  }\n\n  // Validar o tamanho da página.\n  if (\n    !Number.isInteger(pagesize) ||\n    pagesize < 1 ||\n    pagesize > 100\n  ) {\n    errors.push(\n      'pagesize deve ser um inteiro entre 1 e 100.'\n    );\n  }\n\n  if (errors.length > 0) {\n    return {\n      json: {\n        ...q,\n        _validation: {\n          valid: false,\n          message: errors.join(' '),\n        },\n      },\n    };\n  }\n\n  return {\n    json: {\n      ...q,\n      tagged: tagged.trim(),\n      fromdate,\n      pagesize,\n      _validation: {\n        valid: true,\n        message: '',\n      },\n    },\n  };\n});"
+        "jsCode": "const items = $input.all();\n\nconst ALLOWED_SITE_PATTERN = /^[a-z0-9.-]+$/;\nconst ALLOWED_TAGGED_PATTERN = /^[a-zA-Z0-9.+#_;-]+$/;\n\nreturn items.map((item) => {\n  const q = item.json;\n  const errors = [];\n\n  const { tagged, fromdate, pagesize, site } = q;\n\n  // Validar as tags de busca.\n  if (\n    typeof tagged !== 'string' ||\n    tagged.trim().length === 0 ||\n    tagged.trim().length > 200 ||\n    !ALLOWED_TAGGED_PATTERN.test(tagged.trim())\n  ) {\n    errors.push(\n      'tagged deve conter tags válidas separadas por ponto e vírgula.'\n    );\n  }\n\n  // Validar o identificador do site.\n  if (\n    typeof site !== 'string' ||\n    site.trim().length === 0 ||\n    site.trim().length > 100 ||\n    !ALLOWED_SITE_PATTERN.test(site.trim())\n  ) {\n    errors.push(\n      'site deve ser um identificador válido, como stackoverflow.'\n    );\n  }\n\n  // Validar o timestamp Unix em segundos.\n  if (\n    !Number.isSafeInteger(fromdate) ||\n    fromdate <= 0\n  ) {\n    errors.push(\n      'fromdate deve ser um timestamp Unix inteiro positivo em segundos.'\n    );\n  } else if (fromdate > Math.floor(Date.now() / 1000)) {\n    errors.push('fromdate não pode estar no futuro.');\n  }\n\n  // Validar o tamanho da página.\n  if (\n    !Number.isInteger(pagesize) ||\n    pagesize < 1 ||\n    pagesize > 100\n  ) {\n    errors.push(\n      'pagesize deve ser um inteiro entre 1 e 100.'\n    );\n  }\n\n  // Retornar os parâmetros e o resultado da validação.\n  if (errors.length > 0) {\n    return {\n      json: {\n        ...q,\n        _validation: {\n          valid: false,\n          message: errors.join(' '),\n        },\n      },\n    };\n  }\n\n  return {\n    json: {\n      ...q,\n      tagged: tagged.trim(),\n      fromdate,\n      pagesize,\n      site: site.trim().toLowerCase(),\n      _validation: {\n        valid: true,\n        message: '',\n      },\n    },\n  };\n});"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -301,7 +307,7 @@
             },
             {
               "id": "99b742fd-8763-48c8-af97-abe3de71694d",
-              "name": "content_license",
+              "name": "content_license_question",
               "value": "={{ $json.content_license }}",
               "type": "string"
             }
@@ -459,7 +465,7 @@
     "availableInMCP": false,
     "timezone": "America/Sao_Paulo"
   },
-  "versionId": "a3be8c74-6630-4330-92b5-646e5d9f033c",
+  "versionId": "aecf26d5-ebee-4772-abd8-cdd087b2bf2f",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
