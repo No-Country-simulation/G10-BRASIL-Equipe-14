@@ -1,5 +1,5 @@
 {
-  "name": "WF02 - Coleta Stack Exchange Questions Integrada",
+  "name": "wf02_coleta-stack-exchange-questions-integrada",
   "nodes": [
     {
       "parameters": {},
@@ -81,7 +81,9 @@
         -208
       ],
       "id": "7e691f4a-96a1-459f-80b1-cd2c7edef6a3",
-      "name": "HTTP Request"
+      "name": "HTTP Request",
+      "retryOnFail": true,
+      "waitBetweenTries": 3000
     },
     {
       "parameters": {
@@ -96,6 +98,174 @@
       ],
       "id": "62cb7082-ae64-4581-b448-14fc21331745",
       "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "operation": "upload",
+        "bucketName": "communitylab-assets",
+        "fileName": "={{ $binary.data.fileName }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        1936,
+        -208
+      ],
+      "id": "c7663737-0006-4443-92dd-545f924ebe71",
+      "name": "Upload a file",
+      "credentials": {
+        "s3": {
+          "id": "WG22ysIkwCiyk8dj",
+          "name": "OCI Object Storage S3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "wf02-coleta-stack-exchange",
+        "authentication": "headerAuth",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -80,
+        -208
+      ],
+      "id": "a37a1648-8be4-428e-ae7a-16cdea3021c2",
+      "name": "Webhook",
+      "webhookId": "8e51e7b2-11a9-48a4-9d90-8766c9752797",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "QNmmh3RzZbp9CXSq",
+          "name": "Hackathon CommunityLab"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"status\": \"success\",\n  \"message\": \"Coleta de perguntas concluída e arquivo disponibilizado no bucket OCI.\"\n}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        2160,
+        -208
+      ],
+      "id": "7318554d-c20d-4f87-a459-71b57d4b23aa",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "57af477e-861d-4b4c-87c8-cb11b08936a0",
+              "name": "=tagged",
+              "value": "={{ $json.body?.tagged ?? 'artificial-intelligence' }}",
+              "type": "string"
+            },
+            {
+              "id": "9d4b765f-9ede-45a4-af3c-95ea6727982f",
+              "name": "=fromdate",
+              "value": "={{ Number($json.body?.fromdate ?? 1760929200) }}",
+              "type": "number"
+            },
+            {
+              "id": "77559db9-b31d-4f85-beeb-4868d00fe9fe",
+              "name": "=pagesize",
+              "value": "={{ Number($json.body?.pagesize ?? 100) }}",
+              "type": "number"
+            },
+            {
+              "id": "85aa55ff-c242-40c1-81b0-50a320edd308",
+              "name": "site",
+              "value": "={{ $json.body?.site ?? 'stackoverflow' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        144,
+        -112
+      ],
+      "id": "f16310cf-5975-47b2-ab09-581661694eb5",
+      "name": "Define Search parameters"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst ALLOWED_SITE_PATTERN = /^[a-z0-9.-]+$/;\nconst ALLOWED_TAGGED_PATTERN = /^[a-zA-Z0-9.+#_;-]+$/;\n\nreturn items.map((item) => {\n  const q = item.json;\n  const errors = [];\n\n  const { tagged, fromdate, pagesize, site } = q;\n\n  // Validar as tags de busca.\n  if (\n    typeof tagged !== 'string' ||\n    tagged.trim().length === 0 ||\n    tagged.trim().length > 200 ||\n    !ALLOWED_TAGGED_PATTERN.test(tagged.trim())\n  ) {\n    errors.push(\n      'tagged deve conter tags válidas separadas por ponto e vírgula.'\n    );\n  }\n\n  // Validar o identificador do site.\n  if (\n    typeof site !== 'string' ||\n    site.trim().length === 0 ||\n    site.trim().length > 100 ||\n    !ALLOWED_SITE_PATTERN.test(site.trim())\n  ) {\n    errors.push(\n      'site deve ser um identificador válido, como stackoverflow.'\n    );\n  }\n\n  // Validar o timestamp Unix em segundos.\n  if (\n    !Number.isSafeInteger(fromdate) ||\n    fromdate <= 0\n  ) {\n    errors.push(\n      'fromdate deve ser um timestamp Unix inteiro positivo em segundos.'\n    );\n  } else if (fromdate > Math.floor(Date.now() / 1000)) {\n    errors.push('fromdate não pode estar no futuro.');\n  }\n\n  // Validar o tamanho da página.\n  if (\n    !Number.isInteger(pagesize) ||\n    pagesize < 1 ||\n    pagesize > 100\n  ) {\n    errors.push(\n      'pagesize deve ser um inteiro entre 1 e 100.'\n    );\n  }\n\n  // Retornar os parâmetros e o resultado da validação.\n  if (errors.length > 0) {\n    return {\n      json: {\n        ...q,\n        _validation: {\n          valid: false,\n          message: errors.join(' '),\n        },\n      },\n    };\n  }\n\n  return {\n    json: {\n      ...q,\n      tagged: tagged.trim(),\n      fromdate,\n      pagesize,\n      site: site.trim().toLowerCase(),\n      _validation: {\n        valid: true,\n        message: '',\n      },\n    },\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        368,
+        -112
+      ],
+      "id": "3bf0551d-115c-4f31-ae3b-50226787674f",
+      "name": "Validade Research parameters"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "a0b8b364-27de-44c3-8f09-45af3321ebc8",
+              "leftValue": "={{ $json._validation.valid }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        592,
+        -112
+      ],
+      "id": "2e8e195e-4dcf-489e-8c38-674ac5358e86",
+      "name": "Valid?"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{\n  {\n    status: \"error\",\n    message: \"Parâmetros de busca inválidos.\",\n    details: $json._validation.message\n  }\n}}",
+        "options": {
+          "responseCode": 400
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        816,
+        -16
+      ],
+      "id": "6d154145-9d07-4830-86d6-1de261b91884",
+      "name": "Validation Error return"
     },
     {
       "parameters": {
@@ -196,192 +366,7 @@
         -208
       ],
       "id": "e87dec72-5baa-4267-837b-c67b4593bbfa",
-      "name": "Padronizar Perguntas"
-    },
-    {
-      "parameters": {
-        "operation": "toJson",
-        "options": {
-          "format": true,
-          "fileName": "={{ \"sample_\" + $('Definir Parâmetros de Busca').item.json.site + \"-questions_\" + $('Definir Parâmetros de Busca').item.json.tagged + \".json\" }}"
-        }
-      },
-      "type": "n8n-nodes-base.convertToFile",
-      "typeVersion": 1.1,
-      "position": [
-        1712,
-        -208
-      ],
-      "id": "722ad234-1852-4b84-9fb7-d3440a12de6f",
-      "name": "Gerar JSON de Perguntas"
-    },
-    {
-      "parameters": {
-        "operation": "upload",
-        "bucketName": "communitylab-assets",
-        "fileName": "={{ $binary.data.fileName }}",
-        "additionalFields": {}
-      },
-      "type": "n8n-nodes-base.s3",
-      "typeVersion": 1,
-      "position": [
-        1936,
-        -208
-      ],
-      "id": "c7663737-0006-4443-92dd-545f924ebe71",
-      "name": "Upload a file",
-      "credentials": {
-        "s3": {
-          "id": "WG22ysIkwCiyk8dj",
-          "name": "OCI Object Storage S3"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "57af477e-861d-4b4c-87c8-cb11b08936a0",
-              "name": "=tagged",
-              "value": "={{ $json.body?.tagged ?? 'artificial-intelligence' }}",
-              "type": "string"
-            },
-            {
-              "id": "9d4b765f-9ede-45a4-af3c-95ea6727982f",
-              "name": "=fromdate",
-              "value": "={{ Number($json.body?.fromdate ?? 1760929200) }}",
-              "type": "number"
-            },
-            {
-              "id": "77559db9-b31d-4f85-beeb-4868d00fe9fe",
-              "name": "=pagesize",
-              "value": "={{ Number($json.body?.pagesize ?? 100) }}",
-              "type": "number"
-            },
-            {
-              "id": "85aa55ff-c242-40c1-81b0-50a320edd308",
-              "name": "site",
-              "value": "={{ $json.body?.site ?? 'stackoverflow' }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.5,
-      "position": [
-        144,
-        -112
-      ],
-      "id": "f16310cf-5975-47b2-ab09-581661694eb5",
-      "name": "Definir Parâmetros de Busca"
-    },
-    {
-      "parameters": {
-        "httpMethod": "POST",
-        "path": "wf02-coleta-stack-exchange",
-        "authentication": "headerAuth",
-        "responseMode": "responseNode",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2.1,
-      "position": [
-        -80,
-        -208
-      ],
-      "id": "a37a1648-8be4-428e-ae7a-16cdea3021c2",
-      "name": "Webhook",
-      "webhookId": "8e51e7b2-11a9-48a4-9d90-8766c9752797",
-      "credentials": {
-        "httpHeaderAuth": {
-          "id": "QNmmh3RzZbp9CXSq",
-          "name": "Hackathon CommunityLab"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "respondWith": "json",
-        "responseBody": "{\n  \"status\": \"success\",\n  \"message\": \"Coleta de perguntas concluída e arquivo disponibilizado no bucket OCI.\"\n}",
-        "options": {
-          "responseCode": 200
-        }
-      },
-      "type": "n8n-nodes-base.respondToWebhook",
-      "typeVersion": 1.5,
-      "position": [
-        2160,
-        -208
-      ],
-      "id": "7318554d-c20d-4f87-a459-71b57d4b23aa",
-      "name": "Respond to Webhook"
-    },
-    {
-      "parameters": {
-        "jsCode": "const items = $input.all();\n\nconst ALLOWED_SITE_PATTERN = /^[a-z0-9.-]+$/;\nconst ALLOWED_TAGGED_PATTERN = /^[a-zA-Z0-9.+#_;-]+$/;\n\nreturn items.map((item) => {\n  const q = item.json;\n  const errors = [];\n\n  const { tagged, fromdate, pagesize, site } = q;\n\n  // Validar as tags de busca.\n  if (\n    typeof tagged !== 'string' ||\n    tagged.trim().length === 0 ||\n    tagged.trim().length > 200 ||\n    !ALLOWED_TAGGED_PATTERN.test(tagged.trim())\n  ) {\n    errors.push(\n      'tagged deve conter tags válidas separadas por ponto e vírgula.'\n    );\n  }\n\n  // Validar o identificador do site.\n  if (\n    typeof site !== 'string' ||\n    site.trim().length === 0 ||\n    site.trim().length > 100 ||\n    !ALLOWED_SITE_PATTERN.test(site.trim())\n  ) {\n    errors.push(\n      'site deve ser um identificador válido, como stackoverflow.'\n    );\n  }\n\n  // Validar o timestamp Unix em segundos.\n  if (\n    !Number.isSafeInteger(fromdate) ||\n    fromdate <= 0\n  ) {\n    errors.push(\n      'fromdate deve ser um timestamp Unix inteiro positivo em segundos.'\n    );\n  } else if (fromdate > Math.floor(Date.now() / 1000)) {\n    errors.push('fromdate não pode estar no futuro.');\n  }\n\n  // Validar o tamanho da página.\n  if (\n    !Number.isInteger(pagesize) ||\n    pagesize < 1 ||\n    pagesize > 100\n  ) {\n    errors.push(\n      'pagesize deve ser um inteiro entre 1 e 100.'\n    );\n  }\n\n  // Retornar os parâmetros e o resultado da validação.\n  if (errors.length > 0) {\n    return {\n      json: {\n        ...q,\n        _validation: {\n          valid: false,\n          message: errors.join(' '),\n        },\n      },\n    };\n  }\n\n  return {\n    json: {\n      ...q,\n      tagged: tagged.trim(),\n      fromdate,\n      pagesize,\n      site: site.trim().toLowerCase(),\n      _validation: {\n        valid: true,\n        message: '',\n      },\n    },\n  };\n});"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        368,
-        -112
-      ],
-      "id": "3bf0551d-115c-4f31-ae3b-50226787674f",
-      "name": "Validar Parâmetros de Busca"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 3
-          },
-          "conditions": [
-            {
-              "id": "a0b8b364-27de-44c3-8f09-45af3321ebc8",
-              "leftValue": "={{ $json._validation.valid }}",
-              "rightValue": "",
-              "operator": {
-                "type": "boolean",
-                "operation": "true",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.3,
-      "position": [
-        592,
-        -112
-      ],
-      "id": "2e8e195e-4dcf-489e-8c38-674ac5358e86",
-      "name": "Parâmetros Válidos?"
-    },
-    {
-      "parameters": {
-        "respondWith": "json",
-        "responseBody": "={{\n  {\n    status: \"error\",\n    message: \"Parâmetros de busca inválidos.\",\n    details: $json._validation.message\n  }\n}}",
-        "options": {
-          "responseCode": 400
-        }
-      },
-      "type": "n8n-nodes-base.respondToWebhook",
-      "typeVersion": 1.5,
-      "position": [
-        816,
-        -16
-      ],
-      "id": "6d154145-9d07-4830-86d6-1de261b91884",
-      "name": "Responder Erro de Validação"
+      "name": "Standard Questions"
     },
     {
       "parameters": {
@@ -394,7 +379,24 @@
         -208
       ],
       "id": "ad6cf6b6-11c0-4013-a1b2-19ffe418cbe0",
-      "name": "Sanitizar e Validar Perguntas"
+      "name": "Sanitize and Validate Questions"
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {
+          "format": true,
+          "fileName": "={{ \"sample_\" + $('Define Search parameters').item.json.site + \"-questions_\" + $('Define Search parameters').item.json.tagged + \".json\" }}"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1712,
+        -208
+      ],
+      "id": "722ad234-1852-4b84-9fb7-d3440a12de6f",
+      "name": "Create Question JSON file"
     }
   ],
   "pinData": {},
@@ -403,7 +405,7 @@
       "main": [
         [
           {
-            "node": "Definir Parâmetros de Busca",
+            "node": "Define Search parameters",
             "type": "main",
             "index": 0
           }
@@ -425,40 +427,7 @@
       "main": [
         [
           {
-            "node": "Padronizar Perguntas",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Padronizar Perguntas": {
-      "main": [
-        [
-          {
-            "node": "Sanitizar e Validar Perguntas",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Gerar JSON de Perguntas": {
-      "main": [
-        [
-          {
-            "node": "Upload a file",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Definir Parâmetros de Busca": {
-      "main": [
-        [
-          {
-            "node": "Validar Parâmetros de Busca",
+            "node": "Standard Questions",
             "type": "main",
             "index": 0
           }
@@ -469,7 +438,7 @@
       "main": [
         [
           {
-            "node": "Definir Parâmetros de Busca",
+            "node": "Define Search parameters",
             "type": "main",
             "index": 0
           }
@@ -487,18 +456,29 @@
         ]
       ]
     },
-    "Validar Parâmetros de Busca": {
+    "Define Search parameters": {
       "main": [
         [
           {
-            "node": "Parâmetros Válidos?",
+            "node": "Validade Research parameters",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Parâmetros Válidos?": {
+    "Validade Research parameters": {
+      "main": [
+        [
+          {
+            "node": "Valid?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Valid?": {
       "main": [
         [
           {
@@ -509,18 +489,40 @@
         ],
         [
           {
-            "node": "Responder Erro de Validação",
+            "node": "Validation Error return",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Sanitizar e Validar Perguntas": {
+    "Standard Questions": {
       "main": [
         [
           {
-            "node": "Gerar JSON de Perguntas",
+            "node": "Sanitize and Validate Questions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sanitize and Validate Questions": {
+      "main": [
+        [
+          {
+            "node": "Create Question JSON file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Question JSON file": {
+      "main": [
+        [
+          {
+            "node": "Upload a file",
             "type": "main",
             "index": 0
           }
@@ -537,7 +539,7 @@
     "availableInMCP": false,
     "timezone": "America/Sao_Paulo"
   },
-  "versionId": "522fad5e-9e82-4cfc-bbe7-c0d07407b0d2",
+  "versionId": "5c2a9cc8-1f05-4318-859e-e8839f16633c",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"

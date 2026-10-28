@@ -1,5 +1,5 @@
 {
-  "name": "WF03 - Coleta Stack Exchange Licenses Integrada",
+  "name": "wf03_coleta-stack-exchange-licenses-integrada",
   "nodes": [
     {
       "parameters": {},
@@ -20,7 +20,7 @@
           "parameters": [
             {
               "name": "site",
-              "value": "stackoverflow"
+              "value": "={{ $json.site }}"
             },
             {
               "name": "pagesize",
@@ -81,7 +81,9 @@
         -208
       ],
       "id": "993b3060-9ea2-4869-a601-1c18df87585f",
-      "name": "HTTP Request"
+      "name": "HTTP Request",
+      "retryOnFail": true,
+      "waitBetweenTries": 3000
     },
     {
       "parameters": {
@@ -99,23 +101,6 @@
     },
     {
       "parameters": {
-        "operation": "toJson",
-        "options": {
-          "format": true,
-          "fileName": "={{ \"sample_\" + $('Definir Parâmetros de Busca').item.json.site + \"-questions-licenses_\" + $('Definir Parâmetros de Busca').item.json.tagged + \".json\" }}"
-        }
-      },
-      "type": "n8n-nodes-base.convertToFile",
-      "typeVersion": 1.1,
-      "position": [
-        1712,
-        -208
-      ],
-      "id": "a59754b4-a425-4f03-b2dc-a18562912c17",
-      "name": "Gerar JSON de Perguntas"
-    },
-    {
-      "parameters": {
         "operation": "upload",
         "bucketName": "communitylab-assets",
         "fileName": "={{ $binary.data.fileName }}",
@@ -129,6 +114,8 @@
       ],
       "id": "07b3d64f-fa01-437a-a736-351f81db8e51",
       "name": "Upload a file",
+      "retryOnFail": true,
+      "waitBetweenTries": 3000,
       "credentials": {
         "s3": {
           "id": "WG22ysIkwCiyk8dj",
@@ -217,19 +204,6 @@
       ],
       "id": "2df04ed3-167c-4dbd-867f-0add21d9bba1",
       "name": "Respond to Webhook"
-    },
-    {
-      "parameters": {
-        "jsCode": "const items = $input.all();\nconst sanitized = [];\nlet rejected = 0;\n\nfor (const item of items) {\n  const q = item.json;\n  const sourceId = String(q.source_id ?? '').trim();\n\n  if (!sourceId) {\n    rejected++;\n    continue;\n  }\n\n  const license_question =\n    typeof q.content_license_question === 'string'\n      ? q.content_license_question.trim() || null\n      : null;\n\n  sanitized.push({\n    json: {\n      source_id: sourceId,\n      content_license_question: license_question,\n    },\n  });\n}\n\nconsole.log(\n  `Registros preservados: ${sanitized.length}; rejeitados por falta de source_id: ${rejected}.`\n);\n\nreturn sanitized;"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1488,
-        -208
-      ],
-      "id": "b12ef254-3859-46cd-b679-e8963ddcf002",
-      "name": "Sanitizar e Validar Perguntas"
     },
     {
       "parameters": {
@@ -323,6 +297,36 @@
       ],
       "id": "35126827-4b2b-4866-9fde-3552426a9552",
       "name": "Padronizar Licencas"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst sanitized = [];\nlet rejected = 0;\n\nfor (const item of items) {\n  const q = item.json;\n  const sourceId = String(q.source_id ?? '').trim();\n\n  if (!sourceId) {\n    rejected++;\n    continue;\n  }\n\n  const license_question =\n    typeof q.content_license_question === 'string'\n      ? q.content_license_question.trim() || null\n      : null;\n\n  sanitized.push({\n    json: {\n      source_id: sourceId,\n      content_license_question: license_question,\n    },\n  });\n}\n\nconsole.log(\n  `Registros preservados: ${sanitized.length}; rejeitados por falta de source_id: ${rejected}.`\n);\n\nreturn sanitized;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1488,
+        -208
+      ],
+      "id": "b12ef254-3859-46cd-b679-e8963ddcf002",
+      "name": "Sanitizar e Validar Licencas"
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {
+          "format": true,
+          "fileName": "={{ \"sample_\" + $('Definir Parâmetros de Busca').item.json.site + \"-questions-licenses_\" + $('Definir Parâmetros de Busca').item.json.tagged + \".json\" }}"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1712,
+        -208
+      ],
+      "id": "a59754b4-a425-4f03-b2dc-a18562912c17",
+      "name": "Gerar JSON de Licencas"
     }
   ],
   "pinData": {},
@@ -354,17 +358,6 @@
         [
           {
             "node": "Padronizar Licencas",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Gerar JSON de Perguntas": {
-      "main": [
-        [
-          {
-            "node": "Upload a file",
             "type": "main",
             "index": 0
           }
@@ -404,17 +397,6 @@
         ]
       ]
     },
-    "Sanitizar e Validar Perguntas": {
-      "main": [
-        [
-          {
-            "node": "Gerar JSON de Perguntas",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Validar Parâmetros de Busca": {
       "main": [
         [
@@ -448,7 +430,29 @@
       "main": [
         [
           {
-            "node": "Sanitizar e Validar Perguntas",
+            "node": "Sanitizar e Validar Licencas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sanitizar e Validar Licencas": {
+      "main": [
+        [
+          {
+            "node": "Gerar JSON de Licencas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gerar JSON de Licencas": {
+      "main": [
+        [
+          {
+            "node": "Upload a file",
             "type": "main",
             "index": 0
           }
@@ -465,7 +469,7 @@
     "availableInMCP": false,
     "timezone": "America/Sao_Paulo"
   },
-  "versionId": "aecf26d5-ebee-4772-abd8-cdd087b2bf2f",
+  "versionId": "e6372aab-b554-480d-9b8f-07a793023c0f",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
