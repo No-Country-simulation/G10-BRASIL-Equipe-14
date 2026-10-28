@@ -1,0 +1,32 @@
+{
+  "id": "BBsW8m3h6j6BHDv90q",
+  "source": "mastodon",
+  "url": "https://social.espeweb.net/notice/BBsW8m3h6j6BHDv90q",
+  "interactions": [
+    {
+      "author": "politico_eu_bot",
+      "content": "Burnham’s budget blasts British baked beans https://www.politico.eu/article/andy-burnham-budget-british-baked-beans/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication #Manufacturing #Costofliving #Regulation #Industry #Imports #Tariffs #TradeUK #Budget #Energy #UK",
+      "tags": [
+        "budget",
+        "costofliving",
+        "energy",
+        "imports",
+        "industry",
+        "manufacturing",
+        "regulation",
+        "tariffs",
+        "tradeuk",
+        "uk"
+      ],
+      "created_at": "2026-10-28T18:00:43.000Z",
+      "raw_metadata": {
+        "scenario": "ruido_bot",
+        "bot": true,
+        "reblogs_count": 0,
+        "favourites_count": 0,
+        "url": "https://social.espeweb.net/objects/8890b92e-1d57-42e4-a3fa-4f754ced0b4d",
+        "language": null
+      }
+    }
+  ]
+}
