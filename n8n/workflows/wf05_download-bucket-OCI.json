@@ -1,0 +1,231 @@
+{
+  "name": "wf05_download-bucket-OCI",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        192
+      ],
+      "id": "9bcdd69a-8877-4ae7-a8e1-afce80fb85c8",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "bucketName": "communitylab-assets",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        192,
+        96
+      ],
+      "id": "57e674f8-bd9c-4141-9035-99245574229d",
+      "name": "Get many files",
+      "retryOnFail": true,
+      "waitBetweenTries": 3000,
+      "credentials": {
+        "s3": {
+          "id": "WG22ysIkwCiyk8dj",
+          "name": "OCI Object Storage S3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "data_list",
+        "options": {
+          "includeBinaries": true,
+          "keepOnlyUnique": false
+        }
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        640,
+        96
+      ],
+      "id": "5e4cd7e4-ec5a-40e6-b6ab-65821c902a3b",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "operation": "compress",
+        "binaryPropertyName": "={{ Object.keys($binary).join() }}",
+        "fileName": "={{ $binary.data.fileName.split('-')[0] + '.zip' }}"
+      },
+      "type": "n8n-nodes-base.compression",
+      "typeVersion": 1.1,
+      "position": [
+        864,
+        96
+      ],
+      "id": "1fd6afa8-ea13-44fc-bd96-d6aee2bd98f0",
+      "name": "ZIP files"
+    },
+    {
+      "parameters": {
+        "respondWith": "binary",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/zip"
+              },
+              {
+                "name": "Content-Disposition",
+                "value": "={{ 'attachment; filename=\"' + $binary.data.fileName + '\"' }}"
+              },
+              {
+                "name": "Cache-Control",
+                "value": "no-store"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1088,
+        96
+      ],
+      "id": "060b23b0-0759-4adc-ab4d-1d621ac4c27e",
+      "name": "Return with ZIP file"
+    },
+    {
+      "parameters": {
+        "bucketName": "communitylab-assets",
+        "fileKey": "={{ $json.Key }}"
+      },
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        416,
+        96
+      ],
+      "id": "dc73fd32-b652-4fa5-9f79-cd66f7d51f20",
+      "name": "Download a file",
+      "retryOnFail": true,
+      "waitBetweenTries": 3000,
+      "credentials": {
+        "s3": {
+          "id": "WG22ysIkwCiyk8dj",
+          "name": "OCI Object Storage S3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "path": "wf05-download-bucket-OCI",
+        "authentication": "headerAuth",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -32,
+        0
+      ],
+      "id": "06c39ea8-99f2-413c-9d41-cb18dc6e6a85",
+      "name": "Webhook",
+      "webhookId": "700660bf-c0d3-464a-b76c-115e5f36b9ce",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "QNmmh3RzZbp9CXSq",
+          "name": "Hackathon CommunityLab"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get many files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many files": {
+      "main": [
+        [
+          {
+            "node": "Download a file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "ZIP files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ZIP files": {
+      "main": [
+        [
+          {
+            "node": "Return with ZIP file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download a file": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Get many files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "6a27f3af-7a59-4c57-b106-cdbf8552a864",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
+  },
+  "nodeGroups": [],
+  "id": "iSpAXNe9xeQ3Aykl",
+  "tags": []
+}

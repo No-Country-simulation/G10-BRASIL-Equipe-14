@@ -1,0 +1,480 @@
+{
+  "name": "wf03_coleta-stack-exchange-licenses-integrada",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        -16
+      ],
+      "id": "93bbf0d0-9b4c-4489-89d8-e4442add09f1",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://api.stackexchange.com/2.3/questions",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "site",
+              "value": "={{ $json.site }}"
+            },
+            {
+              "name": "pagesize",
+              "value": "={{ $json.pagesize }}"
+            },
+            {
+              "name": "order",
+              "value": "desc"
+            },
+            {
+              "name": "sort",
+              "value": "votes"
+            },
+            {
+              "name": "tagged",
+              "value": "={{ $json.tagged }}"
+            },
+            {
+              "name": "filter",
+              "value": "!4(sMnI809SBP8*2*0"
+            },
+            {
+              "name": "fromdate",
+              "value": "={{ $json.fromdate }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            }
+          ]
+        },
+        "options": {
+          "pagination": {
+            "pagination": {
+              "parameters": {
+                "parameters": [
+                  {
+                    "name": "page",
+                    "value": "={{ $pageCount + 1 }}"
+                  }
+                ]
+              },
+              "paginationCompleteWhen": "other",
+              "completeExpression": "={{ $response.body.has_more === false }}"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        816,
+        -208
+      ],
+      "id": "993b3060-9ea2-4869-a601-1c18df87585f",
+      "name": "HTTP Request",
+      "retryOnFail": true,
+      "waitBetweenTries": 3000
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "items",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        -208
+      ],
+      "id": "0d5781da-ec1d-42de-b0f1-59a305671971",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "operation": "upload",
+        "bucketName": "communitylab-assets",
+        "fileName": "={{ $binary.data.fileName }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        1936,
+        -208
+      ],
+      "id": "07b3d64f-fa01-437a-a736-351f81db8e51",
+      "name": "Upload a file",
+      "retryOnFail": true,
+      "waitBetweenTries": 3000,
+      "credentials": {
+        "s3": {
+          "id": "WG22ysIkwCiyk8dj",
+          "name": "OCI Object Storage S3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "57af477e-861d-4b4c-87c8-cb11b08936a0",
+              "name": "=tagged",
+              "value": "={{ $json.body?.tagged ?? 'artificial-intelligence' }}",
+              "type": "string"
+            },
+            {
+              "id": "9d4b765f-9ede-45a4-af3c-95ea6727982f",
+              "name": "=fromdate",
+              "value": "={{ Number($json.body?.fromdate ?? 1760929200) }}",
+              "type": "number"
+            },
+            {
+              "id": "77559db9-b31d-4f85-beeb-4868d00fe9fe",
+              "name": "=pagesize",
+              "value": "={{ Number($json.body?.pagesize ?? 100) }}",
+              "type": "number"
+            },
+            {
+              "id": "711df311-cdf2-430a-a6cf-29070384c6a7",
+              "name": "site",
+              "value": "={{ $json.body?.site ?? 'stackoverflow' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        144,
+        -112
+      ],
+      "id": "47e43fe8-97e6-4520-ab45-739979974a46",
+      "name": "Definir Parâmetros de Busca"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "wf03-coleta-stack-exchange-licenses",
+        "authentication": "headerAuth",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -80,
+        -208
+      ],
+      "id": "a5a2c63e-330f-49cf-a16d-ecb3807f2234",
+      "name": "Webhook",
+      "webhookId": "8200a76c-2eb1-4cba-bca9-c08c6c579a77",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "QNmmh3RzZbp9CXSq",
+          "name": "Hackathon CommunityLab"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"status\": \"success\",\n  \"message\": \"Coleta de licenças concluída e arquivo disponibilizado no bucket OCI.\"\n}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        2160,
+        -208
+      ],
+      "id": "2df04ed3-167c-4dbd-867f-0add21d9bba1",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst ALLOWED_SITE_PATTERN = /^[a-z0-9.-]+$/;\nconst ALLOWED_TAGGED_PATTERN = /^[a-zA-Z0-9.+#_;-]+$/;\n\nreturn items.map((item) => {\n  const q = item.json;\n  const errors = [];\n\n  const { tagged, fromdate, pagesize, site } = q;\n\n  // Validar as tags de busca.\n  if (\n    typeof tagged !== 'string' ||\n    tagged.trim().length === 0 ||\n    tagged.trim().length > 200 ||\n    !ALLOWED_TAGGED_PATTERN.test(tagged.trim())\n  ) {\n    errors.push(\n      'tagged deve conter tags válidas separadas por ponto e vírgula.'\n    );\n  }\n\n  // Validar o identificador do site.\n  if (\n    typeof site !== 'string' ||\n    site.trim().length === 0 ||\n    site.trim().length > 100 ||\n    !ALLOWED_SITE_PATTERN.test(site.trim())\n  ) {\n    errors.push(\n      'site deve ser um identificador válido, como stackoverflow.'\n    );\n  }\n\n  // Validar o timestamp Unix em segundos.\n  if (\n    !Number.isSafeInteger(fromdate) ||\n    fromdate <= 0\n  ) {\n    errors.push(\n      'fromdate deve ser um timestamp Unix inteiro positivo em segundos.'\n    );\n  } else if (fromdate > Math.floor(Date.now() / 1000)) {\n    errors.push('fromdate não pode estar no futuro.');\n  }\n\n  // Validar o tamanho da página.\n  if (\n    !Number.isInteger(pagesize) ||\n    pagesize < 1 ||\n    pagesize > 100\n  ) {\n    errors.push(\n      'pagesize deve ser um inteiro entre 1 e 100.'\n    );\n  }\n\n  // Retornar os parâmetros e o resultado da validação.\n  if (errors.length > 0) {\n    return {\n      json: {\n        ...q,\n        _validation: {\n          valid: false,\n          message: errors.join(' '),\n        },\n      },\n    };\n  }\n\n  return {\n    json: {\n      ...q,\n      tagged: tagged.trim(),\n      fromdate,\n      pagesize,\n      site: site.trim().toLowerCase(),\n      _validation: {\n        valid: true,\n        message: '',\n      },\n    },\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        368,
+        -112
+      ],
+      "id": "ff463f54-560e-4b06-97c5-9373d33cca2f",
+      "name": "Validar Parâmetros de Busca"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "a0b8b364-27de-44c3-8f09-45af3321ebc8",
+              "leftValue": "={{ $json._validation.valid }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        592,
+        -112
+      ],
+      "id": "9e156c1e-4571-4d52-8eee-b4f42b70c07c",
+      "name": "Parâmetros Válidos?"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{\n  {\n    status: \"error\",\n    message: \"Parâmetros de busca inválidos.\",\n    details: $json._validation.message\n  }\n}}",
+        "options": {
+          "responseCode": 400
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        816,
+        -16
+      ],
+      "id": "7d7c8837-373d-4b0c-b2c2-38342cd0df6d",
+      "name": "Responder Erro de Validação"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "90939727-afbb-4018-b1e2-cf349d806f8f",
+              "name": "source_id",
+              "value": "={{ $json.question_id }}",
+              "type": "string"
+            },
+            {
+              "id": "99b742fd-8763-48c8-af97-abe3de71694d",
+              "name": "content_license_question",
+              "value": "={{ $json.content_license }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1264,
+        -208
+      ],
+      "id": "35126827-4b2b-4866-9fde-3552426a9552",
+      "name": "Padronizar Licencas"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst sanitized = [];\nlet rejected = 0;\n\nfor (const item of items) {\n  const q = item.json;\n  const sourceId = String(q.source_id ?? '').trim();\n\n  if (!sourceId) {\n    rejected++;\n    continue;\n  }\n\n  const license_question =\n    typeof q.content_license_question === 'string'\n      ? q.content_license_question.trim() || null\n      : null;\n\n  sanitized.push({\n    json: {\n      source_id: sourceId,\n      content_license_question: license_question,\n    },\n  });\n}\n\nconsole.log(\n  `Registros preservados: ${sanitized.length}; rejeitados por falta de source_id: ${rejected}.`\n);\n\nreturn sanitized;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1488,
+        -208
+      ],
+      "id": "b12ef254-3859-46cd-b679-e8963ddcf002",
+      "name": "Sanitizar e Validar Licencas"
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {
+          "format": true,
+          "fileName": "={{ \"sample_\" + $('Definir Parâmetros de Busca').item.json.site + \"-questions-licenses_\" + $('Definir Parâmetros de Busca').item.json.tagged + \".json\" }}"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1712,
+        -208
+      ],
+      "id": "a59754b4-a425-4f03-b2dc-a18562912c17",
+      "name": "Gerar JSON de Licencas"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Definir Parâmetros de Busca",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Padronizar Licencas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Definir Parâmetros de Busca": {
+      "main": [
+        [
+          {
+            "node": "Validar Parâmetros de Busca",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Definir Parâmetros de Busca",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload a file": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validar Parâmetros de Busca": {
+      "main": [
+        [
+          {
+            "node": "Parâmetros Válidos?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parâmetros Válidos?": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Responder Erro de Validação",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Padronizar Licencas": {
+      "main": [
+        [
+          {
+            "node": "Sanitizar e Validar Licencas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sanitizar e Validar Licencas": {
+      "main": [
+        [
+          {
+            "node": "Gerar JSON de Licencas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gerar JSON de Licencas": {
+      "main": [
+        [
+          {
+            "node": "Upload a file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "timezone": "America/Sao_Paulo"
+  },
+  "versionId": "e6372aab-b554-480d-9b8f-07a793023c0f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
+  },
+  "nodeGroups": [],
+  "id": "d9RrXnaEEg4XShjS",
+  "tags": []
+}
