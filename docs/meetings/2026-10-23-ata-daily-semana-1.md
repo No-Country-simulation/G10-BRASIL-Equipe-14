@@ -15,7 +15,13 @@ Alinhar as atividades realizadas ao longo do dia, atividades previstas e impedim
 
 ---
 
-## 2. Principais Pontos Discutidos e Status por Integrante
+## 2. Resumo Executivo
+
+A equipe realizou uma reunião de acompanhamento diário (_daily_) e revisão das entregas semanais do projeto no programa No Country. Ficou acordada a manutenção do horário fixo das reuniões diárias às **19:30**, com atividades assíncronas durante o fim de semana e a realização da reunião de planejamento (_Sprint Planning_) na segunda-feira. No âmbito de desenvolvimento, consolidou-se a padronização de nomenclatura de arquivos e funções (renomeação de `validator.py` para `schema_validator.py` e da função para `validate_data`), a criação de registros de decisão arquitetural (ADRs para o JSON Schema e versão fixa do n8n) e a centralização de diretórios no `config.py`. Além disso, concluiu-se a validação do primeiro cenário real na branch `dataset_scenarios`, definiu-se a separação e duplicação dos _workflows_ na OCI/n8n para cada fonte de dados (**Stack Exchange, Hacker News e Mastodon**) para facilitar futuras manutenções, e confirmou-se a containerização da aplicação Streamlit em **Docker**.
+
+---
+
+## 3. Principais Pontos Discutidos e Status por Integrante
 
 #### **Vitor Pires**
 
@@ -49,7 +55,7 @@ Alinhar as atividades realizadas ao longo do dia, atividades previstas e impedim
 
 ---
 
-## 3. Deliberações e Ações Futuras (Action Items)
+## 4. Deliberações e Ações Futuras (Action Items)
 
 | Ação                                                                                 | Responsável   | Prazo / Status      |
 | :----------------------------------------------------------------------------------- | :------------ | :------------------ |
@@ -65,7 +71,7 @@ Alinhar as atividades realizadas ao longo do dia, atividades previstas e impedim
 
 ---
 
-## 4. Próxima Reunião
+## 5. Próxima Reunião
 
 - **Reunião Obrigatória:** Sprint Planning (Início da Semana 2)
 

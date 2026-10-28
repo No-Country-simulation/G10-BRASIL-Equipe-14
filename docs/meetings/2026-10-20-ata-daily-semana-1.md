@@ -15,7 +15,13 @@ Alinhar as atividades realizadas ao longo do dia, atividades previstas e impedim
 
 ---
 
-## 2. Principais Pontos Discutidos e Status por Integrante
+## 2. Resumo Executivo
+
+A equipe realizou a sua reunião diária (*daily*) de acompanhamento do projeto no âmbito do programa No Country. Cada participante compartilhou seu progresso diário, englobando testes de integração de APIs (Hacker News, Stack Exchange, Mastodon e BlueSky), publicação de workflows automatizados (Workflow 2) com arquivos de dados em JSON na issue #53, atualização de planilhas de tarefas e abertura de Pull Request em modo *Draft*. Também foram discutidos ajustes na modelagem dos arquivos JSON (como a necessidade do campo de autor e array de interações), a preparação da estrutura do banco de dados, o alinhamento da rotina de reuniões (sincronizações diárias, planejamento semanal às segundas e *review* no fim de semana) e a solução de pendências de acesso ao repositório no GitHub.
+
+---
+
+## 3. Principais Pontos Discutidos e Status por Integrante
 
 #### **Vitor Pires**
 
@@ -50,7 +56,7 @@ Alinhar as atividades realizadas ao longo do dia, atividades previstas e impedim
 
 ---
 
-## 3. Deliberações e Ações Futuras (Action Items)
+## 4. Deliberações e Ações Futuras (Action Items)
 
 | Ação                                                                           | Responsável  | Prazo / Status     |
 | :----------------------------------------------------------------------------- | :----------- | :----------------- |
@@ -64,7 +70,7 @@ Alinhar as atividades realizadas ao longo do dia, atividades previstas e impedim
 
 ---
 
-## 4. Próxima Reunião
+## 5. Próxima Reunião
 
 - **Reunião Obrigatória:** Daily
 

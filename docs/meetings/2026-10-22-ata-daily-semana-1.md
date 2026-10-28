@@ -15,7 +15,13 @@ Alinhar as atividades realizadas ao longo do dia, atividades previstas e impedim
 
 ---
 
-## 2. Principais Pontos Discutidos e Status por Integrante
+## 2. Resumo Executivo
+
+A equipe realizou um alinhamento sobre o andamento das tarefas do projeto, cobrindo integrações de fluxos, resolução de comentários em PRs, validação de cenários e atualização de documentação.
+
+---
+
+## 3. Principais Pontos Discutidos e Status por Integrante
 
 #### **Rodrigo Aguiar**
 
@@ -39,7 +45,7 @@ Alinhar as atividades realizadas ao longo do dia, atividades previstas e impedim
 
 ---
 
-## 3. Deliberações e Ações Futuras (Action Items)
+## 4. Deliberações e Ações Futuras (Action Items)
 
 | Ação                                                                         | Responsável    | Prazo / Status              |
 | :--------------------------------------------------------------------------- | :------------- | :-------------------------- |
@@ -52,7 +58,7 @@ Alinhar as atividades realizadas ao longo do dia, atividades previstas e impedim
 
 ---
 
-## 4. Próxima Reunião
+## 5. Próxima Reunião
 
 - **Reunião Obrigatória:** Daily
 
