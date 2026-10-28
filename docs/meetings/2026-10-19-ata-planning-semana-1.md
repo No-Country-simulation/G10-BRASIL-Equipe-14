@@ -16,7 +16,13 @@ Alinhamento das atividades iniciais do projeto na **Semana 1**, focando no levan
 
 ---
 
-## 2. Principais Pontos Discutidos
+## 2. Resumo Executivo
+
+A equipe alinhou as atividades iniciais da primeira semana do projeto, focando na organização e divisão de tarefas por área no GitHub Projects (Kanban), no desenvolvimento dos *prompts* e no início da ingestão e tratamento de dados das plataformas Stack Exchange e Mastodon. Ficou estabelecido que a infraestrutura do n8n já se encontra configurada na Oracle Cloud Infrastructure (OCI) sob o plano gratuito (*Always Free*) com 12 GB de RAM, definindo-se o formato JSON como o padrão oficial para a entrada e saída dos dados. Diante das preocupações com limites de requisição de APIs gratuitas e a lentidão em roteadores abertos como o OpenRouter, a equipe propôs o uso compartilhado de chaves privadas e o uso direto de assistentes de IA como alternativas de contingência para agilizar os testes de desenvolvimento. Por fim, determinou-se a realização de reuniões diárias rápidas (*dailies*), de 10 a 15 minutos, no horário entre 19:30 e 20:00 para acompanhamento das atividades e resolução de eventuais impedimentos.
+
+---
+
+## 3. Principais Pontos Discutidos
 
 1. **Organização e Divisão de Tarefas:**
     - As tarefas foram organizadas por área no GitHub Projects (Kanban).
@@ -38,7 +44,7 @@ Alinhamento das atividades iniciais do projeto na **Semana 1**, focando no levan
 
 ---
 
-## 3. Próximos Passos
+## 4. Próximos Passos
 
 - Atribuir os *cards* no GitHub Projects para cada responsável.
 - Avançar na integração da fonte de dados Mastodon e Stack Exchange no n8n.
@@ -47,7 +53,7 @@ Alinhamento das atividades iniciais do projeto na **Semana 1**, focando no levan
 
 ---
 
-## 4. Próxima Reunião
+## 5. Próxima Reunião
 
 - **Reunião Obrigatória:** Daily
 

@@ -15,7 +15,13 @@ Alinhar as atividades realizadas ao longo do dia, atividades previstas e impedim
 
 ---
 
-## 2. Principais Pontos Discutidos e Status por Integrante
+## 2. Resumo Executivo
+
+Durante o alinhamento, o grupo acordou antecipar o horário da próxima reunião para as **19:30**. No âmbito do desenvolvimento, os participantes revisaram a coleta e a estruturação dos dados: Vítor analisou a API do Mastodon e propôs concentrar o escopo inicial no **LinkedIn, X (Twitter) e Mastodon**, enquanto Rodrigo trabalhou na paginação da *issue* S108 enfrentando limitações de *rate limit*. Em paralelo, Michel e o Integrante 3 conduziram o *debugging*, a limpeza e a padronização dos campos e colunas em inglês para evitar erros de integração, e Gustavo avançou na elaboração dos *prompts* e no script de medição de acurácia do *router*, aguardando o envio do schema consolidado com dados reais para executar os testes nos três cenários obrigatórios.
+
+---
+
+## 3. Principais Pontos Discutidos e Status por Integrante
 
 #### **Vitor Pires**
 
@@ -57,7 +63,7 @@ Alinhar as atividades realizadas ao longo do dia, atividades previstas e impedim
 
 ---
 
-## 3. Deliberações e Ações Futuras (Action Items)
+## 4. Deliberações e Ações Futuras (Action Items)
 
 | Ação                                                                  | Responsável             | Prazo / Status              |
 | :-------------------------------------------------------------------- | :---------------------- | :-------------------------- |
@@ -69,7 +75,7 @@ Alinhar as atividades realizadas ao longo do dia, atividades previstas e impedim
 
 ---
 
-## 4. Próxima Reunião
+## 5. Próxima Reunião
 
 - **Reunião Obrigatória:** Daily
 

@@ -19,9 +19,15 @@ Alinhar a compreensão do desafio proposto pelo edital, definir o foco temático
 
 ---
 
-## 2. Principais Decisões
+## 2. Resumo Executivo
 
-### 2.1. Escopo e Solução Escolhida
+Na reunião de alinhamento e planejamento inicial do dia **16/10/2026**, a equipe definiu o escopo centrado no desenvolvimento de um **Motor de FAQ Dinâmico e Conteúdo Educativo**. Para alimentar a solução sem custos adicionais de API, o grupo optou pelo **Stack Exchange** e **Mastodon** como fontes primárias de dados. A arquitetura técnica foi estabelecida utilizando o **n8n** (self-hosted via Docker) para orquestração de fluxos, o **DuckDB** para limpeza e normatização rápida dos dados, camadas gratuitas de modelos de linguagem (como Gemini, Groq e Ollama) e o armazenamento na **Oracle Cloud Infrastructure (OCI Always Free)**. Além disso, definiu-se a estrutura de desenvolvimento no Git com o bloqueio da branch principal (*main*), uso da branch *develop*, obrigatoriedade de revisão de Pull Requests por ao menos um participante, organização do trabalho via **GitHub Projects (Kanban)**, realização de reuniões diárias curtas (*dailies*) e o agendamento da *Sprint Planning* obrigatória para as segundas-feiras.
+
+---
+
+## 3. Principais Decisões
+
+### 3.1. Escopo e Solução Escolhida
 
 * **Foco do MVP:** A equipe optou por focar no **Motor de FAQ Dinâmico e Conteúdo Educativo** (transformação de dúvidas e discussões técnicas em dicas rápidas, tutoriais e documentação).
 
@@ -29,7 +35,7 @@ Alinhar a compreensão do desafio proposto pelo edital, definir o foco temático
 * **Justificativa:** É a abordagem mais compatível com as fontes técnicas que serão consultadas e viabiliza a geração dos formatos de ativos exigidos (Post de LinkedIn + Newsletter/Highlights + FAQ Dinâmico).
 
 
-### 2.2. Fontes de Dados e Ingestão
+### 3.2. Fontes de Dados e Ingestão
 
 * **Fontes Base Iniciais:**
 
@@ -41,13 +47,13 @@ Alinhar a compreensão do desafio proposto pelo edital, definir o foco temático
 
 * **Justificativa:** O grupo debateu restrições de APIs de redes como X (Twitter), Reddit e LinkedIn, optando por fontes com APIs/dados abertos e viáveis sem custos adicionais.
 
-### 2.3. Ingestão de Dados
+### 3.3. Ingestão de Dados
 
 * **Tratamento e Limpeza:** Utilização de **DuckDB** para limpeza rápida, transformação e normatização dos dados brutos antes da entrega ao pipeline de IA.
 
 * **Justificativa:** A abordagem reduz o consumo de memória RAM e processamento computacional, possibilitando o uso local sem a necessidade de manter um servidor de banco de dados pesado rodando.
 
-### 2.4. Arquitetura e Engenharia de IA
+### 3.4. Arquitetura e Engenharia de IA
 
 * **Orquestrador de Fluxos:** **n8n local via Docker (self-hosted)** para gerenciar o webhook, o fluxo de nós condicionais e a triagem inicial.
 
@@ -67,14 +73,14 @@ Alinhar a compreensão do desafio proposto pelo edital, definir o foco temático
 
 * **Governança da IA (ADR / SSD):** Proposta de desenvolver arquivos de registro de decisões arquiteturais (Architecture Decision Record - `ADR`) e descrições estruturadas (Spec-Driven Development - `SSD`) para guiar os system prompts e evitar alucinações das LLMs, caso sejam adotados agentes de IA no desenvolvimento do projeto.
 
-### 2.5. Persistência em Nuvem (OCI Always Free)
+### 3.5. Persistência em Nuvem (OCI Always Free)
 
 * **Object Storage:** Obrigatório para persistência dos JSONs de distribuição dos lotes. Será provisionado na conta individual de um integrante utilizando a camada Always Free.
 
 * **OCI Compute (VM):** Ficará como item diferencial para a reta final, dadas as restrições de concorrência e memória das máquinas Always Free.
 
 
-### 2.6. Governança do Repositório e Fluxo Git
+### 3.6. Governança do Repositório e Fluxo Git
 
 1. **Proteção de Branches:**
     * A branch `main` ficará totalmente bloqueada para commits diretos (reservada apenas para a release final homologada).
@@ -94,7 +100,7 @@ Alinhar a compreensão do desafio proposto pelo edital, definir o foco temático
 
 ---
 
-## 3. Próximos Passos
+## 4. Próximos Passos
 
 - **Ações Imediatas (Semana 0):**
   - Ajuste do repositório no GitHub (Branches, Proteções e Templates).
@@ -104,7 +110,7 @@ Alinhar a compreensão do desafio proposto pelo edital, definir o foco temático
 
 ---
 
-## 4. Próxima Reunião
+## 5. Próxima Reunião
 
 * **Reunião Obrigatória:** Sprint Planning (Início da Semana 1)
 
