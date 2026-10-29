@@ -1,1295 +1,1952 @@
 [
   {
-    "id": "117476949784328612",
-    "created_at": "2026-10-20T20:21:27.000Z",
-    "in_reply_to_id": null,
-    "in_reply_to_account_id": null,
+    "id": "BBo1ei1dlPSup7rsiO",
     "sensitive": false,
-    "spoiler_text": "",
-    "visibility": "public",
-    "language": "en",
-    "uri": "https://web.brid.gy/r/https://www.truthdig.com/articles/ai-industry-leader-wants-50-free-kills/?utm_source=rss&utm_medium=rss&utm_campaign=ai-industry-leader-wants-50-free-kills",
-    "url": "https://fed.brid.gy/r/https://www.truthdig.com/articles/ai-industry-leader-wants-50-free-kills/?utm_source=rss&utm_medium=rss&utm_campaign=ai-industry-leader-wants-50-free-kills",
-    "replies_count": 0,
-    "reblogs_count": 0,
-    "favourites_count": 0,
-    "quotes_count": 0,
-    "edited_at": null,
-    "content": "<p><strong>AI Industry Leader Wants 50 Free Kills</strong></p>\n\n<p><a href=\"https://fed.brid.gy/r/https://www.truthdig.com/articles/ai-industry-leader-wants-50-free-kills/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=ai-industry-leader-wants-50-free-kills\" rel=\"nofollow noopener\" translate=\"no\" target=\"_blank\"><span class=\"invisible\">https://</span><span class=\"ellipsis\">fed.brid.gy/r/https://www.trut</span><span class=\"invisible\">hdig.com/articles/ai-industry-leader-wants-50-free-kills/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=ai-industry-leader-wants-50-free-kills</span></a></p>",
-    "reblog": null,
-    "account": {
-      "id": "114311556156238117",
-      "username": "truthdig.com",
-      "acct": "truthdig.com@web.brid.gy",
-      "display_name": "Truthdig [Unofficial]",
-      "locked": false,
-      "bot": false,
-      "discoverable": true,
-      "indexable": true,
-      "group": false,
-      "created_at": "2025-04-10T00:00:00.000Z",
-      "note": "An Independent, Progressive Journal of News and Opinion.<br><br>🌉 <a href=\"https://fed.brid.gy/web/truthdig.com\" rel=\"nofollow noopener\" target=\"_blank\">bridged</a> from 🌐 <a href=\"https://truthdig.com/\" rel=\"nofollow noopener\" target=\"_blank\">truthdig.com</a> by <a href=\"https://fed.brid.gy/\" rel=\"nofollow noopener\" target=\"_blank\">Bridgy Fed</a>",
-      "url": "https://web.brid.gy/r/https://truthdig.com/",
-      "uri": "https://web.brid.gy/truthdig.com",
-      "avatar": "https://files.mastodon.social/cache/accounts/avatars/114/311/556/156/238/117/original/57c241acf32204dd.png",
-      "avatar_static": "https://files.mastodon.social/cache/accounts/avatars/114/311/556/156/238/117/original/57c241acf32204dd.png",
-      "avatar_description": "",
-      "header": "https://files.mastodon.social/cache/accounts/headers/114/311/556/156/238/117/original/21f51ca045629e49.png",
-      "header_static": "https://files.mastodon.social/cache/accounts/headers/114/311/556/156/238/117/original/21f51ca045629e49.png",
-      "header_description": "",
-      "followers_count": 13,
-      "following_count": 0,
-      "statuses_count": 50,
-      "last_status_at": "2026-10-20",
-      "hide_collections": false,
-      "show_media": true,
-      "show_media_replies": true,
-      "show_featured": true,
-      "feature_approval": {
-        "automatic": [],
-        "manual": [],
-        "current_user": "denied"
-      },
-      "emojis": [],
-      "fields": [
-        {
-          "name": "Web site",
-          "value": "<a rel=\"nofollow noopener\" href=\"https://truthdig.com\" target=\"_blank\"><span class=\"invisible\">https://</span>truthdig.com</a>",
-          "verified_at": null
-        },
-        {
-          "name": "Link",
-          "value": "<a rel=\"nofollow noopener\" href=\"https://www.truthdig.com\" target=\"_blank\"><span class=\"invisible\">https://</span>www.truthdig.com</a>",
-          "verified_at": null
-        }
-      ]
+    "application": {
+      "name": "feed2toot",
+      "website": null
     },
-    "media_attachments": [
-      {
-        "id": "117476949737825442",
-        "type": "image",
-        "url": "https://files.mastodon.social/cache/media_attachments/files/117/476/949/737/825/442/original/f9647aeb4ad10d1b.jpeg",
-        "preview_url": "https://files.mastodon.social/cache/media_attachments/files/117/476/949/737/825/442/small/f9647aeb4ad10d1b.jpeg",
-        "remote_url": "https://truthdig.b-cdn.net/wp-content/uploads/2026/10/AdobeStock_330513365-scaled.jpeg?width=1040&height=585",
-        "preview_remote_url": null,
-        "text_url": null,
-        "meta": {
-          "original": {
-            "width": 1040,
-            "height": 585,
-            "size": "1040x585",
-            "aspect": 1.7777777777777777
-          },
-          "small": {
-            "width": 640,
-            "height": 360,
-            "size": "640x360",
-            "aspect": 1.7777777777777777
-          }
-        },
-        "description": null,
-        "blurhash": "UOB24T}XWA5-ofo0jZa}1LAEoK-9WrWWaybG"
-      }
-    ],
-    "mentions": [],
+    "pleroma": {
+      "local": true,
+      "context": "https://social.espeweb.net/contexts/4c939cb3-385b-4a1b-830e-d8b1e4b15fa9",
+      "quote": null,
+      "expires_at": null,
+      "content": {
+        "text/plain": "Von der Leyen’s big Commission shake-up moves a step closer https://www.politico.eu/article/ursula-von-der-leyen-big-eu-commission-shake-up-moves-a-step-closer/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication #ArtificialIntelligence #Regions/Cohesion #Politics #Budget"
+      },
+      "quotes_count": 0,
+      "spoiler_text": {
+        "text/plain": ""
+      },
+      "conversation_id": 1746285477,
+      "direct_conversation_id": null,
+      "quote_url": null,
+      "emoji_reactions": [],
+      "in_reply_to_account_acct": null,
+      "list_id": null,
+      "parent_visible": false,
+      "pinned_at": null,
+      "quote_id": null,
+      "quote_visible": false,
+      "thread_muted": false,
+      "bookmark_folder": null
+    },
+    "text": null,
+    "uri": "https://social.espeweb.net/objects/1ab8de30-46cc-4814-8b78-4c91c0489d2d",
+    "url": "https://social.espeweb.net/notice/BBo1ei1dlPSup7rsiO",
+    "language": null,
+    "content": "Von der Leyen’s big Commission shake-up moves a step closer <a href=\"https://www.politico.eu/article/ursula-von-der-leyen-big-eu-commission-shake-up-moves-a-step-closer/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication\" rel=\"ugc\">https://www.politico.eu/article/ursula-von-der-leyen-big-eu-commission-shake-up-moves-a-step-closer/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication</a> <a class=\"hashtag\" data-tag=\"artificialintelligence\" href=\"https://social.espeweb.net/tag/artificialintelligence\">#ArtificialIntelligence</a> <a class=\"hashtag\" data-tag=\"regions\" href=\"https://social.espeweb.net/tag/regions\">#Regions</a>/Cohesion <a class=\"hashtag\" data-tag=\"politics\" href=\"https://social.espeweb.net/tag/politics\">#Politics</a> <a class=\"hashtag\" data-tag=\"budget\" href=\"https://social.espeweb.net/tag/budget\">#Budget</a>",
+    "poll": null,
     "tags": [
       {
-        "name": "news",
-        "url": "https://mastodon.social/tags/news"
-      },
-      {
-        "name": "anthropicai",
-        "url": "https://mastodon.social/tags/anthropicai"
-      },
-      {
         "name": "artificialintelligence",
-        "url": "https://mastodon.social/tags/artificialintelligence"
+        "url": "https://social.espeweb.net/tag/artificialintelligence"
       },
       {
-        "name": "congress",
-        "url": "https://mastodon.social/tags/congress"
+        "name": "budget",
+        "url": "https://social.espeweb.net/tag/budget"
       },
       {
         "name": "politics",
-        "url": "https://mastodon.social/tags/politics"
+        "url": "https://social.espeweb.net/tag/politics"
+      },
+      {
+        "name": "regions",
+        "url": "https://social.espeweb.net/tag/regions"
       }
     ],
-    "emojis": [],
-    "tagged_collections": [],
-    "quote": null,
-    "card": null,
-    "poll": null,
-    "quote_approval": {
-      "automatic": [
-        "public"
-      ],
-      "manual": [],
-      "current_user": "denied"
-    }
-  },
-  {
-    "id": "117476946010510390",
-    "created_at": "2026-10-21T04:12:17.261Z",
-    "in_reply_to_id": null,
-    "in_reply_to_account_id": null,
-    "sensitive": false,
-    "spoiler_text": "",
-    "visibility": "public",
-    "language": null,
-    "uri": "https://social.espeweb.net/objects/1e47f634-677d-44c1-bfde-7c8292f2db8d",
-    "url": "https://social.espeweb.net/objects/1e47f634-677d-44c1-bfde-7c8292f2db8d",
-    "replies_count": 0,
-    "reblogs_count": 0,
-    "favourites_count": 0,
-    "quotes_count": 0,
-    "edited_at": null,
-    "content": "Brussels goes looking for billions to fund Ukraine <a href=\"https://www.politico.eu/podcast/brussels-playbook-podcast/brussels-goes-looking-for-billions-to-fund-ukraine/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication\" rel=\"nofollow noopener\" target=\"_blank\">https://www.politico.eu/podcast/brussels-playbook-podcast/brussels-goes-looking-for-billions-to-fund-ukraine/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/artificialintelligence\" rel=\"nofollow noopener\" target=\"_blank\">#ArtificialIntelligence</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/europeanpolitics\" rel=\"nofollow noopener\" target=\"_blank\">#Europeanpolitics</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/europeandefense\" rel=\"nofollow noopener\" target=\"_blank\">#EuropeanDefense</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/defensebudgets\" rel=\"nofollow noopener\" target=\"_blank\">#Defensebudgets</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/foreignaffairs\" rel=\"nofollow noopener\" target=\"_blank\">#ForeignAffairs</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/cybersecurity\" rel=\"nofollow noopener\" target=\"_blank\">#Cybersecurity</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/warinukraine\" rel=\"nofollow noopener\" target=\"_blank\">#WarinUkraine</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/copyright\" rel=\"nofollow noopener\" target=\"_blank\">#Copyright</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/farright\" rel=\"nofollow noopener\" target=\"_blank\">#Farright</a> <a class=\"hashtag\" href=\"https://social.espeweb.net/tag/politics\" rel=\"nofollow noopener\" target=\"_blank\">#Politics</a>",
-    "reblog": null,
-    "account": {
-      "id": "108154761073932933",
-      "username": "politico_eu_bot",
-      "acct": "politico_eu_bot@social.espeweb.net",
-      "display_name": " Politico.eu (Unofficial RSS)",
-      "locked": false,
-      "bot": true,
-      "discoverable": false,
-      "indexable": false,
-      "group": false,
-      "created_at": "2022-04-12T00:00:00.000Z",
-      "note": "Fetching from <a href=\"https://www.politico.eu/feed/\" rel=\"nofollow noopener\" target=\"_blank\">https://www.politico.eu/feed/</a>",
-      "url": "https://social.espeweb.net/users/politico_eu_bot",
-      "uri": "https://social.espeweb.net/users/politico_eu_bot",
-      "avatar": "https://files.mastodon.social/cache/accounts/avatars/108/154/761/073/932/933/original/4107fdcac359601f.jpg",
-      "avatar_static": "https://files.mastodon.social/cache/accounts/avatars/108/154/761/073/932/933/original/4107fdcac359601f.jpg",
-      "avatar_description": "",
-      "header": "https://mastodon.social/headers/original/missing.png",
-      "header_static": "https://mastodon.social/headers/original/missing.png",
-      "header_description": "",
-      "followers_count": 2086,
-      "following_count": 0,
-      "statuses_count": 14575,
-      "last_status_at": "2026-10-21",
-      "hide_collections": false,
-      "show_media": true,
-      "show_media_replies": true,
-      "show_featured": true,
-      "feature_approval": {
-        "automatic": [],
-        "manual": [],
-        "current_user": "denied"
+    "card": {
+      "type": "link",
+      "description": "External advisers have delivered their assessment of the EU executive’s future — but major restructuring decisions are still some way off.",
+      "pleroma": {
+        "opengraph": {
+          "card": "summary_large_image",
+          "description": "External advisers have delivered their assessment of the EU executive’s future — but major restructuring decisions are still some way off.",
+          "image": "https://social.espeweb.net/proxy/aq39yqWPDdob5xFYzia1jAtM2ys/aHR0cHM6Ly93d3cucG9saXRpY28uZXUvY2RuLWNnaS9pbWFnZS93aWR0aD0xMjAwLGhlaWdodD02MzAsZml0PWNyb3AscXVhbGl0eT04MCxvbmVycm9yPXJlZGlyZWN0L3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDI2LzEwLzI2L0dldHR5SW1hZ2VzLTIyOTk5NTk5ODAtc2NhbGVkLmpwZw/GettyImages-2299959980-scaled.jpg",
+          "image:height": "630",
+          "image:width": "1200",
+          "title": "Von der Leyen’s big Commission shake-up moves a step closer",
+          "type": "article",
+          "url": "https://www.politico.eu/article/ursula-von-der-leyen-big-eu-commission-shake-up-moves-a-step-closer/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication"
+        }
       },
+      "title": "Von der Leyen’s big Commission shake-up moves a step closer",
+      "image": "https://social.espeweb.net/proxy/aq39yqWPDdob5xFYzia1jAtM2ys/aHR0cHM6Ly93d3cucG9saXRpY28uZXUvY2RuLWNnaS9pbWFnZS93aWR0aD0xMjAwLGhlaWdodD02MzAsZml0PWNyb3AscXVhbGl0eT04MCxvbmVycm9yPXJlZGlyZWN0L3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDI2LzEwLzI2L0dldHR5SW1hZ2VzLTIyOTk5NTk5ODAtc2NhbGVkLmpwZw/GettyImages-2299959980-scaled.jpg",
+      "url": "https://www.politico.eu/article/ursula-von-der-leyen-big-eu-commission-shake-up-moves-a-step-closer/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication",
+      "image_description": "",
+      "provider_name": "www.politico.eu",
+      "provider_url": "https://www.politico.eu"
+    },
+    "replies_count": 0,
+    "quotes_count": 0,
+    "emojis": [],
+    "created_at": "2026-10-26T14:00:17.000Z",
+    "mentions": [],
+    "pinned": false,
+    "account": {
+      "id": "AIO5QWxumydoliIT56",
+      "header": "https://social.espeweb.net/images/banner.png",
+      "pleroma": {
+        "relationship": {},
+        "tags": [],
+        "header_description": "",
+        "avatar_description": "",
+        "is_confirmed": true,
+        "ap_id": "https://social.espeweb.net/users/politico_eu_bot",
+        "is_admin": false,
+        "is_moderator": false,
+        "accepts_chat_messages": true,
+        "also_known_as": [],
+        "hide_favorites": true,
+        "hide_followers": false,
+        "hide_followers_count": false,
+        "hide_follows": false,
+        "hide_follows_count": false,
+        "is_suggested": false,
+        "skip_thread_containment": false,
+        "background_image": null,
+        "favicon": null,
+        "privileges": []
+      },
+      "fields": [],
+      "source": {
+        "sensitive": false,
+        "pleroma": {
+          "actor_type": "Service",
+          "discoverable": false
+        },
+        "fields": [],
+        "note": "Fetching from https://www.politico.eu/feed/"
+      },
+      "username": "politico_eu_bot",
+      "locked": false,
+      "url": "https://social.espeweb.net/users/politico_eu_bot",
+      "display_name": " Politico.eu (Unofficial RSS)",
+      "statuses_count": 748,
+      "note": "Fetching from <a href=\"https://www.politico.eu/feed/\">https://www.politico.eu/feed/</a>",
+      "header_static": "https://social.espeweb.net/images/banner.png",
+      "header_description": "",
+      "following_count": 0,
+      "followers_count": 2082,
       "emojis": [],
-      "fields": []
+      "created_at": "2022-04-12T22:54:29.000Z",
+      "bot": true,
+      "avatar_static": "https://social.espeweb.net/media/6578a51c9dfc7a1ee0ded2431fb1ded47801d97d5c5d47f87562cf620a15fae7.jpg",
+      "avatar_description": "",
+      "avatar": "https://social.espeweb.net/media/6578a51c9dfc7a1ee0ded2431fb1ded47801d97d5c5d47f87562cf620a15fae7.jpg",
+      "acct": "politico_eu_bot",
+      "last_status_at": "2026-10-29",
+      "fqn": "politico_eu_bot@social.espeweb.net"
     },
     "media_attachments": [],
-    "mentions": [],
+    "visibility": "public",
+    "spoiler_text": "",
+    "reblogs_count": 0,
+    "reblogged": false,
+    "reblog": null,
+    "muted": false,
+    "in_reply_to_id": null,
+    "in_reply_to_account_id": null,
+    "favourites_count": 0,
+    "favourited": false,
+    "edited_at": null,
+    "bookmarked": false
+  },
+  {
+    "id": "BBnqwvRBXPJm8YIfHk",
+    "sensitive": false,
+    "application": {
+      "name": "feed2toot",
+      "website": null
+    },
+    "pleroma": {
+      "local": true,
+      "context": "https://social.espeweb.net/contexts/a8509b65-54fa-42fd-a4c0-782a7bbda12b",
+      "quote": null,
+      "expires_at": null,
+      "content": {
+        "text/plain": "Liz Truss claims Brits would be on Mars by 2040 if she hadn’t been ousted https://www.politico.eu/article/liz-truss-claims-brits-would-be-on-mars-by-2040-if-she-hadnt-been-ousted/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication #ArtificialIntelligence #Westminsterbubble #Britishpolitics #Digitalcurrency #Centralbanks #Intelligence #Elections #Currency #Missions #Politics #digital #Markets #Budget #Energy #Banks #Bonds #Books #Ports #Space #Tax"
+      },
+      "quotes_count": 0,
+      "spoiler_text": {
+        "text/plain": ""
+      },
+      "conversation_id": 1615856854,
+      "direct_conversation_id": null,
+      "quote_url": null,
+      "emoji_reactions": [],
+      "in_reply_to_account_acct": null,
+      "list_id": null,
+      "parent_visible": false,
+      "pinned_at": null,
+      "quote_id": null,
+      "quote_visible": false,
+      "thread_muted": false,
+      "bookmark_folder": null
+    },
+    "text": null,
+    "uri": "https://social.espeweb.net/objects/76ef500c-64bf-476d-b4d0-88e91328d96b",
+    "url": "https://social.espeweb.net/notice/BBnqwvRBXPJm8YIfHk",
+    "language": null,
+    "content": "Liz Truss claims Brits would be on Mars by 2040 if she hadn’t been ousted <a href=\"https://www.politico.eu/article/liz-truss-claims-brits-would-be-on-mars-by-2040-if-she-hadnt-been-ousted/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication\" rel=\"ugc\">https://www.politico.eu/article/liz-truss-claims-brits-would-be-on-mars-by-2040-if-she-hadnt-been-ousted/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication</a> <a class=\"hashtag\" data-tag=\"artificialintelligence\" href=\"https://social.espeweb.net/tag/artificialintelligence\">#ArtificialIntelligence</a> <a class=\"hashtag\" data-tag=\"westminsterbubble\" href=\"https://social.espeweb.net/tag/westminsterbubble\">#Westminsterbubble</a> <a class=\"hashtag\" data-tag=\"britishpolitics\" href=\"https://social.espeweb.net/tag/britishpolitics\">#Britishpolitics</a> <a class=\"hashtag\" data-tag=\"digitalcurrency\" href=\"https://social.espeweb.net/tag/digitalcurrency\">#Digitalcurrency</a> <a class=\"hashtag\" data-tag=\"centralbanks\" href=\"https://social.espeweb.net/tag/centralbanks\">#Centralbanks</a> <a class=\"hashtag\" data-tag=\"intelligence\" href=\"https://social.espeweb.net/tag/intelligence\">#Intelligence</a> <a class=\"hashtag\" data-tag=\"elections\" href=\"https://social.espeweb.net/tag/elections\">#Elections</a> <a class=\"hashtag\" data-tag=\"currency\" href=\"https://social.espeweb.net/tag/currency\">#Currency</a> <a class=\"hashtag\" data-tag=\"missions\" href=\"https://social.espeweb.net/tag/missions\">#Missions</a> <a class=\"hashtag\" data-tag=\"politics\" href=\"https://social.espeweb.net/tag/politics\">#Politics</a> <a class=\"hashtag\" data-tag=\"digital\" href=\"https://social.espeweb.net/tag/digital\">#digital</a> <a class=\"hashtag\" data-tag=\"markets\" href=\"https://social.espeweb.net/tag/markets\">#Markets</a> <a class=\"hashtag\" data-tag=\"budget\" href=\"https://social.espeweb.net/tag/budget\">#Budget</a> <a class=\"hashtag\" data-tag=\"energy\" href=\"https://social.espeweb.net/tag/energy\">#Energy</a> <a class=\"hashtag\" data-tag=\"banks\" href=\"https://social.espeweb.net/tag/banks\">#Banks</a> <a class=\"hashtag\" data-tag=\"bonds\" href=\"https://social.espeweb.net/tag/bonds\">#Bonds</a> <a class=\"hashtag\" data-tag=\"books\" href=\"https://social.espeweb.net/tag/books\">#Books</a> <a class=\"hashtag\" data-tag=\"ports\" href=\"https://social.espeweb.net/tag/ports\">#Ports</a> <a class=\"hashtag\" data-tag=\"space\" href=\"https://social.espeweb.net/tag/space\">#Space</a> <a class=\"hashtag\" data-tag=\"tax\" href=\"https://social.espeweb.net/tag/tax\">#Tax</a>",
+    "poll": null,
     "tags": [
       {
         "name": "artificialintelligence",
-        "url": "https://mastodon.social/tags/artificialintelligence"
+        "url": "https://social.espeweb.net/tag/artificialintelligence"
+      },
+      {
+        "name": "banks",
+        "url": "https://social.espeweb.net/tag/banks"
+      },
+      {
+        "name": "bonds",
+        "url": "https://social.espeweb.net/tag/bonds"
+      },
+      {
+        "name": "books",
+        "url": "https://social.espeweb.net/tag/books"
+      },
+      {
+        "name": "britishpolitics",
+        "url": "https://social.espeweb.net/tag/britishpolitics"
+      },
+      {
+        "name": "budget",
+        "url": "https://social.espeweb.net/tag/budget"
+      },
+      {
+        "name": "centralbanks",
+        "url": "https://social.espeweb.net/tag/centralbanks"
+      },
+      {
+        "name": "currency",
+        "url": "https://social.espeweb.net/tag/currency"
+      },
+      {
+        "name": "digitalcurrency",
+        "url": "https://social.espeweb.net/tag/digitalcurrency"
+      },
+      {
+        "name": "elections",
+        "url": "https://social.espeweb.net/tag/elections"
+      },
+      {
+        "name": "energy",
+        "url": "https://social.espeweb.net/tag/energy"
+      },
+      {
+        "name": "intelligence",
+        "url": "https://social.espeweb.net/tag/intelligence"
+      },
+      {
+        "name": "markets",
+        "url": "https://social.espeweb.net/tag/markets"
+      },
+      {
+        "name": "missions",
+        "url": "https://social.espeweb.net/tag/missions"
+      },
+      {
+        "name": "politics",
+        "url": "https://social.espeweb.net/tag/politics"
+      },
+      {
+        "name": "ports",
+        "url": "https://social.espeweb.net/tag/ports"
+      },
+      {
+        "name": "space",
+        "url": "https://social.espeweb.net/tag/space"
+      },
+      {
+        "name": "tax",
+        "url": "https://social.espeweb.net/tag/tax"
+      },
+      {
+        "name": "westminsterbubble",
+        "url": "https://social.espeweb.net/tag/westminsterbubble"
+      },
+      {
+        "name": "digital",
+        "url": "https://social.espeweb.net/tag/digital"
+      }
+    ],
+    "card": {
+      "type": "link",
+      "description": "Former prime minister dreams of a brighter alternative future.",
+      "pleroma": {
+        "opengraph": {
+          "card": "summary_large_image",
+          "description": "Former prime minister dreams of a brighter alternative future.",
+          "image": "https://social.espeweb.net/proxy/cSrO2dWIO6Tbl_cESdAY6G6uME4/aHR0cHM6Ly93d3cucG9saXRpY28uZXUvY2RuLWNnaS9pbWFnZS93aWR0aD0xMjAwLGhlaWdodD02MzAsZml0PWNyb3AscXVhbGl0eT04MCxvbmVycm9yPXJlZGlyZWN0L3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDI2LzEwLzI2L0dldHR5SW1hZ2VzLTIzMDEzMTg3MDYtc2NhbGVkLmpwZw/GettyImages-2301318706-scaled.jpg",
+          "image:height": "630",
+          "image:width": "1200",
+          "title": "Liz Truss claims Brits would be on Mars by 2040 if she hadn’t been ousted",
+          "type": "article",
+          "url": "https://www.politico.eu/article/liz-truss-claims-brits-would-be-on-mars-by-2040-if-she-hadnt-been-ousted/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication"
+        }
+      },
+      "title": "Liz Truss claims Brits would be on Mars by 2040 if she hadn’t been ousted",
+      "image": "https://social.espeweb.net/proxy/cSrO2dWIO6Tbl_cESdAY6G6uME4/aHR0cHM6Ly93d3cucG9saXRpY28uZXUvY2RuLWNnaS9pbWFnZS93aWR0aD0xMjAwLGhlaWdodD02MzAsZml0PWNyb3AscXVhbGl0eT04MCxvbmVycm9yPXJlZGlyZWN0L3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDI2LzEwLzI2L0dldHR5SW1hZ2VzLTIzMDEzMTg3MDYtc2NhbGVkLmpwZw/GettyImages-2301318706-scaled.jpg",
+      "url": "https://www.politico.eu/article/liz-truss-claims-brits-would-be-on-mars-by-2040-if-she-hadnt-been-ousted/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication",
+      "image_description": "",
+      "provider_name": "www.politico.eu",
+      "provider_url": "https://www.politico.eu"
+    },
+    "replies_count": 0,
+    "quotes_count": 0,
+    "emojis": [],
+    "created_at": "2026-10-26T12:00:19.000Z",
+    "mentions": [],
+    "pinned": false,
+    "account": {
+      "id": "AIO5QWxumydoliIT56",
+      "header": "https://social.espeweb.net/images/banner.png",
+      "pleroma": {
+        "relationship": {},
+        "tags": [],
+        "header_description": "",
+        "avatar_description": "",
+        "is_confirmed": true,
+        "ap_id": "https://social.espeweb.net/users/politico_eu_bot",
+        "is_admin": false,
+        "is_moderator": false,
+        "accepts_chat_messages": true,
+        "also_known_as": [],
+        "hide_favorites": true,
+        "hide_followers": false,
+        "hide_followers_count": false,
+        "hide_follows": false,
+        "hide_follows_count": false,
+        "is_suggested": false,
+        "skip_thread_containment": false,
+        "background_image": null,
+        "favicon": null,
+        "privileges": []
+      },
+      "fields": [],
+      "source": {
+        "sensitive": false,
+        "pleroma": {
+          "actor_type": "Service",
+          "discoverable": false
+        },
+        "fields": [],
+        "note": "Fetching from https://www.politico.eu/feed/"
+      },
+      "username": "politico_eu_bot",
+      "locked": false,
+      "url": "https://social.espeweb.net/users/politico_eu_bot",
+      "display_name": " Politico.eu (Unofficial RSS)",
+      "statuses_count": 748,
+      "note": "Fetching from <a href=\"https://www.politico.eu/feed/\">https://www.politico.eu/feed/</a>",
+      "header_static": "https://social.espeweb.net/images/banner.png",
+      "header_description": "",
+      "following_count": 0,
+      "followers_count": 2082,
+      "emojis": [],
+      "created_at": "2022-04-12T22:54:29.000Z",
+      "bot": true,
+      "avatar_static": "https://social.espeweb.net/media/6578a51c9dfc7a1ee0ded2431fb1ded47801d97d5c5d47f87562cf620a15fae7.jpg",
+      "avatar_description": "",
+      "avatar": "https://social.espeweb.net/media/6578a51c9dfc7a1ee0ded2431fb1ded47801d97d5c5d47f87562cf620a15fae7.jpg",
+      "acct": "politico_eu_bot",
+      "last_status_at": "2026-10-29",
+      "fqn": "politico_eu_bot@social.espeweb.net"
+    },
+    "media_attachments": [],
+    "visibility": "public",
+    "spoiler_text": "",
+    "reblogs_count": 0,
+    "reblogged": false,
+    "reblog": null,
+    "muted": false,
+    "in_reply_to_id": null,
+    "in_reply_to_account_id": null,
+    "favourites_count": 1,
+    "favourited": false,
+    "edited_at": null,
+    "bookmarked": false
+  },
+  {
+    "id": "BBmV3Ek0HwXlarkMCW",
+    "sensitive": false,
+    "application": {
+      "name": "feed2toot",
+      "website": null
+    },
+    "pleroma": {
+      "local": true,
+      "context": "https://social.espeweb.net/contexts/86daea6d-9dd7-496c-bdac-274c4f82c1f7",
+      "quote": null,
+      "expires_at": null,
+      "content": {
+        "text/plain": "Canada and Europe want to reshape the global order. But whose vision will prevail? https://www.politico.eu/article/canada-and-europe-want-to-reshape-the-global-order-but-whose-vision-will-prevail/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication #CompetitionandIndustrialPolicy #ArtificialIntelligence #Transatlanticrelations #EU-Canadafreetrade #AgricultureandFood #Publicprocurement #EnergyandClimate #CarbonBorderTax #StateoftheUnion #TradeAgreements #Sustainability #Foreignpolicy"
+      },
+      "quotes_count": 0,
+      "spoiler_text": {
+        "text/plain": ""
+      },
+      "conversation_id": 953540967,
+      "direct_conversation_id": null,
+      "quote_url": null,
+      "emoji_reactions": [],
+      "in_reply_to_account_acct": null,
+      "list_id": null,
+      "parent_visible": false,
+      "pinned_at": null,
+      "quote_id": null,
+      "quote_visible": false,
+      "thread_muted": false,
+      "bookmark_folder": null
+    },
+    "text": null,
+    "uri": "https://social.espeweb.net/objects/d32998dd-4908-423a-ae18-79c6cb647980",
+    "url": "https://social.espeweb.net/notice/BBmV3Ek0HwXlarkMCW",
+    "language": null,
+    "content": "Canada and Europe want to reshape the global order. But whose vision will prevail? <a href=\"https://www.politico.eu/article/canada-and-europe-want-to-reshape-the-global-order-but-whose-vision-will-prevail/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication\" rel=\"ugc\">https://www.politico.eu/article/canada-and-europe-want-to-reshape-the-global-order-but-whose-vision-will-prevail/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication</a> <a class=\"hashtag\" data-tag=\"competitionandindustrialpolicy\" href=\"https://social.espeweb.net/tag/competitionandindustrialpolicy\">#CompetitionandIndustrialPolicy</a> <a class=\"hashtag\" data-tag=\"artificialintelligence\" href=\"https://social.espeweb.net/tag/artificialintelligence\">#ArtificialIntelligence</a> <a class=\"hashtag\" data-tag=\"transatlanticrelations\" href=\"https://social.espeweb.net/tag/transatlanticrelations\">#Transatlanticrelations</a> <a class=\"hashtag\" data-tag=\"eu\" href=\"https://social.espeweb.net/tag/eu\">#EU</a>-Canadafreetrade <a class=\"hashtag\" data-tag=\"agricultureandfood\" href=\"https://social.espeweb.net/tag/agricultureandfood\">#AgricultureandFood</a> <a class=\"hashtag\" data-tag=\"publicprocurement\" href=\"https://social.espeweb.net/tag/publicprocurement\">#Publicprocurement</a> <a class=\"hashtag\" data-tag=\"energyandclimate\" href=\"https://social.espeweb.net/tag/energyandclimate\">#EnergyandClimate</a> <a class=\"hashtag\" data-tag=\"carbonbordertax\" href=\"https://social.espeweb.net/tag/carbonbordertax\">#CarbonBorderTax</a> <a class=\"hashtag\" data-tag=\"stateoftheunion\" href=\"https://social.espeweb.net/tag/stateoftheunion\">#StateoftheUnion</a> <a class=\"hashtag\" data-tag=\"tradeagreements\" href=\"https://social.espeweb.net/tag/tradeagreements\">#TradeAgreements</a> <a class=\"hashtag\" data-tag=\"sustainability\" href=\"https://social.espeweb.net/tag/sustainability\">#Sustainability</a> <a class=\"hashtag\" data-tag=\"foreignpolicy\" href=\"https://social.espeweb.net/tag/foreignpolicy\">#Foreignpolicy</a>",
+    "poll": null,
+    "tags": [
+      {
+        "name": "agricultureandfood",
+        "url": "https://social.espeweb.net/tag/agricultureandfood"
+      },
+      {
+        "name": "artificialintelligence",
+        "url": "https://social.espeweb.net/tag/artificialintelligence"
+      },
+      {
+        "name": "carbonbordertax",
+        "url": "https://social.espeweb.net/tag/carbonbordertax"
+      },
+      {
+        "name": "competitionandindustrialpolicy",
+        "url": "https://social.espeweb.net/tag/competitionandindustrialpolicy"
+      },
+      {
+        "name": "eu",
+        "url": "https://social.espeweb.net/tag/eu"
+      },
+      {
+        "name": "energyandclimate",
+        "url": "https://social.espeweb.net/tag/energyandclimate"
+      },
+      {
+        "name": "foreignpolicy",
+        "url": "https://social.espeweb.net/tag/foreignpolicy"
+      },
+      {
+        "name": "publicprocurement",
+        "url": "https://social.espeweb.net/tag/publicprocurement"
+      },
+      {
+        "name": "stateoftheunion",
+        "url": "https://social.espeweb.net/tag/stateoftheunion"
+      },
+      {
+        "name": "sustainability",
+        "url": "https://social.espeweb.net/tag/sustainability"
+      },
+      {
+        "name": "tradeagreements",
+        "url": "https://social.espeweb.net/tag/tradeagreements"
+      },
+      {
+        "name": "transatlanticrelations",
+        "url": "https://social.espeweb.net/tag/transatlanticrelations"
+      }
+    ],
+    "card": {
+      "type": "link",
+      "description": "Mark Carney’s push for a middle-powers alliance meets Ursula von der Leyen’s bid for influence.",
+      "pleroma": {
+        "opengraph": {
+          "card": "summary_large_image",
+          "description": "Mark Carney’s push for a middle-powers alliance meets Ursula von der Leyen’s bid for influence.",
+          "image": "https://social.espeweb.net/proxy/c0XVgcgu1qf3gFAgqT2miR9p6mk/aHR0cHM6Ly93d3cucG9saXRpY28uZXUvY2RuLWNnaS9pbWFnZS93aWR0aD0xMjAwLGhlaWdodD02MzAsZml0PWNyb3AscXVhbGl0eT04MCxvbmVycm9yPXJlZGlyZWN0L3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDI2LzEwLzI1L0lNR180MzY5LXNjYWxlZC5qcGc/IMG_4369-scaled.jpg",
+          "image:height": "630",
+          "image:width": "1200",
+          "title": "Canada and Europe want to reshape the global order. But whose vision will prevail?",
+          "type": "article",
+          "url": "https://www.politico.eu/article/canada-and-europe-want-to-reshape-the-global-order-but-whose-vision-will-prevail/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication"
+        }
+      },
+      "title": "Canada and Europe want to reshape the global order. But whose vision will prevail?",
+      "image": "https://social.espeweb.net/proxy/c0XVgcgu1qf3gFAgqT2miR9p6mk/aHR0cHM6Ly93d3cucG9saXRpY28uZXUvY2RuLWNnaS9pbWFnZS93aWR0aD0xMjAwLGhlaWdodD02MzAsZml0PWNyb3AscXVhbGl0eT04MCxvbmVycm9yPXJlZGlyZWN0L3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDI2LzEwLzI1L0lNR180MzY5LXNjYWxlZC5qcGc/IMG_4369-scaled.jpg",
+      "url": "https://www.politico.eu/article/canada-and-europe-want-to-reshape-the-global-order-but-whose-vision-will-prevail/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication",
+      "image_description": "",
+      "provider_name": "www.politico.eu",
+      "provider_url": "https://www.politico.eu"
+    },
+    "replies_count": 0,
+    "quotes_count": 0,
+    "emojis": [],
+    "created_at": "2026-10-25T20:20:14.000Z",
+    "mentions": [],
+    "pinned": false,
+    "account": {
+      "id": "AIO5QWxumydoliIT56",
+      "header": "https://social.espeweb.net/images/banner.png",
+      "pleroma": {
+        "relationship": {},
+        "tags": [],
+        "header_description": "",
+        "avatar_description": "",
+        "is_confirmed": true,
+        "ap_id": "https://social.espeweb.net/users/politico_eu_bot",
+        "is_admin": false,
+        "is_moderator": false,
+        "accepts_chat_messages": true,
+        "also_known_as": [],
+        "hide_favorites": true,
+        "hide_followers": false,
+        "hide_followers_count": false,
+        "hide_follows": false,
+        "hide_follows_count": false,
+        "is_suggested": false,
+        "skip_thread_containment": false,
+        "background_image": null,
+        "favicon": null,
+        "privileges": []
+      },
+      "fields": [],
+      "source": {
+        "sensitive": false,
+        "pleroma": {
+          "actor_type": "Service",
+          "discoverable": false
+        },
+        "fields": [],
+        "note": "Fetching from https://www.politico.eu/feed/"
+      },
+      "username": "politico_eu_bot",
+      "locked": false,
+      "url": "https://social.espeweb.net/users/politico_eu_bot",
+      "display_name": " Politico.eu (Unofficial RSS)",
+      "statuses_count": 748,
+      "note": "Fetching from <a href=\"https://www.politico.eu/feed/\">https://www.politico.eu/feed/</a>",
+      "header_static": "https://social.espeweb.net/images/banner.png",
+      "header_description": "",
+      "following_count": 0,
+      "followers_count": 2082,
+      "emojis": [],
+      "created_at": "2022-04-12T22:54:29.000Z",
+      "bot": true,
+      "avatar_static": "https://social.espeweb.net/media/6578a51c9dfc7a1ee0ded2431fb1ded47801d97d5c5d47f87562cf620a15fae7.jpg",
+      "avatar_description": "",
+      "avatar": "https://social.espeweb.net/media/6578a51c9dfc7a1ee0ded2431fb1ded47801d97d5c5d47f87562cf620a15fae7.jpg",
+      "acct": "politico_eu_bot",
+      "last_status_at": "2026-10-29",
+      "fqn": "politico_eu_bot@social.espeweb.net"
+    },
+    "media_attachments": [],
+    "visibility": "public",
+    "spoiler_text": "",
+    "reblogs_count": 0,
+    "reblogged": false,
+    "reblog": null,
+    "muted": false,
+    "in_reply_to_id": null,
+    "in_reply_to_account_id": null,
+    "favourites_count": 0,
+    "favourited": false,
+    "edited_at": null,
+    "bookmarked": false
+  },
+  {
+    "id": "BBirE1Mbmnr5eJVmDY",
+    "sensitive": false,
+    "application": {
+      "name": "feed2toot",
+      "website": null
+    },
+    "pleroma": {
+      "local": true,
+      "context": "https://social.espeweb.net/contexts/f6057e87-3ddc-4c18-bfb8-578e27ef0870",
+      "quote": null,
+      "expires_at": null,
+      "content": {
+        "text/plain": "Inside the cyber flaw scramble that brought the AI threat to life https://www.politico.eu/article/the-cyber-flaw-scramble-that-brought-the-ai-threat-to-life/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication #CybersecurityandDataProtection #ArtificialIntelligence #Cybersecurity #Intelligence #Department #Technology #Technology #Companies #Breaches #Startups #Defense #Hackers #Cloud #Data"
+      },
+      "quotes_count": 0,
+      "spoiler_text": {
+        "text/plain": ""
+      },
+      "conversation_id": 1556790317,
+      "direct_conversation_id": null,
+      "quote_url": null,
+      "emoji_reactions": [],
+      "in_reply_to_account_acct": null,
+      "list_id": null,
+      "parent_visible": false,
+      "pinned_at": null,
+      "quote_id": null,
+      "quote_visible": false,
+      "thread_muted": false,
+      "bookmark_folder": null
+    },
+    "text": null,
+    "uri": "https://social.espeweb.net/objects/3323ee9d-2528-41ad-bbb7-1400b314606a",
+    "url": "https://social.espeweb.net/notice/BBirE1Mbmnr5eJVmDY",
+    "language": null,
+    "content": "Inside the cyber flaw scramble that brought the AI threat to life <a href=\"https://www.politico.eu/article/the-cyber-flaw-scramble-that-brought-the-ai-threat-to-life/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication\" rel=\"ugc\">https://www.politico.eu/article/the-cyber-flaw-scramble-that-brought-the-ai-threat-to-life/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication</a> <a class=\"hashtag\" data-tag=\"cybersecurityanddataprotection\" href=\"https://social.espeweb.net/tag/cybersecurityanddataprotection\">#CybersecurityandDataProtection</a> <a class=\"hashtag\" data-tag=\"artificialintelligence\" href=\"https://social.espeweb.net/tag/artificialintelligence\">#ArtificialIntelligence</a> <a class=\"hashtag\" data-tag=\"cybersecurity\" href=\"https://social.espeweb.net/tag/cybersecurity\">#Cybersecurity</a> <a class=\"hashtag\" data-tag=\"intelligence\" href=\"https://social.espeweb.net/tag/intelligence\">#Intelligence</a> <a class=\"hashtag\" data-tag=\"department\" href=\"https://social.espeweb.net/tag/department\">#Department</a> <a class=\"hashtag\" data-tag=\"technology\" href=\"https://social.espeweb.net/tag/technology\">#Technology</a> <a class=\"hashtag\" data-tag=\"technology\" href=\"https://social.espeweb.net/tag/technology\">#Technology</a> <a class=\"hashtag\" data-tag=\"companies\" href=\"https://social.espeweb.net/tag/companies\">#Companies</a> <a class=\"hashtag\" data-tag=\"breaches\" href=\"https://social.espeweb.net/tag/breaches\">#Breaches</a> <a class=\"hashtag\" data-tag=\"startups\" href=\"https://social.espeweb.net/tag/startups\">#Startups</a> <a class=\"hashtag\" data-tag=\"defense\" href=\"https://social.espeweb.net/tag/defense\">#Defense</a> <a class=\"hashtag\" data-tag=\"hackers\" href=\"https://social.espeweb.net/tag/hackers\">#Hackers</a> <a class=\"hashtag\" data-tag=\"cloud\" href=\"https://social.espeweb.net/tag/cloud\">#Cloud</a> <a class=\"hashtag\" data-tag=\"data\" href=\"https://social.espeweb.net/tag/data\">#Data</a>",
+    "poll": null,
+    "tags": [
+      {
+        "name": "artificialintelligence",
+        "url": "https://social.espeweb.net/tag/artificialintelligence"
+      },
+      {
+        "name": "breaches",
+        "url": "https://social.espeweb.net/tag/breaches"
+      },
+      {
+        "name": "cloud",
+        "url": "https://social.espeweb.net/tag/cloud"
+      },
+      {
+        "name": "companies",
+        "url": "https://social.espeweb.net/tag/companies"
+      },
+      {
+        "name": "cybersecurity",
+        "url": "https://social.espeweb.net/tag/cybersecurity"
+      },
+      {
+        "name": "cybersecurityanddataprotection",
+        "url": "https://social.espeweb.net/tag/cybersecurityanddataprotection"
+      },
+      {
+        "name": "data",
+        "url": "https://social.espeweb.net/tag/data"
+      },
+      {
+        "name": "defense",
+        "url": "https://social.espeweb.net/tag/defense"
+      },
+      {
+        "name": "department",
+        "url": "https://social.espeweb.net/tag/department"
+      },
+      {
+        "name": "hackers",
+        "url": "https://social.espeweb.net/tag/hackers"
+      },
+      {
+        "name": "intelligence",
+        "url": "https://social.espeweb.net/tag/intelligence"
+      },
+      {
+        "name": "startups",
+        "url": "https://social.espeweb.net/tag/startups"
+      },
+      {
+        "name": "technology",
+        "url": "https://social.espeweb.net/tag/technology"
+      }
+    ],
+    "card": {
+      "type": "link",
+      "description": "Vulnerabilities in a programming language underpinning much of the web set off a hectic 72-hour rush among virtually every cybersecurity agency in the world.",
+      "pleroma": {
+        "opengraph": {
+          "card": "summary_large_image",
+          "description": "Vulnerabilities in a programming language underpinning much of the web set off a hectic 72-hour rush among virtually every cybersecurity agency in the world.",
+          "image": "https://social.espeweb.net/proxy/J9IOSSKzVs2B7PquPdTNbXTIElA/aHR0cHM6Ly93d3cucG9saXRpY28uZXUvY2RuLWNnaS9pbWFnZS93aWR0aD0xMjAwLGhlaWdodD02MzAsZml0PWNyb3AscXVhbGl0eT04MCxvbmVycm9yPXJlZGlyZWN0L3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDI2LzEwLzIzL0dldHR5SW1hZ2VzLTIzMDEwNjgzNzAtc2NhbGVkLmpwZw/GettyImages-2301068370-scaled.jpg",
+          "image:height": "630",
+          "image:width": "1200",
+          "title": "Inside the cyber flaw scramble that brought the AI threat to life ",
+          "type": "article",
+          "url": "https://www.politico.eu/article/the-cyber-flaw-scramble-that-brought-the-ai-threat-to-life/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication"
+        }
+      },
+      "title": "Inside the cyber flaw scramble that brought the AI threat to life ",
+      "image": "https://social.espeweb.net/proxy/J9IOSSKzVs2B7PquPdTNbXTIElA/aHR0cHM6Ly93d3cucG9saXRpY28uZXUvY2RuLWNnaS9pbWFnZS93aWR0aD0xMjAwLGhlaWdodD02MzAsZml0PWNyb3AscXVhbGl0eT04MCxvbmVycm9yPXJlZGlyZWN0L3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDI2LzEwLzIzL0dldHR5SW1hZ2VzLTIzMDEwNjgzNzAtc2NhbGVkLmpwZw/GettyImages-2301068370-scaled.jpg",
+      "url": "https://www.politico.eu/article/the-cyber-flaw-scramble-that-brought-the-ai-threat-to-life/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication",
+      "image_description": "",
+      "provider_name": "www.politico.eu",
+      "provider_url": "https://www.politico.eu"
+    },
+    "replies_count": 0,
+    "quotes_count": 0,
+    "emojis": [],
+    "created_at": "2026-10-24T02:09:51.000Z",
+    "mentions": [],
+    "pinned": false,
+    "account": {
+      "id": "AIO5QWxumydoliIT56",
+      "header": "https://social.espeweb.net/images/banner.png",
+      "pleroma": {
+        "relationship": {},
+        "tags": [],
+        "header_description": "",
+        "avatar_description": "",
+        "is_confirmed": true,
+        "ap_id": "https://social.espeweb.net/users/politico_eu_bot",
+        "is_admin": false,
+        "is_moderator": false,
+        "accepts_chat_messages": true,
+        "also_known_as": [],
+        "hide_favorites": true,
+        "hide_followers": false,
+        "hide_followers_count": false,
+        "hide_follows": false,
+        "hide_follows_count": false,
+        "is_suggested": false,
+        "skip_thread_containment": false,
+        "background_image": null,
+        "favicon": null,
+        "privileges": []
+      },
+      "fields": [],
+      "source": {
+        "sensitive": false,
+        "pleroma": {
+          "actor_type": "Service",
+          "discoverable": false
+        },
+        "fields": [],
+        "note": "Fetching from https://www.politico.eu/feed/"
+      },
+      "username": "politico_eu_bot",
+      "locked": false,
+      "url": "https://social.espeweb.net/users/politico_eu_bot",
+      "display_name": " Politico.eu (Unofficial RSS)",
+      "statuses_count": 748,
+      "note": "Fetching from <a href=\"https://www.politico.eu/feed/\">https://www.politico.eu/feed/</a>",
+      "header_static": "https://social.espeweb.net/images/banner.png",
+      "header_description": "",
+      "following_count": 0,
+      "followers_count": 2082,
+      "emojis": [],
+      "created_at": "2022-04-12T22:54:29.000Z",
+      "bot": true,
+      "avatar_static": "https://social.espeweb.net/media/6578a51c9dfc7a1ee0ded2431fb1ded47801d97d5c5d47f87562cf620a15fae7.jpg",
+      "avatar_description": "",
+      "avatar": "https://social.espeweb.net/media/6578a51c9dfc7a1ee0ded2431fb1ded47801d97d5c5d47f87562cf620a15fae7.jpg",
+      "acct": "politico_eu_bot",
+      "last_status_at": "2026-10-29",
+      "fqn": "politico_eu_bot@social.espeweb.net"
+    },
+    "media_attachments": [],
+    "visibility": "public",
+    "spoiler_text": "",
+    "reblogs_count": 0,
+    "reblogged": false,
+    "reblog": null,
+    "muted": false,
+    "in_reply_to_id": null,
+    "in_reply_to_account_id": null,
+    "favourites_count": 0,
+    "favourited": false,
+    "edited_at": null,
+    "bookmarked": false
+  },
+  {
+    "id": "BBfVG8Z9CMus6G6IoC",
+    "sensitive": false,
+    "application": {
+      "name": "feed2toot",
+      "website": null
+    },
+    "pleroma": {
+      "local": true,
+      "context": "https://social.espeweb.net/contexts/09626ae0-d2a5-49cf-9ab4-78778e09fb79",
+      "quote": null,
+      "expires_at": null,
+      "content": {
+        "text/plain": "Von der Leyen’s coalition fractures over need for AI liability rules https://www.politico.eu/article/ursula-von-der-leyen-coalition-fractures-over-need-for-ai-liability-rules/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication #CybersecurityandDataProtection #ArtificialIntelligence #Infrastructure #Intelligence #Development #Regulation #Regulatory #Technology #Companies #Platforms #Omnibus #Data"
+      },
+      "quotes_count": 0,
+      "spoiler_text": {
+        "text/plain": ""
+      },
+      "conversation_id": 1544658650,
+      "direct_conversation_id": null,
+      "quote_url": null,
+      "emoji_reactions": [],
+      "in_reply_to_account_acct": null,
+      "list_id": null,
+      "parent_visible": false,
+      "pinned_at": null,
+      "quote_id": null,
+      "quote_visible": false,
+      "thread_muted": false,
+      "bookmark_folder": null
+    },
+    "text": null,
+    "uri": "https://social.espeweb.net/objects/55cc8d6c-953e-4cd7-baff-17d82fa16fbb",
+    "url": "https://social.espeweb.net/notice/BBfVG8Z9CMus6G6IoC",
+    "language": null,
+    "content": "Von der Leyen’s coalition fractures over need for AI liability rules <a href=\"https://www.politico.eu/article/ursula-von-der-leyen-coalition-fractures-over-need-for-ai-liability-rules/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication\" rel=\"ugc\">https://www.politico.eu/article/ursula-von-der-leyen-coalition-fractures-over-need-for-ai-liability-rules/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication</a> <a class=\"hashtag\" data-tag=\"cybersecurityanddataprotection\" href=\"https://social.espeweb.net/tag/cybersecurityanddataprotection\">#CybersecurityandDataProtection</a> <a class=\"hashtag\" data-tag=\"artificialintelligence\" href=\"https://social.espeweb.net/tag/artificialintelligence\">#ArtificialIntelligence</a> <a class=\"hashtag\" data-tag=\"infrastructure\" href=\"https://social.espeweb.net/tag/infrastructure\">#Infrastructure</a> <a class=\"hashtag\" data-tag=\"intelligence\" href=\"https://social.espeweb.net/tag/intelligence\">#Intelligence</a> <a class=\"hashtag\" data-tag=\"development\" href=\"https://social.espeweb.net/tag/development\">#Development</a> <a class=\"hashtag\" data-tag=\"regulation\" href=\"https://social.espeweb.net/tag/regulation\">#Regulation</a> <a class=\"hashtag\" data-tag=\"regulatory\" href=\"https://social.espeweb.net/tag/regulatory\">#Regulatory</a> <a class=\"hashtag\" data-tag=\"technology\" href=\"https://social.espeweb.net/tag/technology\">#Technology</a> <a class=\"hashtag\" data-tag=\"companies\" href=\"https://social.espeweb.net/tag/companies\">#Companies</a> <a class=\"hashtag\" data-tag=\"platforms\" href=\"https://social.espeweb.net/tag/platforms\">#Platforms</a> <a class=\"hashtag\" data-tag=\"omnibus\" href=\"https://social.espeweb.net/tag/omnibus\">#Omnibus</a> <a class=\"hashtag\" data-tag=\"data\" href=\"https://social.espeweb.net/tag/data\">#Data</a>",
+    "poll": null,
+    "tags": [
+      {
+        "name": "artificialintelligence",
+        "url": "https://social.espeweb.net/tag/artificialintelligence"
+      },
+      {
+        "name": "companies",
+        "url": "https://social.espeweb.net/tag/companies"
+      },
+      {
+        "name": "cybersecurityanddataprotection",
+        "url": "https://social.espeweb.net/tag/cybersecurityanddataprotection"
+      },
+      {
+        "name": "data",
+        "url": "https://social.espeweb.net/tag/data"
+      },
+      {
+        "name": "development",
+        "url": "https://social.espeweb.net/tag/development"
+      },
+      {
+        "name": "infrastructure",
+        "url": "https://social.espeweb.net/tag/infrastructure"
+      },
+      {
+        "name": "intelligence",
+        "url": "https://social.espeweb.net/tag/intelligence"
+      },
+      {
+        "name": "omnibus",
+        "url": "https://social.espeweb.net/tag/omnibus"
+      },
+      {
+        "name": "platforms",
+        "url": "https://social.espeweb.net/tag/platforms"
+      },
+      {
+        "name": "regulation",
+        "url": "https://social.espeweb.net/tag/regulation"
+      },
+      {
+        "name": "regulatory",
+        "url": "https://social.espeweb.net/tag/regulatory"
+      },
+      {
+        "name": "technology",
+        "url": "https://social.espeweb.net/tag/technology"
+      }
+    ],
+    "card": {
+      "type": "link",
+      "description": "The European Parliament held a heated debate over how to handle AI, with the center-right doubling down on simplification to boost European business.",
+      "pleroma": {
+        "opengraph": {
+          "card": "summary_large_image",
+          "description": "The European Parliament held a heated debate over how to handle AI, with the center-right doubling down on simplification to boost European business.",
+          "image": "https://social.espeweb.net/proxy/eY1zKxL9BfYgoO48FTUqDXVQNpQ/aHR0cHM6Ly93d3cucG9saXRpY28uZXUvY2RuLWNnaS9pbWFnZS93aWR0aD0xMjAwLGhlaWdodD02MzAsZml0PWNyb3AscXVhbGl0eT04MCxvbmVycm9yPXJlZGlyZWN0L3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDI2LzEwLzIyL0dldHR5SW1hZ2VzLTIyOTk5NTk3ODQtMS5qcGc/GettyImages-2299959784-1.jpg",
+          "image:height": "630",
+          "image:width": "1200",
+          "title": "Von der Leyen’s coalition fractures over need for AI liability rules",
+          "type": "article",
+          "url": "https://www.politico.eu/article/ursula-von-der-leyen-coalition-fractures-over-need-for-ai-liability-rules/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication"
+        }
+      },
+      "title": "Von der Leyen’s coalition fractures over need for AI liability rules",
+      "image": "https://social.espeweb.net/proxy/eY1zKxL9BfYgoO48FTUqDXVQNpQ/aHR0cHM6Ly93d3cucG9saXRpY28uZXUvY2RuLWNnaS9pbWFnZS93aWR0aD0xMjAwLGhlaWdodD02MzAsZml0PWNyb3AscXVhbGl0eT04MCxvbmVycm9yPXJlZGlyZWN0L3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDI2LzEwLzIyL0dldHR5SW1hZ2VzLTIyOTk5NTk3ODQtMS5qcGc/GettyImages-2299959784-1.jpg",
+      "url": "https://www.politico.eu/article/ursula-von-der-leyen-coalition-fractures-over-need-for-ai-liability-rules/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication",
+      "image_description": "",
+      "provider_name": "www.politico.eu",
+      "provider_url": "https://www.politico.eu"
+    },
+    "replies_count": 0,
+    "quotes_count": 0,
+    "emojis": [],
+    "created_at": "2026-10-22T11:19:35.000Z",
+    "mentions": [],
+    "pinned": false,
+    "account": {
+      "id": "AIO5QWxumydoliIT56",
+      "header": "https://social.espeweb.net/images/banner.png",
+      "pleroma": {
+        "relationship": {},
+        "tags": [],
+        "header_description": "",
+        "avatar_description": "",
+        "is_confirmed": true,
+        "ap_id": "https://social.espeweb.net/users/politico_eu_bot",
+        "is_admin": false,
+        "is_moderator": false,
+        "accepts_chat_messages": true,
+        "also_known_as": [],
+        "hide_favorites": true,
+        "hide_followers": false,
+        "hide_followers_count": false,
+        "hide_follows": false,
+        "hide_follows_count": false,
+        "is_suggested": false,
+        "skip_thread_containment": false,
+        "background_image": null,
+        "favicon": null,
+        "privileges": []
+      },
+      "fields": [],
+      "source": {
+        "sensitive": false,
+        "pleroma": {
+          "actor_type": "Service",
+          "discoverable": false
+        },
+        "fields": [],
+        "note": "Fetching from https://www.politico.eu/feed/"
+      },
+      "username": "politico_eu_bot",
+      "locked": false,
+      "url": "https://social.espeweb.net/users/politico_eu_bot",
+      "display_name": " Politico.eu (Unofficial RSS)",
+      "statuses_count": 748,
+      "note": "Fetching from <a href=\"https://www.politico.eu/feed/\">https://www.politico.eu/feed/</a>",
+      "header_static": "https://social.espeweb.net/images/banner.png",
+      "header_description": "",
+      "following_count": 0,
+      "followers_count": 2082,
+      "emojis": [],
+      "created_at": "2022-04-12T22:54:29.000Z",
+      "bot": true,
+      "avatar_static": "https://social.espeweb.net/media/6578a51c9dfc7a1ee0ded2431fb1ded47801d97d5c5d47f87562cf620a15fae7.jpg",
+      "avatar_description": "",
+      "avatar": "https://social.espeweb.net/media/6578a51c9dfc7a1ee0ded2431fb1ded47801d97d5c5d47f87562cf620a15fae7.jpg",
+      "acct": "politico_eu_bot",
+      "last_status_at": "2026-10-29",
+      "fqn": "politico_eu_bot@social.espeweb.net"
+    },
+    "media_attachments": [],
+    "visibility": "public",
+    "spoiler_text": "",
+    "reblogs_count": 0,
+    "reblogged": false,
+    "reblog": null,
+    "muted": false,
+    "in_reply_to_id": null,
+    "in_reply_to_account_id": null,
+    "favourites_count": 0,
+    "favourited": false,
+    "edited_at": null,
+    "bookmarked": false
+  },
+  {
+    "id": "BBdiDMjBjk6KS22Rvs",
+    "sensitive": false,
+    "application": {
+      "name": "feed2toot",
+      "website": null
+    },
+    "pleroma": {
+      "local": true,
+      "context": "https://social.espeweb.net/contexts/a6c814ce-0106-4892-b0a8-0386bfe589d4",
+      "quote": null,
+      "expires_at": null,
+      "content": {
+        "text/plain": "Publishers press Brussels and London to stop Meta’s new AI terms https://www.politico.eu/article/publishers-press-brussels-and-london-to-stop-metas-new-ai-terms/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication #CompetitionandIndustrialPolicy #ArtificialIntelligence #DigitalMarketsAct #Competitionrules #Communications #Intelligence #TechnologyUK #Competition #Publishers #Technology #Companies #Copyright #Research #BigTech #digital #Markets #Media"
+      },
+      "quotes_count": 0,
+      "spoiler_text": {
+        "text/plain": ""
+      },
+      "conversation_id": 1996936560,
+      "direct_conversation_id": null,
+      "quote_url": null,
+      "emoji_reactions": [],
+      "in_reply_to_account_acct": null,
+      "list_id": null,
+      "parent_visible": false,
+      "pinned_at": null,
+      "quote_id": null,
+      "quote_visible": false,
+      "thread_muted": false,
+      "bookmark_folder": null
+    },
+    "text": null,
+    "uri": "https://social.espeweb.net/objects/800b4628-c0ce-489b-bd0c-e3ab3a42fb8f",
+    "url": "https://social.espeweb.net/notice/BBdiDMjBjk6KS22Rvs",
+    "language": null,
+    "content": "Publishers press Brussels and London to stop Meta’s new AI terms <a href=\"https://www.politico.eu/article/publishers-press-brussels-and-london-to-stop-metas-new-ai-terms/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication\" rel=\"ugc\">https://www.politico.eu/article/publishers-press-brussels-and-london-to-stop-metas-new-ai-terms/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication</a> <a class=\"hashtag\" data-tag=\"competitionandindustrialpolicy\" href=\"https://social.espeweb.net/tag/competitionandindustrialpolicy\">#CompetitionandIndustrialPolicy</a> <a class=\"hashtag\" data-tag=\"artificialintelligence\" href=\"https://social.espeweb.net/tag/artificialintelligence\">#ArtificialIntelligence</a> <a class=\"hashtag\" data-tag=\"digitalmarketsact\" href=\"https://social.espeweb.net/tag/digitalmarketsact\">#DigitalMarketsAct</a> <a class=\"hashtag\" data-tag=\"competitionrules\" href=\"https://social.espeweb.net/tag/competitionrules\">#Competitionrules</a> <a class=\"hashtag\" data-tag=\"communications\" href=\"https://social.espeweb.net/tag/communications\">#Communications</a> <a class=\"hashtag\" data-tag=\"intelligence\" href=\"https://social.espeweb.net/tag/intelligence\">#Intelligence</a> <a class=\"hashtag\" data-tag=\"technologyuk\" href=\"https://social.espeweb.net/tag/technologyuk\">#TechnologyUK</a> <a class=\"hashtag\" data-tag=\"competition\" href=\"https://social.espeweb.net/tag/competition\">#Competition</a> <a class=\"hashtag\" data-tag=\"publishers\" href=\"https://social.espeweb.net/tag/publishers\">#Publishers</a> <a class=\"hashtag\" data-tag=\"technology\" href=\"https://social.espeweb.net/tag/technology\">#Technology</a> <a class=\"hashtag\" data-tag=\"companies\" href=\"https://social.espeweb.net/tag/companies\">#Companies</a> <a class=\"hashtag\" data-tag=\"copyright\" href=\"https://social.espeweb.net/tag/copyright\">#Copyright</a> <a class=\"hashtag\" data-tag=\"research\" href=\"https://social.espeweb.net/tag/research\">#Research</a> <a class=\"hashtag\" data-tag=\"bigtech\" href=\"https://social.espeweb.net/tag/bigtech\">#BigTech</a> <a class=\"hashtag\" data-tag=\"digital\" href=\"https://social.espeweb.net/tag/digital\">#digital</a> <a class=\"hashtag\" data-tag=\"markets\" href=\"https://social.espeweb.net/tag/markets\">#Markets</a> <a class=\"hashtag\" data-tag=\"media\" href=\"https://social.espeweb.net/tag/media\">#Media</a>",
+    "poll": null,
+    "tags": [
+      {
+        "name": "artificialintelligence",
+        "url": "https://social.espeweb.net/tag/artificialintelligence"
+      },
+      {
+        "name": "bigtech",
+        "url": "https://social.espeweb.net/tag/bigtech"
+      },
+      {
+        "name": "communications",
+        "url": "https://social.espeweb.net/tag/communications"
+      },
+      {
+        "name": "companies",
+        "url": "https://social.espeweb.net/tag/companies"
+      },
+      {
+        "name": "competition",
+        "url": "https://social.espeweb.net/tag/competition"
+      },
+      {
+        "name": "competitionandindustrialpolicy",
+        "url": "https://social.espeweb.net/tag/competitionandindustrialpolicy"
+      },
+      {
+        "name": "competitionrules",
+        "url": "https://social.espeweb.net/tag/competitionrules"
       },
       {
         "name": "copyright",
-        "url": "https://mastodon.social/tags/copyright"
+        "url": "https://social.espeweb.net/tag/copyright"
+      },
+      {
+        "name": "digitalmarketsact",
+        "url": "https://social.espeweb.net/tag/digitalmarketsact"
+      },
+      {
+        "name": "intelligence",
+        "url": "https://social.espeweb.net/tag/intelligence"
+      },
+      {
+        "name": "markets",
+        "url": "https://social.espeweb.net/tag/markets"
+      },
+      {
+        "name": "media",
+        "url": "https://social.espeweb.net/tag/media"
+      },
+      {
+        "name": "publishers",
+        "url": "https://social.espeweb.net/tag/publishers"
+      },
+      {
+        "name": "research",
+        "url": "https://social.espeweb.net/tag/research"
+      },
+      {
+        "name": "technology",
+        "url": "https://social.espeweb.net/tag/technology"
+      },
+      {
+        "name": "technologyuk",
+        "url": "https://social.espeweb.net/tag/technologyuk"
+      },
+      {
+        "name": "digital",
+        "url": "https://social.espeweb.net/tag/digital"
+      }
+    ],
+    "card": {
+      "type": "link",
+      "description": "The European Commission says Meta must comply with EU law, while Britain’s competition watchdog has called the company in to explain.",
+      "pleroma": {
+        "opengraph": {
+          "card": "summary_large_image",
+          "description": "The European Commission says Meta must comply with EU law, while Britain’s competition watchdog has called the company in to explain.",
+          "image": "https://social.espeweb.net/proxy/YgAvJi9LNzfMk9i1nFu78r_dKxQ/aHR0cHM6Ly93d3cucG9saXRpY28uZXUvY2RuLWNnaS9pbWFnZS93aWR0aD0xMjAwLGhlaWdodD02MzAsZml0PWNyb3AscXVhbGl0eT04MCxvbmVycm9yPXJlZGlyZWN0L3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDI2LzEwLzIxL0dldHR5SW1hZ2VzLTIyNTY2Nzc3NjUtc2NhbGVkLmpwZw/GettyImages-2256677765-scaled.jpg",
+          "image:height": "630",
+          "image:width": "1200",
+          "title": "Publishers press Brussels and London to stop Meta’s new AI terms",
+          "type": "article",
+          "url": "https://www.politico.eu/article/publishers-press-brussels-and-london-to-stop-metas-new-ai-terms/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication"
+        }
+      },
+      "title": "Publishers press Brussels and London to stop Meta’s new AI terms",
+      "image": "https://social.espeweb.net/proxy/YgAvJi9LNzfMk9i1nFu78r_dKxQ/aHR0cHM6Ly93d3cucG9saXRpY28uZXUvY2RuLWNnaS9pbWFnZS93aWR0aD0xMjAwLGhlaWdodD02MzAsZml0PWNyb3AscXVhbGl0eT04MCxvbmVycm9yPXJlZGlyZWN0L3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDI2LzEwLzIxL0dldHR5SW1hZ2VzLTIyNTY2Nzc3NjUtc2NhbGVkLmpwZw/GettyImages-2256677765-scaled.jpg",
+      "url": "https://www.politico.eu/article/publishers-press-brussels-and-london-to-stop-metas-new-ai-terms/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication",
+      "image_description": "",
+      "provider_name": "www.politico.eu",
+      "provider_url": "https://www.politico.eu"
+    },
+    "replies_count": 0,
+    "quotes_count": 0,
+    "emojis": [],
+    "created_at": "2026-10-21T14:35:19.000Z",
+    "mentions": [],
+    "pinned": false,
+    "account": {
+      "id": "AIO5QWxumydoliIT56",
+      "header": "https://social.espeweb.net/images/banner.png",
+      "pleroma": {
+        "relationship": {},
+        "tags": [],
+        "header_description": "",
+        "avatar_description": "",
+        "is_confirmed": true,
+        "ap_id": "https://social.espeweb.net/users/politico_eu_bot",
+        "is_admin": false,
+        "is_moderator": false,
+        "accepts_chat_messages": true,
+        "also_known_as": [],
+        "hide_favorites": true,
+        "hide_followers": false,
+        "hide_followers_count": false,
+        "hide_follows": false,
+        "hide_follows_count": false,
+        "is_suggested": false,
+        "skip_thread_containment": false,
+        "background_image": null,
+        "favicon": null,
+        "privileges": []
+      },
+      "fields": [],
+      "source": {
+        "sensitive": false,
+        "pleroma": {
+          "actor_type": "Service",
+          "discoverable": false
+        },
+        "fields": [],
+        "note": "Fetching from https://www.politico.eu/feed/"
+      },
+      "username": "politico_eu_bot",
+      "locked": false,
+      "url": "https://social.espeweb.net/users/politico_eu_bot",
+      "display_name": " Politico.eu (Unofficial RSS)",
+      "statuses_count": 748,
+      "note": "Fetching from <a href=\"https://www.politico.eu/feed/\">https://www.politico.eu/feed/</a>",
+      "header_static": "https://social.espeweb.net/images/banner.png",
+      "header_description": "",
+      "following_count": 0,
+      "followers_count": 2082,
+      "emojis": [],
+      "created_at": "2022-04-12T22:54:29.000Z",
+      "bot": true,
+      "avatar_static": "https://social.espeweb.net/media/6578a51c9dfc7a1ee0ded2431fb1ded47801d97d5c5d47f87562cf620a15fae7.jpg",
+      "avatar_description": "",
+      "avatar": "https://social.espeweb.net/media/6578a51c9dfc7a1ee0ded2431fb1ded47801d97d5c5d47f87562cf620a15fae7.jpg",
+      "acct": "politico_eu_bot",
+      "last_status_at": "2026-10-29",
+      "fqn": "politico_eu_bot@social.espeweb.net"
+    },
+    "media_attachments": [],
+    "visibility": "public",
+    "spoiler_text": "",
+    "reblogs_count": 0,
+    "reblogged": false,
+    "reblog": null,
+    "muted": false,
+    "in_reply_to_id": null,
+    "in_reply_to_account_id": null,
+    "favourites_count": 0,
+    "favourited": false,
+    "edited_at": null,
+    "bookmarked": false
+  },
+  {
+    "id": "BBcobr8EVhfP1FmdHs",
+    "sensitive": false,
+    "application": {
+      "name": "feed2toot",
+      "website": null
+    },
+    "pleroma": {
+      "local": true,
+      "context": "https://social.espeweb.net/contexts/138d8ba5-ca2a-4d92-afd4-34a57d5a151e",
+      "quote": null,
+      "expires_at": null,
+      "content": {
+        "text/plain": "Brussels goes looking for billions to fund Ukraine https://www.politico.eu/podcast/brussels-playbook-podcast/brussels-goes-looking-for-billions-to-fund-ukraine/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication #ArtificialIntelligence #Europeanpolitics #EuropeanDefense #Defensebudgets #ForeignAffairs #Cybersecurity #WarinUkraine #Copyright #Farright #Politics"
+      },
+      "quotes_count": 0,
+      "spoiler_text": {
+        "text/plain": ""
+      },
+      "conversation_id": 1740018179,
+      "direct_conversation_id": null,
+      "quote_url": null,
+      "emoji_reactions": [],
+      "in_reply_to_account_acct": null,
+      "list_id": null,
+      "parent_visible": false,
+      "pinned_at": null,
+      "quote_id": null,
+      "quote_visible": false,
+      "thread_muted": false,
+      "bookmark_folder": null
+    },
+    "text": null,
+    "uri": "https://social.espeweb.net/objects/1e47f634-677d-44c1-bfde-7c8292f2db8d",
+    "url": "https://social.espeweb.net/notice/BBcobr8EVhfP1FmdHs",
+    "language": null,
+    "content": "Brussels goes looking for billions to fund Ukraine <a href=\"https://www.politico.eu/podcast/brussels-playbook-podcast/brussels-goes-looking-for-billions-to-fund-ukraine/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication\" rel=\"ugc\">https://www.politico.eu/podcast/brussels-playbook-podcast/brussels-goes-looking-for-billions-to-fund-ukraine/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication</a> <a class=\"hashtag\" data-tag=\"artificialintelligence\" href=\"https://social.espeweb.net/tag/artificialintelligence\">#ArtificialIntelligence</a> <a class=\"hashtag\" data-tag=\"europeanpolitics\" href=\"https://social.espeweb.net/tag/europeanpolitics\">#Europeanpolitics</a> <a class=\"hashtag\" data-tag=\"europeandefense\" href=\"https://social.espeweb.net/tag/europeandefense\">#EuropeanDefense</a> <a class=\"hashtag\" data-tag=\"defensebudgets\" href=\"https://social.espeweb.net/tag/defensebudgets\">#Defensebudgets</a> <a class=\"hashtag\" data-tag=\"foreignaffairs\" href=\"https://social.espeweb.net/tag/foreignaffairs\">#ForeignAffairs</a> <a class=\"hashtag\" data-tag=\"cybersecurity\" href=\"https://social.espeweb.net/tag/cybersecurity\">#Cybersecurity</a> <a class=\"hashtag\" data-tag=\"warinukraine\" href=\"https://social.espeweb.net/tag/warinukraine\">#WarinUkraine</a> <a class=\"hashtag\" data-tag=\"copyright\" href=\"https://social.espeweb.net/tag/copyright\">#Copyright</a> <a class=\"hashtag\" data-tag=\"farright\" href=\"https://social.espeweb.net/tag/farright\">#Farright</a> <a class=\"hashtag\" data-tag=\"politics\" href=\"https://social.espeweb.net/tag/politics\">#Politics</a>",
+    "poll": null,
+    "tags": [
+      {
+        "name": "artificialintelligence",
+        "url": "https://social.espeweb.net/tag/artificialintelligence"
+      },
+      {
+        "name": "copyright",
+        "url": "https://social.espeweb.net/tag/copyright"
       },
       {
         "name": "cybersecurity",
-        "url": "https://mastodon.social/tags/cybersecurity"
+        "url": "https://social.espeweb.net/tag/cybersecurity"
       },
       {
         "name": "defensebudgets",
-        "url": "https://mastodon.social/tags/defensebudgets"
+        "url": "https://social.espeweb.net/tag/defensebudgets"
       },
       {
         "name": "europeandefense",
-        "url": "https://mastodon.social/tags/europeandefense"
+        "url": "https://social.espeweb.net/tag/europeandefense"
       },
       {
-        "name": "EuropeanPolitics",
-        "url": "https://mastodon.social/tags/EuropeanPolitics"
+        "name": "europeanpolitics",
+        "url": "https://social.espeweb.net/tag/europeanpolitics"
       },
       {
         "name": "farright",
-        "url": "https://mastodon.social/tags/farright"
+        "url": "https://social.espeweb.net/tag/farright"
       },
       {
         "name": "foreignaffairs",
-        "url": "https://mastodon.social/tags/foreignaffairs"
+        "url": "https://social.espeweb.net/tag/foreignaffairs"
       },
       {
         "name": "politics",
-        "url": "https://mastodon.social/tags/politics"
+        "url": "https://social.espeweb.net/tag/politics"
       },
       {
-        "name": "WARINUKRAINE",
-        "url": "https://mastodon.social/tags/WARINUKRAINE"
+        "name": "warinukraine",
+        "url": "https://social.espeweb.net/tag/warinukraine"
       }
     ],
-    "emojis": [],
-    "tagged_collections": [],
-    "quote": null,
     "card": {
-      "url": "https://www.politico.eu/podcast/brussels-playbook-podcast/brussels-goes-looking-for-billions-to-fund-ukraine/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication",
-      "title": "Brussels goes looking for billions to fund Ukraine",
+      "type": "link",
       "description": "With Washington’s support for Kyiv increasingly uncertain, Brussels is looking to its allies to help keep Ukraine afloat. The price tag: €70 billion. On today’s show, Zoya Sheftalovich …",
-      "language": "en",
-      "type": "link",
-      "author_name": "Zoya Sheftalovich",
-      "author_url": "https://www.politico.eu/author/zoya-sheftalovich/",
-      "provider_name": "POLITICO",
-      "provider_url": "",
-      "html": "",
-      "width": 662,
-      "height": 348,
-      "image": "https://files.mastodon.social/cache/preview_cards/images/211/621/033/original/afd6f99a4c8fc805.png",
-      "image_description": "",
-      "embed_url": "",
-      "blurhash": "UN6[OlNiRlxTtWWXazoIM_e,oebJf,ahjsf+",
-      "published_at": "2026-10-21T04:05:00.000Z",
-      "authors": [
-        {
-          "name": "Zoya Sheftalovich",
-          "url": "https://www.politico.eu/author/zoya-sheftalovich/",
-          "account": null
+      "pleroma": {
+        "opengraph": {
+          "card": "summary_large_image",
+          "description": "With Washington’s support for Kyiv increasingly uncertain, Brussels is looking to its allies to help keep Ukraine afloat. The price tag: €70 billion. On today’s show, Zoya Sheftalovich …",
+          "image": "https://social.espeweb.net/proxy/zGqKZ55gO_Qmad70-mKVEax4TR0/aHR0cHM6Ly93d3cucG9saXRpY28uZXUvY2RuLWNnaS9pbWFnZS93aWR0aD0xMjAwLGhlaWdodD02MzAsZml0PWNyb3AscXVhbGl0eT04MCxvbmVycm9yPXJlZGlyZWN0L3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDI2LzEwLzA2L1pveWEtaG9tZXBhZ2UtaW1hZ2UucG5n/Zoya-homepage-image.png",
+          "image:height": "630",
+          "image:width": "1200",
+          "title": "Brussels goes looking for billions to fund Ukraine",
+          "type": "article",
+          "url": "https://www.politico.eu/podcast/brussels-playbook-podcast/brussels-goes-looking-for-billions-to-fund-ukraine/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication"
         }
-      ]
+      },
+      "title": "Brussels goes looking for billions to fund Ukraine",
+      "image": "https://social.espeweb.net/proxy/zGqKZ55gO_Qmad70-mKVEax4TR0/aHR0cHM6Ly93d3cucG9saXRpY28uZXUvY2RuLWNnaS9pbWFnZS93aWR0aD0xMjAwLGhlaWdodD02MzAsZml0PWNyb3AscXVhbGl0eT04MCxvbmVycm9yPXJlZGlyZWN0L3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDI2LzEwLzA2L1pveWEtaG9tZXBhZ2UtaW1hZ2UucG5n/Zoya-homepage-image.png",
+      "url": "https://www.politico.eu/podcast/brussels-playbook-podcast/brussels-goes-looking-for-billions-to-fund-ukraine/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication",
+      "image_description": "",
+      "provider_name": "www.politico.eu",
+      "provider_url": "https://www.politico.eu"
     },
-    "poll": null,
-    "quote_approval": {
-      "automatic": [],
-      "manual": [],
-      "current_user": "denied"
-    }
-  },
-  {
-    "id": "117476897963023485",
-    "created_at": "2026-10-21T04:00:05.736Z",
-    "in_reply_to_id": null,
-    "in_reply_to_account_id": null,
-    "sensitive": false,
-    "spoiler_text": "",
-    "visibility": "public",
-    "language": "en",
-    "uri": "https://mastodon.social/users/lowyat/statuses/117476897963023485",
-    "url": "https://mastodon.social/@lowyat/117476897963023485",
     "replies_count": 0,
-    "reblogs_count": 0,
-    "favourites_count": 0,
     "quotes_count": 0,
-    "edited_at": null,
-    "content": "<p>Google Rolls Out Gemini Personal Intelligence For Android Auto, Android Automotive <a href=\"https://mastodon.social/tags/artificialintelligence\" class=\"mention hashtag\" rel=\"tag\">#<span>artificialintelligence</span></a> <a href=\"https://mastodon.social/tags/google\" class=\"mention hashtag\" rel=\"tag\">#<span>google</span></a> <a href=\"https://mastodon.social/tags/personalintelligence\" class=\"mention hashtag\" rel=\"tag\">#<span>personalintelligence</span></a></p><p><a href=\"https://www.lowyat.net/2026/407990/google-personal-intelligence-android-auto/\" target=\"_blank\" rel=\"nofollow noopener\" translate=\"no\"><span class=\"invisible\">https://www.</span><span class=\"ellipsis\">lowyat.net/2026/407990/google-</span><span class=\"invisible\">personal-intelligence-android-auto/</span></a></p>",
-    "reblog": null,
-    "application": {
-      "name": "Lowyat.NET",
-      "website": null
-    },
+    "emojis": [],
+    "created_at": "2026-10-21T04:12:17.000Z",
+    "mentions": [],
+    "pinned": false,
     "account": {
-      "id": "110506661348597661",
-      "username": "lowyat",
-      "acct": "lowyat",
-      "display_name": "Lowyat.NET",
+      "id": "AIO5QWxumydoliIT56",
+      "header": "https://social.espeweb.net/images/banner.png",
+      "pleroma": {
+        "relationship": {},
+        "tags": [],
+        "header_description": "",
+        "avatar_description": "",
+        "is_confirmed": true,
+        "ap_id": "https://social.espeweb.net/users/politico_eu_bot",
+        "is_admin": false,
+        "is_moderator": false,
+        "accepts_chat_messages": true,
+        "also_known_as": [],
+        "hide_favorites": true,
+        "hide_followers": false,
+        "hide_followers_count": false,
+        "hide_follows": false,
+        "hide_follows_count": false,
+        "is_suggested": false,
+        "skip_thread_containment": false,
+        "background_image": null,
+        "favicon": null,
+        "privileges": []
+      },
+      "fields": [],
+      "source": {
+        "sensitive": false,
+        "pleroma": {
+          "actor_type": "Service",
+          "discoverable": false
+        },
+        "fields": [],
+        "note": "Fetching from https://www.politico.eu/feed/"
+      },
+      "username": "politico_eu_bot",
       "locked": false,
-      "bot": true,
-      "discoverable": true,
-      "indexable": false,
-      "group": false,
-      "created_at": "2023-06-08T00:00:00.000Z",
-      "note": "<p>Unofficial. We keep you updated with everything that&#39;s going on in the tech world and more!</p>",
-      "url": "https://mastodon.social/@lowyat",
-      "uri": "https://mastodon.social/users/lowyat",
-      "avatar": "https://files.mastodon.social/accounts/avatars/110/506/661/348/597/661/original/52418dc8980e62e2.jpg",
-      "avatar_static": "https://files.mastodon.social/accounts/avatars/110/506/661/348/597/661/original/52418dc8980e62e2.jpg",
-      "avatar_description": "",
-      "header": "https://files.mastodon.social/accounts/headers/110/506/661/348/597/661/original/fe732d8646b397e6.jpg",
-      "header_static": "https://files.mastodon.social/accounts/headers/110/506/661/348/597/661/original/fe732d8646b397e6.jpg",
+      "url": "https://social.espeweb.net/users/politico_eu_bot",
+      "display_name": " Politico.eu (Unofficial RSS)",
+      "statuses_count": 748,
+      "note": "Fetching from <a href=\"https://www.politico.eu/feed/\">https://www.politico.eu/feed/</a>",
+      "header_static": "https://social.espeweb.net/images/banner.png",
       "header_description": "",
-      "followers_count": 115,
       "following_count": 0,
-      "statuses_count": 11793,
-      "last_status_at": "2026-10-21",
-      "hide_collections": false,
-      "show_media": true,
-      "show_media_replies": true,
-      "show_featured": true,
-      "noindex": false,
-      "feature_approval": {
-        "automatic": [
-          "public"
-        ],
-        "manual": [],
-        "current_user": "denied"
-      },
+      "followers_count": 2082,
       "emojis": [],
-      "roles": [],
-      "fields": [
-        {
-          "name": "Lowyat.NET",
-          "value": "<a href=\"https://www.lowyat.net\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://www.</span><span class=\"\">lowyat.net</span><span class=\"invisible\"></span></a>",
-          "verified_at": null
-        },
-        {
-          "name": "Bot Status",
-          "value": "<a href=\"https://status.moekai.com\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">status.moekai.com</span><span class=\"invisible\"></span></a>",
-          "verified_at": null
-        },
-        {
-          "name": "Bot Support",
-          "value": "<span class=\"h-card\" translate=\"no\"><a href=\"https://sakurajima.social/@irfan\" class=\"u-url mention\">@<span>irfan@sakurajima.social</span></a></span>",
-          "verified_at": null
-        }
-      ]
-    },
-    "media_attachments": [],
-    "mentions": [],
-    "tags": [
-      {
-        "name": "artificialintelligence",
-        "url": "https://mastodon.social/tags/artificialintelligence"
-      },
-      {
-        "name": "google",
-        "url": "https://mastodon.social/tags/google"
-      },
-      {
-        "name": "personalintelligence",
-        "url": "https://mastodon.social/tags/personalintelligence"
-      }
-    ],
-    "emojis": [],
-    "tagged_collections": [],
-    "quote": null,
-    "card": {
-      "url": "https://www.lowyat.net/2026/407990/google-personal-intelligence-android-auto/",
-      "title": "Google Rolls Out Gemini Personal Intelligence For Android Auto, Android Automotive - Lowyat.NET",
-      "description": "Google has announced that it will roll out Personal Intelligence for Gemini on Android Auto today, while Android Automotive has to wait longer.",
-      "language": "en",
-      "type": "link",
-      "author_name": "",
-      "author_url": "",
-      "provider_name": "Lowyat.NET",
-      "provider_url": "",
-      "html": "",
-      "width": 639,
-      "height": 360,
-      "image": "https://files.mastodon.social/cache/preview_cards/images/211/620/049/original/41a8160432dc26bf.webp",
-      "image_description": "Google Rolling Out Gemini Personal Intelligence",
-      "embed_url": "",
-      "blurhash": "UYQ0gjj[_4xutPj]ogjY-;j?IAWE%MjsWBbH",
-      "published_at": "2026-10-21T02:56:09.000Z",
-      "authors": []
-    },
-    "poll": null,
-    "quote_approval": {
-      "automatic": [
-        "public"
-      ],
-      "manual": [],
-      "current_user": "denied"
-    }
-  },
-  {
-    "id": "117476765783818325",
-    "created_at": "2026-10-21T03:26:28.000Z",
-    "in_reply_to_id": null,
-    "in_reply_to_account_id": null,
-    "sensitive": false,
-    "spoiler_text": "",
-    "visibility": "public",
-    "language": "en",
-    "uri": "https://igeek.gamer-geek-news.com/users/feed/statuses/01M5E7XZ67XQ1TNNZSKEZE65HS",
-    "url": "https://igeek.gamer-geek-news.com/@feed/statuses/01M5E7XZ67XQ1TNNZSKEZE65HS",
-    "replies_count": 0,
-    "reblogs_count": 0,
-    "favourites_count": 0,
-    "quotes_count": 0,
-    "edited_at": null,
-    "content": "<p>📰 <strong>Mistral AI Releases Timestral: A 209M Forecasting Model Family That Outperforms Google’s TimesFM-3</strong></p><p>Mistral released Timestral, a time series foundation model family from 5M to 209M parameters. The 209M model leads GIFT-Eval, TIME and fev-bench among zero-shot models and runs on CPU.</p><p>📰 Source: MarkTechPost<br>🔗 Link: <a href=\"https://www.marktechpost.com/2026/10/18/mistral-timestral-time-series-foundation-model/\" rel=\"nofollow noopener\" target=\"_blank\">https://www.marktechpost.com/2026/10/18/mistral-timestral-time-series-foundation-model/</a></p><p><a href=\"https://igeek.gamer-geek-news.com/tags/ai\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>AI</span></a> <a href=\"https://igeek.gamer-geek-news.com/tags/artificialintelligence\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>ArtificialIntelligence</span></a></p>",
-    "reblog": null,
-    "account": {
-      "id": "116070447239053927",
-      "username": "feed",
-      "acct": "feed@igeek.gamer-geek-news.com",
-      "display_name": "input",
-      "locked": false,
-      "bot": false,
-      "discoverable": false,
-      "indexable": false,
-      "group": false,
-      "created_at": "2026-02-13T00:00:00.000Z",
-      "note": "<p>Curated feed of news sources that I find of interest, best effort made to remove promotional links</p>",
-      "url": "https://igeek.gamer-geek-news.com/@feed",
-      "uri": "https://igeek.gamer-geek-news.com/users/feed",
-      "avatar": "https://files.mastodon.social/cache/accounts/avatars/116/070/447/239/053/927/original/3d061316f2df51d6.jpeg",
-      "avatar_static": "https://files.mastodon.social/cache/accounts/avatars/116/070/447/239/053/927/original/3d061316f2df51d6.jpeg",
+      "created_at": "2022-04-12T22:54:29.000Z",
+      "bot": true,
+      "avatar_static": "https://social.espeweb.net/media/6578a51c9dfc7a1ee0ded2431fb1ded47801d97d5c5d47f87562cf620a15fae7.jpg",
       "avatar_description": "",
-      "header": "https://files.mastodon.social/cache/accounts/headers/116/070/447/239/053/927/original/9dfbfb3b530213e6.jpeg",
-      "header_static": "https://files.mastodon.social/cache/accounts/headers/116/070/447/239/053/927/original/9dfbfb3b530213e6.jpeg",
-      "header_description": "",
-      "followers_count": 235,
-      "following_count": 246,
-      "statuses_count": 89139,
-      "last_status_at": "2026-10-21",
-      "hide_collections": false,
-      "show_media": true,
-      "show_media_replies": true,
-      "show_featured": true,
-      "feature_approval": {
-        "automatic": [],
-        "manual": [],
-        "current_user": "denied"
-      },
-      "emojis": [],
-      "fields": [
-        {
-          "name": "content",
-          "value": "games, technology, data science, retro",
-          "verified_at": null
-        }
-      ]
+      "avatar": "https://social.espeweb.net/media/6578a51c9dfc7a1ee0ded2431fb1ded47801d97d5c5d47f87562cf620a15fae7.jpg",
+      "acct": "politico_eu_bot",
+      "last_status_at": "2026-10-29",
+      "fqn": "politico_eu_bot@social.espeweb.net"
     },
     "media_attachments": [],
-    "mentions": [],
-    "tags": [
-      {
-        "name": "ai",
-        "url": "https://mastodon.social/tags/ai"
-      },
-      {
-        "name": "artificialintelligence",
-        "url": "https://mastodon.social/tags/artificialintelligence"
-      }
-    ],
-    "emojis": [],
-    "tagged_collections": [],
-    "quote": null,
-    "card": {
-      "url": "https://www.marktechpost.com/2026/10/18/mistral-timestral-time-series-foundation-model/",
-      "title": "Mistral AI Releases Timestral: A 209M Forecasting Model Family That Outperforms Google’s TimesFM-3",
-      "description": "Mistral Timestral is a time series foundation model family, 5M to 209M parameters, forecasting zero-shot on a CPU.",
-      "language": "en",
-      "type": "link",
-      "author_name": "",
-      "author_url": "",
-      "provider_name": "MarkTechPost",
-      "provider_url": "",
-      "html": "",
-      "width": 554,
-      "height": 416,
-      "image": "https://files.mastodon.social/cache/preview_cards/images/211/340/659/original/f68c6bfead5fb2e8.png",
-      "image_description": "",
-      "embed_url": "",
-      "blurhash": "UDAlnRx]v}9u~BOswbNGJ8EQt5xDVqv#XSog",
-      "published_at": "2026-10-19T01:18:17.000Z",
-      "authors": []
-    },
-    "poll": null,
-    "quote_approval": {
-      "automatic": [],
-      "manual": [],
-      "current_user": "denied"
-    }
-  },
-  {
-    "id": "117476742427106878",
-    "created_at": "2026-10-21T03:20:31.000Z",
+    "visibility": "public",
+    "spoiler_text": "",
+    "reblogs_count": 0,
+    "reblogged": false,
+    "reblog": null,
+    "muted": false,
     "in_reply_to_id": null,
     "in_reply_to_account_id": null,
-    "sensitive": false,
-    "spoiler_text": "",
-    "visibility": "public",
-    "language": "en",
-    "uri": "https://theblower.au/users/bignose/statuses/117476742349072339",
-    "url": "https://theblower.au/@bignose/117476742349072339",
-    "replies_count": 0,
-    "reblogs_count": 0,
     "favourites_count": 0,
-    "quotes_count": 0,
+    "favourited": false,
     "edited_at": null,
-    "content": "<p>“For general reasoning, a system should maintain an epistemic state that represents what the system holds as settled, what it doubts, what it has ruled out, which questions stay open.</p><p>“Reasoning can then be understood as a sequence of moves that change the epistemic state to advance knowledge and reduce uncertainty: deducing consequences, breaking problems into parts, and—crucially—deciding what question to ask, calculation to perform, or experiment to run next.</p><p>“Society needs such creative moves in drug discovery, materials, climate, diagnosis—fields where the board looks nothing like a Go board and nobody hands us the rules. We will get such insights only from systems that reason—systems whose conclusions arise from an auditable sequence of evidence, inference, and belief revision rather than from a convincing story told after the fact.”</p><p><a href=\"https://www.technologyreview.com/2026/10/02/1145639/dont-be-fooled-llms-dont-reason/\" rel=\"nofollow noopener\" translate=\"no\" target=\"_blank\"><span class=\"invisible\">https://www.</span><span class=\"ellipsis\">technologyreview.com/2026/10/0</span><span class=\"invisible\">2/1145639/dont-be-fooled-llms-dont-reason/</span></a></p><p><a href=\"https://theblower.au/tags/LLM\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>LLM</span></a> <a href=\"https://theblower.au/tags/ArtificialIntelligence\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>ArtificialIntelligence</span></a></p>",
-    "reblog": null,
-    "account": {
-      "id": "109334690278892912",
-      "username": "bignose",
-      "acct": "bignose@theblower.au",
-      "display_name": "bignose",
-      "locked": false,
-      "bot": false,
-      "discoverable": false,
-      "indexable": false,
-      "group": false,
-      "created_at": "2022-11-12T00:00:00.000Z",
-      "note": "",
-      "url": "https://theblower.au/@bignose",
-      "uri": "https://theblower.au/users/bignose",
-      "avatar": "https://files.mastodon.social/cache/accounts/avatars/109/334/690/278/892/912/original/c7ba7c694a21f475.jpeg",
-      "avatar_static": "https://files.mastodon.social/cache/accounts/avatars/109/334/690/278/892/912/original/c7ba7c694a21f475.jpeg",
-      "avatar_description": "",
-      "header": "https://files.mastodon.social/cache/accounts/headers/109/334/690/278/892/912/original/ce02a19c79a34705.jpeg",
-      "header_static": "https://files.mastodon.social/cache/accounts/headers/109/334/690/278/892/912/original/ce02a19c79a34705.jpeg",
-      "header_description": "",
-      "followers_count": 84,
-      "following_count": 38,
-      "statuses_count": 2441,
-      "last_status_at": "2026-10-21",
-      "hide_collections": false,
-      "show_media": true,
-      "show_media_replies": true,
-      "show_featured": true,
-      "feature_approval": {
-        "automatic": [
-          "disabled"
-        ],
-        "manual": [],
-        "current_user": "denied"
-      },
-      "emojis": [],
-      "fields": [
-        {
-          "name": "Pronouns",
-          "value": "<a href=\"https://pronoun.is/he\" rel=\"nofollow noopener\" translate=\"no\" target=\"_blank\"><span class=\"invisible\">https://</span><span class=\"\">pronoun.is/he</span><span class=\"invisible\"></span></a>",
-          "verified_at": null
-        },
-        {
-          "name": "Residence",
-          "value": "Melbourne, Australia",
-          "verified_at": null
-        }
-      ]
-    },
-    "media_attachments": [],
-    "mentions": [],
-    "tags": [
-      {
-        "name": "llm",
-        "url": "https://mastodon.social/tags/llm"
-      },
-      {
-        "name": "artificialintelligence",
-        "url": "https://mastodon.social/tags/artificialintelligence"
-      }
-    ],
-    "emojis": [],
-    "tagged_collections": [],
-    "quote": null,
-    "card": {
-      "url": "https://www.technologyreview.com/2026/10/02/1145639/dont-be-fooled-llms-dont-reason/",
-      "title": "Don’t be fooled—LLMs don’t reason",
-      "description": "Ten years after AlphaGo’s match against Go champion Lee Sedol, today’s AI still isn’t tapping into the machinery that made that win possible.",
-      "language": "en",
-      "type": "link",
-      "author_name": "Thore Graepel",
-      "author_url": "",
-      "provider_name": "MIT Technology Review",
-      "provider_url": "",
-      "html": "",
-      "width": 0,
-      "height": 0,
-      "image": "https://files.mastodon.social/cache/preview_cards/images/209/325/681/original/468fd22b39c2c0dc.jpg",
-      "image_description": "",
-      "embed_url": "",
-      "blurhash": "U7N8w2*4$bk=yq*zj0PljFOrr_P9:.t*xWvO",
-      "published_at": "2026-10-02T08:00:00.000Z",
-      "authors": [
-        {
-          "name": "Thore Graepel",
-          "url": "",
-          "account": null
-        }
-      ]
-    },
-    "poll": null,
-    "quote_approval": {
-      "automatic": [
-        "public"
-      ],
-      "manual": [],
-      "current_user": "denied"
-    }
+    "bookmarked": false
   },
   {
-    "id": "117476661482589915",
-    "created_at": "2026-10-21T02:59:57.333Z",
-    "in_reply_to_id": null,
-    "in_reply_to_account_id": null,
+    "id": "BBYUpuZxiOK037L3R2",
     "sensitive": false,
-    "spoiler_text": "",
-    "visibility": "public",
-    "language": "en",
-    "uri": "https://mastodon.social/users/DrMikeWatts/statuses/117476661482589915",
-    "url": "https://mastodon.social/@DrMikeWatts/117476661482589915",
-    "replies_count": 0,
-    "reblogs_count": 0,
-    "favourites_count": 0,
-    "quotes_count": 0,
-    "edited_at": null,
-    "content": "<p>This should be obvious-an <a href=\"https://mastodon.social/tags/AI\" class=\"mention hashtag\" rel=\"tag\">#<span>AI</span></a> is only as good as the data used to create it, even my first-year students know that: <a href=\"https://www.hpcwire.com/bigdatawire/2026/10/12/ai-is-only-as-smart-as-the-data-behind-it/\" target=\"_blank\" rel=\"nofollow noopener\" translate=\"no\"><span class=\"invisible\">https://www.</span><span class=\"ellipsis\">hpcwire.com/bigdatawire/2026/1</span><span class=\"invisible\">0/12/ai-is-only-as-smart-as-the-data-behind-it/</span></a> <a href=\"https://mastodon.social/tags/ArtificialIntelligence\" class=\"mention hashtag\" rel=\"tag\">#<span>ArtificialIntelligence</span></a></p>",
-    "reblog": null,
     "application": {
-      "name": "Web",
+      "name": "feed2toot",
       "website": null
     },
-    "account": {
-      "id": "111050542539840625",
-      "username": "DrMikeWatts",
-      "acct": "DrMikeWatts",
-      "display_name": "Mike Watts",
-      "locked": false,
-      "bot": false,
-      "discoverable": null,
-      "indexable": false,
-      "group": false,
-      "created_at": "2023-09-12T00:00:00.000Z",
-      "note": "<p>PhD in artificial intelligence, research experience in IT and ecology. Scientist. Engineer. Educator. Husband. Father.</p>",
-      "url": "https://mastodon.social/@DrMikeWatts",
-      "uri": "https://mastodon.social/users/DrMikeWatts",
-      "avatar": "https://files.mastodon.social/accounts/avatars/111/050/542/539/840/625/original/6a76a6585f89495b.webp",
-      "avatar_static": "https://files.mastodon.social/accounts/avatars/111/050/542/539/840/625/original/6a76a6585f89495b.webp",
-      "avatar_description": "",
-      "header": "https://files.mastodon.social/accounts/headers/111/050/542/539/840/625/original/13f68a8c258f9fce.jpg",
-      "header_static": "https://files.mastodon.social/accounts/headers/111/050/542/539/840/625/original/13f68a8c258f9fce.jpg",
-      "header_description": "",
-      "followers_count": 65,
-      "following_count": 5,
-      "statuses_count": 4417,
-      "last_status_at": "2026-10-21",
-      "hide_collections": null,
-      "show_media": true,
-      "show_media_replies": true,
-      "show_featured": true,
-      "noindex": false,
-      "feature_approval": {
-        "automatic": [],
-        "manual": [],
-        "current_user": "denied"
+    "pleroma": {
+      "local": true,
+      "context": "https://social.espeweb.net/contexts/b1dcc8fe-0792-45fb-bdae-d3f2d14ff077",
+      "quote": null,
+      "expires_at": null,
+      "content": {
+        "text/plain": "Cyberattack on French supermarkets tells us more about food security than AI safety https://www.politico.eu/article/cyberattack-french-supermarkets-food-security-ai-safety/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication #CybersecurityandDataProtection #ArtificialIntelligence #AgricultureandFood #Climatechange #Cybersecurity #Hybridthreats #Foodsecurity #Supplychains #Technology #TechFrance #Technology #Companies #Industry #Security #Software #farmers #Hackers #Retail #Fuels"
       },
-      "emojis": [],
-      "roles": [],
-      "fields": [
-        {
-          "name": "Homepage",
-          "value": "<a href=\"https://mike.watts.net.nz\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">mike.watts.net.nz</span><span class=\"invisible\"></span></a>",
-          "verified_at": "2025-12-23T22:22:21.015+00:00"
-        },
-        {
-          "name": "LinkedIn",
-          "value": "<a href=\"https://www.linkedin.com/in/drmikewatts/\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://www.</span><span class=\"\">linkedin.com/in/drmikewatts/</span><span class=\"invisible\"></span></a>",
-          "verified_at": null
-        },
-        {
-          "name": "Instagram",
-          "value": "<a href=\"https://www.instagram.com/drmikewatts/\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://www.</span><span class=\"\">instagram.com/drmikewatts/</span><span class=\"invisible\"></span></a>",
-          "verified_at": null
-        }
-      ]
+      "quotes_count": 0,
+      "spoiler_text": {
+        "text/plain": ""
+      },
+      "conversation_id": 2084200558,
+      "direct_conversation_id": null,
+      "quote_url": null,
+      "emoji_reactions": [],
+      "in_reply_to_account_acct": null,
+      "list_id": null,
+      "parent_visible": false,
+      "pinned_at": null,
+      "quote_id": null,
+      "quote_visible": false,
+      "thread_muted": false,
+      "bookmark_folder": null
     },
-    "media_attachments": [],
-    "mentions": [],
+    "text": null,
+    "uri": "https://social.espeweb.net/objects/304c8f27-710d-4de3-bc12-559560cb0aa3",
+    "url": "https://social.espeweb.net/notice/BBYUpuZxiOK037L3R2",
+    "language": null,
+    "content": "Cyberattack on French supermarkets tells us more about food security than AI safety <a href=\"https://www.politico.eu/article/cyberattack-french-supermarkets-food-security-ai-safety/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication\" rel=\"ugc\">https://www.politico.eu/article/cyberattack-french-supermarkets-food-security-ai-safety/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication</a> <a class=\"hashtag\" data-tag=\"cybersecurityanddataprotection\" href=\"https://social.espeweb.net/tag/cybersecurityanddataprotection\">#CybersecurityandDataProtection</a> <a class=\"hashtag\" data-tag=\"artificialintelligence\" href=\"https://social.espeweb.net/tag/artificialintelligence\">#ArtificialIntelligence</a> <a class=\"hashtag\" data-tag=\"agricultureandfood\" href=\"https://social.espeweb.net/tag/agricultureandfood\">#AgricultureandFood</a> <a class=\"hashtag\" data-tag=\"climatechange\" href=\"https://social.espeweb.net/tag/climatechange\">#Climatechange</a> <a class=\"hashtag\" data-tag=\"cybersecurity\" href=\"https://social.espeweb.net/tag/cybersecurity\">#Cybersecurity</a> <a class=\"hashtag\" data-tag=\"hybridthreats\" href=\"https://social.espeweb.net/tag/hybridthreats\">#Hybridthreats</a> <a class=\"hashtag\" data-tag=\"foodsecurity\" href=\"https://social.espeweb.net/tag/foodsecurity\">#Foodsecurity</a> <a class=\"hashtag\" data-tag=\"supplychains\" href=\"https://social.espeweb.net/tag/supplychains\">#Supplychains</a> <a class=\"hashtag\" data-tag=\"technology\" href=\"https://social.espeweb.net/tag/technology\">#Technology</a> <a class=\"hashtag\" data-tag=\"techfrance\" href=\"https://social.espeweb.net/tag/techfrance\">#TechFrance</a> <a class=\"hashtag\" data-tag=\"technology\" href=\"https://social.espeweb.net/tag/technology\">#Technology</a> <a class=\"hashtag\" data-tag=\"companies\" href=\"https://social.espeweb.net/tag/companies\">#Companies</a> <a class=\"hashtag\" data-tag=\"industry\" href=\"https://social.espeweb.net/tag/industry\">#Industry</a> <a class=\"hashtag\" data-tag=\"security\" href=\"https://social.espeweb.net/tag/security\">#Security</a> <a class=\"hashtag\" data-tag=\"software\" href=\"https://social.espeweb.net/tag/software\">#Software</a> <a class=\"hashtag\" data-tag=\"farmers\" href=\"https://social.espeweb.net/tag/farmers\">#farmers</a> <a class=\"hashtag\" data-tag=\"hackers\" href=\"https://social.espeweb.net/tag/hackers\">#Hackers</a> <a class=\"hashtag\" data-tag=\"retail\" href=\"https://social.espeweb.net/tag/retail\">#Retail</a> <a class=\"hashtag\" data-tag=\"fuels\" href=\"https://social.espeweb.net/tag/fuels\">#Fuels</a>",
+    "poll": null,
     "tags": [
       {
-        "name": "ai",
-        "url": "https://mastodon.social/tags/ai"
+        "name": "agricultureandfood",
+        "url": "https://social.espeweb.net/tag/agricultureandfood"
       },
       {
         "name": "artificialintelligence",
-        "url": "https://mastodon.social/tags/artificialintelligence"
-      }
-    ],
-    "emojis": [],
-    "tagged_collections": [],
-    "quote": null,
-    "card": null,
-    "poll": null,
-    "quote_approval": {
-      "automatic": [
-        "public"
-      ],
-      "manual": [],
-      "current_user": "denied"
-    }
-  },
-  {
-    "id": "117476628936104141",
-    "created_at": "2026-10-21T02:51:40.712Z",
-    "in_reply_to_id": null,
-    "in_reply_to_account_id": null,
-    "sensitive": false,
-    "spoiler_text": "",
-    "visibility": "public",
-    "language": "en",
-    "uri": "https://mastodon.social/users/rswebsols/statuses/117476628936104141",
-    "url": "https://mastodon.social/@rswebsols/117476628936104141",
-    "replies_count": 0,
-    "reblogs_count": 0,
-    "favourites_count": 0,
-    "quotes_count": 0,
-    "edited_at": null,
-    "content": "<p>Google Introduces Enhanced Android AI Safeguards to Prevent Scam Calls, Phishing Attempts, and OTP Fraud <a href=\"https://mastodon.social/tags/internet\" class=\"mention hashtag\" rel=\"tag\">#<span>internet</span></a> <a href=\"https://mastodon.social/tags/cybersecurity\" class=\"mention hashtag\" rel=\"tag\">#<span>cybersecurity</span></a> <a href=\"https://mastodon.social/tags/artificialintelligence\" class=\"mention hashtag\" rel=\"tag\">#<span>artificialintelligence</span></a></p><p>Google rolls out enhanced Android AI safeguards to curb scam calls, phishing, and OTP fraud. On-device Gemini Nano analyzes unfamiliar links, Enhanced Protection in Messages, warnings for unknown numbers, and call-forwarding/OTP protections. Read more: <a href=\"https://ift.tt/h7igXVN\" target=\"_blank\" rel=\"nofollow noopener\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">ift.tt/h7igXVN</span><span class=\"invisible\"></span></a></p><p>Source: <a href=\"https://ift.tt/h7igXVN\" target=\"_blank\" rel=\"nofollow noopener\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">ift.tt/h7igXVN</span><span class=\"invisible\"></span></a> | Image: <a href=\"https://ift.tt/nwxadX6\" target=\"_blank\" rel=\"nofollow noopener\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">ift.tt/nwxadX6</span><span class=\"invisible\"></span></a></p>",
-    "reblog": null,
-    "application": {
-      "name": "IFTTT",
-      "website": "https://ifttt.com/mastodon_social"
-    },
-    "account": {
-      "id": "114793049881257920",
-      "username": "rswebsols",
-      "acct": "rswebsols",
-      "display_name": "RS Web Solutions (RSWEBSOLS)",
-      "locked": false,
-      "bot": false,
-      "discoverable": true,
-      "indexable": true,
-      "group": false,
-      "created_at": "2025-07-04T00:00:00.000Z",
-      "note": "<p>We are a Web Resource Library providing tips, tutorials, and reviews on Web Design, Programming, SEO, Marketing, eCommerce, Technology, Gadgets, Apps &amp; Software.</p>",
-      "url": "https://mastodon.social/@rswebsols",
-      "uri": "https://mastodon.social/users/rswebsols",
-      "avatar": "https://files.mastodon.social/accounts/avatars/114/793/049/881/257/920/original/34fac4268c249909.png",
-      "avatar_static": "https://files.mastodon.social/accounts/avatars/114/793/049/881/257/920/original/34fac4268c249909.png",
-      "avatar_description": "",
-      "header": "https://files.mastodon.social/accounts/headers/114/793/049/881/257/920/original/ab479cc0f1810948.jpg",
-      "header_static": "https://files.mastodon.social/accounts/headers/114/793/049/881/257/920/original/ab479cc0f1810948.jpg",
-      "header_description": "",
-      "followers_count": 25,
-      "following_count": 6,
-      "statuses_count": 3704,
-      "last_status_at": "2026-10-21",
-      "hide_collections": null,
-      "show_media": true,
-      "show_media_replies": true,
-      "show_featured": true,
-      "noindex": false,
-      "feature_approval": {
-        "automatic": [
-          "public"
-        ],
-        "manual": [],
-        "current_user": "denied"
+        "url": "https://social.espeweb.net/tag/artificialintelligence"
       },
-      "emojis": [],
-      "roles": [],
-      "fields": [
-        {
-          "name": "Website",
-          "value": "<a href=\"https://www.rswebsols.com/\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://www.</span><span class=\"\">rswebsols.com/</span><span class=\"invisible\"></span></a>",
-          "verified_at": "2025-07-04T05:09:23.455+00:00"
-        },
-        {
-          "name": "Facebook",
-          "value": "<a href=\"https://www.facebook.com/in.rswebsols\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://www.</span><span class=\"\">facebook.com/in.rswebsols</span><span class=\"invisible\"></span></a>",
-          "verified_at": null
-        },
-        {
-          "name": "Twitter (X)",
-          "value": "<a href=\"https://x.com/rswebsols\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">x.com/rswebsols</span><span class=\"invisible\"></span></a>",
-          "verified_at": null
-        },
-        {
-          "name": "LinkedIn",
-          "value": "<a href=\"https://www.linkedin.com/company/rswebsols\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://www.</span><span class=\"\">linkedin.com/company/rswebsols</span><span class=\"invisible\"></span></a>",
-          "verified_at": null
-        }
-      ]
-    },
-    "media_attachments": [],
-    "mentions": [],
-    "tags": [
       {
-        "name": "internet",
-        "url": "https://mastodon.social/tags/internet"
+        "name": "climatechange",
+        "url": "https://social.espeweb.net/tag/climatechange"
+      },
+      {
+        "name": "companies",
+        "url": "https://social.espeweb.net/tag/companies"
       },
       {
         "name": "cybersecurity",
-        "url": "https://mastodon.social/tags/cybersecurity"
+        "url": "https://social.espeweb.net/tag/cybersecurity"
       },
       {
-        "name": "artificialintelligence",
-        "url": "https://mastodon.social/tags/artificialintelligence"
+        "name": "cybersecurityanddataprotection",
+        "url": "https://social.espeweb.net/tag/cybersecurityanddataprotection"
+      },
+      {
+        "name": "foodsecurity",
+        "url": "https://social.espeweb.net/tag/foodsecurity"
+      },
+      {
+        "name": "fuels",
+        "url": "https://social.espeweb.net/tag/fuels"
+      },
+      {
+        "name": "hackers",
+        "url": "https://social.espeweb.net/tag/hackers"
+      },
+      {
+        "name": "hybridthreats",
+        "url": "https://social.espeweb.net/tag/hybridthreats"
+      },
+      {
+        "name": "industry",
+        "url": "https://social.espeweb.net/tag/industry"
+      },
+      {
+        "name": "retail",
+        "url": "https://social.espeweb.net/tag/retail"
+      },
+      {
+        "name": "security",
+        "url": "https://social.espeweb.net/tag/security"
+      },
+      {
+        "name": "software",
+        "url": "https://social.espeweb.net/tag/software"
+      },
+      {
+        "name": "supplychains",
+        "url": "https://social.espeweb.net/tag/supplychains"
+      },
+      {
+        "name": "techfrance",
+        "url": "https://social.espeweb.net/tag/techfrance"
+      },
+      {
+        "name": "technology",
+        "url": "https://social.espeweb.net/tag/technology"
+      },
+      {
+        "name": "farmers",
+        "url": "https://social.espeweb.net/tag/farmers"
       }
     ],
-    "emojis": [],
-    "tagged_collections": [],
-    "quote": null,
     "card": {
-      "url": "https://ift.tt/h7igXVN",
-      "title": "Google Launches Advanced Android AI Safeguards Against Scam Calls and Fraud",
-      "description": "Google launches advanced Android AI safeguards to block scam calls, phishing attempts, and OTP fraud, boosting user security like never before.",
-      "language": "en",
       "type": "link",
-      "author_name": "",
-      "author_url": "",
-      "provider_name": "RS Web Solutions (RSWEBSOLS)",
-      "provider_url": "",
-      "html": "",
-      "width": 588,
-      "height": 392,
-      "image": "https://files.mastodon.social/cache/preview_cards/images/211/615/750/original/b3fc0fa000601a91.jpg",
-      "image_description": "A man holding up a sign that says fraud.",
-      "embed_url": "",
-      "blurhash": "UKDnt$%EC6xuO]Vzi~V{0KM}?IRl-;tPITt5",
-      "published_at": "2026-10-21T02:00:00.000Z",
-      "authors": [
-        {
-          "name": "",
-          "url": "",
-          "account": {
-            "id": "114793049881257920",
-            "username": "rswebsols",
-            "acct": "rswebsols",
-            "display_name": "RS Web Solutions (RSWEBSOLS)",
-            "locked": false,
-            "bot": false,
-            "discoverable": true,
-            "indexable": true,
-            "group": false,
-            "created_at": "2025-07-04T00:00:00.000Z",
-            "note": "<p>We are a Web Resource Library providing tips, tutorials, and reviews on Web Design, Programming, SEO, Marketing, eCommerce, Technology, Gadgets, Apps &amp; Software.</p>",
-            "url": "https://mastodon.social/@rswebsols",
-            "uri": "https://mastodon.social/users/rswebsols",
-            "avatar": "https://files.mastodon.social/accounts/avatars/114/793/049/881/257/920/original/34fac4268c249909.png",
-            "avatar_static": "https://files.mastodon.social/accounts/avatars/114/793/049/881/257/920/original/34fac4268c249909.png",
-            "avatar_description": "",
-            "header": "https://files.mastodon.social/accounts/headers/114/793/049/881/257/920/original/ab479cc0f1810948.jpg",
-            "header_static": "https://files.mastodon.social/accounts/headers/114/793/049/881/257/920/original/ab479cc0f1810948.jpg",
-            "header_description": "",
-            "followers_count": 25,
-            "following_count": 6,
-            "statuses_count": 3704,
-            "last_status_at": "2026-10-21",
-            "hide_collections": null,
-            "show_media": true,
-            "show_media_replies": true,
-            "show_featured": true,
-            "noindex": false,
-            "feature_approval": {
-              "automatic": [
-                "public"
-              ],
-              "manual": [],
-              "current_user": "denied"
-            },
-            "emojis": [],
-            "roles": [],
-            "fields": [
-              {
-                "name": "Website",
-                "value": "<a href=\"https://www.rswebsols.com/\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://www.</span><span class=\"\">rswebsols.com/</span><span class=\"invisible\"></span></a>",
-                "verified_at": "2025-07-04T05:09:23.455+00:00"
-              },
-              {
-                "name": "Facebook",
-                "value": "<a href=\"https://www.facebook.com/in.rswebsols\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://www.</span><span class=\"\">facebook.com/in.rswebsols</span><span class=\"invisible\"></span></a>",
-                "verified_at": null
-              },
-              {
-                "name": "Twitter (X)",
-                "value": "<a href=\"https://x.com/rswebsols\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">x.com/rswebsols</span><span class=\"invisible\"></span></a>",
-                "verified_at": null
-              },
-              {
-                "name": "LinkedIn",
-                "value": "<a href=\"https://www.linkedin.com/company/rswebsols\" target=\"_blank\" rel=\"nofollow noopener me\" translate=\"no\"><span class=\"invisible\">https://www.</span><span class=\"\">linkedin.com/company/rswebsols</span><span class=\"invisible\"></span></a>",
-                "verified_at": null
-              }
-            ]
-          }
+      "description": "Experts know little about the motives of the hackers who remotely turned up the temperature on French supermarket refrigerators. Their methods, however, are far from science fiction.",
+      "pleroma": {
+        "opengraph": {
+          "card": "summary_large_image",
+          "description": "Experts know little about the motives of the hackers who remotely turned up the temperature on French supermarket refrigerators. Their methods, however, are far from science fiction.",
+          "image": "https://social.espeweb.net/proxy/_DK8cTTwpT9GcdGCoa0wCE8XjP8/aHR0cHM6Ly93d3cucG9saXRpY28uZXUvY2RuLWNnaS9pbWFnZS93aWR0aD0xMjAwLGhlaWdodD02MzAsZml0PWNyb3AscXVhbGl0eT04MCxvbmVycm9yPXJlZGlyZWN0L3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDI2LzEwLzE2L0dldHR5SW1hZ2VzLTIyOTkzMzk2MDAtc2NhbGVkLmpwZw/GettyImages-2299339600-scaled.jpg",
+          "image:height": "630",
+          "image:width": "1200",
+          "title": "Cyberattack on French supermarkets tells us more about food security than AI safety",
+          "type": "article",
+          "url": "https://www.politico.eu/article/cyberattack-french-supermarkets-food-security-ai-safety/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication"
         }
-      ]
-    },
-    "poll": null,
-    "quote_approval": {
-      "automatic": [
-        "public"
-      ],
-      "manual": [],
-      "current_user": "denied"
-    }
-  },
-  {
-    "id": "117476574518689509",
-    "created_at": "2026-10-21T02:37:50.000Z",
-    "in_reply_to_id": null,
-    "in_reply_to_account_id": null,
-    "sensitive": false,
-    "spoiler_text": "",
-    "visibility": "public",
-    "language": "en",
-    "uri": "https://igeek.gamer-geek-news.com/users/feed/statuses/01M5E54X5KWE36REZZTZWMPBCW",
-    "url": "https://igeek.gamer-geek-news.com/@feed/statuses/01M5E54X5KWE36REZZTZWMPBCW",
-    "replies_count": 0,
-    "reblogs_count": 0,
-    "favourites_count": 0,
-    "quotes_count": 0,
-    "edited_at": null,
-    "content": "<p>🤖 <strong>Ex-Nvidia-turned-VC Amulya Vishwanath: ‘Physical AI is in its LEGO era’</strong></p><p>It’s the moment everyone is waiting for — the ChatGPT moment for robotics, Amulya Vishwanath explained to TechCrunch’s Equity.</p><p>📰 Source: AI News &amp; Artificial Intelligence | TechCrunch<br>🔗 Link: <a href=\"https://techcrunch.com/2026/10/20/ex-nvidia-turned-vc-amulya-vishwanath-physical-ai-is-in-its-lego-era/\" rel=\"nofollow noopener\" target=\"_blank\">https://techcrunch.com/2026/10/20/ex-nvidia-turned-vc-amulya-vishwanath-physical-ai-is-in-its-lego-era/</a></p><p><a href=\"https://igeek.gamer-geek-news.com/tags/ai\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>AI</span></a> <a href=\"https://igeek.gamer-geek-news.com/tags/artificialintelligence\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>ArtificialIntelligence</span></a> <a href=\"https://igeek.gamer-geek-news.com/tags/chatgpt\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>ChatGPT</span></a></p>",
-    "reblog": null,
-    "account": {
-      "id": "116070447239053927",
-      "username": "feed",
-      "acct": "feed@igeek.gamer-geek-news.com",
-      "display_name": "input",
-      "locked": false,
-      "bot": false,
-      "discoverable": false,
-      "indexable": false,
-      "group": false,
-      "created_at": "2026-02-13T00:00:00.000Z",
-      "note": "<p>Curated feed of news sources that I find of interest, best effort made to remove promotional links</p>",
-      "url": "https://igeek.gamer-geek-news.com/@feed",
-      "uri": "https://igeek.gamer-geek-news.com/users/feed",
-      "avatar": "https://files.mastodon.social/cache/accounts/avatars/116/070/447/239/053/927/original/3d061316f2df51d6.jpeg",
-      "avatar_static": "https://files.mastodon.social/cache/accounts/avatars/116/070/447/239/053/927/original/3d061316f2df51d6.jpeg",
-      "avatar_description": "",
-      "header": "https://files.mastodon.social/cache/accounts/headers/116/070/447/239/053/927/original/9dfbfb3b530213e6.jpeg",
-      "header_static": "https://files.mastodon.social/cache/accounts/headers/116/070/447/239/053/927/original/9dfbfb3b530213e6.jpeg",
-      "header_description": "",
-      "followers_count": 235,
-      "following_count": 246,
-      "statuses_count": 89139,
-      "last_status_at": "2026-10-21",
-      "hide_collections": false,
-      "show_media": true,
-      "show_media_replies": true,
-      "show_featured": true,
-      "feature_approval": {
-        "automatic": [],
-        "manual": [],
-        "current_user": "denied"
       },
+      "title": "Cyberattack on French supermarkets tells us more about food security than AI safety",
+      "image": "https://social.espeweb.net/proxy/_DK8cTTwpT9GcdGCoa0wCE8XjP8/aHR0cHM6Ly93d3cucG9saXRpY28uZXUvY2RuLWNnaS9pbWFnZS93aWR0aD0xMjAwLGhlaWdodD02MzAsZml0PWNyb3AscXVhbGl0eT04MCxvbmVycm9yPXJlZGlyZWN0L3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDI2LzEwLzE2L0dldHR5SW1hZ2VzLTIyOTkzMzk2MDAtc2NhbGVkLmpwZw/GettyImages-2299339600-scaled.jpg",
+      "url": "https://www.politico.eu/article/cyberattack-french-supermarkets-food-security-ai-safety/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication",
+      "image_description": "",
+      "provider_name": "www.politico.eu",
+      "provider_url": "https://www.politico.eu"
+    },
+    "replies_count": 0,
+    "quotes_count": 0,
+    "emojis": [],
+    "created_at": "2026-10-19T02:11:52.000Z",
+    "mentions": [],
+    "pinned": false,
+    "account": {
+      "id": "AIO5QWxumydoliIT56",
+      "header": "https://social.espeweb.net/images/banner.png",
+      "pleroma": {
+        "relationship": {},
+        "tags": [],
+        "header_description": "",
+        "avatar_description": "",
+        "is_confirmed": true,
+        "ap_id": "https://social.espeweb.net/users/politico_eu_bot",
+        "is_admin": false,
+        "is_moderator": false,
+        "accepts_chat_messages": true,
+        "also_known_as": [],
+        "hide_favorites": true,
+        "hide_followers": false,
+        "hide_followers_count": false,
+        "hide_follows": false,
+        "hide_follows_count": false,
+        "is_suggested": false,
+        "skip_thread_containment": false,
+        "background_image": null,
+        "favicon": null,
+        "privileges": []
+      },
+      "fields": [],
+      "source": {
+        "sensitive": false,
+        "pleroma": {
+          "actor_type": "Service",
+          "discoverable": false
+        },
+        "fields": [],
+        "note": "Fetching from https://www.politico.eu/feed/"
+      },
+      "username": "politico_eu_bot",
+      "locked": false,
+      "url": "https://social.espeweb.net/users/politico_eu_bot",
+      "display_name": " Politico.eu (Unofficial RSS)",
+      "statuses_count": 748,
+      "note": "Fetching from <a href=\"https://www.politico.eu/feed/\">https://www.politico.eu/feed/</a>",
+      "header_static": "https://social.espeweb.net/images/banner.png",
+      "header_description": "",
+      "following_count": 0,
+      "followers_count": 2082,
       "emojis": [],
-      "fields": [
-        {
-          "name": "content",
-          "value": "games, technology, data science, retro",
-          "verified_at": null
-        }
-      ]
+      "created_at": "2022-04-12T22:54:29.000Z",
+      "bot": true,
+      "avatar_static": "https://social.espeweb.net/media/6578a51c9dfc7a1ee0ded2431fb1ded47801d97d5c5d47f87562cf620a15fae7.jpg",
+      "avatar_description": "",
+      "avatar": "https://social.espeweb.net/media/6578a51c9dfc7a1ee0ded2431fb1ded47801d97d5c5d47f87562cf620a15fae7.jpg",
+      "acct": "politico_eu_bot",
+      "last_status_at": "2026-10-29",
+      "fqn": "politico_eu_bot@social.espeweb.net"
     },
     "media_attachments": [],
-    "mentions": [],
+    "visibility": "public",
+    "spoiler_text": "",
+    "reblogs_count": 0,
+    "reblogged": false,
+    "reblog": null,
+    "muted": false,
+    "in_reply_to_id": null,
+    "in_reply_to_account_id": null,
+    "favourites_count": 0,
+    "favourited": false,
+    "edited_at": null,
+    "bookmarked": false
+  },
+  {
+    "id": "BBTSR8FAbNJbUVs0Jc",
+    "sensitive": false,
+    "application": {
+      "name": "feed2toot",
+      "website": null
+    },
+    "pleroma": {
+      "local": true,
+      "context": "https://social.espeweb.net/contexts/4b6df1ec-f7b4-4ba1-af47-43003a5dd688",
+      "quote": null,
+      "expires_at": null,
+      "content": {
+        "text/plain": "In Europe’s tech capital, Irish labor unions are booming amid AI-driven layoffs https://www.politico.eu/article/in-europe-tech-capital-ireland-irish-labor-unions-are-booming-amid-ai-layoffs/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication #ArtificialIntelligence #Communications #Digitalskills #Intelligence #SocialMedia #Automation #Employment #Investment #Technology #Technology #Companies #Platforms #Industry #Software #BigTech #digital #Markets #Rights #Safety #Labor #Media"
+      },
+      "quotes_count": 0,
+      "spoiler_text": {
+        "text/plain": ""
+      },
+      "conversation_id": 738739993,
+      "direct_conversation_id": null,
+      "quote_url": null,
+      "emoji_reactions": [],
+      "in_reply_to_account_acct": null,
+      "list_id": null,
+      "parent_visible": false,
+      "pinned_at": null,
+      "quote_id": null,
+      "quote_visible": false,
+      "thread_muted": false,
+      "bookmark_folder": null
+    },
+    "text": null,
+    "uri": "https://social.espeweb.net/objects/299ef3d8-339d-4661-82c3-60396200343e",
+    "url": "https://social.espeweb.net/notice/BBTSR8FAbNJbUVs0Jc",
+    "language": null,
+    "content": "In Europe’s tech capital, Irish labor unions are booming amid AI-driven layoffs <a href=\"https://www.politico.eu/article/in-europe-tech-capital-ireland-irish-labor-unions-are-booming-amid-ai-layoffs/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication\" rel=\"ugc\">https://www.politico.eu/article/in-europe-tech-capital-ireland-irish-labor-unions-are-booming-amid-ai-layoffs/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication</a> <a class=\"hashtag\" data-tag=\"artificialintelligence\" href=\"https://social.espeweb.net/tag/artificialintelligence\">#ArtificialIntelligence</a> <a class=\"hashtag\" data-tag=\"communications\" href=\"https://social.espeweb.net/tag/communications\">#Communications</a> <a class=\"hashtag\" data-tag=\"digitalskills\" href=\"https://social.espeweb.net/tag/digitalskills\">#Digitalskills</a> <a class=\"hashtag\" data-tag=\"intelligence\" href=\"https://social.espeweb.net/tag/intelligence\">#Intelligence</a> <a class=\"hashtag\" data-tag=\"socialmedia\" href=\"https://social.espeweb.net/tag/socialmedia\">#SocialMedia</a> <a class=\"hashtag\" data-tag=\"automation\" href=\"https://social.espeweb.net/tag/automation\">#Automation</a> <a class=\"hashtag\" data-tag=\"employment\" href=\"https://social.espeweb.net/tag/employment\">#Employment</a> <a class=\"hashtag\" data-tag=\"investment\" href=\"https://social.espeweb.net/tag/investment\">#Investment</a> <a class=\"hashtag\" data-tag=\"technology\" href=\"https://social.espeweb.net/tag/technology\">#Technology</a> <a class=\"hashtag\" data-tag=\"technology\" href=\"https://social.espeweb.net/tag/technology\">#Technology</a> <a class=\"hashtag\" data-tag=\"companies\" href=\"https://social.espeweb.net/tag/companies\">#Companies</a> <a class=\"hashtag\" data-tag=\"platforms\" href=\"https://social.espeweb.net/tag/platforms\">#Platforms</a> <a class=\"hashtag\" data-tag=\"industry\" href=\"https://social.espeweb.net/tag/industry\">#Industry</a> <a class=\"hashtag\" data-tag=\"software\" href=\"https://social.espeweb.net/tag/software\">#Software</a> <a class=\"hashtag\" data-tag=\"bigtech\" href=\"https://social.espeweb.net/tag/bigtech\">#BigTech</a> <a class=\"hashtag\" data-tag=\"digital\" href=\"https://social.espeweb.net/tag/digital\">#digital</a> <a class=\"hashtag\" data-tag=\"markets\" href=\"https://social.espeweb.net/tag/markets\">#Markets</a> <a class=\"hashtag\" data-tag=\"rights\" href=\"https://social.espeweb.net/tag/rights\">#Rights</a> <a class=\"hashtag\" data-tag=\"safety\" href=\"https://social.espeweb.net/tag/safety\">#Safety</a> <a class=\"hashtag\" data-tag=\"labor\" href=\"https://social.espeweb.net/tag/labor\">#Labor</a> <a class=\"hashtag\" data-tag=\"media\" href=\"https://social.espeweb.net/tag/media\">#Media</a>",
+    "poll": null,
     "tags": [
       {
-        "name": "ai",
-        "url": "https://mastodon.social/tags/ai"
-      },
-      {
         "name": "artificialintelligence",
-        "url": "https://mastodon.social/tags/artificialintelligence"
+        "url": "https://social.espeweb.net/tag/artificialintelligence"
       },
       {
-        "name": "chatgpt",
-        "url": "https://mastodon.social/tags/chatgpt"
+        "name": "automation",
+        "url": "https://social.espeweb.net/tag/automation"
+      },
+      {
+        "name": "bigtech",
+        "url": "https://social.espeweb.net/tag/bigtech"
+      },
+      {
+        "name": "communications",
+        "url": "https://social.espeweb.net/tag/communications"
+      },
+      {
+        "name": "companies",
+        "url": "https://social.espeweb.net/tag/companies"
+      },
+      {
+        "name": "digitalskills",
+        "url": "https://social.espeweb.net/tag/digitalskills"
+      },
+      {
+        "name": "employment",
+        "url": "https://social.espeweb.net/tag/employment"
+      },
+      {
+        "name": "industry",
+        "url": "https://social.espeweb.net/tag/industry"
+      },
+      {
+        "name": "intelligence",
+        "url": "https://social.espeweb.net/tag/intelligence"
+      },
+      {
+        "name": "investment",
+        "url": "https://social.espeweb.net/tag/investment"
+      },
+      {
+        "name": "labor",
+        "url": "https://social.espeweb.net/tag/labor"
+      },
+      {
+        "name": "markets",
+        "url": "https://social.espeweb.net/tag/markets"
+      },
+      {
+        "name": "media",
+        "url": "https://social.espeweb.net/tag/media"
+      },
+      {
+        "name": "platforms",
+        "url": "https://social.espeweb.net/tag/platforms"
+      },
+      {
+        "name": "rights",
+        "url": "https://social.espeweb.net/tag/rights"
+      },
+      {
+        "name": "safety",
+        "url": "https://social.espeweb.net/tag/safety"
+      },
+      {
+        "name": "socialmedia",
+        "url": "https://social.espeweb.net/tag/socialmedia"
+      },
+      {
+        "name": "software",
+        "url": "https://social.espeweb.net/tag/software"
+      },
+      {
+        "name": "technology",
+        "url": "https://social.espeweb.net/tag/technology"
+      },
+      {
+        "name": "digital",
+        "url": "https://social.espeweb.net/tag/digital"
       }
     ],
-    "emojis": [],
-    "tagged_collections": [],
-    "quote": null,
     "card": {
-      "url": "https://techcrunch.com/2026/10/20/ex-nvidia-turned-vc-amulya-vishwanath-physical-ai-is-in-its-lego-era/",
-      "title": "Ex-Nvidia-turned-VC Amulya Vishwanath: 'Physical AI is in its LEGO era' | TechCrunch",
-      "description": "It’s the moment everyone is waiting for — the ChatGPT moment for robotics, Amulya Vishwanath explained to TechCrunch’s Equity. ",
-      "language": "en",
       "type": "link",
-      "author_name": "",
-      "author_url": "",
-      "provider_name": "TechCrunch",
-      "provider_url": "",
-      "html": "",
-      "width": 640,
-      "height": 360,
-      "image": "https://files.mastodon.social/cache/preview_cards/images/211/562/727/original/fd737c0555581ba5.jpg",
+      "description": "With Ireland’s lucrative tech sector hit by waves of layoffs linked to AI, the country’s nascent tech union has seen a spike in sign-ups from workers worried about their future.",
+      "pleroma": {
+        "opengraph": {
+          "card": "summary_large_image",
+          "description": "With Ireland’s lucrative tech sector hit by waves of layoffs linked to AI, the country’s nascent tech union has seen a spike in sign-ups from workers worried about their future.",
+          "image": "https://social.espeweb.net/proxy/A8VAYKITCc-EL7MJ8dRD_KpMFeY/aHR0cHM6Ly93d3cucG9saXRpY28uZXUvY2RuLWNnaS9pbWFnZS93aWR0aD0xMjAwLGhlaWdodD02MzAsZml0PWNyb3AscXVhbGl0eT04MCxvbmVycm9yPXJlZGlyZWN0L3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDI2LzEwLzE2L0dldHR5SW1hZ2VzLTIyOTk2MDY5NTAtc2NhbGVkLmpwZw/GettyImages-2299606950-scaled.jpg",
+          "image:height": "630",
+          "image:width": "1200",
+          "title": "In Europe’s tech capital, Irish labor unions are booming amid AI-driven layoffs",
+          "type": "article",
+          "url": "https://www.politico.eu/article/in-europe-tech-capital-ireland-irish-labor-unions-are-booming-amid-ai-layoffs/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication"
+        }
+      },
+      "title": "In Europe’s tech capital, Irish labor unions are booming amid AI-driven layoffs",
+      "image": "https://social.espeweb.net/proxy/A8VAYKITCc-EL7MJ8dRD_KpMFeY/aHR0cHM6Ly93d3cucG9saXRpY28uZXUvY2RuLWNnaS9pbWFnZS93aWR0aD0xMjAwLGhlaWdodD02MzAsZml0PWNyb3AscXVhbGl0eT04MCxvbmVycm9yPXJlZGlyZWN0L3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDI2LzEwLzE2L0dldHR5SW1hZ2VzLTIyOTk2MDY5NTAtc2NhbGVkLmpwZw/GettyImages-2299606950-scaled.jpg",
+      "url": "https://www.politico.eu/article/in-europe-tech-capital-ireland-irish-labor-unions-are-booming-amid-ai-layoffs/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication",
       "image_description": "",
-      "embed_url": "",
-      "blurhash": "UJEnFg{NM#;5J8NbSfW:odsAjGOq=d,Z$PbZ",
-      "published_at": "2026-10-20T16:20:06.000Z",
-      "authors": []
+      "provider_name": "www.politico.eu",
+      "provider_url": "https://www.politico.eu"
     },
-    "poll": null,
-    "quote_approval": {
-      "automatic": [],
-      "manual": [],
-      "current_user": "denied"
-    }
-  },
-  {
-    "id": "117476540757104584",
-    "created_at": "2026-10-21T02:29:12.000Z",
+    "replies_count": 0,
+    "quotes_count": 0,
+    "emojis": [],
+    "created_at": "2026-10-16T15:51:26.000Z",
+    "mentions": [],
+    "pinned": false,
+    "account": {
+      "id": "AIO5QWxumydoliIT56",
+      "header": "https://social.espeweb.net/images/banner.png",
+      "pleroma": {
+        "relationship": {},
+        "tags": [],
+        "header_description": "",
+        "avatar_description": "",
+        "is_confirmed": true,
+        "ap_id": "https://social.espeweb.net/users/politico_eu_bot",
+        "is_admin": false,
+        "is_moderator": false,
+        "accepts_chat_messages": true,
+        "also_known_as": [],
+        "hide_favorites": true,
+        "hide_followers": false,
+        "hide_followers_count": false,
+        "hide_follows": false,
+        "hide_follows_count": false,
+        "is_suggested": false,
+        "skip_thread_containment": false,
+        "background_image": null,
+        "favicon": null,
+        "privileges": []
+      },
+      "fields": [],
+      "source": {
+        "sensitive": false,
+        "pleroma": {
+          "actor_type": "Service",
+          "discoverable": false
+        },
+        "fields": [],
+        "note": "Fetching from https://www.politico.eu/feed/"
+      },
+      "username": "politico_eu_bot",
+      "locked": false,
+      "url": "https://social.espeweb.net/users/politico_eu_bot",
+      "display_name": " Politico.eu (Unofficial RSS)",
+      "statuses_count": 748,
+      "note": "Fetching from <a href=\"https://www.politico.eu/feed/\">https://www.politico.eu/feed/</a>",
+      "header_static": "https://social.espeweb.net/images/banner.png",
+      "header_description": "",
+      "following_count": 0,
+      "followers_count": 2082,
+      "emojis": [],
+      "created_at": "2022-04-12T22:54:29.000Z",
+      "bot": true,
+      "avatar_static": "https://social.espeweb.net/media/6578a51c9dfc7a1ee0ded2431fb1ded47801d97d5c5d47f87562cf620a15fae7.jpg",
+      "avatar_description": "",
+      "avatar": "https://social.espeweb.net/media/6578a51c9dfc7a1ee0ded2431fb1ded47801d97d5c5d47f87562cf620a15fae7.jpg",
+      "acct": "politico_eu_bot",
+      "last_status_at": "2026-10-29",
+      "fqn": "politico_eu_bot@social.espeweb.net"
+    },
+    "media_attachments": [],
+    "visibility": "public",
+    "spoiler_text": "",
+    "reblogs_count": 0,
+    "reblogged": false,
+    "reblog": null,
+    "muted": false,
     "in_reply_to_id": null,
     "in_reply_to_account_id": null,
-    "sensitive": false,
-    "spoiler_text": "",
-    "visibility": "public",
-    "language": "en",
-    "uri": "https://jforo.com/users/yayafa/statuses/117476540590703933",
-    "url": "https://jforo.com/@yayafa/117476540590703933",
-    "replies_count": 0,
-    "reblogs_count": 0,
     "favourites_count": 0,
-    "quotes_count": 0,
+    "favourited": false,
     "edited_at": null,
-    "content": "<p>メディアジーンとインフォバーン、人とAIの双方に届ける「AIコンテンツマーケティング支援事業」に向けた取り組みを開始──AI時代にふさわしい「真の影響力」を提供できるメディア企業グループへ── || メディアジーン | Mediagene <a href=\"https://www.yayafa.com/2915780/\" rel=\"nofollow noopener\" translate=\"no\" target=\"_blank\"><span class=\"invisible\">https://www.</span><span class=\"\">yayafa.com/2915780/</span><span class=\"invisible\"></span></a> <a href=\"https://jforo.com/tags/AgenticAi\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>AgenticAi</span></a> <a href=\"https://jforo.com/tags/AI\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>AI</span></a> <a href=\"https://jforo.com/tags/ArtificialGeneralIntelligence\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>ArtificialGeneralIntelligence</span></a> <a href=\"https://jforo.com/tags/ArtificialIntelligence\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>ArtificialIntelligence</span></a> <a href=\"https://jforo.com/tags/mediagene\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>mediagene</span></a> <a href=\"https://jforo.com/tags/%E3%82%A8%E3%83%BC%E3%82%B8%E3%82%A7%E3%83%B3%E3%83%88%E5%9E%8BAI\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>エージェント型AI</span></a> <a href=\"https://jforo.com/tags/%E3%82%AA%E3%83%B3%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%91%E3%83%96%E3%83%AA%E3%83%83%E3%82%B7%E3%83%A3%E3%83%BC\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>オンラインパブリッシャー</span></a> <a href=\"https://jforo.com/tags/%E3%82%BF%E3%83%BC%E3%82%B2%E3%83%83%E3%83%88%E3%83%BB%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>ターゲット・メディア</span></a> <a href=\"https://jforo.com/tags/%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%82%B8%E3%83%BC%E3%83%B3\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>メディアジーン</span></a> <a href=\"https://jforo.com/tags/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>人工知能</span></a> <a href=\"https://jforo.com/tags/%E6%B1%8E%E7%94%A8%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>汎用人工知能</span></a></p>",
-    "reblog": null,
-    "account": {
-      "id": "113978073284208744",
-      "username": "yayafa",
-      "acct": "yayafa@jforo.com",
-      "display_name": "YAYAFA",
-      "locked": false,
-      "bot": false,
-      "discoverable": true,
-      "indexable": true,
-      "group": false,
-      "created_at": "2025-02-10T00:00:00.000Z",
-      "note": "<p><a href=\"https://jforo.com/tags/JAPAN\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>JAPAN</span></a><br><a href=\"https://jforo.com/tags/NEWS\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>NEWS</span></a><br><a href=\"https://jforo.com/tags/BUSINESS\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>BUSINESS</span></a><br><a href=\"https://jforo.com/tags/ENTERTAINMENT\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>ENTERTAINMENT</span></a></p>",
-      "url": "https://jforo.com/@yayafa",
-      "uri": "https://jforo.com/users/yayafa",
-      "avatar": "https://files.mastodon.social/cache/accounts/avatars/113/978/073/284/208/744/original/fbeba39d891deaef.png",
-      "avatar_static": "https://files.mastodon.social/cache/accounts/avatars/113/978/073/284/208/744/original/fbeba39d891deaef.png",
-      "avatar_description": "",
-      "header": "https://files.mastodon.social/cache/accounts/headers/113/978/073/284/208/744/original/13944be39dfd4780.jpg",
-      "header_static": "https://files.mastodon.social/cache/accounts/headers/113/978/073/284/208/744/original/13944be39dfd4780.jpg",
-      "header_description": "",
-      "followers_count": 134,
-      "following_count": 0,
-      "statuses_count": 8317,
-      "last_status_at": "2026-10-21",
-      "hide_collections": false,
-      "show_media": true,
-      "show_media_replies": true,
-      "show_featured": true,
-      "feature_approval": {
-        "automatic": [],
-        "manual": [],
-        "current_user": "denied"
-      },
-      "emojis": [],
-      "fields": [
-        {
-          "name": "Website",
-          "value": "<a href=\"https://www.yayafa.com\" rel=\"nofollow noopener\" translate=\"no\" target=\"_blank\"><span class=\"invisible\">https://www.</span><span class=\"\">yayafa.com</span><span class=\"invisible\"></span></a>",
-          "verified_at": null
-        }
-      ]
-    },
-    "media_attachments": [
-      {
-        "id": "117476540648728816",
-        "type": "image",
-        "url": "https://files.mastodon.social/cache/media_attachments/files/117/476/540/648/728/816/original/2111363b4ba1d182.png",
-        "preview_url": "https://files.mastodon.social/cache/media_attachments/files/117/476/540/648/728/816/small/2111363b4ba1d182.png",
-        "remote_url": "https://media.jforo.com/media_attachments/files/117/476/540/503/021/161/original/bd520c49ffaef559.png",
-        "preview_remote_url": null,
-        "text_url": null,
-        "meta": {
-          "original": {
-            "width": 1024,
-            "height": 567,
-            "size": "1024x567",
-            "aspect": 1.8059964726631392
-          },
-          "small": {
-            "width": 645,
-            "height": 357,
-            "size": "645x357",
-            "aspect": 1.8067226890756303
-          }
-        },
-        "description": "メディアジーンとインフォバーン、人とAIの双方に届ける「AIコンテンツマーケティング支援事業」に向けた取り組みを開始──AI時代にふさわしい「真の影響力」を提供できるメディア企業グループへ── || メディアジーン | Mediagene",
-        "blurhash": "UDS$ovt8of%M-;fRfQfQ~qt6WBWC-;j[fQj["
-      }
-    ],
-    "mentions": [],
-    "tags": [
-      {
-        "name": "agenticai",
-        "url": "https://mastodon.social/tags/agenticai"
-      },
-      {
-        "name": "ai",
-        "url": "https://mastodon.social/tags/ai"
-      },
-      {
-        "name": "artificialgeneralintelligence",
-        "url": "https://mastodon.social/tags/artificialgeneralintelligence"
-      },
-      {
-        "name": "artificialintelligence",
-        "url": "https://mastodon.social/tags/artificialintelligence"
-      },
-      {
-        "name": "mediagene",
-        "url": "https://mastodon.social/tags/mediagene"
-      },
-      {
-        "name": "エージェント型ai",
-        "url": "https://mastodon.social/tags/%E3%82%A8%E3%83%BC%E3%82%B8%E3%82%A7%E3%83%B3%E3%83%88%E5%9E%8Bai"
-      },
-      {
-        "name": "オンラインパブリッシャー",
-        "url": "https://mastodon.social/tags/%E3%82%AA%E3%83%B3%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%91%E3%83%96%E3%83%AA%E3%83%83%E3%82%B7%E3%83%A3%E3%83%BC"
-      },
-      {
-        "name": "ターゲット・メディア",
-        "url": "https://mastodon.social/tags/%E3%82%BF%E3%83%BC%E3%82%B2%E3%83%83%E3%83%88%E3%83%BB%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2"
-      },
-      {
-        "name": "メディアジーン",
-        "url": "https://mastodon.social/tags/%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%82%B8%E3%83%BC%E3%83%B3"
-      },
-      {
-        "name": "人工知能",
-        "url": "https://mastodon.social/tags/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD"
-      },
-      {
-        "name": "汎用人工知能",
-        "url": "https://mastodon.social/tags/%E6%B1%8E%E7%94%A8%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD"
-      }
-    ],
-    "emojis": [],
-    "tagged_collections": [],
-    "quote": null,
-    "card": null,
-    "poll": null,
-    "quote_approval": {
-      "automatic": [],
-      "manual": [],
-      "current_user": "denied"
-    }
+    "bookmarked": false
   },
   {
-    "id": "117476505156844059",
-    "created_at": "2026-10-21T02:20:09.000Z",
-    "in_reply_to_id": null,
-    "in_reply_to_account_id": null,
+    "id": "BBQCiPUVY3N7AINhrM",
     "sensitive": false,
-    "spoiler_text": "",
-    "visibility": "public",
-    "language": "en",
-    "uri": "https://jforo.com/users/yayafa/statuses/117476504987784757",
-    "url": "https://jforo.com/@yayafa/117476504987784757",
-    "replies_count": 0,
-    "reblogs_count": 0,
-    "favourites_count": 0,
-    "quotes_count": 0,
-    "edited_at": null,
-    "content": "<p>ＧＭＯ、MCP対応でAIによる契約業務の自動化を支援する新オプション – VOIX biz <a href=\"https://www.yayafa.com/2915778/\" rel=\"nofollow noopener\" translate=\"no\" target=\"_blank\"><span class=\"invisible\">https://www.</span><span class=\"\">yayafa.com/2915778/</span><span class=\"invisible\"></span></a> <a href=\"https://jforo.com/tags/AgenticAi\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>AgenticAi</span></a> <a href=\"https://jforo.com/tags/AI\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>AI</span></a> <a href=\"https://jforo.com/tags/ArtificialGeneralIntelligence\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>ArtificialGeneralIntelligence</span></a> <a href=\"https://jforo.com/tags/ArtificialIntelligence\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>ArtificialIntelligence</span></a> <a href=\"https://jforo.com/tags/DX\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>DX</span></a> <a href=\"https://jforo.com/tags/%E3%82%A8%E3%83%BC%E3%82%B8%E3%82%A7%E3%83%B3%E3%83%88%E5%9E%8BAI\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>エージェント型AI</span></a> <a href=\"https://jforo.com/tags/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>人工知能</span></a> <a href=\"https://jforo.com/tags/%E6%B1%8E%E7%94%A8%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>汎用人工知能</span></a> <a href=\"https://jforo.com/tags/%E8%A6%8F%E5%88%B6%E3%83%BB%E8%AA%8D%E8%A8%BC\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>規制・認証</span></a></p>",
-    "reblog": null,
-    "account": {
-      "id": "113978073284208744",
-      "username": "yayafa",
-      "acct": "yayafa@jforo.com",
-      "display_name": "YAYAFA",
-      "locked": false,
-      "bot": false,
-      "discoverable": true,
-      "indexable": true,
-      "group": false,
-      "created_at": "2025-02-10T00:00:00.000Z",
-      "note": "<p><a href=\"https://jforo.com/tags/JAPAN\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>JAPAN</span></a><br><a href=\"https://jforo.com/tags/NEWS\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>NEWS</span></a><br><a href=\"https://jforo.com/tags/BUSINESS\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>BUSINESS</span></a><br><a href=\"https://jforo.com/tags/ENTERTAINMENT\" class=\"mention hashtag\" rel=\"nofollow noopener\" target=\"_blank\">#<span>ENTERTAINMENT</span></a></p>",
-      "url": "https://jforo.com/@yayafa",
-      "uri": "https://jforo.com/users/yayafa",
-      "avatar": "https://files.mastodon.social/cache/accounts/avatars/113/978/073/284/208/744/original/fbeba39d891deaef.png",
-      "avatar_static": "https://files.mastodon.social/cache/accounts/avatars/113/978/073/284/208/744/original/fbeba39d891deaef.png",
-      "avatar_description": "",
-      "header": "https://files.mastodon.social/cache/accounts/headers/113/978/073/284/208/744/original/13944be39dfd4780.jpg",
-      "header_static": "https://files.mastodon.social/cache/accounts/headers/113/978/073/284/208/744/original/13944be39dfd4780.jpg",
-      "header_description": "",
-      "followers_count": 134,
-      "following_count": 0,
-      "statuses_count": 8317,
-      "last_status_at": "2026-10-21",
-      "hide_collections": false,
-      "show_media": true,
-      "show_media_replies": true,
-      "show_featured": true,
-      "feature_approval": {
-        "automatic": [],
-        "manual": [],
-        "current_user": "denied"
-      },
-      "emojis": [],
-      "fields": [
-        {
-          "name": "Website",
-          "value": "<a href=\"https://www.yayafa.com\" rel=\"nofollow noopener\" translate=\"no\" target=\"_blank\"><span class=\"invisible\">https://www.</span><span class=\"\">yayafa.com</span><span class=\"invisible\"></span></a>",
-          "verified_at": null
-        }
-      ]
+    "application": {
+      "name": "feed2toot",
+      "website": null
     },
-    "media_attachments": [
-      {
-        "id": "117476505038069083",
-        "type": "image",
-        "url": "https://files.mastodon.social/cache/media_attachments/files/117/476/505/038/069/083/original/a4e24fceeca8834c.png",
-        "preview_url": "https://files.mastodon.social/cache/media_attachments/files/117/476/505/038/069/083/small/a4e24fceeca8834c.png",
-        "remote_url": "https://media.jforo.com/media_attachments/files/117/476/504/892/614/421/original/1708737669ec406b.png",
-        "preview_remote_url": null,
-        "text_url": null,
-        "meta": {
-          "original": {
-            "width": 768,
-            "height": 403,
-            "size": "768x403",
-            "aspect": 1.9057071960297767
-          },
-          "small": {
-            "width": 663,
-            "height": 348,
-            "size": "663x348",
-            "aspect": 1.9051724137931034
-          }
-        },
-        "description": "ＧＭＯ、MCP対応でAIによる契約業務の自動化を支援する新オプション",
-        "blurhash": "U95iyvtmXTbwyZX9kWkW9ZW=tRkDo~tRkWWV"
-      }
-    ],
-    "mentions": [],
+    "pleroma": {
+      "local": true,
+      "context": "https://social.espeweb.net/contexts/af90ad58-cade-43a2-a0e3-878d2fdf8c23",
+      "quote": null,
+      "expires_at": null,
+      "content": {
+        "text/plain": "Why Ukrainian strikes on data centers are a real problem for Russia — and beyond https://www.politico.eu/article/ukrainian-strikes-data-centers-problem-russia/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication #CybersecurityandDataProtection #ArtificialIntelligence #Infrastructure #Onlineshopping #Cyberwarfare #Intelligence #WarinUkraine #DataCenters #digitalwar #Resilience #Technology #Technology #Elections #Sanctions #Conflict #Military #Payments #Security #Services #digital"
+      },
+      "quotes_count": 0,
+      "spoiler_text": {
+        "text/plain": ""
+      },
+      "conversation_id": 391503285,
+      "direct_conversation_id": null,
+      "quote_url": null,
+      "emoji_reactions": [],
+      "in_reply_to_account_acct": null,
+      "list_id": null,
+      "parent_visible": false,
+      "pinned_at": null,
+      "quote_id": null,
+      "quote_visible": false,
+      "thread_muted": false,
+      "bookmark_folder": null
+    },
+    "text": null,
+    "uri": "https://social.espeweb.net/objects/39126195-ca95-4ace-bec0-c28dc78ab78f",
+    "url": "https://social.espeweb.net/notice/BBQCiPUVY3N7AINhrM",
+    "language": null,
+    "content": "Why Ukrainian strikes on data centers are a real problem for Russia — and beyond <a href=\"https://www.politico.eu/article/ukrainian-strikes-data-centers-problem-russia/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication\" rel=\"ugc\">https://www.politico.eu/article/ukrainian-strikes-data-centers-problem-russia/?utm_source=RSS_Feed&amp;utm_medium=RSS&amp;utm_campaign=RSS_Syndication</a> <a class=\"hashtag\" data-tag=\"cybersecurityanddataprotection\" href=\"https://social.espeweb.net/tag/cybersecurityanddataprotection\">#CybersecurityandDataProtection</a> <a class=\"hashtag\" data-tag=\"artificialintelligence\" href=\"https://social.espeweb.net/tag/artificialintelligence\">#ArtificialIntelligence</a> <a class=\"hashtag\" data-tag=\"infrastructure\" href=\"https://social.espeweb.net/tag/infrastructure\">#Infrastructure</a> <a class=\"hashtag\" data-tag=\"onlineshopping\" href=\"https://social.espeweb.net/tag/onlineshopping\">#Onlineshopping</a> <a class=\"hashtag\" data-tag=\"cyberwarfare\" href=\"https://social.espeweb.net/tag/cyberwarfare\">#Cyberwarfare</a> <a class=\"hashtag\" data-tag=\"intelligence\" href=\"https://social.espeweb.net/tag/intelligence\">#Intelligence</a> <a class=\"hashtag\" data-tag=\"warinukraine\" href=\"https://social.espeweb.net/tag/warinukraine\">#WarinUkraine</a> <a class=\"hashtag\" data-tag=\"datacenters\" href=\"https://social.espeweb.net/tag/datacenters\">#DataCenters</a> <a class=\"hashtag\" data-tag=\"digitalwar\" href=\"https://social.espeweb.net/tag/digitalwar\">#digitalwar</a> <a class=\"hashtag\" data-tag=\"resilience\" href=\"https://social.espeweb.net/tag/resilience\">#Resilience</a> <a class=\"hashtag\" data-tag=\"technology\" href=\"https://social.espeweb.net/tag/technology\">#Technology</a> <a class=\"hashtag\" data-tag=\"technology\" href=\"https://social.espeweb.net/tag/technology\">#Technology</a> <a class=\"hashtag\" data-tag=\"elections\" href=\"https://social.espeweb.net/tag/elections\">#Elections</a> <a class=\"hashtag\" data-tag=\"sanctions\" href=\"https://social.espeweb.net/tag/sanctions\">#Sanctions</a> <a class=\"hashtag\" data-tag=\"conflict\" href=\"https://social.espeweb.net/tag/conflict\">#Conflict</a> <a class=\"hashtag\" data-tag=\"military\" href=\"https://social.espeweb.net/tag/military\">#Military</a> <a class=\"hashtag\" data-tag=\"payments\" href=\"https://social.espeweb.net/tag/payments\">#Payments</a> <a class=\"hashtag\" data-tag=\"security\" href=\"https://social.espeweb.net/tag/security\">#Security</a> <a class=\"hashtag\" data-tag=\"services\" href=\"https://social.espeweb.net/tag/services\">#Services</a> <a class=\"hashtag\" data-tag=\"digital\" href=\"https://social.espeweb.net/tag/digital\">#digital</a>",
+    "poll": null,
     "tags": [
       {
-        "name": "agenticai",
-        "url": "https://mastodon.social/tags/agenticai"
-      },
-      {
-        "name": "ai",
-        "url": "https://mastodon.social/tags/ai"
-      },
-      {
-        "name": "artificialgeneralintelligence",
-        "url": "https://mastodon.social/tags/artificialgeneralintelligence"
-      },
-      {
         "name": "artificialintelligence",
-        "url": "https://mastodon.social/tags/artificialintelligence"
+        "url": "https://social.espeweb.net/tag/artificialintelligence"
       },
       {
-        "name": "dx",
-        "url": "https://mastodon.social/tags/dx"
+        "name": "conflict",
+        "url": "https://social.espeweb.net/tag/conflict"
       },
       {
-        "name": "エージェント型ai",
-        "url": "https://mastodon.social/tags/%E3%82%A8%E3%83%BC%E3%82%B8%E3%82%A7%E3%83%B3%E3%83%88%E5%9E%8Bai"
+        "name": "cybersecurityanddataprotection",
+        "url": "https://social.espeweb.net/tag/cybersecurityanddataprotection"
       },
       {
-        "name": "人工知能",
-        "url": "https://mastodon.social/tags/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD"
+        "name": "cyberwarfare",
+        "url": "https://social.espeweb.net/tag/cyberwarfare"
       },
       {
-        "name": "汎用人工知能",
-        "url": "https://mastodon.social/tags/%E6%B1%8E%E7%94%A8%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD"
+        "name": "datacenters",
+        "url": "https://social.espeweb.net/tag/datacenters"
       },
       {
-        "name": "規制・認証",
-        "url": "https://mastodon.social/tags/%E8%A6%8F%E5%88%B6%E3%83%BB%E8%AA%8D%E8%A8%BC"
+        "name": "elections",
+        "url": "https://social.espeweb.net/tag/elections"
+      },
+      {
+        "name": "infrastructure",
+        "url": "https://social.espeweb.net/tag/infrastructure"
+      },
+      {
+        "name": "intelligence",
+        "url": "https://social.espeweb.net/tag/intelligence"
+      },
+      {
+        "name": "military",
+        "url": "https://social.espeweb.net/tag/military"
+      },
+      {
+        "name": "onlineshopping",
+        "url": "https://social.espeweb.net/tag/onlineshopping"
+      },
+      {
+        "name": "payments",
+        "url": "https://social.espeweb.net/tag/payments"
+      },
+      {
+        "name": "resilience",
+        "url": "https://social.espeweb.net/tag/resilience"
+      },
+      {
+        "name": "sanctions",
+        "url": "https://social.espeweb.net/tag/sanctions"
+      },
+      {
+        "name": "security",
+        "url": "https://social.espeweb.net/tag/security"
+      },
+      {
+        "name": "services",
+        "url": "https://social.espeweb.net/tag/services"
+      },
+      {
+        "name": "technology",
+        "url": "https://social.espeweb.net/tag/technology"
+      },
+      {
+        "name": "warinukraine",
+        "url": "https://social.espeweb.net/tag/warinukraine"
+      },
+      {
+        "name": "digital",
+        "url": "https://social.espeweb.net/tag/digital"
+      },
+      {
+        "name": "digitalwar",
+        "url": "https://social.espeweb.net/tag/digitalwar"
       }
     ],
+    "card": {
+      "type": "link",
+      "description": "Servers have become a target of war. As well as disrupting daily life, the strikes are raising questions of international law.",
+      "pleroma": {
+        "opengraph": {
+          "card": "summary_large_image",
+          "description": "Servers have become a target of war. As well as disrupting daily life, the strikes are raising questions of international law.",
+          "image": "https://social.espeweb.net/proxy/_ofARwq06CRip55iFNov1pSdkp8/aHR0cHM6Ly93d3cucG9saXRpY28uZXUvY2RuLWNnaS9pbWFnZS93aWR0aD0xMjAwLGhlaWdodD02MzAsZml0PWNyb3AscXVhbGl0eT04MCxvbmVycm9yPXJlZGlyZWN0L3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDI2LzEwLzE1L0dldHR5SW1hZ2VzLTIyODI0MTE1NTktc2NhbGVkLmpwZw/GettyImages-2282411559-scaled.jpg",
+          "image:height": "630",
+          "image:width": "1200",
+          "title": "Why Ukrainian strikes on data centers are a real problem for Russia — and beyond",
+          "type": "article",
+          "url": "https://www.politico.eu/article/ukrainian-strikes-data-centers-problem-russia/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication"
+        }
+      },
+      "title": "Why Ukrainian strikes on data centers are a real problem for Russia — and beyond",
+      "image": "https://social.espeweb.net/proxy/_ofARwq06CRip55iFNov1pSdkp8/aHR0cHM6Ly93d3cucG9saXRpY28uZXUvY2RuLWNnaS9pbWFnZS93aWR0aD0xMjAwLGhlaWdodD02MzAsZml0PWNyb3AscXVhbGl0eT04MCxvbmVycm9yPXJlZGlyZWN0L3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDI2LzEwLzE1L0dldHR5SW1hZ2VzLTIyODI0MTE1NTktc2NhbGVkLmpwZw/GettyImages-2282411559-scaled.jpg",
+      "url": "https://www.politico.eu/article/ukrainian-strikes-data-centers-problem-russia/?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication",
+      "image_description": "",
+      "provider_name": "www.politico.eu",
+      "provider_url": "https://www.politico.eu"
+    },
+    "replies_count": 0,
+    "quotes_count": 0,
     "emojis": [],
-    "tagged_collections": [],
-    "quote": null,
-    "card": null,
-    "poll": null,
-    "quote_approval": {
-      "automatic": [],
-      "manual": [],
-      "current_user": "denied"
-    }
+    "created_at": "2026-10-15T02:11:08.000Z",
+    "mentions": [],
+    "pinned": false,
+    "account": {
+      "id": "AIO5QWxumydoliIT56",
+      "header": "https://social.espeweb.net/images/banner.png",
+      "pleroma": {
+        "relationship": {},
+        "tags": [],
+        "header_description": "",
+        "avatar_description": "",
+        "is_confirmed": true,
+        "ap_id": "https://social.espeweb.net/users/politico_eu_bot",
+        "is_admin": false,
+        "is_moderator": false,
+        "accepts_chat_messages": true,
+        "also_known_as": [],
+        "hide_favorites": true,
+        "hide_followers": false,
+        "hide_followers_count": false,
+        "hide_follows": false,
+        "hide_follows_count": false,
+        "is_suggested": false,
+        "skip_thread_containment": false,
+        "background_image": null,
+        "favicon": null,
+        "privileges": []
+      },
+      "fields": [],
+      "source": {
+        "sensitive": false,
+        "pleroma": {
+          "actor_type": "Service",
+          "discoverable": false
+        },
+        "fields": [],
+        "note": "Fetching from https://www.politico.eu/feed/"
+      },
+      "username": "politico_eu_bot",
+      "locked": false,
+      "url": "https://social.espeweb.net/users/politico_eu_bot",
+      "display_name": " Politico.eu (Unofficial RSS)",
+      "statuses_count": 748,
+      "note": "Fetching from <a href=\"https://www.politico.eu/feed/\">https://www.politico.eu/feed/</a>",
+      "header_static": "https://social.espeweb.net/images/banner.png",
+      "header_description": "",
+      "following_count": 0,
+      "followers_count": 2082,
+      "emojis": [],
+      "created_at": "2022-04-12T22:54:29.000Z",
+      "bot": true,
+      "avatar_static": "https://social.espeweb.net/media/6578a51c9dfc7a1ee0ded2431fb1ded47801d97d5c5d47f87562cf620a15fae7.jpg",
+      "avatar_description": "",
+      "avatar": "https://social.espeweb.net/media/6578a51c9dfc7a1ee0ded2431fb1ded47801d97d5c5d47f87562cf620a15fae7.jpg",
+      "acct": "politico_eu_bot",
+      "last_status_at": "2026-10-29",
+      "fqn": "politico_eu_bot@social.espeweb.net"
+    },
+    "media_attachments": [],
+    "visibility": "public",
+    "spoiler_text": "",
+    "reblogs_count": 1,
+    "reblogged": false,
+    "reblog": null,
+    "muted": false,
+    "in_reply_to_id": null,
+    "in_reply_to_account_id": null,
+    "favourites_count": 0,
+    "favourited": false,
+    "edited_at": null,
+    "bookmarked": false
   }
 ]

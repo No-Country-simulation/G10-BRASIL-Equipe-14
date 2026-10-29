@@ -28,11 +28,10 @@ class TestDataSourceCollector(unittest.TestCase):
         collector = DataSourceCollector()
         data = collector.fetch_stack_exchange(tag="artificial-intelligence", limit=1)
 
-        # Valida se o payload bruto foi retornado corretamente
-        self.assertIn("items", data)
-        self.assertEqual(len(data["items"]), 1)
-        self.assertEqual(data["items"][0]["question_id"], 123456)
-        self.assertEqual(data["items"][0]["title"], "Teste de Pergunta Stack Exchange")
+        self.assertIsInstance(data, list)
+        self.assertEqual(len(data), 1)
+        self.assertEqual(data[0]["question_id"], 123456)
+        self.assertEqual(data[0]["title"], "Teste de Pergunta Stack Exchange")
 
     @patch("src.pipeline.sample_collector.requests.Session.get")
     def test_fetch_hacker_news_raw(self, mock_get):
@@ -56,11 +55,10 @@ class TestDataSourceCollector(unittest.TestCase):
         collector = DataSourceCollector()
         data = collector.fetch_hacker_news(query="artificial-intelligence", limit=1)
 
-        # Valida se o payload bruto foi retornado corretamente
-        self.assertIn("hits", data)
-        self.assertEqual(len(data["hits"]), 1)
-        self.assertEqual(data["hits"][0]["objectID"], "987654")
-        self.assertEqual(data["hits"][0]["author"], "dev_guru")
+        self.assertIsInstance(data, list)
+        self.assertEqual(len(data), 1)
+        self.assertEqual(data[0]["objectID"], "987654")
+        self.assertEqual(data[0]["author"], "dev_guru")
 
     @patch("src.pipeline.sample_collector.requests.Session.get")
     def test_fetch_mastodon_raw(self, mock_get):

@@ -14,10 +14,8 @@ OUTPUT_SCHEMA_PATH = SCHEMAS_DATA_DIR / "output_schema.json"
 
 # Definindo os parâmetros padrões de coleta
 DEFAULT_LIMIT = 10
-DEFAULT_TAG = "artificial-intelligence"  # Tag padrão para coleta do Stack Exchange
-SAMPLES_DEFAULT_PERIOD = (
-    1761027120  # Timestamp fixo (samples) em 2025-10-21 22:32:00 UTC
-)
+DEFAULT_TAG = "artificial-intelligence"
+DEFAULT_PERIOD = 1761027120  # Timestamp do período de 1 ano fixo em formato Unix. Data: 2025-10-21 06:12:00 UTC
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
@@ -33,7 +31,7 @@ STACKEXCHANGE_PARAMS = {
     "sort": "votes",
     "tagged": DEFAULT_TAG,
     "pagesize": DEFAULT_LIMIT,
-    "fromdate": SAMPLES_DEFAULT_PERIOD,
+    "fromdate": DEFAULT_PERIOD,
     "filter": "default",
 }
 
@@ -44,13 +42,12 @@ HACKER_NEWS_PARAMS = {
     "query": DEFAULT_TAG,
     "tags": "story",
     "hitsPerPage": DEFAULT_LIMIT,
-    "numericFilters": f"created_at_i>={SAMPLES_DEFAULT_PERIOD}",
+    "numericFilters": f"created_at_i>={DEFAULT_PERIOD}",
 }
 
 # Parâmetros do Mastodon API (https://docs.joinmastodon.org/api/rest/)
-MASTODON_INSTANCE = "mastodon.social"
-MASTODON_BASE_URL = f"https://{MASTODON_INSTANCE}/api/v1/timelines/tag/{DEFAULT_TAG}"
+MASTODON_INSTANCE = "social.espeweb.net"
+MASTODON_BASE_URL = "https://{instance}/api/v1/timelines/tag/{hashtag}"
 MASTODON_PARAMS = {
     "limit": DEFAULT_LIMIT,
-    "from_date": SAMPLES_DEFAULT_PERIOD,
 }

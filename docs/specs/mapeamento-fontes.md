@@ -62,8 +62,8 @@ Este documento especifica os parâmetros operacionais, regras de requisição, c
 
 ### 2.3. Mastodon API
 * **Endpoint Base:** `https://{instance}/api/v1/timelines/tag/{hashtag}`
-* **Instância:** `mastodon.social`
-* **Hashtag:** Definido como `artificial-intelligence` via `DEFAULT_TAG` em `src/config.py`
+* **Instância:** `social.espeweb.net`
+* **Hashtag:** Definido como `artificialintelligence` via `DEFAULT_TAG` em `src/config.py` (aplicado o método replace, pois a hashtag no Mastodon não suporta hífen) 
 * **Código Python:** `src/pipeline/sample_collector.py`
 * **Módulo Python:** `DataSourceCollector.fetch_mastodon()`
 * **Método:** `GET`
@@ -76,18 +76,25 @@ Este documento especifica os parâmetros operacionais, regras de requisição, c
 
     Foco na recuperação cronológica reversa dos posts mais recentes da timeline pública por hashtag na instância alvo (`mastodon.social`), preservando o payload bruto integral sem forçar filtros de timestamp incompatíveis com a rota básica.
 
+* **Observação:**
+
+   * A API de timelines por hashtag do Mastodon (/api/v1/timelines/tag/{hashtag}) não aceita parâmetros de data como `fromdate` ou timestamps equivalentes para filtrar postagens a partir de um período específico.
+    
+   * Enquanto o Stack Exchange e o Hacker News respeitam o período fixo congelado para gerar samples consistentes, o Mastodon trará sempre os posts atuais disponíveis para aquela hashtag no momento da execução, o que é uma limitação da própria API da plataforma.
+
 ---
 
 ## 3. Diretrizes Gerais de Coleta
 1. **Isolamento de Erros:** Exceções capturadas na coleta de uma fonte específica registram o erro via logging sem interromper o fluxo das demais fontes.
 
+2. **Período Fixo de Coleta de Samples:** Para garantir a consistência das amostras (samples) das APIs, foi definido um marco temporal inicial a partir de `21/10/2025 06:12:00` (correspondente ao timestamp Unix `1761027120`). Entretanto, devido às restrições da API do Mastodon, não foi possível aplicar o parâmetro de filtro temporal nessa plataforma, mantendo-se o comportamento padrão da API de retornar os posts mais recentes.
 
-2. **Persistência de Samples:** Falha na coleta de uma fonte não deve abortar o pipeline das demais fontes.
-3. **Persistência de Samples:** Os samples obtidos diretamente das APIs são gravados localmente na pasta `data/samples/` utilizando convenção de nomenclatura sem sublinhados na fonte:
+3. **Persistência de Samples:** A falha na coleta de uma fonte não deve abortar o pipeline das demais. Os dados obtidos diretamente das APIs são gravados localmente no diretório `data/samples/`, utilizando uma convenção de nomenclatura sem sublinhados na identificação da fonte:
 
   * sample_stackexchange_api.json
   * sample_hackernews_api.json
   * sample_mastodon_api.json
+
 
 ---
 
@@ -116,8 +123,8 @@ projeto/
 #### Passo 2: Executando a Coleta Integrada
 Execute o script de execução do pipeline de ingestão dos samples:
 
-```python
-uv python -m src.pipeline.run_sample_collector
+```bash
+uv run python -m src.pipeline.run_sample_collector
 ```
 
 * **Comportamento esperado:** O script consultará sequencialmente as APIs do Stack Exchange, Hacker News e Mastodon e salvará os respetivos ficheiros em `data/samples/`.
