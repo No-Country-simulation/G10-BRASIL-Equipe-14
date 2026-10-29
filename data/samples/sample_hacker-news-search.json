@@ -1,0 +1,227 @@
+[
+  {
+    "exhaustive": {
+      "nbHits": false,
+      "typo": false
+    },
+    "exhaustiveNbHits": false,
+    "exhaustiveTypo": false,
+    "hits": [
+      {
+        "_highlightResult": {
+          "author": {
+            "matchLevel": "none",
+            "matchedWords": [],
+            "value": "tirumaraiselvan"
+          },
+          "title": {
+            "fullyHighlighted": false,
+            "matchLevel": "full",
+            "matchedWords": [
+              "artificial",
+              "intelligence"
+            ],
+            "value": "<em>Artificial</em> <em>intelligence</em> is capitalism's final destination"
+          },
+          "url": {
+            "fullyHighlighted": false,
+            "matchLevel": "full",
+            "matchedWords": [
+              "artificial",
+              "intelligence"
+            ],
+            "value": "https://www.equator.org/articles/arundhati-roy-<em>artificial</em>-<em>intelligence</em>"
+          }
+        },
+        "_tags": [
+          "story",
+          "author_tirumaraiselvan",
+          "story_50117382"
+        ],
+        "author": "tirumaraiselvan",
+        "children": [
+          50117383,
+          50117497,
+          50118752,
+          50118766,
+          50118780,
+          50118793,
+          50118870,
+          50118886,
+          50118936,
+          50118942,
+          50118948,
+          50118976,
+          50118982,
+          50118989,
+          50119030,
+          50119048,
+          50119064,
+          50119075,
+          50119081,
+          50119102,
+          50119169,
+          50119206,
+          50119224,
+          50119237,
+          50119852,
+          50120449,
+          50124938
+        ],
+        "created_at": "2026-10-16T12:08:40Z",
+        "created_at_i": 1792152520,
+        "num_comments": 130,
+        "objectID": "50117382",
+        "points": 130,
+        "story_id": 50117382,
+        "title": "Artificial intelligence is capitalism's final destination",
+        "updated_at": "2026-10-26T00:02:02Z",
+        "url": "https://www.equator.org/articles/arundhati-roy-artificial-intelligence"
+      },
+      {
+        "_highlightResult": {
+          "author": {
+            "matchLevel": "none",
+            "matchedWords": [],
+            "value": "mikelgan"
+          },
+          "title": {
+            "fullyHighlighted": false,
+            "matchLevel": "full",
+            "matchedWords": [
+              "artificial",
+              "intelligence"
+            ],
+            "value": "Trump says anyone who uses the phrase \"<em>artificial</em> <em>intelligence</em>\" is \"the enemy\""
+          },
+          "url": {
+            "fullyHighlighted": false,
+            "matchLevel": "partial",
+            "matchedWords": [
+              "intelligence"
+            ],
+            "value": "https://breakingthenews.net/Article/Trump:-Anyone-using-term-%27Artificial-<em>Intelligence</em>%27-is-the-%27ENEMY%27/67261230"
+          }
+        },
+        "_tags": [
+          "story",
+          "author_mikelgan",
+          "story_50008272"
+        ],
+        "author": "mikelgan",
+        "children": [
+          50008273,
+          50008291,
+          50008349,
+          50008469,
+          50008477,
+          50008536,
+          50008810,
+          50008875,
+          50009244,
+          50009293,
+          50009455,
+          50009544,
+          50009767,
+          50010232,
+          50010668,
+          50010960,
+          50011410,
+          50011936,
+          50012466,
+          50012774,
+          50012781,
+          50014285,
+          50014857,
+          50019205,
+          50022921,
+          50063116
+        ],
+        "created_at": "2026-10-08T16:50:52Z",
+        "created_at_i": 1791478252,
+        "num_comments": 69,
+        "objectID": "50008272",
+        "points": 55,
+        "story_id": 50008272,
+        "title": "Trump says anyone who uses the phrase \"artificial intelligence\" is \"the enemy\"",
+        "updated_at": "2026-10-27T00:55:07Z",
+        "url": "https://breakingthenews.net/Article/Trump:-Anyone-using-term-%27Artificial-Intelligence%27-is-the-%27ENEMY%27/67261230"
+      },
+      {
+        "_highlightResult": {
+          "author": {
+            "matchLevel": "none",
+            "matchedWords": [],
+            "value": "roversx"
+          },
+          "title": {
+            "fullyHighlighted": false,
+            "matchLevel": "full",
+            "matchedWords": [
+              "artificial",
+              "intelligence"
+            ],
+            "value": "Understanding Frontier <em>Artificial</em> <em>Intelligence</em>"
+          },
+          "url": {
+            "fullyHighlighted": false,
+            "matchLevel": "partial",
+            "matchedWords": [
+              "intelligence"
+            ],
+            "value": "https://casp.ac/reports/<em>intelligence</em>-explosion"
+          }
+        },
+        "_tags": [
+          "story",
+          "author_roversx",
+          "story_49942002"
+        ],
+        "author": "roversx",
+        "children": [
+          49942226,
+          49942269,
+          49942306,
+          49942374,
+          49942476,
+          49942523,
+          49942537,
+          49942549,
+          49942609,
+          49942730,
+          49942731,
+          49942788,
+          49948134
+        ],
+        "created_at": "2026-10-03T07:06:02Z",
+        "created_at_i": 1791011162,
+        "num_comments": 91,
+        "objectID": "49942002",
+        "points": 50,
+        "story_id": 49942002,
+        "title": "Understanding Frontier Artificial Intelligence",
+        "updated_at": "2026-10-23T21:14:11Z",
+        "url": "https://casp.ac/reports/intelligence-explosion"
+      }
+    ],
+    "hitsPerPage": 3,
+    "nbHits": 31,
+    "nbPages": 11,
+    "page": 0,
+    "params": "query=artificial+intelligence&tags=story&hitsPerPage=3&numericFilters=created_at_i%3E%3D1790536084%2Cpoints%3E%3D10&advancedSyntax=true&analyticsTags=backend",
+    "processingTimeMS": 32,
+    "processingTimingsMS": {
+      "_request": {
+        "roundTrip": 15
+      },
+      "fetch": {
+        "query": 29,
+        "scanning": 1,
+        "total": 31
+      },
+      "total": 32
+    },
+    "query": "artificial intelligence",
+    "serverTimeMS": 32
+  }
+]
