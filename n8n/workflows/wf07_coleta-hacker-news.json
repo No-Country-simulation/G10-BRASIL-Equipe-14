@@ -116,7 +116,7 @@
           "parameters": [
             {
               "name": "query",
-              "value": "={{ String($json.body?.query ?? $json.query?.query ?? '').trim() || (() => { throw new Error('O parâmetro query é obrigatório e não pode estar vazio.') })() }}"
+              "value": "={{ String($json.body?.query ?? $json.query?.query ?? $json.query ?? '').trim() || (() => { throw new Error('O parâmetro query é obrigatório e não pode estar vazio.') })() }}"
             },
             {
               "name": "tags",
@@ -316,7 +316,7 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "99236d18-c277-4e3a-99c2-245a4f06b0d7",
+  "versionId": "cd946ed8-87ff-412c-a0ba-1bc3bdc688f9",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
