@@ -38,16 +38,6 @@ O consumidor deve enviar o cabeçalho nas duas operações, inclusive no downloa
 
 ## 3. Integração com Stack Exchange
 
-### Requisição
-
-**Método:** `POST`
-
-**URL:**
-
-`https://bot.rsa.ia.br/webhook/wf04-integracao-stack-exchange`
-
-**Content-Type:** `application/json`
-
 ### Parâmetros de entrada
 
 | Campo | Tipo | Valor padrão | Descrição |
