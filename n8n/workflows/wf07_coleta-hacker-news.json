@@ -59,6 +59,7 @@
     },
     {
       "parameters": {
+        "httpMethod": "POST",
         "path": "hacker-news-search",
         "responseMode": "responseNode",
         "options": {}
@@ -85,7 +86,7 @@
           "conditions": [
             {
               "id": "3bc6f3b6-875f-413d-84c3-fd8db7c4fd9b",
-              "leftValue": "={{ String($json.query.query ?? '').trim() }}",
+              "leftValue": "={{ String($json.body?.query ?? $json.query?.query ?? '').trim() }}",
               "rightValue": "",
               "operator": {
                 "type": "string",
@@ -115,19 +116,19 @@
           "parameters": [
             {
               "name": "query",
-              "value": "={{ $json.query.query?.trim() || (() => { throw new Error('O parâmetro query é obrigatório e não pode estar vazio.') })() }}"
+              "value": "={{ String($json.body?.query ?? $json.query?.query ?? '').trim() || (() => { throw new Error('O parâmetro query é obrigatório e não pode estar vazio.') })() }}"
             },
             {
               "name": "tags",
-              "value": "={{ $json.query.type ? $json.query.type : 'story' }}"
+              "value": "={{ $json.body?.type ?? $json.query?.type ?? 'story' }}"
             },
             {
               "name": "hitsPerPage",
-              "value": "={{ Math.min(100, Math.max(1, Number($json.query.limit) || 100)) }}"
+              "value": "={{ Math.min(100, Math.max(1, Number($json.body?.limit ?? $json.query?.limit) || 100)) }}"
             },
             {
               "name": "numericFilters",
-              "value": "={{\n  'created_at_i>=' +\n  Math.floor(\n    Number($json.query?.fromdate ?? $json.body?.fromdate) ||\n    (Date.now() / 1000 - 30 * 24 * 60 * 60)\n  ) +\n  (\n    ($json.query?.type ?? 'story') === 'story'\n      ? ',points>=' + Math.max(0, Number($json.query?.minPoints) || 0)\n      : ''\n  )\n}}"
+              "value": "={{\n  'created_at_i>=' +\n  Math.floor(\n    Number($json.body?.fromdate ?? $json.query?.fromdate) ||\n    (Date.now() / 1000 - 30 * 24 * 60 * 60)\n  ) +\n  (\n    ($json.body?.type ?? $json.query?.type ?? 'story') === 'story'\n      ? ',points>=' + Math.max(0, Number($json.body?.minPoints ?? $json.query?.minPoints) || 0)\n      : ''\n  )\n}}"
             }
           ]
         },
@@ -315,7 +316,7 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "65acf267-5ee0-4936-8277-37b9c1a63797",
+  "versionId": "99236d18-c277-4e3a-99c2-245a4f06b0d7",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
