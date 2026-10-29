@@ -1,0 +1,19 @@
+{
+  "id": "synthetic-conquista-001",
+  "source": "mastodon",
+  "url": "https://exemplo.invalid/@exemplo_dev_sintetico/synthetic-conquista-001",
+  "reference_period": "2026-10-13T00:00:00Z/2026-10-20T00:00:00Z",
+  "interactions": [
+    {
+      "author": "exemplo_dev_sintetico",
+      "content": "Depois de três meses estudando Python e SQL com os tutoriais da comunidade, consegui minha primeira vaga como analista de dados. Vale a pena insistir nos projetos práticos.",
+      "tags": ["carreira", "dados"],
+      "created_at": "2026-10-15T12:00:00Z",
+      "raw_metadata": {
+        "scenario": "conquista_vaga",
+        "synthetic": true,
+        "note": "Texto fictício para teste do router. Não representa dado real de usuário."
+      }
+    }
+  ]
+}
