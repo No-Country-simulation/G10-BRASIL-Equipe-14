@@ -31,7 +31,9 @@ def render_community_source_card(batch: dict, on_open_curation: Callable[[str], 
 
         st.markdown("**Principais tags**")
         ui.badges([(f"{tag} ({n})", "secondary") for tag, n in batch["top_tags"]], key=f"tags_{batch['id']}")
-        processed = st.session_state.setdefault("processed_batches", set())
+        if "processed_batches" not in st.session_state:
+            st.session_state["processed_batches"] = set()
+        processed = st.session_state["processed_batches"]
         with st.container(horizontal=True, gap="xsmall"):
             st.link_button("Abrir fonte", batch["url"])
             started = st.button("Iniciar processamento", key=f"process_{batch['id']}")
@@ -41,7 +43,7 @@ def render_community_source_card(batch: dict, on_open_curation: Callable[[str], 
         if started:
             with st.spinner("Processando lote..."):
                 time.sleep(PROCESSING_SECONDS)
-            processed.add(batch["id"])
+            st.session_state["processed_batches"] = processed | {batch["id"]}
             st.toast("Processamento concluído.", icon=":material/check_circle:")
             st.rerun()
         if open_curation:
