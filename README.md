@@ -9,6 +9,7 @@
 ---
 
 ## Descrição
+
 O **CommunityLab** é um ecossistema inteligente de automação projetado para transformar o fluxo contínuo de discussões e dúvidas de comunidades técnicas em ativos estruturados de valor educacional e marketing.
 
 Projeto desenvolvido pelo **Grupo 14 - Turma G10** para o Hackathon ONE - G10 Brasil, do programa **ONE - Oracle Next Education**.
@@ -62,6 +63,15 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 │   ├── 📁 ISSUE_TEMPLATE/                     # Template para criação de issues
 │   └── 📄 PULL_REQUEST_TEMPLATE.md            # Template para criação de PR
 │
+├── 📁 .setup/                                 # Arquivos de setup e build
+│   └── 📁 docker/
+│       └── 📁 streamlit/                      # Build da aplicação Streamlit
+│           ├── 📄 Dockerfile                  # Imagem Docker da aplicação
+│           └── 📄 config.toml                 # Configuração do Streamlit (watchdog e recarga ao salvar)
+│
+├── 📁 app/                                    # Aplicação Streamlit (painel de curadoria)
+│   └── 📄 main.py                             # Ponto de entrada: uv run streamlit run src/app/main.py
+│
 ├── 📁 data/                                   # Estrutura e contratos de dados
 │   ├── 📁 raw/                                # Dados brutos baixados (conteúdo ignorado via .gitignore)
 │   ├── 📁 processed/                          # Dados pós-processamento/DuckDB (conteúdo ignorado via .gitignore)
@@ -84,16 +94,16 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 ├── 📁 src/                                    # Código-fonte da aplicação
 │   ├── 📁 pipeline/                           # Orquestração do fluxo de dados
 │   ├── 📁 services/                           # Integrações com serviços externos
-│   ├── 📁 utils/                              # Funções utilitárias e helpers
 │   ├── 📁 validator/                          # Validação contratual dos schemas
 │   └── 📁 views/                              # Telas e interfaces modulares do Streamlit
 │
 ├── 📁 tests/                                  # Testes automatizados
 │
+├── 📄 .dockerignore                           # Arquivos excluídos do contexto de build da imagem Docker
 ├── 📄 .editorconfig                           # Padronização de estilo de formatação entre diferentes editores e IDEs
 ├── 📄 .env.example                            # Modelo de exemplo de variáveis de ambiente
 ├── 📄 .gitignore                              # Regras de arquivos e diretórios ignorados pelo Git
-├── 📄 docker-compose.yml                      # Configuração do container n8n self-hosted e serviços futuros
+├── 📄 docker-compose.yml                      # Serviços Docker: n8n self-hosted e aplicação Streamlit
 ├── 📄 LICENSE                                 # Termos de licença de uso do software
 ├── 📄 pyproject.toml                          # Metadados, dependências e configurações do uv/Python
 ├── 📄 README.md                               # Apresentação do projeto e instruções de execução
@@ -107,6 +117,7 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 ## 5. Como Executar
 
 ### Pré-requisitos
+
 - [Python 3.11+](https://www.python.org/)
 - [Git](https://git-scm.com/)
 - [uv](https://docs.astral.sh/uv/)
@@ -119,6 +130,7 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 Execute o passo a passo a seguir no terminal:
 
 #### 1. Clonar o repositório e acessar a branch `develop`
+
 ```bash
 git clone <URL_DO_REPOSITORIO>
 cd G10-BRASIL-Equipe-14
@@ -127,6 +139,7 @@ git checkout develop
 ```
 
 #### 2. Instalar dependências e sincronizar o ambiente Python
+
 Com o uv instalado, execute na raiz do projeto:
 
 ```bash
@@ -187,7 +200,9 @@ Quando terminar o desenvolvimento, você pode pausar ou desligar os containers:
 ```bash
 # Para pausar a execução mantendo o estado
 docker compose stop
+```
 
+```bash
 # Para encerrar os containers e liberar a rede
 docker compose down
 
@@ -219,6 +234,43 @@ uv run python -m src.validation.schema_validator <caminho/para/dados.json> data/
 ```
 
 O comando retorna `Valid` (exit code `0`) se o arquivo estiver em conformidade, ou `Invalid` (exit code `1`) listando cada erro encontrado, caso contrário.
+
+#### 10. Rodar a aplicação Streamlit
+
+Com as dependências sincronizadas (passo 2), inicie o painel na raiz do projeto:
+
+```bash
+uv run streamlit run src/app/main.py
+
+```
+
+* Abra o navegador em: [http://localhost:8501](http://localhost:8501)
+* O arquivo `.setup/docker/streamlit/config.toml` (copiado para `.streamlit/config.toml` na imagem Docker) ativa o `watchdog` e o `runOnSave`.
+* Para encerrar, pressione `Ctrl+C` no terminal.
+
+#### 11. Rodar a aplicação Streamlit com Docker (alternativa)
+
+Não é necessário ter Python ou uv instalados para este caminho. O serviço `streamlit` do `docker-compose.yml` é construído a partir do `.setup/docker/streamlit/Dockerfile` e usa o mesmo `.env` (passo 3).
+
+```bash
+# Construir a imagem e subir apenas o painel
+docker compose up -d --docker streamlit
+```
+
+```bash
+# Ou subir todos os serviços (n8n + Streamlit)
+docker compose up -d --docker
+
+```
+
+* Abra o navegador em: [http://localhost:8501](http://localhost:8501)
+* Acompanhar os logs: `docker compose logs -f streamlit`
+* Parar o painel: `docker compose stop streamlit` (ou `docker compose down` para encerrar todos os serviços)
+* A porta pode ser alterada com `STREAMLIT_PORT` no `.env`.
+* A pasta `./data` é montada em `/code/data` dentro do container.
+
+> [!NOTE]
+> O código é copiado para dentro da imagem, então alterações em `app/` ou `src/` exigem reconstruir com `docker compose up -d --build streamlit`. Para desenvolvimento com recarga automática, prefira o passo 10.
 
 ---
 
