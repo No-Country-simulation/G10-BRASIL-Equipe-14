@@ -63,13 +63,13 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 │   └── 📄 PULL_REQUEST_TEMPLATE.md            # Template para criação de PR
 │
 ├── 📁 .setup/                                 # Arquivos de setup e build
-│   └── 📁 build/
+│   └── 📁 docker/
 │       └── 📁 streamlit/                      # Build da aplicação Streamlit
 │           ├── 📄 Dockerfile                  # Imagem Docker da aplicação
 │           └── 📄 config.toml                 # Configuração do Streamlit (watchdog e recarga ao salvar)
 │
 ├── 📁 app/                                    # Aplicação Streamlit (painel de curadoria)
-│   └── 📄 main.py                             # Ponto de entrada: uv run streamlit run app/main.py
+│   └── 📄 main.py                             # Ponto de entrada: uv run streamlit run src/app/main.py
 │
 ├── 📁 data/                                   # Estrutura e contratos de dados
 │   ├── 📁 raw/                                # Dados brutos baixados (conteúdo ignorado via .gitignore)
@@ -235,24 +235,24 @@ O comando retorna `Valid` (exit code `0`) se o arquivo estiver em conformidade, 
 Com as dependências sincronizadas (passo 2), inicie o painel na raiz do projeto:
 
 ```bash
-uv run streamlit run app/main.py
+uv run streamlit run src/app/main.py
 
 ```
 
 * Abra o navegador em: [http://localhost:8501](http://localhost:8501)
-* O arquivo `.setup/build/streamlit/config.toml` (copiado para `.streamlit/config.toml` na imagem Docker) ativa o `watchdog` e o `runOnSave`.
+* O arquivo `.setup/docker/streamlit/config.toml` (copiado para `.streamlit/config.toml` na imagem Docker) ativa o `watchdog` e o `runOnSave`.
 * Para encerrar, pressione `Ctrl+C` no terminal.
 
 #### 11. Rodar a aplicação Streamlit com Docker (alternativa)
 
-Não é necessário ter Python ou uv instalados para este caminho. O serviço `streamlit` do `docker-compose.yml` é construído a partir do `.setup/build/streamlit/Dockerfile` e usa o mesmo `.env` (passo 3).
+Não é necessário ter Python ou uv instalados para este caminho. O serviço `streamlit` do `docker-compose.yml` é construído a partir do `.setup/docker/streamlit/Dockerfile` e usa o mesmo `.env` (passo 3).
 
 ```bash
 # Construir a imagem e subir apenas o painel
-docker compose up -d --build streamlit
+docker compose up -d --docker streamlit
 
 # Ou subir todos os serviços (n8n + Streamlit)
-docker compose up -d --build
+docker compose up -d --docker
 
 ```
 

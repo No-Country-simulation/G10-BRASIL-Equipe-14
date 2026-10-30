@@ -4,7 +4,7 @@ from collections.abc import Callable
 import streamlit as st
 import streamlit_shadcn_ui as ui
 
-PROCESSING_SECONDS = 3
+from config import PROCESSING_SECONDS
 
 COMMUNITY_SOURCES_INPUTS_SAMPLE = [
     {
