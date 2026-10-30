@@ -6,8 +6,8 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -432,
-        672
+        -608,
+        624
       ],
       "id": "124d8d7e-1cee-4b02-9929-b0d313ecf9c9",
       "name": "When clicking ‘Execute workflow’"
@@ -17,7 +17,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        464,
+        512,
         528
       ],
       "id": "5724fc99-dea8-454f-9446-22eed8e5edd9",
@@ -33,7 +33,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.5,
       "position": [
-        16,
+        64,
         432
       ],
       "id": "68db6feb-6ed9-4854-907a-5f9b62686b6d",
@@ -49,7 +49,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.5,
       "position": [
-        16,
+        64,
         624
       ],
       "id": "b30cdf24-de63-48c5-9f1a-042f7e0d63f9",
@@ -57,7 +57,7 @@
     },
     {
       "parameters": {
-        "url": "https://social.espeweb.net/api/v1/timelines/tag/artificialintelligence",
+        "url": "={{ 'https://social.espeweb.net/api/v1/timelines/tag/' + $('Prepare Search Parameter').first().json.tag }}",
         "sendQuery": true,
         "queryParameters": {
           "parameters": [
@@ -72,7 +72,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.5,
       "position": [
-        -208,
+        -160,
         624
       ],
       "id": "05ad2d0e-86b1-4d0a-8dec-2cc51523a683",
@@ -83,7 +83,7 @@
     },
     {
       "parameters": {
-        "url": "https://mastodon.social/api/v1/timelines/tag/artificialintelligence",
+        "url": "={{ 'https://mastodon.social/api/v1/timelines/tag/' + $('Prepare Search Parameter').first().json.tag }}",
         "sendQuery": true,
         "queryParameters": {
           "parameters": [
@@ -98,7 +98,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.5,
       "position": [
-        -208,
+        -160,
         432
       ],
       "id": "00c61ede-3cb4-49ee-b821-17328c1fd946",
@@ -117,7 +117,7 @@
       "type": "n8n-nodes-base.s3",
       "typeVersion": 1,
       "position": [
-        1360,
+        1408,
         432
       ],
       "id": "20fe4cc5-f360-44ed-934d-66537fb7d4c3",
@@ -137,13 +137,13 @@
         "operation": "toJson",
         "options": {
           "format": true,
-          "fileName": "sample_mastodon-data.json"
+          "fileName": "={{ 'sample_mastodon-' + $('Prepare Search Parameter').item.json.tag + '.json'}}"
         }
       },
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
-        1136,
+        1184,
         432
       ],
       "id": "425a8bc0-4e2c-46dd-b546-c29e4bc527f8",
@@ -159,8 +159,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        -432,
-        384
+        -608,
+        432
       ],
       "id": "b26919f2-de38-4ba6-8d6d-0c69e85047cc",
       "name": "Webhook",
@@ -177,7 +177,7 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        1584,
+        1632,
         336
       ],
       "id": "d9c60b89-792c-414b-9dfb-2e4d0b923d19",
@@ -194,7 +194,7 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        1584,
+        1632,
         528
       ],
       "id": "07d0a6fb-88dc-4008-b9a4-5f28e6e818cb",
@@ -227,7 +227,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        912,
+        960,
         528
       ],
       "id": "8715192a-75c0-4752-a00e-5815497582eb",
@@ -240,7 +240,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        240,
+        288,
         432
       ],
       "id": "b0f5d7f1-b7aa-4b20-a5eb-40d160c1e0fc",
@@ -253,7 +253,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        240,
+        288,
         624
       ],
       "id": "aaaaf536-81ba-4d63-a13d-dc37ea1decb4",
@@ -266,7 +266,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        688,
+        736,
         528
       ],
       "id": "3848958e-5da4-4a03-9303-27a20c3a6c27",
@@ -283,7 +283,7 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        1136,
+        1184,
         624
       ],
       "id": "fb9e1980-b70d-4c00-b34c-d4026a294858",
@@ -291,6 +291,30 @@
       "alwaysOutputData": false,
       "executeOnce": false,
       "retryOnFail": false
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8b6b3d0b-92a6-4873-a1f2-bf450a2e9110",
+              "name": "tag",
+              "value": "={{ $json.body?.tag || 'artificialintelligence' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        -384,
+        528
+      ],
+      "id": "8a7d0e80-19bd-4f2f-9c02-0fd5e0626a82",
+      "name": "Prepare Search Parameter"
     }
   ],
   "pinData": {},
@@ -299,12 +323,7 @@
       "main": [
         [
           {
-            "node": "Consult hashtag - social.espeweb.net",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Consult hashtag - mastodon.social",
+            "node": "Prepare Search Parameter",
             "type": "main",
             "index": 0
           }
@@ -383,12 +402,7 @@
       "main": [
         [
           {
-            "node": "Consult hashtag - mastodon.social",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Consult hashtag - social.espeweb.net",
+            "node": "Prepare Search Parameter",
             "type": "main",
             "index": 0
           }
@@ -463,6 +477,22 @@
           }
         ]
       ]
+    },
+    "Prepare Search Parameter": {
+      "main": [
+        [
+          {
+            "node": "Consult hashtag - mastodon.social",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Consult hashtag - social.espeweb.net",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
@@ -470,7 +500,7 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "cf12982d-b1a8-479f-9b89-c4bd215ecdbc",
+  "versionId": "334c3949-afbe-44d2-ab0c-e886f2cf89af",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
