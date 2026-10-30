@@ -291,10 +291,15 @@ def render_curation() -> None:
     if "packages" not in st.session_state:
         st.session_state["packages"] = load_suggested_content()
     packages = {p["linked_batch_id"]: p for p in st.session_state["packages"]}
+    if not packages:
+        st.info("Nenhum pacote disponível para curadoria.")
+        return
     request = st.session_state.get("nav_request", {})
+    requested_batch = request.get("batch")
+    default_batch = requested_batch if requested_batch in packages else next(iter(packages))
     batch_id = ui.tabs(
         list(packages),
-        value=request.get("batch", next(iter(packages))),
+        value=default_batch,
         key=f"curation_batch_{request.get('nonce', 0)}",
         label="Lote",
     )
