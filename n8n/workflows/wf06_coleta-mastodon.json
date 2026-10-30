@@ -41,74 +41,6 @@
     },
     {
       "parameters": {
-        "mode": "raw",
-        "jsonOutput": "={{\n  {\n    ...$json,\n    source: $json.source || 'social.espeweb.net',\n    author: String(\n      $json.account?.display_name ||\n      $json.account?.username ||\n      $json.username ||\n      'unknown'\n    ).trim(),\n    text: String(\n      $json.pleroma?.content?.['text/plain'] ||\n      $json.text ||\n      $json.content ||\n      ''\n    ),\n    tags: Array.isArray($json.tags)\n      ? $json.tags.map(tag =>\n          typeof tag === 'string' ? tag : tag?.name\n        ).filter(Boolean)\n      : [],\n    media_urls: Array.isArray($json.media_attachments)\n      ? $json.media_attachments\n          .map(media => media?.url)\n          .filter(Boolean)\n      : []\n  }\n}}",
-        "includeOtherFields": true,
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.5,
-      "position": [
-        64,
-        624
-      ],
-      "id": "b30cdf24-de63-48c5-9f1a-042f7e0d63f9",
-      "name": "Standard Mastodon Posts "
-    },
-    {
-      "parameters": {
-        "url": "={{ 'https://social.espeweb.net/api/v1/timelines/tag/' + $('Prepare Search Parameter').first().json.tag }}",
-        "sendQuery": true,
-        "queryParameters": {
-          "parameters": [
-            {
-              "name": "limit",
-              "value": "40"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.5,
-      "position": [
-        -160,
-        624
-      ],
-      "id": "05ad2d0e-86b1-4d0a-8dec-2cc51523a683",
-      "name": "Consult hashtag - social.espeweb.net",
-      "retryOnFail": true,
-      "waitBetweenTries": 3000,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "url": "={{ 'https://mastodon.social/api/v1/timelines/tag/' + $('Prepare Search Parameter').first().json.tag }}",
-        "sendQuery": true,
-        "queryParameters": {
-          "parameters": [
-            {
-              "name": "limit",
-              "value": "40"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.5,
-      "position": [
-        -160,
-        432
-      ],
-      "id": "00c61ede-3cb4-49ee-b821-17328c1fd946",
-      "name": "Consult hashtag - mastodon.social",
-      "retryOnFail": true,
-      "waitBetweenTries": 3000,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
         "operation": "upload",
         "bucketName": "communitylab-assets",
         "fileName": "={{ $binary.data.fileName }}",
@@ -137,7 +69,7 @@
         "operation": "toJson",
         "options": {
           "format": true,
-          "fileName": "={{ 'sample_mastodon-' + $('Prepare Search Parameter').item.json.tag + '.json'}}"
+          "fileName": "={{ 'sample_mastodon-' + $('Prepare Search Parameter').first().json.tag + '.json'}}"
         }
       },
       "type": "n8n-nodes-base.convertToFile",
@@ -315,6 +247,74 @@
       ],
       "id": "8a7d0e80-19bd-4f2f-9c02-0fd5e0626a82",
       "name": "Prepare Search Parameter"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{\n  {\n    ...$json,\n    source: $json.source || 'social.espeweb.net',\n    author: String(\n      $json.account?.display_name ||\n      $json.account?.username ||\n      $json.username ||\n      'unknown'\n    ).trim(),\n    text: String(\n      $json.pleroma?.content?.['text/plain'] ||\n      $json.text ||\n      $json.content ||\n      ''\n    ),\n    tags: Array.isArray($json.tags)\n      ? $json.tags.map(tag =>\n          typeof tag === 'string' ? tag : tag?.name\n        ).filter(Boolean)\n      : [],\n    media_urls: Array.isArray($json.media_attachments)\n      ? $json.media_attachments\n          .map(media => media?.url)\n          .filter(Boolean)\n      : []\n  }\n}}",
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        64,
+        624
+      ],
+      "id": "b30cdf24-de63-48c5-9f1a-042f7e0d63f9",
+      "name": "Standard Mastodon Posts"
+    },
+    {
+      "parameters": {
+        "url": "={{ 'https://mastodon.social/api/v1/timelines/tag/' + $('Prepare Search Parameter').first().json.tag }}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "limit",
+              "value": "40"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -160,
+        432
+      ],
+      "id": "00c61ede-3cb4-49ee-b821-17328c1fd946",
+      "name": "Search hashtag - mastodon.social",
+      "retryOnFail": true,
+      "waitBetweenTries": 3000,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "url": "={{ 'https://social.espeweb.net/api/v1/timelines/tag/' + $('Prepare Search Parameter').first().json.tag }}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "limit",
+              "value": "40"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -160,
+        624
+      ],
+      "id": "05ad2d0e-86b1-4d0a-8dec-2cc51523a683",
+      "name": "Search hashtag - social.espeweb.net",
+      "retryOnFail": true,
+      "waitBetweenTries": 3000,
+      "onError": "continueRegularOutput"
     }
   ],
   "pinData": {},
@@ -339,41 +339,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "Standard Mastodon Posts ": {
-      "main": [
-        [
-          {
-            "node": "Status - social.espeweb.net",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Consult hashtag - social.espeweb.net": {
-      "main": [
-        [
-          {
-            "node": "Standard Mastodon Posts ",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        []
-      ]
-    },
-    "Consult hashtag - mastodon.social": {
-      "main": [
-        [
-          {
-            "node": "Standard Mastodon - Social Posts",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        []
       ]
     },
     "Unify Mastodon Posts": {
@@ -482,16 +447,51 @@
       "main": [
         [
           {
-            "node": "Consult hashtag - mastodon.social",
+            "node": "Search hashtag - mastodon.social",
             "type": "main",
             "index": 0
           },
           {
-            "node": "Consult hashtag - social.espeweb.net",
+            "node": "Search hashtag - social.espeweb.net",
             "type": "main",
             "index": 0
           }
         ]
+      ]
+    },
+    "Standard Mastodon Posts": {
+      "main": [
+        [
+          {
+            "node": "Status - social.espeweb.net",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search hashtag - mastodon.social": {
+      "main": [
+        [
+          {
+            "node": "Standard Mastodon - Social Posts",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Search hashtag - social.espeweb.net": {
+      "main": [
+        [
+          {
+            "node": "Standard Mastodon Posts",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
       ]
     }
   },
@@ -500,7 +500,7 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "334c3949-afbe-44d2-ab0c-e886f2cf89af",
+  "versionId": "ddeaa4e4-e9d4-42be-9835-adc1165b1659",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
