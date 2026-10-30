@@ -1,0 +1,345 @@
+{
+  "prompt_version": "0.3.1",
+  "model": "gemini-3.5-flash-lite",
+  "accuracy": "13/14",
+  "cases_files": [
+    "data\\prompts\\tests\\router_cases_reais.json"
+  ],
+  "ran_at": "2026-10-24T18:30:22",
+  "temperature": 1.0,
+  "results": {
+    "real_se_duvida_com_resposta_aceita_llamaindex": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "real_se_duvida_com_resposta_aceita_vscode": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "real_se_duvida_com_resposta_aceita_symfony_ai": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "real_se_resposta_nao_aceita_windsurf": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "real_se_duvida_sem_resposta_muito_vista": {
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "modelo sugeriu 'discard', as regras dão 'newsletter_only' (o n8n corrige)"
+      ]
+    },
+    "real_se_duvida_sem_resposta_langchain_mcp": {
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "modelo sugeriu 'discard', as regras dão 'newsletter_only' (o n8n corrige)"
+      ]
+    },
+    "real_se_limitacao_de_ferramenta_tom_objetivo": {
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "modelo sugeriu 'discard', as regras dão 'newsletter_only' (o n8n corrige)"
+      ]
+    },
+    "real_se_desanimo_pessoal_vibe_coder": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "real_se_debate_mercado_com_respostas": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "real_se_pergunta_vaga_ruido": {
+      "ok": false,
+      "errors": [
+        "suggested_route: esperado 'discard', veio 'newsletter_only'",
+        "relevance_score 45 > 39"
+      ],
+      "warnings": [
+        "modelo sugeriu 'discard', as regras dão 'newsletter_only' (o n8n corrige)"
+      ]
+    },
+    "real_mastodon_bot_politica": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "real_mastodon_noticia_ia_rss": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "real_mastodon_opiniao_com_link": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "real_mastodon_japones_metadado_errado": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    }
+  },
+  "outputs": {
+    "real_se_duvida_com_resposta_aceita_llamaindex": {
+      "id": "se-79838505",
+      "source": "stackoverflow",
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "topic_category": "ai_ml",
+      "topics": [
+        "LlamaIndex",
+        "Ollama",
+        "Erro de memória"
+      ],
+      "original_language": "en",
+      "has_answer": true,
+      "relevance_score": 75,
+      "suggested_route": "faq",
+      "summary": "Dúvida sobre erro de carregamento de modelo local com LlamaIndex e Ollama resolvida adicionando context_window.",
+      "justification": "A pergunta técnica tem resposta aceita e pontua na faixa de 60-79, com bônus pelo tema de IA."
+    },
+    "real_se_duvida_com_resposta_aceita_vscode": {
+      "id": "se-79998781",
+      "source": "stackoverflow",
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "topic_category": "dev_tools",
+      "topics": [
+        "VS Code",
+        "GitHub Copilot",
+        "Configuração"
+      ],
+      "original_language": "en",
+      "has_answer": true,
+      "relevance_score": 60,
+      "suggested_route": "faq",
+      "summary": "Como desativar apenas o botão de gerar mensagem de commit por IA no VS Code mantendo as demais funções.",
+      "justification": "Questão técnica com resposta aceita, caindo na faixa 60-79 e rota de FAQ."
+    },
+    "real_se_duvida_com_resposta_aceita_symfony_ai": {
+      "id": "se-79857625",
+      "source": "stackoverflow",
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "topic_category": "backend",
+      "topics": [
+        "Symfony AI",
+        "LM Studio",
+        "Model Catalog"
+      ],
+      "original_language": "en",
+      "has_answer": true,
+      "relevance_score": 75,
+      "suggested_route": "faq",
+      "summary": "Como adicionar modelos personalizados ao bridge do LM Studio no Symfony AI.",
+      "justification": "Score 75 na faixa de 60-79 para pergunta técnica com resposta aceita, aplicando a rota de FAQ."
+    },
+    "real_se_resposta_nao_aceita_windsurf": {
+      "id": "se-79850130",
+      "source": "stackoverflow",
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "topic_category": "dev_tools",
+      "topics": [
+        "Windsurf",
+        "IntelliJ IDEA",
+        "Autocompletar"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 45,
+      "suggested_route": "newsletter_only",
+      "summary": "Dúvida técnica sobre o motivo do autocompletar do Windsurf não funcionar no IntelliJ IDEA 2024.",
+      "justification": "Score na faixa 40-59 (technical_question sem resposta aceita) e rota newsletter_only por falta de resposta aceita."
+    },
+    "real_se_duvida_sem_resposta_muito_vista": {
+      "id": "se-79837611",
+      "source": "stackoverflow",
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "topic_category": "backend",
+      "topics": [
+        "Ollama",
+        "Erro EOF",
+        "Embedding"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 45,
+      "suggested_route": "discard",
+      "summary": "Dúvida técnica sobre erro EOF ao gerar embeddings com Ollama em aplicação Laravel.",
+      "justification": "A pergunta é técnica com has_answer = false, ficando na faixa 40-59 com score 45, resultando em descarte pela regra de relevance_score < 60 para faq."
+    },
+    "real_se_duvida_sem_resposta_langchain_mcp": {
+      "id": "se-79935672",
+      "source": "stackoverflow",
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "topic_category": "ai_ml",
+      "topics": [
+        "LangChain",
+        "Model Context Protocol",
+        "Erro de validação"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 45,
+      "suggested_route": "discard",
+      "summary": "Dúvida técnica sobre erro de validação de tipo de número em argumentos de ferramentas do LangChain MCP adapter.",
+      "justification": "Como é uma technical_question sem resposta aceita (has_answer = false), cai na faixa de 40-59 e rota discard."
+    },
+    "real_se_limitacao_de_ferramenta_tom_objetivo": {
+      "id": "se-79958777",
+      "source": "stackoverflow",
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "topic_category": "dev_tools",
+      "topics": [
+        "Cursor IDE",
+        "Cotas de IA",
+        "Consumo de tokens"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 45,
+      "suggested_route": "discard",
+      "summary": "Dúvida sobre o esgotamento rápido da cota gratuita da Cursor IDE após poucos prompts.",
+      "justification": "Score na faixa de 40 a 59 para technical_question sem resposta, aplicando a regra de descarte para score inferior a 40."
+    },
+    "real_se_desanimo_pessoal_vibe_coder": {
+      "id": "se-79874274",
+      "source": "stackoverflow",
+      "type": "debate",
+      "sentiment": "neutral",
+      "topic_category": "ai_ml",
+      "topics": [
+        "Uso de IA",
+        "Habilidades de programação",
+        "Práticas de desenvolvimento"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 45,
+      "suggested_route": "newsletter_only",
+      "summary": "Programador iniciante questiona o impacto do uso excessivo de IA no desenvolvimento de suas habilidades técnicas.",
+      "justification": "O score está na faixa de 40 a 59 para o tipo debate, aplicando a regra de rota newsletter_only."
+    },
+    "real_se_debate_mercado_com_respostas": {
+      "id": "se-79835621",
+      "source": "stackoverflow",
+      "type": "debate",
+      "sentiment": "neutral",
+      "topic_category": "career",
+      "topics": [
+        "impacto da IA",
+        "futuro da carreira",
+        "desenvolvimento de software"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 50,
+      "suggested_route": "newsletter_only",
+      "summary": "Discussão sobre o impacto da inteligência artificial na demanda por desenvolvedores de software e nas tendências de mercado.",
+      "justification": "O post original é um debate sobre IA e carreira, enquadrado na faixa de 40-59 com rota newsletter_only."
+    },
+    "real_se_pergunta_vaga_ruido": {
+      "id": "se-79893379",
+      "source": "stackoverflow",
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "topic_category": "ai_ml",
+      "topics": [
+        "Model Context Protocol",
+        "Java",
+        "Monitoramento de tráfego"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 45,
+      "suggested_route": "discard",
+      "summary": "Dúvida sobre como iniciar e monitorar o tráfego de um servidor Model Context Protocol em Java.",
+      "justification": "Score na faixa de 40 a 59 para technical_question sem resposta aceita e rota de descarte pois o score é maior ou igual a 40 mas a regra de faq exige has_answer = true."
+    },
+    "real_mastodon_bot_politica": {
+      "id": "mst-117476946010510390",
+      "source": "mastodon",
+      "type": "noise",
+      "sentiment": "neutral",
+      "topic_category": "other",
+      "topics": [
+        "política",
+        "notícias"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 0,
+      "suggested_route": "discard",
+      "summary": "Post automático de feed RSS divulgando um podcast sobre política europeia e financiamento para a Ucrânia.",
+      "justification": "Trata-se de um post de conta bot que apenas repassa manchete e link de notícia sem interações, sendo classificado como ruído (score 0–19) e descartado."
+    },
+    "real_mastodon_noticia_ia_rss": {
+      "id": "mst-117476765783818325",
+      "source": "mastodon",
+      "type": "noise",
+      "sentiment": "neutral",
+      "topic_category": "ai_ml",
+      "topics": [
+        "Mistral AI",
+        "Timestral",
+        "Séries temporais"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 0,
+      "suggested_route": "discard",
+      "summary": "Postagem automática divulgando o lançamento do modelo de séries temporais Timestral da Mistral AI.",
+      "justification": "O post é apenas a divulgação de uma manchete e link de notícias sem opinião ou relato próprio, sendo classificado como noise na faixa 0-19 com rota de descarte."
+    },
+    "real_mastodon_opiniao_com_link": {
+      "id": "mst-117476661482589915",
+      "source": "mastodon",
+      "type": "debate",
+      "sentiment": "neutral",
+      "topic_category": "ai_ml",
+      "topics": [
+        "Inteligência Artificial",
+        "Qualidade de dados"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 45,
+      "suggested_route": "newsletter_only",
+      "summary": "Opinião sobre como a qualidade dos dados impacta a inteligência artificial.",
+      "justification": "O score está na faixa de 40 a 59 para debates e a rota aplicada foi newsletter_only."
+    },
+    "real_mastodon_japones_metadado_errado": {
+      "id": "mst-117476505156844059",
+      "source": "mastodon",
+      "type": "noise",
+      "sentiment": "neutral",
+      "topic_category": "ai_ml",
+      "topics": [
+        "IA",
+        "Automação",
+        "Notícia"
+      ],
+      "original_language": "other",
+      "has_answer": false,
+      "relevance_score": 0,
+      "suggested_route": "discard",
+      "summary": "Postagem que apenas repassa manchete e link de notícia sobre IA, sem pergunta, opinião ou relato próprio.",
+      "justification": "O post é ruído (manchete/link sem opinião própria), caindo na faixa 0-19 e regra de descarte."
+    }
+  }
+}
