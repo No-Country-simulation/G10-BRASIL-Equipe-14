@@ -236,8 +236,9 @@ def render_pending_content(content: dict) -> None:
 
 
 def split_body(body: str) -> tuple[str, str]:
-    tags = " ".join(re.findall(r"#\w+", body))
-    text = re.sub(r"[ \t]*#\w+", "", body)
+    tags = " ".join(re.findall(r"(?<!\S)#\w+", body))
+    text = re.sub(r"(?<!\S)#\w+", "", body)
+    text = re.sub(r"[ \t]{2,}", " ", text)
     return re.sub(r"\n{3,}", "\n\n", text).strip(), tags
 
 
