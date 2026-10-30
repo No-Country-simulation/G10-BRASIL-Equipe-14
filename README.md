@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./docs/assets/social_media_wallpaper.jpg" width="100%"  alt="Capa do projeto" />
+  <img src="./docs/assets/social-media-wallpaper.jpg" width="100%"  alt="Capa do projeto" />
 </p>
 
 ---
@@ -9,6 +9,7 @@
 ---
 
 ## Descrição
+
 O **CommunityLab** é um ecossistema inteligente de automação projetado para transformar o fluxo contínuo de discussões e dúvidas de comunidades técnicas em ativos estruturados de valor educacional e marketing.
 
 Projeto desenvolvido pelo **Grupo 14 - Turma G10** para o Hackathon ONE - G10 Brasil, do programa **ONE - Oracle Next Education**.
@@ -48,7 +49,7 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 ## 3. Arquitetura
 
 <p align="center">
-  <img src="./docs/assets/arquitetura-conceitual.png" alt="Arquitetura conceitual do pipeline multicanal" />
+  <img src="./docs/assets/pipeline-architecture.png" alt="Arquitetura conceitual do pipeline multicanal" />
   <br>
   <em>Fig.01 - Arquitetura conceitual do pipeline multicanal</em>
 </p>
@@ -59,6 +60,7 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 
 ```
 ├── 📁 .github/                                # Governança do GitHub
+│   ├── 📁 ISSUE_TEMPLATE/                     # Template para criação de issues
 │   └── 📄 PULL_REQUEST_TEMPLATE.md            # Template para criação de PR
 │
 ├── 📁 .setup/                                 # Arquivos de setup e build
@@ -85,12 +87,12 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 │   └── 📄 escopo_projeto.md                   # Especificação do escopo e requisitos
 │
 ├── 📁 n8n/                                    # Orquestração e workflows locais
-│   └── 📁 workflows/                          # Fluxos exportados em JSON
+│   └── 📁 workflows/                          # Fluxos do n8n exportados em JSON
 │
 ├── 📁 references/                             # Materiais de consulta do projeto
 │
 ├── 📁 src/                                    # Código-fonte da aplicação
-│   ├── 📁 pipeline/                           # Ingestão, processamento e validações
+│   ├── 📁 pipeline/                           # Orquestração do fluxo de dados
 │   ├── 📁 services/                           # Integrações com serviços externos
 │   ├── 📁 utils/                              # Funções utilitárias e helpers
 │   └── 📁 views/                              # Telas e interfaces modulares do Streamlit
@@ -115,6 +117,7 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 ## 5. Como Executar
 
 ### Pré-requisitos
+
 - [Python 3.11+](https://www.python.org/)
 - [Git](https://git-scm.com/)
 - [uv](https://docs.astral.sh/uv/)
@@ -127,6 +130,7 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 Execute o passo a passo a seguir no terminal:
 
 #### 1. Clonar o repositório e acessar a branch `develop`
+
 ```bash
 git clone <URL_DO_REPOSITORIO>
 cd G10-BRASIL-Equipe-14
@@ -135,6 +139,7 @@ git checkout develop
 ```
 
 #### 2. Instalar dependências e sincronizar o ambiente Python
+
 Com o uv instalado, execute na raiz do projeto:
 
 ```bash
@@ -195,7 +200,9 @@ Quando terminar o desenvolvimento, você pode pausar ou desligar os containers:
 ```bash
 # Para pausar a execução mantendo o estado
 docker compose stop
+```
 
+```bash
 # Para encerrar os containers e liberar a rede
 docker compose down
 
@@ -213,16 +220,16 @@ uv run pytest
 Para rodar um teste específico:
 
 ```bash
-uv run pytest tests/test_validator.py::test_validate_returns_no_errors_for_valid_record
+uv run pytest tests/test_schema_validator.py::test_validate_returns_no_errors_for_valid_record
 
 ```
 
 #### 9. Validar um JSON externo contra o contrato de entrada
 
-O utilitário `src/utils/validator.py` valida qualquer arquivo JSON contra um JSON Schema (por padrão, o contrato de entrada em `data/schemas/input_schema.json`):
+O script `src/validation/schema_validator.py` valida qualquer arquivo JSON contra um JSON Schema (por padrão, o contrato de entrada em `data/schemas/input_schema.json`):
 
 ```bash
-uv run python -m src.utils.validator <caminho/para/dados.json> data/schemas/input_schema.json
+uv run python -m src.validation.schema_validator <caminho/para/dados.json> data/schemas/input_schema.json
 
 ```
 
@@ -248,7 +255,9 @@ Não é necessário ter Python ou uv instalados para este caminho. O serviço `s
 ```bash
 # Construir a imagem e subir apenas o painel
 docker compose up -d --docker streamlit
+```
 
+```bash
 # Ou subir todos os serviços (n8n + Streamlit)
 docker compose up -d --docker
 
@@ -291,16 +300,15 @@ docker compose up -d --docker
 
 ## 7. Cronograma Geral
 
-| Etapa | Data/Período | Foco |
-|---|---|---|
-| Semana 0 | 12/10/2026 a 18/10/2026 | Alinhamento estratégico, documentação inicial e configurações base | 
-| Semana 1 | 19/10/2026 a 25/10/2026 | Engenharia de prompts, datasets e ingestão |
-| Semana 2 | 26/10/2026 a 01/11/2026 | Orquestração condicional n8n e Módulos da interface | 
-| Semana 3 | 02/11/2026 a 08/11/2026 | Geração consolidada, persistência e curadoria |
-| Semana 4 | 09/11/2026 a 15/11/2026 | Homologação, OCI Compute e revisão
-| Semana 5 | 16/11/2026 a 22/11/2026 | Documentação, preparação da apresentação e revisão final |
-| Demo Day 1 | 24/11/2026 | Apresentação
-| Demo Day 2 | 26/11/2026 | Apresentação
+| Etapa | Data/Período | Foco | Status |
+|:---|:---|:---|:---|
+| Semana 0 | 12/10/2026 a 18/10/2026 | Alinhamento estratégico, documentação inicial e configurações base | Concluído ✅ |
+| Semana 1 | 19/10/2026 a 25/10/2026 | Engenharia de prompts, datasets e ingestão | Em andamento 🔄 |
+| Semana 2 | 26/10/2026 a 01/11/2026 | Orquestração condicional n8n e Módulos da interface | A iniciar ⏳ | 
+| Semana 3 | 02/11/2026 a 08/11/2026 | Geração consolidada, persistência e curadoria | A iniciar ⏳ |
+| Semana 4 | 09/11/2026 a 15/11/2026 | Homologação, OCI Compute e revisão | A iniciar ⏳ |
+| Semana 5 | 16/11/2026 a 22/11/2026 | Documentação, preparação da apresentação e revisão final | A iniciar ⏳ |
+| Semana 6 | 24/11/2026 e 26/11/2026 | Demo Day | A iniciar ⏳ |
 
 ---
 
