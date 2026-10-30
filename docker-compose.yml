@@ -29,7 +29,7 @@ services:
   streamlit:
     build:
       context: .
-      dockerfile: .setup/build/streamlit/Dockerfile
+      dockerfile: .setup/docker/streamlit/Dockerfile
     container_name: communitylab_streamlit
     restart: unless-stopped
     ports:

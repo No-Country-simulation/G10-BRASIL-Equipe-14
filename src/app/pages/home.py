@@ -1,11 +1,7 @@
 import streamlit as st
 
-PAGE_TITLE = "CommunityLab"
-PROJECT_BRIEF = (
-    "O CommunityLab é um ecossistema inteligente de automação que transforma o fluxo contínuo de "
-    "discussões e dúvidas de comunidades técnicas em ativos estruturados de valor educacional e marketing."
-)
-GITHUB_PROJECT_URL = "https://github.com/No-Country-simulation/G10-BRASIL-Equipe-14"
+from config import GITHUB_PROJECT_URL, PAGE_TITLE, PROJECT_BRIEF
+
 
 def render_home() -> None:
     st.markdown(

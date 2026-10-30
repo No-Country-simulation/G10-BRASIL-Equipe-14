@@ -1,9 +1,9 @@
 import streamlit as st
 from dotenv import load_dotenv
 
-load_dotenv()
+from config import PAGE_TITLE
 
-PAGE_TITLE = "CommunityLab"
+load_dotenv()
 
 HOME_PAGE = st.Page("pages/home.py", title="Início", icon=":material/home:", url_path="inicio", default=True)
 SOURCES_PAGE = st.Page(
