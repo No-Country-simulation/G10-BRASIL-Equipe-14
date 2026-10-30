@@ -12,7 +12,7 @@ COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen --no-dev
 
 COPY .setup/docker/streamlit/config.toml ./.streamlit/config.toml
-COPY src/app ./app
+COPY src ./src
 
 ENV PATH="/code/.venv/bin:$PATH"
 
@@ -20,4 +20,4 @@ EXPOSE 8501
 
 HEALTHCHECK CMD python -c "import urllib.request as u; u.urlopen('http://localhost:8501/_stcore/health')"
 
-CMD ["streamlit", "run", "app/main.py", "--server.address=0.0.0.0", "--server.port=8501"]
+CMD ["streamlit", "run", "src/main.py", "--server.address=0.0.0.0", "--server.port=8501"]

@@ -27,7 +27,7 @@ def render_home() -> None:
     )
     with st.container(horizontal=True, horizontal_alignment="center", gap="small"):
         if st.button("Começar →", type="primary", key="home_start"):
-            st.switch_page("pages/community_sources.py")
+            st.switch_page("views/community_sources.py")
         st.link_button("GitHub", GITHUB_PROJECT_URL)
 
 
