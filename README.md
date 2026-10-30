@@ -94,7 +94,7 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 ├── 📁 src/                                    # Código-fonte da aplicação
 │   ├── 📁 pipeline/                           # Orquestração do fluxo de dados
 │   ├── 📁 services/                           # Integrações com serviços externos
-│   ├── 📁 utils/                              # Funções utilitárias e helpers
+│   ├── 📁 validator/                          # Validação contratual dos schemas
 │   └── 📁 views/                              # Telas e interfaces modulares do Streamlit
 │
 ├── 📁 tests/                                  # Testes automatizados
@@ -323,7 +323,5 @@ docker compose up -d --docker
 [Ricieri Rosa](https://github.com/garcezrosa)
 
 [Rodrigo Aguiar](https://github.com/RAguiarEng)
-
-[Rodrigo Silva](https://github.com/prospera-analytics)
 
 [Vitor Pires](https://github.com/vikpires)
