@@ -1,0 +1,511 @@
+{
+  "name": "wf06_coleta-mastodon",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -608,
+        624
+      ],
+      "id": "124d8d7e-1cee-4b02-9929-b0d313ecf9c9",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        512,
+        528
+      ],
+      "id": "5724fc99-dea8-454f-9446-22eed8e5edd9",
+      "name": "Unify Mastodon Posts"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{\n  {\n    ...$json,\n    source: 'mastodon.social',\n    author: String(\n      $json.account?.display_name ||\n      $json.account?.username ||\n      $json.username ||\n      'unknown'\n    ).trim(),\n    text: String(\n      $json.text ||\n      $json.content ||\n      $json.pleroma?.content?.['text/plain'] ||\n      ''\n    ),\n    tags: Array.isArray($json.tags)\n      ? $json.tags.map(tag =>\n          typeof tag === 'string' ? tag : tag?.name\n        ).filter(Boolean)\n      : [],\n    media_urls: Array.isArray($json.media_attachments)\n      ? $json.media_attachments\n          .map(media => media?.url)\n          .filter(Boolean)\n      : []\n  }\n}}",
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        64,
+        432
+      ],
+      "id": "68db6feb-6ed9-4854-907a-5f9b62686b6d",
+      "name": "Standard Mastodon - Social Posts"
+    },
+    {
+      "parameters": {
+        "operation": "upload",
+        "bucketName": "communitylab-assets",
+        "fileName": "={{ $binary.data.fileName }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        1408,
+        432
+      ],
+      "id": "20fe4cc5-f360-44ed-934d-66537fb7d4c3",
+      "name": "Upload a file",
+      "retryOnFail": true,
+      "waitBetweenTries": 3000,
+      "credentials": {
+        "s3": {
+          "id": "WG22ysIkwCiyk8dj",
+          "name": "OCI Object Storage S3"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {
+          "format": true,
+          "fileName": "={{ 'sample_mastodon-' + $('Prepare Search Parameter').first().json.tag + '.json'}}"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1184,
+        432
+      ],
+      "id": "425a8bc0-4e2c-46dd-b546-c29e4bc527f8",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "wf06-coleta-mastodon",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -608,
+        432
+      ],
+      "id": "b26919f2-de38-4ba6-8d6d-0c69e85047cc",
+      "name": "Webhook",
+      "webhookId": "69484af8-4268-413c-8165-b5f7e607f2db"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{\n  {\n    success: true,\n    status: $('Consolidar resultados').first().json.status,\n    message:\n      $('Consolidar resultados').first().json.status === 'partial_success'\n        ? 'Coleta parcialmente concluída. Os posts da fonte disponível foram armazenados no bucket OCI communitylab-assets.'\n        : 'Coleta concluída. Os posts foram armazenados no bucket OCI communitylab-assets.',\n    total_posts: $('Consolidar resultados').first().json.total_posts,\n    successful_sources: $('Consolidar resultados').first().json.successful_sources,\n    failed_sources: $('Consolidar resultados').first().json.failed_sources\n  }\n}}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1632,
+        336
+      ],
+      "id": "d9c60b89-792c-414b-9dfb-2e4d0b923d19",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"success\": false,\n  \"error\": \"oci_storage_failed\",\n  \"message\": \"A coleta foi iniciada, mas o arquivo não pôde ser armazenado no bucket OCI communitylab-assets. Verifique a conexão e as credenciais do Object Storage antes de tentar novamente.\"\n}",
+        "options": {
+          "responseCode": 502
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1632,
+        528
+      ],
+      "id": "07d0a6fb-88dc-4008-b9a4-5f28e6e818cb",
+      "name": "OCI Upload Error Response"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "60b81765-66c0-4800-8355-cb208312051a",
+              "leftValue": "={{ $json.total_posts }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        960,
+        528
+      ],
+      "id": "8715192a-75c0-4752-a00e-5815497582eb",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "jsCode": "const errors = $input.all().filter(item => item.json.error);\n\nconst posts = $input.all()\n  .filter(item => !item.json.error)\n  .map(item => item.json);\n\nreturn [\n  {\n    json: {\n      source: 'mastodon.social',\n      status: errors.length > 0 ? 'error' : 'success',\n      posts,\n      post_count: posts.length,\n      errors: errors.map(item => ({\n        message: item.json.error?.message,\n        status: item.json.error?.status,\n        description: item.json.details?.description\n      }))\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        288,
+        432
+      ],
+      "id": "b0f5d7f1-b7aa-4b20-a5eb-40d160c1e0fc",
+      "name": "Status - mastodon.social"
+    },
+    {
+      "parameters": {
+        "jsCode": "const errors = $input.all().filter(item => item.json.error);\n\nconst posts = $input.all()\n  .filter(item => !item.json.error)\n  .map(item => item.json);\n\nreturn [\n  {\n    json: {\n      source: 'social.espeweb.net',\n      status: errors.length > 0 ? 'error' : 'success',\n      posts,\n      post_count: posts.length,\n      errors: errors.map(item => ({\n        message: item.json.error?.message,\n        status: item.json.error?.status,\n        description: item.json.details?.description\n      }))\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        288,
+        624
+      ],
+      "id": "aaaaf536-81ba-4d63-a13d-dc37ea1decb4",
+      "name": "Status - social.espeweb.net"
+    },
+    {
+      "parameters": {
+        "jsCode": "const sources = $input.all().map(item => item.json);\n\nconst posts = sources.flatMap(source => source.posts || []);\n\nconst successfulSources = sources.filter(\n  source => source.status === 'success'\n);\n\nconst failedSources = sources.filter(\n  source => source.status === 'error'\n);\n\nreturn [\n  {\n    json: {\n      status:\n        successfulSources.length === 2 ? 'success' :\n        successfulSources.length === 1 ? 'partial_success' :\n        'error',\n      total_posts: posts.length,\n      successful_sources: successfulSources.map(source => source.source),\n      failed_sources: failedSources.map(source => ({\n        source: source.source,\n        errors: source.errors\n      })),\n      posts\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        736,
+        528
+      ],
+      "id": "3848958e-5da4-4a03-9303-27a20c3a6c27",
+      "name": "Consolidar resultados"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{\n  {\n    success: $('Consolidar resultados').first().json.status !== 'error',\n    status: $('Consolidar resultados').first().json.status,\n    message:\n      $('Consolidar resultados').first().json.status === 'error'\n        ? 'Falha na coleta: nenhuma das fontes retornou dados.'\n        : 'Coleta concluída, mas nenhuma das fontes retornou novos posts. O arquivo existente não foi alterado.',\n    total_posts: 0,\n    successful_sources: $('Consolidar resultados').first().json.successful_sources,\n    failed_sources: $('Consolidar resultados').first().json.failed_sources\n  }\n}}",
+        "options": {
+          "responseCode": "={{ $('Consolidar resultados').first().json.status === 'error' ? 502 : 200 }}"
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1184,
+        624
+      ],
+      "id": "fb9e1980-b70d-4c00-b34c-d4026a294858",
+      "name": "Respond - No Posts",
+      "alwaysOutputData": false,
+      "executeOnce": false,
+      "retryOnFail": false
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8b6b3d0b-92a6-4873-a1f2-bf450a2e9110",
+              "name": "tag",
+              "value": "={{ $json.body?.tag || 'artificialintelligence' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        -384,
+        528
+      ],
+      "id": "8a7d0e80-19bd-4f2f-9c02-0fd5e0626a82",
+      "name": "Prepare Search Parameter"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{\n  {\n    ...$json,\n    source: $json.source || 'social.espeweb.net',\n    author: String(\n      $json.account?.display_name ||\n      $json.account?.username ||\n      $json.username ||\n      'unknown'\n    ).trim(),\n    text: String(\n      $json.pleroma?.content?.['text/plain'] ||\n      $json.text ||\n      $json.content ||\n      ''\n    ),\n    tags: Array.isArray($json.tags)\n      ? $json.tags.map(tag =>\n          typeof tag === 'string' ? tag : tag?.name\n        ).filter(Boolean)\n      : [],\n    media_urls: Array.isArray($json.media_attachments)\n      ? $json.media_attachments\n          .map(media => media?.url)\n          .filter(Boolean)\n      : []\n  }\n}}",
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        64,
+        624
+      ],
+      "id": "b30cdf24-de63-48c5-9f1a-042f7e0d63f9",
+      "name": "Standard Mastodon Posts"
+    },
+    {
+      "parameters": {
+        "url": "={{ 'https://mastodon.social/api/v1/timelines/tag/' + $('Prepare Search Parameter').first().json.tag }}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "limit",
+              "value": "40"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -160,
+        432
+      ],
+      "id": "00c61ede-3cb4-49ee-b821-17328c1fd946",
+      "name": "Search hashtag - mastodon.social",
+      "retryOnFail": true,
+      "waitBetweenTries": 3000,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "url": "={{ 'https://social.espeweb.net/api/v1/timelines/tag/' + $('Prepare Search Parameter').first().json.tag }}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "limit",
+              "value": "40"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -160,
+        624
+      ],
+      "id": "05ad2d0e-86b1-4d0a-8dec-2cc51523a683",
+      "name": "Search hashtag - social.espeweb.net",
+      "retryOnFail": true,
+      "waitBetweenTries": 3000,
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Prepare Search Parameter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Standard Mastodon - Social Posts": {
+      "main": [
+        [
+          {
+            "node": "Status - mastodon.social",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unify Mastodon Posts": {
+      "main": [
+        [
+          {
+            "node": "Consolidar resultados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Upload a file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Prepare Search Parameter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload a file": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "OCI Upload Error Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Status - mastodon.social": {
+      "main": [
+        [
+          {
+            "node": "Unify Mastodon Posts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Status - social.espeweb.net": {
+      "main": [
+        [
+          {
+            "node": "Unify Mastodon Posts",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Consolidar resultados": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond - No Posts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Search Parameter": {
+      "main": [
+        [
+          {
+            "node": "Search hashtag - mastodon.social",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Search hashtag - social.espeweb.net",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Standard Mastodon Posts": {
+      "main": [
+        [
+          {
+            "node": "Status - social.espeweb.net",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search hashtag - mastodon.social": {
+      "main": [
+        [
+          {
+            "node": "Standard Mastodon - Social Posts",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Search hashtag - social.espeweb.net": {
+      "main": [
+        [
+          {
+            "node": "Standard Mastodon Posts",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "ddeaa4e4-e9d4-42be-9835-adc1165b1659",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
+  },
+  "nodeGroups": [],
+  "id": "faGiTHAfqQLdG57s",
+  "tags": []
+}

@@ -20,8 +20,10 @@ WF02 | `wf02-coleta-stack-exchange` | Questões | Stack Overflow |
 WF03 | `wf03-coleta-stack-exchange-licenses` | Licenças | Stack Overflow |
 WF04 | `wf04-coleta-stack-exchange-answers` | Respostas | Stack Overflow |
 WF05 | `wf05-download-bucket-OCI` | Download dos arquivos em `.ZIP` | Bucket na OCI |
-WF06 | _em desenvolvimento_ | - | Mastodon |
-WF07 | `hacker-news-search` | Dados completos | Hacker News |
+WF06 | `wf06-coleta-mastodon` | Dados | Mastodon |
+WF07 | `wf07-hacker-news-search` | Dados completos | Hacker News |
+
+> **Versionamento:** Necessário definir critério de versão na geração dos arquivos, nos fluxos WF02, WF03, WF04, WF06 e WF07.
 
 **Sugestão de requisição via Powershell para WF02:**
 
