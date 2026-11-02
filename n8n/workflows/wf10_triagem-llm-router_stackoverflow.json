@@ -1,0 +1,722 @@
+{
+  "name": "wf10_triagem-llm-router_stackoverflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        32,
+        64
+      ],
+      "id": "08fa5dea-6b18-43f9-a534-027f0b3c0731",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "bucketName": "communitylab-assets",
+        "options": {
+          "folderKey": "raw/"
+        }
+      },
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        480,
+        -32
+      ],
+      "id": "d2159966-e451-4639-9bc9-9f9832a9184c",
+      "name": "Get OCI Bucket files",
+      "credentials": {
+        "s3": {
+          "id": "WG22ysIkwCiyk8dj",
+          "name": "OCI Object Storage S3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "3097698c-7678-4137-aa0d-2a86518b08f0",
+              "leftValue": "={{ $json.Key }}",
+              "rightValue": "={{ 'raw/' + $('Define Search Parameters').item.json.source }}",
+              "operator": {
+                "type": "string",
+                "operation": "startsWith"
+              }
+            },
+            {
+              "id": "fb5c486d-2149-4a62-99e3-390abfffd08c",
+              "leftValue": "={{ $json.Key }}",
+              "rightValue": "={{ $('Define Search Parameters').item.json.file_type }}",
+              "operator": {
+                "type": "string",
+                "operation": "endsWith"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        704,
+        -32
+      ],
+      "id": "e6edb171-377b-4ed5-bc8e-a575fbd17b3a",
+      "name": "Select sample_ json files"
+    },
+    {
+      "parameters": {
+        "bucketName": "=communitylab-assets",
+        "fileKey": "={{ $json.Key }}"
+      },
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        928,
+        -32
+      ],
+      "id": "7ec66deb-ca69-404c-b6e8-e7562c22134e",
+      "name": "Download a file",
+      "credentials": {
+        "s3": {
+          "id": "WG22ysIkwCiyk8dj",
+          "name": "OCI Object Storage S3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "fromJson",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        1152,
+        -32
+      ],
+      "id": "fb973bd5-6c4b-43e5-ade0-0f68be28c0de",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1376,
+        -32
+      ],
+      "id": "72aef397-fd0f-4f6a-83b0-944ca4df8557",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {
+          "format": true,
+          "fileName": "={{ \"result_\" + $('Define Search Parameters').item.json.source + \".json\"}}"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        2896,
+        -32
+      ],
+      "id": "925ac4fb-57dc-42ea-9e35-de035ccb77c3",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "maxItems": "=1"
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        2048,
+        -32
+      ],
+      "id": "0477fc96-df6c-4d63-a5b3-af84d61f1141",
+      "name": "Limit"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2d00d052-bcca-4a10-b3df-3ad129ac76a0",
+              "name": "file_type",
+              "value": ".json",
+              "type": "string"
+            },
+            {
+              "id": "aa617609-6a7e-427f-9205-e0710215d344",
+              "name": "source",
+              "value": "stackoverflow",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        256,
+        -32
+      ],
+      "id": "4021355e-94b8-4782-baff-43ae38cf4504",
+      "name": "Define Search Parameters"
+    },
+    {
+      "parameters": {
+        "path": "wf10_triagem-llm-router_stackoverflow",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        32,
+        -128
+      ],
+      "id": "c9ec7459-600c-4a21-ab99-598ae8131050",
+      "name": "Webhook",
+      "webhookId": "cfddde61-724a-4ad5-a901-26478a889307"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"status\": \"success\",\n  \"message\": \"Análise de sentimento feito e arquivo disponibilizado no bucket OCI.\"\n}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        3344,
+        -32
+      ],
+      "id": "27f2d2dd-7e42-4e98-a96b-cea1594e8275",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "operation": "upload",
+        "bucketName": "communitylab-assets",
+        "fileName": "={{ 'processed/' + $binary.data.fileName }}",
+        "additionalFields": {},
+        "tagsUi": {
+          "tagsValues": []
+        }
+      },
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        3120,
+        -32
+      ],
+      "id": "cc636693-3e1d-48d5-a324-3712ea9a34e1",
+      "name": "Upload a file",
+      "credentials": {
+        "s3": {
+          "id": "WG22ysIkwCiyk8dj",
+          "name": "OCI Object Storage S3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
+        "options": {
+          "responseFormat": "json_object",
+          "temperature": 0
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatNvidia",
+      "typeVersion": 1,
+      "position": [
+        2408,
+        200
+      ],
+      "id": "8d8909b4-2b61-48a2-8400-d6044c9d3013",
+      "name": "NVIDIA Nemotron Chat Model",
+      "credentials": {
+        "nvidiaApi": {
+          "id": "pmkxnCedxH6Ce0HT",
+          "name": "NVIDIA Nemotron account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "8d2c3c7b-2d66-4c4b-86ea-951427f4787a",
+              "leftValue": "={{ $json.body_question }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "5052625c-c89a-474e-897b-bfa3386c9e25",
+              "leftValue": "={{ $json.body_question }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "f0fb6fe6-045b-4610-ba20-2dbc5180beb5",
+              "leftValue": "={{ $json.is_answered_question }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        1600,
+        -32
+      ],
+      "id": "09b04367-8564-494a-9239-aec03827b185",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e6084807-cf7f-43c1-b11c-556074c85039",
+              "name": "source_id",
+              "value": "={{ $json.source_id }}",
+              "type": "string"
+            },
+            {
+              "id": "91bfe734-fcac-4e30-8bdb-7a105f33d57a",
+              "name": "source",
+              "value": "=stackoverflow",
+              "type": "string"
+            },
+            {
+              "id": "1e971c3d-c509-4a87-940c-2a89e977d721",
+              "name": "question_author",
+              "value": "={{ $json.owner_question }}",
+              "type": "string"
+            },
+            {
+              "id": "5c7eef51-b7cb-4086-8ea0-5d56ca335f2c",
+              "name": "question_title",
+              "value": "={{ $json.title_question }}",
+              "type": "string"
+            },
+            {
+              "id": "f5d008a6-ff6c-4aab-a629-02959e08c669",
+              "name": "question_date_created_at",
+              "value": "={{ $json.creation_date_question }}",
+              "type": "string"
+            },
+            {
+              "id": "e494ac4b-0101-4327-aa8f-4667d5fbf532",
+              "name": "question_url",
+              "value": "={{ $json.link_question }}",
+              "type": "string"
+            },
+            {
+              "id": "08d059e9-914c-4302-a6bb-8d8104a573e1",
+              "name": "question_body",
+              "value": "={{ $json.body_question }}",
+              "type": "string"
+            },
+            {
+              "id": "0a21f432-996a-48f6-9653-d83b237f01ed",
+              "name": "tags",
+              "value": "={{ $json.tags }}",
+              "type": "array"
+            },
+            {
+              "id": "43a7a964-a882-4b1d-bfd2-0072c155f9ec",
+              "name": "source_file",
+              "value": "={{ $('Download a file').item.json.Key }}",
+              "type": "string"
+            },
+            {
+              "id": "12a8ce77-aa5d-4b7d-8407-2ec4146c1f3f",
+              "name": "question_score",
+              "value": "={{ $json.score_question }}",
+              "type": "number"
+            },
+            {
+              "id": "5a05ef25-3040-4e0e-94e2-2d25c1ee5ff3",
+              "name": "question_last_activity_date",
+              "value": "={{ $json.last_activity_date_question }}",
+              "type": "number"
+            },
+            {
+              "id": "17fd2e29-03d9-4a67-9903-6a6d3de9ae69",
+              "name": "question_answer_count",
+              "value": "={{ $json.answer_count_question }}",
+              "type": "number"
+            },
+            {
+              "id": "ad1e28ac-0b73-489e-a7f4-e78e6bebfdbd",
+              "name": "question_comment_count",
+              "value": "={{ $json.comment_count_question }}",
+              "type": "number"
+            },
+            {
+              "id": "6a84069e-7ca1-413e-9763-73953ca158e3",
+              "name": "answers",
+              "value": "={{ $json.answers }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1824,
+        -32
+      ],
+      "id": "3af40d7f-2f08-4bba-a613-a31e4e443163",
+      "name": "Map StackOverflow Fields"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ JSON.stringify($json) }}",
+        "hasOutputParser": true,
+        "needsFallback": true,
+        "options": {
+          "systemMessage": "You are a precise sentiment analysis engine for Stack Overflow question-and-answer data.\n\nAnalyze the sentiment of each answer individually, using the corresponding question title and question body as context.\n\nInstructions:\n1. Read the question title and question body to understand the context.\n2. Find the answers in the `answers` array.\n3. For each answer, analyze the text in its `body_answer` field.\n4. Assign exactly one sentiment category to each answer, choosing from: {`Excited`, `Happy`, `Neutral`, `Disappointed`, `Angry`}.\n5. Base the classification on the sentiment expressed in the answer text, not on the question's sentiment, the author's reputation, votes, acceptance status, or other metadata.\n6. Technical explanations, factual statements, and neutral solutions should generally be classified as Neutral unless the wording clearly expresses another sentiment.\n7. Preserve the original structure of the input, including `source_id`, question fields, the `answers` array, and every answer's existing identifiers and metadata.\n8. Add a `sentiment` field to each answer object. Its value must be one of the specified categories.\n9. Do not remove, rename, or modify existing fields or identifiers.\n10. Do not invent answers or sentiment values for missing answer text.\n11. Return valid JSON only. Do not include Markdown, explanations, or text outside the JSON.\n12. Return the complete input object with the sentiment fields added to the corresponding answers."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        2312,
+        -32
+      ],
+      "id": "cf2a06a5-dc20-4453-87fb-1d20896ec2ac",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "google/gemma-4-31b-it:free",
+        "options": {
+          "responseFormat": "json_object",
+          "temperature": 0
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        2280,
+        200
+      ],
+      "id": "ddd859a4-4386-4d20-ba73-8e87140a9690",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "GOctsw63IOCdPIoj",
+          "name": "OpenRouter - ONE_hackathon"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"source_id\": \"79857625\",\n  \"source\": \"stackoverflow\",\n  \"answers\": [\n    {\n      \"owner_answer_17592368\": {\n        \"account_id\": 17592368,\n        \"display_name\": \"Olivier\"\n      },\n      \"answer_id\": 79858113,\n      \"source_id\": \"79857625\",\n      \"sentiment\": \"Neutral\",\n      \"strength\": 0.9,\n    \"confidence\": 0.96\n    }\n  ]\n}",
+        "autoFix": true
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        2536,
+        200
+      ],
+      "id": "8dd0c77e-67b3-47c6-b2ca-e38db9abf04b",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "model": "thinkingmachines/inkling-small:free",
+        "options": {
+          "responseFormat": "json_object",
+          "temperature": 0
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        2616,
+        408
+      ],
+      "id": "53fd4082-0558-4595-816f-d1c321b435da",
+      "name": "OpenRouter Chat Model1",
+      "credentials": {
+        "openRouterApi": {
+          "id": "GOctsw63IOCdPIoj",
+          "name": "OpenRouter - ONE_hackathon"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Define Search Parameters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get OCI Bucket files": {
+      "main": [
+        [
+          {
+            "node": "Select sample_ json files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select sample_ json files": {
+      "main": [
+        [
+          {
+            "node": "Download a file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download a file": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Define Search Parameters": {
+      "main": [
+        [
+          {
+            "node": "Get OCI Bucket files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Define Search Parameters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Upload a file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload a file": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NVIDIA Nemotron Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Map StackOverflow Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Map StackOverflow Fields": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Structured Output Parser",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "a8e6cf56-13eb-4677-ae69-5b8ed7030f63",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
+  },
+  "nodeGroups": [],
+  "id": "fPkrXUK7Kre97d89",
+  "tags": []
+}

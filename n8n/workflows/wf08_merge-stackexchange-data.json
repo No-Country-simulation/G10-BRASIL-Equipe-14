@@ -1,0 +1,369 @@
+{
+  "name": "wf08_merge-stackexchange-data",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        64
+      ],
+      "id": "c5aa1941-e986-4371-9210-343a07d6a6b2",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "bucketName": "communitylab-assets",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        448,
+        -32
+      ],
+      "id": "e5e1e62b-a195-4bac-bda6-c1b4dd466d9e",
+      "name": "Get OCI Bucket files",
+      "credentials": {
+        "s3": {
+          "id": "WG22ysIkwCiyk8dj",
+          "name": "OCI Object Storage S3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "bucketName": "=communitylab-assets",
+        "fileKey": "={{ $json.Key }}"
+      },
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        896,
+        -32
+      ],
+      "id": "6fd326b3-5703-4477-90bb-506a495d75b5",
+      "name": "Download a file",
+      "credentials": {
+        "s3": {
+          "id": "WG22ysIkwCiyk8dj",
+          "name": "OCI Object Storage S3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "fromJson",
+        "destinationKey": "={{ $binary.data.fileName.split('_')[1].split('-')[1] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        1120,
+        -32
+      ],
+      "id": "00db5bd9-ba5d-48db-9cb4-3eac0e5dcd26",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "fb5c486d-2149-4a62-99e3-390abfffd08c",
+              "leftValue": "={{ $json.Key }}",
+              "rightValue": "={{ $('Define Search Parameters').item.json.file_type }}",
+              "operator": {
+                "type": "string",
+                "operation": "endsWith"
+              }
+            },
+            {
+              "id": "f93b42fe-ff99-43f9-8b9d-95bf5eab2534",
+              "leftValue": "={{ $json.Key }}",
+              "rightValue": "={{ 'sample_' + $('Define Search Parameters').item.json.source }}",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        672,
+        -32
+      ],
+      "id": "8552d9b0-71b6-42fb-81b1-95566940e9d0",
+      "name": "Select sample_stackoverflow json files"
+    },
+    {
+      "parameters": {
+        "jsCode": "const inputItems = $input.all();\n\n// Estrutura para acumular os dados por source_id\nconst records = new Map();\n\nfunction getRecord(sourceId) {\n  const id = String(sourceId ?? '').trim();\n\n  if (!id) return null;\n\n  if (!records.has(id)) {\n    records.set(id, {\n      source_id: id,\n      question: null,\n      license: null,\n      answers: [],\n    });\n  }\n\n  return records.get(id);\n}\n\nfor (const item of inputItems) {\n  const data = item.json;\n\n  // Processar perguntas\n  for (const question of data.questions ?? []) {\n    const record = getRecord(question.source_id);\n    if (!record) continue;\n\n    record.question = {\n      ...(record.question ?? {}),\n      ...question,\n    };\n  }\n\n  // Processar licenças\n  for (const license of data.licenses ?? []) {\n    const record = getRecord(license.source_id);\n    if (!record) continue;\n\n    record.license = {\n      ...(record.license ?? {}),\n      ...license,\n    };\n  }\n\n  // Processar respostas\n  for (const answer of data.answers ?? []) {\n    const record = getRecord(answer.source_id);\n    if (!record) continue;\n\n    record.answers.push(answer);\n  }\n}\n\n// Montar a saída: um item por source_id\nreturn Array.from(records.values()).map(record => ({\n  json: {\n    source_id: record.source_id,\n    ...(record.question ?? {}),\n    ...(record.license ?? {}),\n    answers: record.answers,\n  },\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1344,
+        -32
+      ],
+      "id": "3becc844-fa24-4daa-855d-204789450e3e",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {
+          "format": true,
+          "fileName": "={{ $('Select sample_stackoverflow json files').first().json.Key.split('_')[1].split('-')[0] + '_' + $('Select sample_stackoverflow json files').first().json.Key.split('_')[2].replace('-','') }}"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1568,
+        -32
+      ],
+      "id": "dddcb286-bbe6-4d39-8bbe-e1256a6e4f3f",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "29966c04-d552-4ab6-b30d-4eed7c20b9dd",
+              "name": "file_type",
+              "value": ".json",
+              "type": "string"
+            },
+            {
+              "id": "8afea72d-fbe0-4299-a92e-013e96314fa0",
+              "name": "source",
+              "value": "stackoverflow",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        224,
+        -32
+      ],
+      "id": "b9da3a65-a9b3-4c9b-bbee-7304bcea02e8",
+      "name": "Define Search Parameters"
+    },
+    {
+      "parameters": {
+        "path": "wf08_merge-stackexchange-data",
+        "authentication": "headerAuth",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        -128
+      ],
+      "id": "0ad30e45-da8a-4ad1-a9b9-43021faaa2cf",
+      "name": "Webhook",
+      "webhookId": "3038bb07-ad43-4128-b267-3530fff188d1",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "QNmmh3RzZbp9CXSq",
+          "name": "Hackathon CommunityLab"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"status\": \"success\",\n  \"message\": \"Dados concatenados e arquivo disponibilizado no bucket OCI.\"\n}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "filename",
+                "value": "={{ $binary.data.fileName }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        2016,
+        -32
+      ],
+      "id": "5fdb95d1-ec45-4325-aa4b-42ac5b806476",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "operation": "upload",
+        "bucketName": "communitylab-assets",
+        "fileName": "={{ 'raw/' + $binary.data.fileName }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        1792,
+        -32
+      ],
+      "id": "4834bcba-efc2-4b61-a85b-3dcff643adb8",
+      "name": "Upload a file",
+      "credentials": {
+        "s3": {
+          "id": "WG22ysIkwCiyk8dj",
+          "name": "OCI Object Storage S3"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Define Search Parameters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get OCI Bucket files": {
+      "main": [
+        [
+          {
+            "node": "Select sample_stackoverflow json files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download a file": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select sample_stackoverflow json files": {
+      "main": [
+        [
+          {
+            "node": "Download a file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Define Search Parameters": {
+      "main": [
+        [
+          {
+            "node": "Get OCI Bucket files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Define Search Parameters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Upload a file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload a file": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "6cdf6a37-de94-460a-aae9-aabd512c4f85",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
+  },
+  "nodeGroups": [],
+  "id": "23ut8ZiWUvRhQBR6",
+  "tags": []
+}
