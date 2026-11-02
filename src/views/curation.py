@@ -4,7 +4,7 @@ from datetime import datetime
 import streamlit as st
 import streamlit_shadcn_ui as ui
 
-from config import (
+from src.config import (
     FEELINGS_COLORS_ENUM,
     FEELINGS_ENUM,
     STATUSES_ENUM,
@@ -132,7 +132,7 @@ def render_reviewed_content(content: dict) -> None:
             st.markdown(f"**{content['title']}**")
             st.write(content["body"])
         ui.button(
-            "Voltar para pendentes",
+            "Refazer revisão",
             key=f"undo_{content['id']}",
             variant="outline",
             on_click=lambda c=content: set_review(c, "pending"),

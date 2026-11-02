@@ -4,7 +4,7 @@ from collections.abc import Callable
 import streamlit as st
 import streamlit_shadcn_ui as ui
 
-from config import PROCESSING_SECONDS
+from src.config import PROCESSING_SECONDS
 from src.services.community_sources import list_community_sources
 
 def go_to_curation(batch_id: str) -> None:

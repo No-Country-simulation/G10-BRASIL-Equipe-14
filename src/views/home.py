@@ -1,6 +1,6 @@
 import streamlit as st
 
-from config import GITHUB_PROJECT_URL, PAGE_TITLE, PROJECT_BRIEF
+from src.config import GITHUB_PROJECT_URL, PAGE_TITLE, PROJECT_BRIEF
 
 
 def render_home() -> None:

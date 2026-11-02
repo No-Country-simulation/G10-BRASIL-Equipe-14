@@ -69,9 +69,6 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 │           ├── 📄 Dockerfile                  # Imagem Docker da aplicação
 │           └── 📄 config.toml                 # Configuração do Streamlit (watchdog e recarga ao salvar)
 │
-├── 📁 app/                                    # Aplicação Streamlit (painel de curadoria)
-│   └── 📄 main.py                             # Ponto de entrada: uv run streamlit run src/app/main.py
-│
 ├── 📁 data/                                   # Estrutura e contratos de dados
 │   ├── 📁 raw/                                # Dados brutos baixados (conteúdo ignorado via .gitignore)
 │   ├── 📁 processed/                          # Dados pós-processamento/DuckDB (conteúdo ignorado via .gitignore)
@@ -94,8 +91,11 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 ├── 📁 src/                                    # Código-fonte da aplicação
 │   ├── 📁 pipeline/                           # Orquestração do fluxo de dados
 │   ├── 📁 services/                           # Integrações com serviços externos
-│   ├── 📁 validator/                          # Validação contratual dos schemas
-│   └── 📁 views/                              # Telas e interfaces modulares do Streamlit
+│   ├── 📁 utils/                              # Funções utilitárias e helpers
+│   ├── 📁 validation/                         # Validação contratual dos schemas
+│   ├── 📁 views/                              # Telas e interfaces modulares do Streamlit
+│   ├── 📄 config.py                           # Configurações da aplicação
+│   └── 📄 main.py                             # Ponto de entrada: uv run python -m streamlit run src/main.py
 │
 ├── 📁 tests/                                  # Testes automatizados
 │
@@ -220,7 +220,7 @@ uv run pytest
 Para rodar um teste específico:
 
 ```bash
-uv run pytest tests/test_schema_validator.py::test_validate_returns_no_errors_for_valid_record
+uv run pytest tests/test_schema_validator.py::test_validate_data_returns_no_errors_for_valid_record
 
 ```
 
@@ -240,11 +240,12 @@ O comando retorna `Valid` (exit code `0`) se o arquivo estiver em conformidade, 
 Com as dependências sincronizadas (passo 2), inicie o painel na raiz do projeto:
 
 ```bash
-uv run streamlit run src/app/main.py
+uv run python -m streamlit run src/main.py
 
 ```
 
 * Abra o navegador em: [http://localhost:8501](http://localhost:8501)
+* Use `python -m streamlit` (e não só `streamlit`) para que a raiz do projeto entre no `sys.path` e os imports `src.*` funcionem.
 * O arquivo `.setup/docker/streamlit/config.toml` (copiado para `.streamlit/config.toml` na imagem Docker) ativa o `watchdog` e o `runOnSave`.
 * Para encerrar, pressione `Ctrl+C` no terminal.
 
@@ -254,12 +255,12 @@ Não é necessário ter Python ou uv instalados para este caminho. O serviço `s
 
 ```bash
 # Construir a imagem e subir apenas o painel
-docker compose up -d --docker streamlit
+docker compose up -d --build streamlit
 ```
 
 ```bash
 # Ou subir todos os serviços (n8n + Streamlit)
-docker compose up -d --docker
+docker compose up -d --build
 
 ```
 
@@ -270,7 +271,7 @@ docker compose up -d --docker
 * A pasta `./data` é montada em `/code/data` dentro do container.
 
 > [!NOTE]
-> O código é copiado para dentro da imagem, então alterações em `app/` ou `src/` exigem reconstruir com `docker compose up -d --build streamlit`. Para desenvolvimento com recarga automática, prefira o passo 10.
+> O código é copiado para dentro da imagem, então alterações em `src/` exigem reconstruir com `docker compose up -d --build streamlit`. Para desenvolvimento com recarga automática, prefira o passo 10.
 
 ---
 
