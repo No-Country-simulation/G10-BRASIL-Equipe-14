@@ -1,0 +1,948 @@
+{
+  "name": "wf09_triagem-llm-router_mastodon",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        48
+      ],
+      "id": "b95e2d70-b765-4e2f-9ca4-32d456dcbbed",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "bucketName": "communitylab-assets",
+        "options": {
+          "folderKey": "raw/"
+        }
+      },
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        448,
+        -48
+      ],
+      "id": "ce83711f-224d-45dd-bc0d-59dc129749ce",
+      "name": "Get OCI Bucket files",
+      "credentials": {
+        "s3": {
+          "id": "WG22ysIkwCiyk8dj",
+          "name": "OCI Object Storage S3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "3097698c-7678-4137-aa0d-2a86518b08f0",
+              "leftValue": "={{ $json.Key }}",
+              "rightValue": "={{ 'raw/' + $('Define Search Parameters').item.json.source }}",
+              "operator": {
+                "type": "string",
+                "operation": "startsWith"
+              }
+            },
+            {
+              "id": "fb5c486d-2149-4a62-99e3-390abfffd08c",
+              "leftValue": "={{ $json.Key }}",
+              "rightValue": "={{ $('Define Search Parameters').item.json.file_type }}",
+              "operator": {
+                "type": "string",
+                "operation": "endsWith"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        672,
+        -48
+      ],
+      "id": "672fa296-b0b4-41b8-b695-c798cad7fb2d",
+      "name": "Select sample_ json files"
+    },
+    {
+      "parameters": {
+        "bucketName": "=communitylab-assets",
+        "fileKey": "={{ $json.Key }}"
+      },
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        896,
+        -48
+      ],
+      "id": "1d363e1b-1faf-4404-a473-f474cfeeeea2",
+      "name": "Download a file",
+      "credentials": {
+        "s3": {
+          "id": "WG22ysIkwCiyk8dj",
+          "name": "OCI Object Storage S3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "fromJson",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        1120,
+        -48
+      ],
+      "id": "91340dd8-c232-4f42-bf36-af19cdd492b7",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "data[0].posts",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1344,
+        -48
+      ],
+      "id": "ac8989d2-9bc7-425c-919d-02ad9b721e8d",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "dataPropertyName": "text",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "clean_text",
+              "cssSelector": "body"
+            }
+          ]
+        },
+        "options": {
+          "trimValues": true,
+          "cleanUpText": true
+        }
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        1568,
+        48
+      ],
+      "id": "9def8884-c5c4-423f-a90a-4033a326460c",
+      "name": "Sanitize HTML Text"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1792,
+        -32
+      ],
+      "id": "456e3101-9b7b-41bd-83f5-69cbf079c5cb",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e6084807-cf7f-43c1-b11c-556074c85039",
+              "name": "post_id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "91bfe734-fcac-4e30-8bdb-7a105f33d57a",
+              "name": "source",
+              "value": "={{ $json.source }}",
+              "type": "string"
+            },
+            {
+              "id": "1e971c3d-c509-4a87-940c-2a89e977d721",
+              "name": "author",
+              "value": "={{ $json.author }}",
+              "type": "string"
+            },
+            {
+              "id": "f5d008a6-ff6c-4aab-a629-02959e08c669",
+              "name": "created_at",
+              "value": "={{ $json.created_at }}",
+              "type": "string"
+            },
+            {
+              "id": "d730d222-40f7-421b-84a3-e4446afedf12",
+              "name": "language",
+              "value": "={{ $json.language }}",
+              "type": "string"
+            },
+            {
+              "id": "e494ac4b-0101-4327-aa8f-4667d5fbf532",
+              "name": "url",
+              "value": "={{ $json.url }}",
+              "type": "string"
+            },
+            {
+              "id": "954eb320-18fe-4419-90d1-076c72ac441f",
+              "name": "clean_text",
+              "value": "={{ $json.clean_text.replace(/https?:\\/\\/\\S+/g, '').trim() }}",
+              "type": "string"
+            },
+            {
+              "id": "0a21f432-996a-48f6-9653-d83b237f01ed",
+              "name": "tags",
+              "value": "={{ $json.tags }}",
+              "type": "array"
+            },
+            {
+              "id": "43a7a964-a882-4b1d-bfd2-0072c155f9ec",
+              "name": "source_file",
+              "value": "={{ $('Download a file').item.json.Key }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        2016,
+        -32
+      ],
+      "id": "b413ceb0-34bf-4989-bd3d-4ee387873b98",
+      "name": "Map Mastodon Fields"
+    },
+    {
+      "parameters": {
+        "inputText": "={{ $json.clean_text }}",
+        "options": {
+          "categories": "Excited, Happy,  Neutral, Disappointed, Angry",
+          "systemPromptTemplate": "You are highly intelligent and accurate sentiment analyzer. Analyze the sentiment of the provided text. Categorize it into one of the following: {categories}. Use the provided formatting instructions. Only output the JSON.",
+          "includeDetailedResults": true,
+          "enableAutoFixing": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.sentimentAnalysis",
+      "typeVersion": 1.1,
+      "position": [
+        2464,
+        -80
+      ],
+      "id": "edf18a46-ec6f-4f41-9e46-53cdbb5ca0a8",
+      "name": "Sentiment Analysis"
+    },
+    {
+      "parameters": {
+        "numberInputs": 5
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        3040,
+        -128
+      ],
+      "id": "70a04227-d731-4547-a621-fc9459363ba9",
+      "name": "Merge Evaluation"
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {
+          "format": true,
+          "fileName": "result_mastodon.json"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        3264,
+        -80
+      ],
+      "id": "c6f3191c-5723-46c7-b49b-c1aa0e294181",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        2240,
+        -32
+      ],
+      "id": "8b9658cd-ffa6-4913-8f47-1fe07a7e27f3",
+      "name": "Limit"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2d00d052-bcca-4a10-b3df-3ad129ac76a0",
+              "name": "file_type",
+              "value": ".json",
+              "type": "string"
+            },
+            {
+              "id": "aa617609-6a7e-427f-9205-e0710215d344",
+              "name": "source",
+              "value": "mastodon",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        224,
+        -48
+      ],
+      "id": "df5393d9-d986-40ae-90f7-f570628951a2",
+      "name": "Define Search Parameters"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7699d6f9-87b5-4b1e-9868-cb48c9f5d23c",
+              "name": "post_id",
+              "value": "={{ $json.post_id }}",
+              "type": "string"
+            },
+            {
+              "id": "3fbb5308-0a79-4331-b9de-d6018780dc62",
+              "name": "source",
+              "value": "={{ $json.source }}",
+              "type": "string"
+            },
+            {
+              "id": "0defb3c6-936a-4539-8735-2f3fb2767d4b",
+              "name": "sentiment",
+              "value": "={{ $json.sentimentAnalysis.category }}",
+              "type": "string"
+            },
+            {
+              "id": "2ff19baf-67cb-4d50-bdc7-57f0018d9aa0",
+              "name": "strength",
+              "value": "={{ $json.sentimentAnalysis.strength }}",
+              "type": "number"
+            },
+            {
+              "id": "3db8affb-8e6f-44f6-ae2b-6b4897950ffa",
+              "name": "confidence",
+              "value": "={{ $json.sentimentAnalysis.confidence }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        2816,
+        -464
+      ],
+      "id": "527ae466-3c64-4775-84fd-b770c79ecf4c",
+      "name": "Edit Excited"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f2f698ff-936e-4134-a673-12c8720912c6",
+              "name": "post_id",
+              "value": "={{ $json.post_id }}",
+              "type": "string"
+            },
+            {
+              "id": "1f57260f-2bd1-4cd7-a952-c5c2b23c03a9",
+              "name": "source",
+              "value": "={{ $json.source }}",
+              "type": "string"
+            },
+            {
+              "id": "de9289b3-7ced-4880-9b3f-64fcbe443243",
+              "name": "sentiment",
+              "value": "={{ $json.sentimentAnalysis.category }}",
+              "type": "string"
+            },
+            {
+              "id": "51e63cc5-bbd2-439f-939b-2de3a4f4c8ac",
+              "name": "strength",
+              "value": "={{ $json.sentimentAnalysis.strength }}",
+              "type": "number"
+            },
+            {
+              "id": "124b04cd-6ec0-4860-99a5-56fde41ba52d",
+              "name": "confidence",
+              "value": "={{ $json.sentimentAnalysis.confidence }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        2816,
+        -272
+      ],
+      "id": "ed07119b-f3c4-49bf-844e-e40ed9a5ef52",
+      "name": "Edit Happy"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5ad7f968-6c15-4a57-9130-f86ef86dcf4e",
+              "name": "post_id",
+              "value": "={{ $json.post_id }}",
+              "type": "string"
+            },
+            {
+              "id": "c56ea5dc-03c4-4a9d-9e35-f0ac09c53853",
+              "name": "source",
+              "value": "={{ $json.source }}",
+              "type": "string"
+            },
+            {
+              "id": "39512b8b-332b-4cc7-8964-96a5acaa4a84",
+              "name": "sentiment",
+              "value": "={{ $json.sentimentAnalysis.category }}",
+              "type": "string"
+            },
+            {
+              "id": "e5419fb1-1e63-4234-935f-b3aaddafa89e",
+              "name": "strength",
+              "value": "={{ $json.sentimentAnalysis.strength }}",
+              "type": "number"
+            },
+            {
+              "id": "ec61549c-1ec1-4ceb-a8dd-10b226133ce5",
+              "name": "confidence",
+              "value": "={{ $json.sentimentAnalysis.confidence }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        2816,
+        -80
+      ],
+      "id": "5036c0ab-22a2-445d-a2cc-3c07fa1d6d49",
+      "name": "Edit Neutral"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5ad7f968-6c15-4a57-9130-f86ef86dcf4e",
+              "name": "post_id",
+              "value": "={{ $json.post_id }}",
+              "type": "string"
+            },
+            {
+              "id": "c56ea5dc-03c4-4a9d-9e35-f0ac09c53853",
+              "name": "source",
+              "value": "={{ $json.source }}",
+              "type": "string"
+            },
+            {
+              "id": "39512b8b-332b-4cc7-8964-96a5acaa4a84",
+              "name": "sentiment",
+              "value": "={{ $json.sentimentAnalysis.category }}",
+              "type": "string"
+            },
+            {
+              "id": "e5419fb1-1e63-4234-935f-b3aaddafa89e",
+              "name": "strength",
+              "value": "={{ $json.sentimentAnalysis.strength }}",
+              "type": "number"
+            },
+            {
+              "id": "ec61549c-1ec1-4ceb-a8dd-10b226133ce5",
+              "name": "confidence",
+              "value": "={{ $json.sentimentAnalysis.confidence }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        2816,
+        112
+      ],
+      "id": "880e46cd-a5bb-41dc-90e7-cbb02a5f3b06",
+      "name": "Edit Disappointed"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5ad7f968-6c15-4a57-9130-f86ef86dcf4e",
+              "name": "post_id",
+              "value": "={{ $json.post_id }}",
+              "type": "string"
+            },
+            {
+              "id": "c56ea5dc-03c4-4a9d-9e35-f0ac09c53853",
+              "name": "source",
+              "value": "={{ $json.source }}",
+              "type": "string"
+            },
+            {
+              "id": "39512b8b-332b-4cc7-8964-96a5acaa4a84",
+              "name": "sentiment",
+              "value": "={{ $json.sentimentAnalysis.category }}",
+              "type": "string"
+            },
+            {
+              "id": "e5419fb1-1e63-4234-935f-b3aaddafa89e",
+              "name": "strength",
+              "value": "={{ $json.sentimentAnalysis.strength }}",
+              "type": "number"
+            },
+            {
+              "id": "ec61549c-1ec1-4ceb-a8dd-10b226133ce5",
+              "name": "confidence",
+              "value": "={{ $json.sentimentAnalysis.confidence }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        2816,
+        304
+      ],
+      "id": "1239ccc4-1c19-4fbd-98f3-c3164402cb76",
+      "name": "Edit Angry"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "wf09_triagem-llm-router-mastodon",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        -144
+      ],
+      "id": "3d59e42f-85f8-4113-8c62-d38dc6b56c46",
+      "name": "Webhook",
+      "webhookId": "90f22129-3c85-4000-9486-fb1d2851600b"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"status\": \"success\",\n  \"message\": \"Análise de sentimento feito e arquivo disponibilizado no bucket OCI.\"\n}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "file_name",
+                "value": "={{ $binary.data.fileName + '.json' }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        3712,
+        -80
+      ],
+      "id": "d7899d98-c885-4198-b665-e4e9053e78d3",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "operation": "upload",
+        "bucketName": "communitylab-assets",
+        "fileName": "={{ 'processed/' + $binary.data.fileName }}",
+        "additionalFields": {},
+        "tagsUi": {
+          "tagsValues": []
+        }
+      },
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        3488,
+        -80
+      ],
+      "id": "be3f9452-4650-4e70-8f06-7737a78e6c3b",
+      "name": "Upload a file",
+      "credentials": {
+        "s3": {
+          "id": "WG22ysIkwCiyk8dj",
+          "name": "OCI Object Storage S3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
+        "options": {
+          "responseFormat": "json_object",
+          "temperature": 0
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatNvidia",
+      "typeVersion": 1,
+      "position": [
+        2464,
+        224
+      ],
+      "id": "cc8042b0-0394-451e-b16f-afb5e266ed0a",
+      "name": "NVIDIA Nemotron Chat Model",
+      "credentials": {
+        "nvidiaApi": {
+          "id": "pmkxnCedxH6Ce0HT",
+          "name": "NVIDIA Nemotron account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Define Search Parameters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get OCI Bucket files": {
+      "main": [
+        [
+          {
+            "node": "Select sample_ json files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select sample_ json files": {
+      "main": [
+        [
+          {
+            "node": "Download a file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download a file": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Sanitize HTML Text",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sanitize HTML Text": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Map Mastodon Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Map Mastodon Fields": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sentiment Analysis": {
+      "main": [
+        [
+          {
+            "node": "Edit Excited",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Happy",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Neutral",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Disappointed",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Angry",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Evaluation": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Sentiment Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Define Search Parameters": {
+      "main": [
+        [
+          {
+            "node": "Get OCI Bucket files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Excited": {
+      "main": [
+        [
+          {
+            "node": "Merge Evaluation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Happy": {
+      "main": [
+        [
+          {
+            "node": "Merge Evaluation",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Edit Neutral": {
+      "main": [
+        [
+          {
+            "node": "Merge Evaluation",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Edit Disappointed": {
+      "main": [
+        [
+          {
+            "node": "Merge Evaluation",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Edit Angry": {
+      "main": [
+        [
+          {
+            "node": "Merge Evaluation",
+            "type": "main",
+            "index": 4
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Define Search Parameters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Upload a file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload a file": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NVIDIA Nemotron Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Sentiment Analysis",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "b486501b-2630-4e92-8e94-e20efa086eb4",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
+  },
+  "nodeGroups": [],
+  "id": "yyCSYXsAjrxShN4N",
+  "tags": []
+}
