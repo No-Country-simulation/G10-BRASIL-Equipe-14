@@ -1,0 +1,503 @@
+[
+  {
+    "case": "real_se_duvida_com_resposta_aceita_llamaindex",
+    "origem": "real",
+    "nota_revisao": "Stack Overflow: Resposta aceita com código. 939 views (< 1000) e score 1: faixa 60–79, não 80+.",
+    "input": {
+      "id": "se-79838505",
+      "source": "stackoverflow",
+      "url": "https://stackoverflow.com/questions/79838505/llama-index-ollama-misloading-model-issue",
+      "interactions": [
+        {
+          "author": "Kemp",
+          "title": "llama_index Ollama misloading model issue",
+          "content": "<p>I'm working with LlamaIndex and trying to run LLM in local using Ollama. I pulled phi3:mini model successfully and tested it in terminal. but if I load it with llama_index.llms.ollama, it keeps following erros &quot;ollama._types.ResponseError: model requires more system memory (45.3 GiB) than is available (16.8 GiB) (status code: 500)&quot; meaning trying to load phi3 rather than phi3:mini. anyone knows why? I appreciate your reply.</p>",
+          "tags": [
+            "python",
+            "artificial-intelligence",
+            "llama-index",
+            "ollama"
+          ],
+          "created_at": "2025-12-05T02:26:43Z"
+        },
+        {
+          "author": "Ajeet Verma",
+          "content": "<p>A simple fix is to explicitly add a <code>context_window</code> and you'll no longer receieve the ResponseError.</p>",
+          "created_at": "2025-12-06T00:45:56Z",
+          "raw_metadata": {
+            "is_accepted": true
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "has_answer": true,
+      "suggested_route": "faq",
+      "min_score": 60,
+      "max_score": 89
+    }
+  },
+  {
+    "case": "real_se_duvida_com_resposta_aceita_vscode",
+    "origem": "real",
+    "nota_revisao": "Stack Overflow: Resposta aceita curta. Tema de ferramenta: topic_category dev_tools.",
+    "input": {
+      "id": "se-79998781",
+      "source": "stackoverflow",
+      "url": "https://stackoverflow.com/questions/79998781/how-do-i-disable-generate-commit-message-without-disabling-other-ai-features-i",
+      "interactions": [
+        {
+          "author": "Stevoisiak",
+          "title": "How do I disable \"Generate Commit Message\" without disabling other AI features in VS Code?",
+          "content": "<p>VS Code added a sparkling button for AI generating commit messages. How can I disable it?</p>",
+          "tags": [
+            "vs-code",
+            "artificial-intelligence"
+          ],
+          "created_at": "2026-08-27T19:55:45Z"
+        },
+        {
+          "author": "Michael",
+          "content": "<p>You can hide just this button by setting <code>\"scm.showInputActionButton\": false</code> in user settings JSON.</p>",
+          "created_at": "2026-08-27T21:39:03Z",
+          "raw_metadata": {
+            "is_accepted": true
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "has_answer": true,
+      "suggested_route": "faq",
+      "min_score": 60,
+      "max_score": 79
+    }
+  },
+  {
+    "case": "real_se_duvida_com_resposta_aceita_symfony_ai",
+    "origem": "real",
+    "nota_revisao": "Stack Overflow: Configuração de modelos customizados no Symfony AI com resposta aceita detalhada.",
+    "input": {
+      "id": "se-79857625",
+      "source": "stackoverflow",
+      "url": "https://stackoverflow.com/questions/79857625/symfony-ai-how-to-add-additional-models-for-the-lm-studio-bridge",
+      "interactions": [
+        {
+          "author": "QuenK",
+          "title": "Symfony AI: How to add additional models for the LM Studio bridge?",
+          "content": "<p>How can we add additional models for the LM Studio bridge in Symfony AI via configuration?</p>",
+          "tags": [
+            "php",
+            "symfony",
+            "artificial-intelligence"
+          ],
+          "created_at": "2025-12-30T15:19:35Z"
+        },
+        {
+          "author": "Olivier",
+          "content": "<p>According to the source code, you can use the <code>model</code> key directly in your ai.yaml file to map capabilities.</p>",
+          "created_at": "2025-12-31T11:35:20Z",
+          "raw_metadata": {
+            "is_accepted": true
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "has_answer": true,
+      "suggested_route": "faq",
+      "min_score": 60,
+      "max_score": 79
+    }
+  },
+  {
+    "case": "real_se_duvida_sem_resposta_muito_vista",
+    "origem": "real",
+    "nota_revisao": "Stack Overflow: 1.373 views e 0 respostas. Boa candidata para FAQ não respondida.",
+    "input": {
+      "id": "se-79837611",
+      "source": "stackoverflow",
+      "url": "https://stackoverflow.com/questions/79837611/how-to-fix-eof-server-ollama-error-when-embedding",
+      "interactions": [
+        {
+          "author": "Leslie Joe",
+          "title": "How to fix EOF Server Ollama Error when embedding",
+          "content": "<p>I built the RAG system in Laravel with Neuron AI framework. I got error 500 on embeddings endpoint.</p>",
+          "tags": [
+            "laravel",
+            "ollama",
+            "embedding"
+          ],
+          "created_at": "2025-12-04T06:59:52Z",
+          "raw_metadata": {
+            "is_answered": false,
+            "view_count": 1373
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "has_answer": false,
+      "suggested_route": "newsletter_only",
+      "min_score": 40,
+      "max_score": 59
+    }
+  },
+  {
+    "case": "real_se_pergunta_vaga_ruido",
+    "origem": "real",
+    "nota_revisao": "Stack Overflow: Pergunta vaga, sem erro estruturado ou código claro (ruído/descarte).",
+    "input": {
+      "id": "se-79893379",
+      "source": "stackoverflow",
+      "url": "https://stackoverflow.com/questions/79893379/model-context-protocol",
+      "interactions": [
+        {
+          "author": "Lokesha M V",
+          "title": "Model context protocol",
+          "content": "<p>I am using this in my project so I need to start mcp server for my project how can I do this mcp hosting in java.</p>",
+          "tags": [
+            "java",
+            "security",
+            "model-context-protocol"
+          ],
+          "created_at": "2026-02-21T03:43:24Z",
+          "raw_metadata": {
+            "is_answered": false
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "has_answer": false,
+      "suggested_route": "discard",
+      "max_score": 39
+    }
+  },
+  {
+    "case": "real_mastodon_bot_politica",
+    "origem": "real",
+    "nota_revisao": "Mastodon: Bot de RSS automatizado sobre política e conflitos (ruído puro).",
+    "input": {
+      "id": "mst-117476946010510390",
+      "source": "mastodon",
+      "url": "https://social.espeweb.net/objects/1e47f634-677d-44c1-bfde-7c8292f2db8d",
+      "interactions": [
+        {
+          "author": "politico_eu_bot@social.espeweb.net",
+          "content": "Brussels goes looking for billions to fund Ukraine https://www.politico.eu #ArtificialIntelligence #Politics",
+          "tags": [
+            "artificialintelligence",
+            "politics"
+          ],
+          "created_at": "2026-10-21T04:12:17.261Z",
+          "raw_metadata": {
+            "account_bot": true
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "noise",
+      "suggested_route": "discard",
+      "max_score": 19
+    }
+  },
+  {
+    "case": "real_mastodon_noticia_ia_rss",
+    "origem": "real",
+    "nota_revisao": "Mastodon: Notícia de lançamento de modelo (Mistral Timestral) via feed sem comentário autoral (noise para o filtro atual).",
+    "input": {
+      "id": "mst-117476765783818325",
+      "source": "mastodon",
+      "url": "https://igeek.gamer-geek-news.com/@feed/statuses/01M5E7XZ67XQ1TNNZSKEZE65HS",
+      "interactions": [
+        {
+          "author": "feed@igeek.gamer-geek-news.com",
+          "content": "<p>📰 <strong>Mistral AI Releases Timestral: A 209M Forecasting Model Family</strong></p>",
+          "tags": [
+            "ai",
+            "artificialintelligence"
+          ],
+          "created_at": "2026-10-21T03:26:28.000Z",
+          "raw_metadata": {
+            "account_bot": false
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "noise",
+      "suggested_route": "discard",
+      "max_score": 19
+    }
+  },
+  {
+    "case": "real_mastodon_opiniao_com_link",
+    "origem": "real",
+    "nota_revisao": "Mastodon: Opinião de usuário comentando link sobre qualidade de dados em IA (debate construtivo).",
+    "input": {
+      "id": "mst-117476661482589915",
+      "source": "mastodon",
+      "url": "https://mastodon.social/@DrMikeWatts/117476661482589915",
+      "interactions": [
+        {
+          "author": "DrMikeWatts",
+          "content": "<p>This should be obvious-an #AI is only as good as the data used to create it, even my first-year students know that.</p>",
+          "tags": [
+            "ai",
+            "artificialintelligence"
+          ],
+          "created_at": "2026-10-21T02:59:57.333Z",
+          "raw_metadata": {
+            "account_bot": false
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "debate",
+      "sentiment": "neutral",
+      "suggested_route": "newsletter_only",
+      "min_score": 40,
+      "max_score": 59
+    }
+  },
+  {
+    "case": "real_mastodon_japones_metadado_errado",
+    "origem": "real",
+    "nota_revisao": "Mastodon: Post em japonês sobre automação com MCP. Testa detecção correta de idioma ignorando metadado incorreto.",
+    "input": {
+      "id": "mst-117476505156844059",
+      "source": "mastodon",
+      "url": "https://jforo.com/@yayafa/117476504987784757",
+      "interactions": [
+        {
+          "author": "yayafa@jforo.com",
+          "content": "<p>[Ignore metadata] ＧＭＯ、MCP対応でAIによる契約業務の自動化を支援する新オプション</p>",
+          "tags": [
+            "agenticai",
+            "ai",
+            "人工知能"
+          ],
+          "created_at": "2026-10-21T02:20:09.000Z",
+          "raw_metadata": {
+            "language": "en"
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "noise",
+      "original_language": "other",
+      "suggested_route": "discard",
+      "max_score": 19
+    }
+  },
+  {
+    "case": "real_mastodon_discussao_arquitetura_dados",
+    "origem": "real",
+    "nota_revisao": "Mastodon: Relato positivo sobre otimização de pipelines locais em Python e DuckDB com ZSTD.",
+    "input": {
+      "id": "mst-117478000000000001",
+      "source": "mastodon",
+      "url": "https://mastodon.social/@data_eng/117478000000000001",
+      "interactions": [
+        {
+          "author": "data_eng",
+          "content": "<p>Switching our analytical ELT layer from Snappy to ZSTD compression on Parquet files reduced storage footprint drastically without any query performance hit in DuckDB. Highly recommend testing it out for local pipelines.</p>",
+          "tags": [
+            "dataengineering",
+            "duckdb",
+            "python"
+          ],
+          "created_at": "2026-10-21T10:00:00.000Z",
+          "raw_metadata": {
+            "account_bot": false
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "testimonial",
+      "sentiment": "positive",
+      "suggested_route": "newsletter_only",
+      "min_score": 60,
+      "max_score": 79
+    }
+  },
+  {
+    "case": "real_hn_amazon_ai_division_failure",
+    "origem": "real",
+    "nota_revisao": "Hacker News: Notícia de grande repercussão sobre reestruturação da divisão de IA da Amazon (ID: 50261589).",
+    "input": {
+      "id": "hn-50261589",
+      "source": "hackernews",
+      "url": "https://futurism.com/artificial-intelligence/amazon-ai-division-failure-nova",
+      "interactions": [
+        {
+          "author": "dpflan",
+          "title": "Amazon Is Gutting Its AI Division After Sustained Failure",
+          "content": "Discussion based on Futurism report regarding Amazon AI department reorganization and Nova model challenges.",
+          "tags": [
+            "ai",
+            "industry"
+          ],
+          "created_at": "2026-10-27T16:25:30Z",
+          "raw_metadata": {
+            "points": 372,
+            "num_comments": 284
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "debate",
+      "sentiment": "neutral",
+      "suggested_route": "newsletter_only",
+      "min_score": 40,
+      "max_score": 79
+    }
+  },
+  {
+    "case": "real_hn_trump_ban_ai_term",
+    "origem": "real",
+    "nota_revisao": "Hacker News: Discussão polêmica de alto engajamento sobre declaração envolvendo o termo 'Artificial Intelligence' (ID: 50264228).",
+    "input": {
+      "id": "hn-50264228",
+      "source": "hackernews",
+      "url": "https://thehill.com/homenews/administration/6175633-trump-bans-artificial-intelligence-term/",
+      "interactions": [
+        {
+          "author": "anigbrowl",
+          "title": "US President says he will ban the term 'artificial intelligence'",
+          "content": "High-traffic thread discussing policy impacts and terminology changes around AI governance.",
+          "tags": [
+            "policy",
+            "ai"
+          ],
+          "created_at": "2026-10-27T19:11:31Z",
+          "raw_metadata": {
+            "points": 106,
+            "num_comments": 135
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "debate",
+      "sentiment": "neutral",
+      "suggested_route": "newsletter_only",
+      "min_score": 40,
+      "max_score": 59
+    }
+  },
+  {
+    "case": "real_hn_show_hn_ai_ugc_ads",
+    "origem": "real",
+    "nota_revisao": "Hacker News: Show HN de gerador de vídeos publicitários com IA (ID: 50268879).",
+    "input": {
+      "id": "hn-50268879",
+      "source": "hackernews",
+      "url": "https://www.aivideosugc.com/",
+      "interactions": [
+        {
+          "author": "tuongbadke",
+          "title": "Show HN: How to Make AI UGC Ads in 2026 Using an AI Video Generator",
+          "content": "AI UGC (Artificial Intelligence User-Generated Content) is the automated creation of casual, creator-style review and unboxing videos using AI avatars...",
+          "tags": [
+            "show_hn",
+            "ai"
+          ],
+          "created_at": "2026-10-28T03:09:03Z",
+          "raw_metadata": {
+            "points": 2,
+            "num_comments": 3
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "noise",
+      "sentiment": "neutral",
+      "suggested_route": "discard",
+      "max_score": 19
+    }
+  },
+  {
+    "case": "real_hn_texas_data_centers",
+    "origem": "real",
+    "nota_revisao": "Hacker News: Discussão sobre impacto de data centers de IA em infraestrutura de energia e água no Texas (ID: 50282786).",
+    "input": {
+      "id": "hn-50282786",
+      "source": "hackernews",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1018676/data-center-midterm-election-energy-water-texas",
+      "interactions": [
+        {
+          "author": "cdrnsf",
+          "title": "Voters in Texas agree: They hate data centers",
+          "content": "Discussion on local backlash against expanding AI data centers due to grid constraints and water usage.",
+          "tags": [
+            "infrastructure",
+            "ai"
+          ],
+          "created_at": "2026-10-29T00:18:20Z",
+          "raw_metadata": {
+            "points": 5,
+            "num_comments": 0
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "debate",
+      "sentiment": "neutral",
+      "suggested_route": "newsletter_only",
+      "min_score": 40,
+      "max_score": 59
+    }
+  },
+  {
+    "case": "real_hn_nuclear_industry_lessons",
+    "origem": "real",
+    "nota_revisao": "Hacker News: Artigo de opinião sobre o que gigantes de IA podem aprender com a indústria nuclear (ID: 50267321).",
+    "input": {
+      "id": "hn-50267321",
+      "source": "hackernews",
+      "url": "https://www.livescience.com/artificial-intelligence/human-evolution/ai-giants-are-one-big-mistake-away-from-catastrophe-they-could-learn-a-lot-from-the-nuclear-industry-opinion",
+      "interactions": [
+        {
+          "author": "g-b-r",
+          "title": "AI giants are [...] They could learn a lot from the nuclear industry",
+          "content": "Opinion piece analyzing safety protocols, risk management, and governance parallels between nuclear power and frontier AI models.",
+          "tags": [
+            "safety",
+            "ai"
+          ],
+          "created_at": "2026-10-27T23:25:55Z",
+          "raw_metadata": {
+            "points": 3,
+            "num_comments": 1
+          }
+        }
+      ]
+    },
+    "expected": {
+      "type": "debate",
+      "sentiment": "neutral",
+      "suggested_route": "newsletter_only",
+      "min_score": 40,
+      "max_score": 59
+    }
+  }
+]
