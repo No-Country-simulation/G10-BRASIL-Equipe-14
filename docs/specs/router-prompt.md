@@ -11,7 +11,7 @@ entrada: 1 thread (pergunta/post + respostas) no formato data/schemas/input_sche
 
 # Prompt do Router — Classificação e Roteamento
 
-## Como o Router funciona no pipeline
+## 1. Integração do Router no pipeline
 
 ```
 thread (input_schema) ──► LLM Router ──► JSON de classificação ──► Nó IF/Switch no n8n ──► adapter (LinkedIn / FAQ / Newsletter), moderação ou descarte
@@ -44,7 +44,7 @@ Um JSON com id, source, url (link da publicação original) e a lista "interacti
   "source": string,             // copie o source de entrada
   "type": "job_achievement" | "testimonial" | "technical_question" | "course_feedback" | "debate" | "noise",
   "sentiment": "positive" | "neutral" | "negative",
-  "topic_category": "frontend" | "backend" | "data" | "ai_ml" | "devops_cloud" | "mobile" | "dev_tools" | "career" | "other",
+  "topic_category": "frontend" | "backend" | "data" | "artificial-intelligence" | "ai_ml" | "devops_cloud" | "mobile" | "dev_tools" | "career" | "other",
   "topics": [string],           // 1 a 3 tópicos curtos em português (ex.: "LlamaIndex + Ollama", "Erro de memória")
   "original_language": "pt" | "es" | "en" | "other",   // detecte pelo TEXTO do post original; não confie em raw_metadata.language
   "has_answer": boolean,
@@ -146,7 +146,7 @@ Entrada:
 ```
 Saída:
 ```json
-{"id":"mst-002","source":"mastodon","type":"technical_question","sentiment":"negative","topic_category":"ai_ml","topics":["Ollama travando","IA local"],"original_language":"pt","has_answer":false,"relevance_score":44,"suggested_route":"moderation","summary":"Membro frustrado: o notebook trava ao rodar modelos no Ollama mesmo após reinstalar tudo.","justification":"Faixa 40–59: dúvida sem resposta; regra 2 (moderation) por frustração explícita."}
+{"id":"mst-002","source":"mastodon","type":"technical_question","sentiment":"negative","topic_category":"artificial-intelligence","topics":["Ollama travando","IA local"],"original_language":"pt","has_answer":false,"relevance_score":44,"suggested_route":"moderation","summary":"Membro frustrado: o notebook trava ao rodar modelos no Ollama mesmo após reinstalar tudo.","justification":"Faixa 40–59: dúvida sem resposta; regra 2 (moderation) por frustração explícita."}
 ```
 
 ---
@@ -159,6 +159,24 @@ Classifique a thread abaixo seguindo as instruções do sistema.
 THREAD:
 {{ JSON.stringify($json) }}
 ```
+
+---
+
+## Avaliação do prompt do Router contra os casos de teste
+
+```bash
+Uso (na raiz do repositório):
+    uv run python -m src.pipeline.eval_router                     # Gemini (GEMINI_API_KEY no .env)
+    uv run python -m src.pipeline.eval_router --provider groq     # Groq (GROQ_API_KEY no .env)
+    uv run python -m src.pipeline.eval_router --dry-run           # testa o script sem chamar API
+    uv run python -m src.pipeline.eval_router --only real_se      # roda só os casos cujo nome contém "real_se"
+    uv run python -m src.pipeline.eval_router --cases data/prompts/tests/router_cases_reais.json --tag reais
+                                                                  # roda só os 14 casos com dados reais
+    uv run python -m src.pipeline.eval_router --replay data/prompts/tests/outputs/<arquivo>.json
+                                                                  # reavalia saídas já salvas, sem chamar API
+```
+Critério de aceite da issue #8: 100% dos casos aprovados.
+
 
 ---
 
