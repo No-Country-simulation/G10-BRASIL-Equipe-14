@@ -1,5 +1,5 @@
 {
-  "name": "wf10_triagem-llm-router_stackoverflow",
+  "name": "wf10_triagem-llm-router_stackexchange",
   "nodes": [
     {
       "parameters": {},
@@ -188,7 +188,8 @@
     },
     {
       "parameters": {
-        "path": "wf10_triagem-llm-router_stackoverflow",
+        "httpMethod": "POST",
+        "path": "wf10_triagem-llm-router_stackexchange",
         "responseMode": "responseNode",
         "options": {}
       },
@@ -255,8 +256,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatNvidia",
       "typeVersion": 1,
       "position": [
-        2408,
-        200
+        2368,
+        176
       ],
       "id": "8d8909b4-2b61-48a2-8400-d6044c9d3013",
       "name": "NVIDIA Nemotron Chat Model",
@@ -432,54 +433,17 @@
         "hasOutputParser": true,
         "needsFallback": true,
         "options": {
-          "systemMessage": "You are a precise sentiment analysis engine for Stack Overflow question-and-answer data.\n\nAnalyze the sentiment of each answer individually, using the corresponding question title and question body as context.\n\nInstructions:\n1. Read the question title and question body to understand the context.\n2. Find the answers in the `answers` array.\n3. For each answer, analyze the text in its `body_answer` field.\n4. Assign exactly one sentiment category to each answer, choosing from: {`Excited`, `Happy`, `Neutral`, `Disappointed`, `Angry`}.\n5. Base the classification on the sentiment expressed in the answer text, not on the question's sentiment, the author's reputation, votes, acceptance status, or other metadata.\n6. Technical explanations, factual statements, and neutral solutions should generally be classified as Neutral unless the wording clearly expresses another sentiment.\n7. Preserve the original structure of the input, including `source_id`, question fields, the `answers` array, and every answer's existing identifiers and metadata.\n8. Add a `sentiment` field to each answer object. Its value must be one of the specified categories.\n9. Do not remove, rename, or modify existing fields or identifiers.\n10. Do not invent answers or sentiment values for missing answer text.\n11. Return valid JSON only. Do not include Markdown, explanations, or text outside the JSON.\n12. Return the complete input object with the sentiment fields added to the corresponding answers."
+          "systemMessage": "You are a precise sentiment analysis engine for Stack Overflow question-and-answer data.\n\nYour task is to analyze the sentiment and identify the original language of each answer individually, using the corresponding question title and question body as context.\n\nDo not classify, score, summarize, or evaluate the question itself.\n\nSKILL USAGE\n\nBefore classifying answers, call the \"SKill Router Classification\" tool once with:\n- skill_id: sentiment_analysis\n- context:\n  - source: stackoverflow\n  - content_type: answer\n\nApply the returned instructions when classifying the answers.\n\nThe Skill provides classification guidance only. You remain responsible for analyzing the content and producing the required output.\n\nPROCESSING INSTRUCTIONS\n\n1. Read the question title and question body only to understand the context.\n2. Find the answers in the \"answers\" array.\n3. For each answer, analyze the text in its corresponding \"body_answer\" field.\n4. Assign exactly one sentiment category to each answer:\n   Excited, Happy, Neutral, Disappointed, or Angry.\n5. Evaluate the sentiment strength as a number between 0 and 1.\n6. Evaluate the classification confidence as a number between 0 and 1.\n7. Keep strength and confidence independent:\n   - strength measures the intensity of the expressed sentiment.\n   - confidence measures the certainty of the classification.\n8. Identify the original language of each answer using exactly one value:\n   - pt: Portuguese\n   - es: Spanish\n   - en: English\n   - other: any other language or language that cannot be reliably determined.\n9. Determine original_language from the answer's natural-language text, not from the question, tags, code snippets, or metadata.\n10. Base sentiment classification on the sentiment expressed in the answer text, not on the question's sentiment, the author's reputation, votes, acceptance status, or other metadata.\n11. Technical explanations, factual statements, and neutral solutions should generally be classified as Neutral unless the wording clearly expresses another sentiment.\n12. Do not invent answers, language classifications, or sentiment values for missing answer text.\n\nOUTPUT REQUIREMENTS\n\n13. Return source_id and source.\n14. Return an answers array containing one classification result for each input answer.\n15. Each classification result must contain exactly these five fields:\n    - answer_id: integer\n    - original_language: pt, es, en, or other\n    - sentiment: Excited, Happy, Neutral, Disappointed, or Angry\n    - strength: number between 0 and 1\n    - confidence: number between 0 and 1\n16. Preserve the answer_id exactly as provided in the input.\n17. Do not omit any answer that has a valid answer_id.\n18. Do not reproduce owner information, question metadata, answer metadata, or any other input properties.\n19. Do not include unnecessary metadata or reproduce the complete original input.\n20. Return valid JSON only. Do not include Markdown, explanations, or text outside the JSON."
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3.1,
       "position": [
-        2312,
+        2320,
         -32
       ],
       "id": "cf2a06a5-dc20-4453-87fb-1d20896ec2ac",
       "name": "AI Agent"
-    },
-    {
-      "parameters": {
-        "model": "google/gemma-4-31b-it:free",
-        "options": {
-          "responseFormat": "json_object",
-          "temperature": 0
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
-      "typeVersion": 1,
-      "position": [
-        2280,
-        200
-      ],
-      "id": "ddd859a4-4386-4d20-ba73-8e87140a9690",
-      "name": "OpenRouter Chat Model",
-      "credentials": {
-        "openRouterApi": {
-          "id": "GOctsw63IOCdPIoj",
-          "name": "OpenRouter - ONE_hackathon"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "jsonSchemaExample": "{\n  \"source_id\": \"79857625\",\n  \"source\": \"stackoverflow\",\n  \"answers\": [\n    {\n      \"owner_answer_17592368\": {\n        \"account_id\": 17592368,\n        \"display_name\": \"Olivier\"\n      },\n      \"answer_id\": 79858113,\n      \"source_id\": \"79857625\",\n      \"sentiment\": \"Neutral\",\n      \"strength\": 0.9,\n    \"confidence\": 0.96\n    }\n  ]\n}",
-        "autoFix": true
-      },
-      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
-      "typeVersion": 1.3,
-      "position": [
-        2536,
-        200
-      ],
-      "id": "8dd0c77e-67b3-47c6-b2ca-e38db9abf04b",
-      "name": "Structured Output Parser"
     },
     {
       "parameters": {
@@ -492,8 +456,46 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        2616,
-        408
+        2240,
+        176
+      ],
+      "id": "ddd859a4-4386-4d20-ba73-8e87140a9690",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "GOctsw63IOCdPIoj",
+          "name": "OpenRouter - ONE_hackathon"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"source_id\": {\n      \"type\": \"string\"\n    },\n    \"source\": {\n      \"type\": \"string\"\n    },\n    \"answers\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"answer_id\": {\n            \"type\": \"integer\"\n          },\n          \"original_language\": {\n            \"type\": \"string\",\n            \"enum\": [\n              \"pt\",\n              \"es\",\n              \"en\",\n              \"other\"\n            ]\n          },\n          \"sentiment\": {\n            \"type\": \"string\",\n            \"enum\": [\n              \"Excited\",\n              \"Happy\",\n              \"Neutral\",\n              \"Disappointed\",\n              \"Angry\"\n            ]\n          },\n          \"strength\": {\n            \"type\": \"number\",\n            \"minimum\": 0,\n            \"maximum\": 1\n          },\n          \"confidence\": {\n            \"type\": \"number\",\n            \"minimum\": 0,\n            \"maximum\": 1\n          }\n        },\n        \"required\": [\n          \"answer_id\",\n          \"original_language\",\n          \"sentiment\",\n          \"strength\",\n          \"confidence\"\n        ],\n        \"additionalProperties\": true\n      }\n    }\n  },\n  \"required\": [\n    \"source_id\",\n    \"source\",\n    \"answers\"\n  ],\n  \"additionalProperties\": true\n}",
+        "autoFix": true
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        2624,
+        192
+      ],
+      "id": "8dd0c77e-67b3-47c6-b2ca-e38db9abf04b",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "model": "nvidia/nemotron-3.5-lightning:free",
+        "options": {
+          "responseFormat": "json_object",
+          "temperature": 0
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        2624,
+        352
       ],
       "id": "53fd4082-0558-4595-816f-d1c321b435da",
       "name": "OpenRouter Chat Model1",
@@ -503,6 +505,71 @@
           "name": "OpenRouter - ONE_hackathon"
         }
       }
+    },
+    {
+      "parameters": {
+        "description": "Retrieve specialized classification instructions for the Router Agent.\n\nUse this tool when you need guidance on one of the following modules:\n- content_classification\n- sentiment_analysis\n- relevance_scoring\n- routing_rules\n- edge_cases\n\nCall only the module relevant to the current classification task. Provide the source and content type as context when available.\n\nThis tool retrieves instructions only. It does not classify content, analyze sentiment, calculate scores, or determine routing decisions.",
+        "workflowId": {
+          "__rl": true,
+          "value": "ZNnF2FqNdmw5FN5j",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/ZNnF2FqNdmw5FN5j",
+          "cachedResultName": "subwf_skill_router_classification"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "skill_id": "={{ $fromAI('skill_id', 'Choose exactly one skill: content_classification, sentiment_analysis, relevance_scoring, routing_rules, or edge_cases.', 'string') }}",
+            "context": "={{ $fromAI('context', 'Provide a JSON object with source and content_type. Example: {\"source\":\"stackoverflow\",\"content_type\":\"answer\"}. Use the available input data.', 'json') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "skill_id",
+              "displayName": "skill_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "context",
+              "displayName": "context",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "object",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        2496,
+        224
+      ],
+      "id": "af2b6575-a0ae-4e44-9b44-4a8ff94a9a67",
+      "name": "SKill Router Classification"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Code v2 — JavaScript — Run Once for All Items\nconst inputs = $input.all();\n\nconst fields = [\n  'original_language', 'sentiment', 'strength', 'confidence',\n];\nconst languages = new Set(['pt', 'es', 'en', 'other']);\nconst sentiments = new Set([\n  'Excited', 'Happy', 'Neutral', 'Disappointed', 'Angry',\n]);\n\nfunction fail(message) {\n  throw new Error(`Merge Classifications: ${message}`);\n}\n\nfunction object(value, label) {\n  if (!value || typeof value !== 'object' || Array.isArray(value)) {\n    fail(`${label}: objeto inválido`);\n  }\n  return value;\n}\n\nfunction sourceId(value, label) {\n  if (typeof value === 'number' && Number.isSafeInteger(value)) {\n    return String(value);\n  }\n  if (typeof value === 'string' && value.trim() !== '') {\n    return value;\n  }\n  fail(`${label}: source_id ausente ou inválido`);\n}\n\nfunction answerId(value, label) {\n  // Normaliza somente a chave de comparação; preserva o valor original.\n  if (typeof value === 'number' &&\n      Number.isSafeInteger(value) && value > 0) {\n    return String(value);\n  }\n  if (typeof value === 'string' && /^[1-9]\\d*$/.test(value)) {\n    return value;\n  }\n  fail(`${label}: answer_id ausente ou inválido`);\n}\n\nfunction indexAnswers(value, label) {\n  if (!Array.isArray(value)) fail(`${label}: answers não é array`);\n\n  const index = new Map();\n  value.forEach((answer, position) => {\n    object(answer, `${label}.answers[${position}]`);\n    const key = answerId(answer.answer_id, label);\n    if (index.has(key)) fail(`${label}: answer_id duplicado ${key}`);\n    index.set(key, answer);\n  });\n  return index;\n}\n\nfunction sameIds(left, right, label) {\n  const missing = [...left.keys()].filter(id => !right.has(id));\n  const extra = [...right.keys()].filter(id => !left.has(id));\n  if (missing.length || extra.length) {\n    fail(`${label}: ausentes=[${missing}]; sem correspondência=[${extra}]`);\n  }\n}\n\nreturn inputs.map((item, i) => {\n  let original;\n  let sent;\n\n  try {\n    original = $('Filter').itemMatching(i).json;\n    sent = $('Limit').itemMatching(i).json;\n  } catch (error) {\n    fail(`item ${i}: item linking indisponível ou ambíguo`);\n  }\n\n  object(original, 'original');\n  object(sent, 'entrada do agente');\n\n  let result = item.json.output;\n  if (typeof result === 'string') {\n    try {\n      result = JSON.parse(result);\n    } catch (error) {\n      fail(`item ${i}: output não contém JSON válido`);\n    }\n  }\n  object(result, 'output');\n\n  const expectedId = sourceId(sent.source_id, 'entrada do agente');\n  if (sourceId(original.source_id, 'original') !== expectedId ||\n      sourceId(result.source_id, 'output') !== expectedId) {\n    fail(`item ${i}: source_id divergente`);\n  }\n\n  if (sent.source !== 'stackoverflow' || result.source !== sent.source) {\n    fail(`item ${i}: source divergente`);\n  }\n  if (Object.prototype.hasOwnProperty.call(original, 'source') &&\n      original.source !== sent.source) {\n    fail(`item ${i}: source original divergente`);\n  }\n\n  const originals = indexAnswers(original.answers, 'original');\n  const sentAnswers = indexAnswers(sent.answers, 'entrada do agente');\n  const classifications = indexAnswers(result.answers, 'output');\n\n  sameIds(originals, sentAnswers, 'original versus entrada do agente');\n  sameIds(originals, classifications, 'original versus output');\n\n  for (const [id, classification] of classifications) {\n    if (!Number.isSafeInteger(classification.answer_id) ||\n        classification.answer_id <= 0) {\n      fail(`resposta ${id}: output exige answer_id inteiro positivo`);\n    }\n    if (!languages.has(classification.original_language) ||\n        !sentiments.has(classification.sentiment)) {\n      fail(`resposta ${id}: idioma ou sentimento inválido`);\n    }\n    for (const field of ['strength', 'confidence']) {\n      const value = classification[field];\n      if (typeof value !== 'number' ||\n          !Number.isFinite(value) || value < 0 || value > 1) {\n        fail(`resposta ${id}: ${field} inválido`);\n      }\n    }\n  }\n\n  // Clona dados JSON para não modificar os objetos dos nós anteriores.\n  const merged = JSON.parse(JSON.stringify(original));\n\n  for (const answer of merged.answers) {\n    const id = answerId(answer.answer_id, 'original');\n    const classification = classifications.get(id);\n\n    for (const field of fields) {\n      if (Object.prototype.hasOwnProperty.call(answer, field)) {\n        fail(`resposta ${id}: campo ${field} já existe no original`);\n      }\n      answer[field] = classification[field];\n    }\n  }\n\n  return {\n    json: merged,\n    pairedItem: { item: i },\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2688,
+        -32
+      ],
+      "id": "2bfcfed1-7155-42f2-a110-19f01bce4517",
+      "name": "Merge Classification"
     }
   ],
   "pinData": {},
@@ -665,7 +732,7 @@
       "main": [
         [
           {
-            "node": "Convert to File",
+            "node": "Merge Classification",
             "type": "main",
             "index": 0
           }
@@ -704,14 +771,39 @@
           }
         ]
       ]
+    },
+    "SKill Router Classification": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Classification": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
   "settings": {
     "executionOrder": "v1",
-    "binaryMode": "separate"
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": true
   },
-  "versionId": "a8e6cf56-13eb-4677-ae69-5b8ed7030f63",
+  "versionId": "90395d0b-68a7-4612-9965-cd03577da0dc",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
