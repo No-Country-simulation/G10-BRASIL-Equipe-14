@@ -225,6 +225,90 @@
               "name": "source_file",
               "value": "={{ $('Download a file').item.json.Key }}",
               "type": "string"
+            },
+            {
+              "id": "2a864d4c-e4de-4f78-b0c8-485447c1ddd2",
+              "name": "language",
+              "value": "={{ $json.language }}",
+              "type": "string"
+            },
+            {
+              "id": "dad75e79-de27-4173-a0db-dce51ef895ba",
+              "name": "sensitive",
+              "value": "={{ $json.sensitive }}",
+              "type": "boolean"
+            },
+            {
+              "id": "54618af9-9bfd-4dba-bdfe-3539c053d35d",
+              "name": "replies_count",
+              "value": "={{ $json.replies_count }}",
+              "type": "number"
+            },
+            {
+              "id": "90215af1-7098-45e5-a6e4-c2142e4829c4",
+              "name": "reblogs_count",
+              "value": "={{ $json.reblogs_count }}",
+              "type": "number"
+            },
+            {
+              "id": "742c7589-3d43-4964-820a-c7ef1e6a99ea",
+              "name": "edited_at",
+              "value": "={{ $json.edited_at }}",
+              "type": "string"
+            },
+            {
+              "id": "333ae0fa-940c-4f70-974f-1c12b9397950",
+              "name": "account.id",
+              "value": "={{ $json.account.id }}",
+              "type": "string"
+            },
+            {
+              "id": "64323f5f-e26b-4479-a186-4b6a268eac4f",
+              "name": "account.followers_count",
+              "value": "={{ $json.account.followers_count }}",
+              "type": "number"
+            },
+            {
+              "id": "c74300c2-7a1b-40b1-8a9f-378a3506b84b",
+              "name": "account.following_count",
+              "value": "={{ $json.account.following_count }}",
+              "type": "number"
+            },
+            {
+              "id": "d6366179-7d84-4961-968c-132e29e2d661",
+              "name": "account.username",
+              "value": "={{ $json.account.username }}",
+              "type": "string"
+            },
+            {
+              "id": "ae1cd6ff-5dad-4ac4-8187-c1521f28a5ca",
+              "name": "account.bot",
+              "value": "={{ $json.account.bot }}",
+              "type": "boolean"
+            },
+            {
+              "id": "86e9dcc4-6e57-4a7b-b463-7edd4ae6f089",
+              "name": "account.statuses_count",
+              "value": "={{ $json.account.statuses_count }}",
+              "type": "number"
+            },
+            {
+              "id": "af260101-f905-447d-9532-7ac638969260",
+              "name": "account.last_status_at",
+              "value": "={{ $json.account.last_status_at }}",
+              "type": "string"
+            },
+            {
+              "id": "cd9607f4-3417-48b9-903c-4a6b543220db",
+              "name": "account.created_at",
+              "value": "={{ $json.account.created_at }}",
+              "type": "string"
+            },
+            {
+              "id": "f5407ca5-7c6b-47a5-8d74-a33cddc59727",
+              "name": "account.last_status_at",
+              "value": "={{ $json.account.last_status_at }}",
+              "type": "string"
             }
           ]
         },
@@ -289,7 +373,9 @@
       "name": "Convert to File"
     },
     {
-      "parameters": {},
+      "parameters": {
+        "maxItems": 2
+      },
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
@@ -935,9 +1021,12 @@
   "active": true,
   "settings": {
     "executionOrder": "v1",
-    "binaryMode": "separate"
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": true
   },
-  "versionId": "b486501b-2630-4e92-8e94-e20efa086eb4",
+  "versionId": "c7f92f08-3da2-42fa-a325-3e363ebd62a3",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
