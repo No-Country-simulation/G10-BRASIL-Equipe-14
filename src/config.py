@@ -59,4 +59,4 @@ MASTODON_PARAMS = {
 OCI_REGION = os.getenv("OCI_REGION", "sa-saopaulo-1")
 OCI_NAMESPACE = os.getenv("OCI_NAMESPACE", "grue2tm7tuaq")
 OCI_BUCKET_NAME = os.getenv("OCI_BUCKET_NAME", "communitylab-assets")
-OCI_ASSETS_PREFIX = "ativos"  # objeto final: ativos/YYYY-semana-XX/pacote-distribuicao.json
+OCI_ASSETS_PREFIX = "ativos"  # objeto final: ativos/YYYY-Wnn/pacote-distribuicao-<timestamp>.json
