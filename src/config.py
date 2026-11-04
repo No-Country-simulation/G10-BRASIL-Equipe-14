@@ -14,11 +14,23 @@ DATA_DIR = PROJECT_ROOT / "data"
 RAW_DATA_DIR = DATA_DIR / "raw"
 PROMPTS_DATA_DIR = DATA_DIR / "prompts"
 PROCESSED_DATA_DIR = DATA_DIR / "processed"
+VALIDATION_DIR = SRC_DIR / "validation"
+CASES_DIR = VALIDATION_DIR / "cases"
+OUTPUTS_DIR = VALIDATION_DIR / "outputs"
+DEFAULT_CASES = [
+    CASES_DIR / "router_synthetic_cases.json",
+    CASES_DIR / "router_real_cases.json",
+]
+
+PROMPTS_DIR = DATA_DIR / "prompts"
 SAMPLES_DATA_DIR = DATA_DIR / "samples"
 SCHEMAS_DATA_DIR = DATA_DIR / "schemas"
 INPUT_SCHEMA_PATH = SCHEMAS_DATA_DIR / "input_schema.json"
 OUTPUT_SCHEMA_PATH = SCHEMAS_DATA_DIR / "output_schema.json"
 FIXTURES_DIR = DATA_DIR / "fixtures"
+
+# Arquivo .env
+load_dotenv(PROJECT_ROOT / ".env")
 
 # Definindo os parâmetros padrões de coleta
 DEFAULT_LIMIT = 10
@@ -139,3 +151,63 @@ MAX_TOTAL_UPLOAD_SIZE_MB = 100
 MAX_TOTAL_UPLOAD_SIZE_BYTES = MAX_TOTAL_UPLOAD_SIZE_MB * 1024 * 1024
 
 SCORE_TIP = "Média do score de relevância (0–100) das interações do lote."
+# Configuração de prompts e schemas
+ROUTER_VERSION = "0.4.0" # Atualizado com o arquivo de spec router-prompt.md
+
+PROMPT_ENUMS = {
+    "type": {
+        "job_achievement",
+        "testimonial",
+        "technical_question",
+        "course_feedback",
+        "debate",
+        "noise",
+    },
+    "sentiment": {"positive", "neutral", "negative"},
+    "topic_category": {
+        "frontend",
+        "backend",
+        "data",
+        "artificial-intelligence",
+        "ai_ml",
+        "devops_cloud",
+        "mobile",
+        "dev_tools",
+        "career",
+        "other",
+    },
+    "original_language": {"pt", "es", "en", "other"},
+    "suggested_route": {
+        "success_case",
+        "faq",
+        "newsletter_only",
+        "moderation",
+        "discard",
+        "mastodon",
+        "discord",
+        "other",
+    },
+}
+
+REQUIRED_FIELDS = set(PROMPT_ENUMS) | {
+    "id",
+    "source",
+    "topics",
+    "has_answer",
+    "relevance_score",
+    "summary",
+    "justification",
+}
+SPECIAL_KEYS = {"suggested_route_in", "min_score", "max_score"}
+
+
+# Configurações de LLM Providers
+DEFAULT_TEMPERATURE = 0.0
+
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "")
+GEMINI_API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+
+GROQ_MODEL = os.getenv("GROQ_MODEL", "")
+GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
+GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")

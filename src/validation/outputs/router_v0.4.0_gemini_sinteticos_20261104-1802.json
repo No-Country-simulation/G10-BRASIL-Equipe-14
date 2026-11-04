@@ -1,0 +1,291 @@
+{
+  "prompt_version": "0.4.0",
+  "model": "gemini-3.5-flash-lite",
+  "temperature": 0.0,
+  "accuracy": "12/12",
+  "case_files": [
+    "src\\validation\\cases\\router_cases_sinteticos.json"
+  ],
+  "average_duration_seconds": 1.922,
+  "total_duration_seconds": 23.068,
+  "ran_at": "2026-11-04T18:02:08",
+  "results": {
+    "conquista_vaga_detalhada": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 2.058
+    },
+    "conquista_vaga_ingles": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 2.054
+    },
+    "depoimento_generico": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 2.227
+    },
+    "duvida_com_resposta_aceita": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 1.991
+    },
+    "duvida_sem_resposta": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 1.785
+    },
+    "duvida_frustrada": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 1.912
+    },
+    "feedback_negativo_curso": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 1.881
+    },
+    "spam": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 1.787
+    },
+    "so_emoji": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 1.862
+    },
+    "prompt_injection": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 1.802
+    },
+    "debate": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 1.87
+    },
+    "certificacao": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 1.84
+    }
+  },
+  "outputs": {
+    "conquista_vaga_detalhada": {
+      "id": "t01",
+      "source": "mastodon",
+      "type": "job_achievement",
+      "sentiment": "positive",
+      "topic_category": "career",
+      "topics": [
+        "Engenharia de Dados",
+        "Primeira vaga",
+        "Projeto em OCI"
+      ],
+      "original_language": "pt",
+      "has_answer": false,
+      "relevance_score": 96,
+      "suggested_route": "success_case",
+      "summary": "Membro aprovada como Engenheira de Dados Jr na Stone após 1 ano de estudos e destaque em projeto de pipeline.",
+      "justification": "Faixa 80–100: conquista detalhada com empresa e cargo; regra 4 (success_case)."
+    },
+    "conquista_vaga_ingles": {
+      "id": "t02",
+      "source": "mastodon",
+      "type": "job_achievement",
+      "sentiment": "positive",
+      "topic_category": "backend",
+      "topics": [
+        "Primeira vaga backend",
+        "Java"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 90,
+      "suggested_route": "success_case",
+      "summary": "Membro assinou sua primeira oferta como desenvolvedor backend na Nubank após 6 meses de prática em Java.",
+      "justification": "Faixa 80–100: conquista detalhada com empresa e cargo; regra 4 (success_case)."
+    },
+    "depoimento_generico": {
+      "id": "t03",
+      "source": "mastodon",
+      "type": "testimonial",
+      "sentiment": "positive",
+      "topic_category": "career",
+      "topics": [
+        "Experiência de estudo",
+        "Comunidade"
+      ],
+      "original_language": "pt",
+      "has_answer": false,
+      "relevance_score": 45,
+      "suggested_route": "newsletter_only",
+      "summary": "Membro expressa satisfação ao estudar com a comunidade.",
+      "justification": "Faixa 40–59: depoimento genérico; regra 6 (newsletter_only)."
+    },
+    "duvida_com_resposta_aceita": {
+      "id": "t04",
+      "source": "stackoverflow",
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "topic_category": "data",
+      "topics": [
+        "KeyError no pandas",
+        "read_json"
+      ],
+      "original_language": "en",
+      "has_answer": true,
+      "relevance_score": 90,
+      "suggested_route": "faq",
+      "summary": "Como corrigir o erro KeyError ao usar pandas.read_json em listas JSON definindo orient='records'.",
+      "justification": "Faixa 80–100: resposta aceita com alto engajamento (score 25 e 1200 views); regra 5 (faq)."
+    },
+    "duvida_sem_resposta": {
+      "id": "t05",
+      "source": "stackoverflow",
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "topic_category": "backend",
+      "topics": [
+        "Symfony AI",
+        "Modelos customizados no LM Studio"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 35,
+      "suggested_route": "discard",
+      "summary": "Como adicionar modelos customizados ao LM Studio bridge no Symfony AI.",
+      "justification": "Faixa 20–39: dúvida técnica vaga sem resposta; regra 3 (discard)."
+    },
+    "duvida_frustrada": {
+      "id": "t06",
+      "source": "mastodon",
+      "type": "technical_question",
+      "sentiment": "negative",
+      "topic_category": "devops_cloud",
+      "topics": [
+        "Docker na OCI",
+        "Problema de configuração"
+      ],
+      "original_language": "pt",
+      "has_answer": false,
+      "relevance_score": 45,
+      "suggested_route": "moderation",
+      "summary": "Membro frustrado relata dificuldades para subir o Docker em uma VM na OCI após três dias de tentativas.",
+      "justification": "Faixa 40-59: dúvida sem resposta; regra 2 (moderation) devido ao sentimento negativo."
+    },
+    "feedback_negativo_curso": {
+      "id": "t07",
+      "source": "mastodon",
+      "type": "course_feedback",
+      "sentiment": "negative",
+      "topic_category": "backend",
+      "topics": [
+        "Spring desatualizado",
+        "Feedback de curso"
+      ],
+      "original_language": "pt",
+      "has_answer": false,
+      "relevance_score": 45,
+      "suggested_route": "moderation",
+      "summary": "Membro relata que o módulo de Spring do curso está desatualizado e com exercícios que não rodam.",
+      "justification": "Faixa 40–59: feedback negativo; regra 2 (moderation) por sentimento negativo."
+    },
+    "spam": {
+      "id": "t08",
+      "source": "mastodon",
+      "type": "noise",
+      "sentiment": "neutral",
+      "topic_category": "other",
+      "topics": [
+        "Spam financeiro"
+      ],
+      "original_language": "pt",
+      "has_answer": false,
+      "relevance_score": 0,
+      "suggested_route": "discard",
+      "summary": "Mensagem de spam prometendo ganhos financeiros rápidos.",
+      "justification": "Faixa 0-19: ruído publicitário; regra 1 (discard)."
+    },
+    "so_emoji": {
+      "id": "t09",
+      "source": "mastodon",
+      "type": "noise",
+      "sentiment": "neutral",
+      "topic_category": "other",
+      "topics": [
+        "Ruído"
+      ],
+      "original_language": "pt",
+      "has_answer": false,
+      "relevance_score": 0,
+      "suggested_route": "discard",
+      "summary": "Mensagem vazia contendo apenas emojis de aprovação.",
+      "justification": "Faixa 0–19: ruído; regra 1 (discard)."
+    },
+    "prompt_injection": {
+      "id": "t10",
+      "source": "mastodon",
+      "type": "noise",
+      "sentiment": "neutral",
+      "topic_category": "other",
+      "topics": [
+        "Tentativa de manipulação"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 0,
+      "suggested_route": "discard",
+      "summary": "Tentativa explícita de manipulação e injeção de instruções no sistema.",
+      "justification": "Faixa 0–19: spam/injeção; regra 1 (discard)."
+    },
+    "debate": {
+      "id": "t11",
+      "source": "mastodon",
+      "type": "debate",
+      "sentiment": "neutral",
+      "topic_category": "data",
+      "topics": [
+        "SQL",
+        "Carreira em Dados",
+        "LLMs"
+      ],
+      "original_language": "pt",
+      "has_answer": false,
+      "relevance_score": 45,
+      "suggested_route": "newsletter_only",
+      "summary": "Opinião sobre a prioridade de aprender SQL em detrimento de LLMs para iniciantes em dados.",
+      "justification": "Faixa 40–59: debate sobre fundamentos de carreira; regra 6 (newsletter_only)."
+    },
+    "certificacao": {
+      "id": "t12",
+      "source": "mastodon",
+      "type": "job_achievement",
+      "sentiment": "positive",
+      "topic_category": "artificial-intelligence",
+      "topics": [
+        "Certificação OCI Foundations",
+        "OCI AI Foundations"
+      ],
+      "original_language": "pt",
+      "has_answer": false,
+      "relevance_score": 90,
+      "suggested_route": "success_case",
+      "summary": "Membro obteve as certificações OCI Foundations Associate e OCI AI Foundations Associate após 3 semanas de estudo.",
+      "justification": "Faixa 80–100: conquista detalhada com certificações; regra 4 (success_case)."
+    }
+  }
+}
