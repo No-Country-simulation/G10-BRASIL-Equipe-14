@@ -1,14 +1,12 @@
 import streamlit as st
-from dotenv import load_dotenv
 
 from src.config import PAGE_TITLE
-
-load_dotenv()
 
 HOME_PAGE = st.Page("views/home.py", title="Início", icon=":material/home:", url_path="inicio", default=True)
 SOURCES_PAGE = st.Page(
     "views/community_sources.py", title="Fontes da comunidade", icon=":material/groups:", url_path="fontes-da-comunidade"
 )
+INGESTION_PAGE = st.Page("views/ingestion.py", title="Ingestão de dados", icon=":material/upload_file:", url_path="ingestao")
 CURATION_PAGE = st.Page("views/curation.py", title="Curadoria", icon=":material/fact_check:", url_path="curadoria")
 
 
@@ -18,7 +16,7 @@ def configure_page() -> None:
 
 def main() -> None:
     configure_page()
-    st.navigation([HOME_PAGE, SOURCES_PAGE, CURATION_PAGE]).run()
+    st.navigation([HOME_PAGE, INGESTION_PAGE, SOURCES_PAGE, CURATION_PAGE]).run()
 
 
 main()
