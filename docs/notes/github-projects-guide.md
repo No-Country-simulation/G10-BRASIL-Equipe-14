@@ -196,11 +196,13 @@ git push -u origin feat/S1-XX-webhook-n8n
 
 >[!TIP] *Closes #12* ou *Fixes #12* (substitua pelo número da sua issue).
 
-4. Ao criar a PR, o GitHub move a issue para a coluna **In Review** (Em Revisão). Marque pelo menos 1 colega para revisar.
+4. Ao criar a PR, o GitHub move automaticamente a issue para a coluna **In Review** (Em Revisão). Marque pelo menos 1 colega para revisar.
+
+5. Para atualizações da branch `develop` na branch atual e casos de conflitos de arquivos na PR, favor ler o arquivo `docs/guia-git-rebase.md` salvo na pasta `/docs` com orientações práticas de como solucionar.
 
 ### Passo 5: Concluir a tarefa
 
-- Após o PR ser aprovado e mesclado (*squash/merge*), o card vai automaticamente para a coluna **Done** (Concluído). Caso não seja movido automaticamente após alguns segundos, arraste-o manualmente.
+- Após a PR ser aprovado e mesclado (*squash/merge*), o card vai automaticamente para a coluna **Done** (Concluído). Caso não seja movido automaticamente após alguns segundos, arraste-o manualmente.
 
 ---
 
