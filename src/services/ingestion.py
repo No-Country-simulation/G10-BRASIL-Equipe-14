@@ -5,10 +5,7 @@ from typing import Any
 
 import requests
 
-from src.config import N8N_INGESTION_WEBHOOK_URL, N8N_REQUEST_TIMEOUT
-
-
-CSV_DELIMITERS = ",;\t|"
+from src.config import CSV_DELIMITERS, N8N_INGESTION_WEBHOOK_URL, N8N_REQUEST_TIMEOUT
 
 
 def _decode(raw: bytes | str) -> str:

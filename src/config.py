@@ -118,3 +118,6 @@ N8N_BASE_URL = os.getenv("N8N_BASE_URL", "http://localhost:5678").rstrip("/")
 N8N_INGESTION_WEBHOOK_PATH = os.getenv("N8N_INGESTION_WEBHOOK_PATH", "webhook/ingestion").strip("/")
 N8N_INGESTION_WEBHOOK_URL = os.getenv("N8N_INGESTION_WEBHOOK_URL") or f"{N8N_BASE_URL}/{N8N_INGESTION_WEBHOOK_PATH}"
 N8N_REQUEST_TIMEOUT = float(os.getenv("N8N_REQUEST_TIMEOUT", "30"))
+
+CSV_DELIMITERS = ",;\t|"
+INGESTION_TEXT_AREA_NAME = "texto colado"
