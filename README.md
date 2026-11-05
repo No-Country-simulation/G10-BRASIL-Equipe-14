@@ -296,7 +296,7 @@ docker compose up -d --build
 
 * **Nomenclatura de commits:** `[S0-XX] feat: descricao-commit (#1)`, `[S0-XX] fix: descricao-commit (#1)`, `[S0-XX] docs: descricao-commit (#1)`
 
-* Toda PR deve usar o template fornecido em `.github/PULL_REQUEST_TEMPLATE.md`, sendo preciso ao menos **1 aprovação** para ser integrada à `develop`.
+* Toda PR deve usar o template fornecido em `.github/PULL_REQUEST_TEMPLATE.md`, sendo preciso ao menos **1 aprovação** para ser integrada à `develop`. Exceção somente para arquivos de documentação e configurações de ambiente que não envolvam execução de código.
 
 * Em caso de dúvidas, não exite em perguntar no grupo do discord.
 

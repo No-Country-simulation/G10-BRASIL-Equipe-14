@@ -64,7 +64,7 @@ git rebase --continue
 
 ```
 >[!WARNING]
->Não faça `git commit` durante o rebase:** Ao resolver conflitos, utilize apenas `git add` e `git rebase --continue`.
+>Não faça `git commit` durante o rebase: Ao resolver conflitos, utilize apenas `git add` e `git rebase --continue`.
 
 >[!NOTE]
 >Se a sua branch tiver múltiplos commits conflitantes, o rebase pausará novamente para o commit seguinte. Repita o processo até finalizar.
@@ -103,5 +103,4 @@ Se a sua branch estiver apenas desatualizada em relação à `develop` e você p
 
 4. Seguindo esses passos, o GitHub fará a atualização da `develop` na sua branch automaticamente.
 
->[!WARNING]
->Se o GitHub detectar conflitos que não consegue resolver sozinho, ele avisará que a resolução manual via terminal (seguindo os passos acima) será necessária.
+>Se o GitHub detectar conflitos que não consegue resolver sozinho, ele avisará que a resolução manual via terminal (seguindo os itens 1 e 2 acima) será necessária.
