@@ -39,15 +39,14 @@ def _latest_pacote(client, bucket: str, prefix: str):
     head = client.head_object(OCI_NAMESPACE, bucket, latest.name)
     return latest.name, head.headers.get("opc-meta-sha256")
 
-
-def publish_package(payload: dict, week: str | None = None, client=None) -> str:
+def publish_package(payload: dict, week: str | None = None, client=None,
+                    base_prefix: str = OCI_ASSETS_PREFIX) -> str:
     now = datetime.now(timezone.utc)
     week = week or iso_week_label(now.date())
-    prefix = f"{OCI_ASSETS_PREFIX}/{week}/"
-    key = f"{prefix}pacote-distribuicao-{now:%Y%m%dT%H%M%SZ}.json"
-
+    prefix = f"{base_prefix}/{week}/"
+    key = f"{prefix}pacote-distribuicao-{now:%Y%m%dT%H%M%S%fZ}.json"
     # 1. preencher storage antes de validar, porque o schema exige o bloco
-    payload["storage"] = {"bucket": OCI_BUCKET_NAME, "object_path": key, "status": "pending"}
+    payload["storage"] = {"bucket": OCI_BUCKET_NAME, "object_path": key, "status": "success"}
     errors = validate_data(payload, _load_schema())
     if errors:
         raise ValueError("Payload inválido:\n" + "\n".join(errors))
