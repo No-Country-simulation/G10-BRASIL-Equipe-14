@@ -194,13 +194,24 @@ git push -u origin feat/S1-XX-webhook-n8n
 
 3. No corpo do PR, use uma palavra mágica para ligar o PR à issue:
 
->[!TIP] *Closes #12* ou *Fixes #12* (substitua pelo número da sua issue).
+>[!TIP] 
+>*Closes #12* ou *Fixes #12* (substitua pelo número da sua issue).
 
-4. Ao criar a PR, o GitHub move a issue para a coluna **In Review** (Em Revisão). Marque pelo menos 1 colega para revisar.
+4. Ao criar a PR, o GitHub move automaticamente a issue para a coluna **In Review** (Em Revisão). Marque pelo menos 1 colega para revisar.
+
+5. Para atualizações da branch `develop` na branch atual e casos de conflitos de arquivos na PR, favor ler o arquivo `docs/notes/git-rebase-guide.md` salvo na pasta [/docs/notes](/docs/notes/) com orientações práticas sobre esses processos.
 
 ### Passo 5: Concluir a tarefa
 
-- Após o PR ser aprovado e mesclado (*squash/merge*), o card vai automaticamente para a coluna **Done** (Concluído). Caso não seja movido automaticamente após alguns segundos, arraste-o manualmente.
+- Após a PR ser aprovada, clique no botão **Squash/Merge** para realizar o merge na branch `develop`. Após o merge, pode clicar em **Delete Branch** para excluir a branch usada.
+ 
+- Após a aprovação da PR, o card no Kanban do GitHub Projects vai ser movido automaticamente para a coluna **Done** (Concluído). Caso não seja movido automaticamente após alguns segundos, arraste-o manualmente.
+
+### Passo 6: Reabrir uma tarefa (Opcional)
+
+- Caso precise criar novas PRs para solucionar uma mesma issue, localize e clique no card da issue na coluna **Done**, role a página até encontrar o botão **Reopen Issue** e clique nele. O card será movido automaticamente para a coluna **Backlog**. Caso não seja movido automaticamente após alguns segundos, arraste-o manualmente.
+
+- Ao criar a nova PR, lembre de referenciar a mesma issue, seguindo os passos 3 a 5 novamente.
 
 ---
 
