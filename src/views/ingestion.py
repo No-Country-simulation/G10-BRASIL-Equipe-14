@@ -3,9 +3,8 @@ from typing import Any
 import requests
 import streamlit as st
 
+from src.config import INGESTION_TEXT_AREA_NAME
 from src.services.ingestion import parse_input, parse_pasted_text, send_to_ingestion
-
-INGESTION_TEXT_AREA_NAME = "texto colado"
 
 
 def collect_items(files: list, text: str) -> tuple[list[tuple[str, Any]], list[str]]:
