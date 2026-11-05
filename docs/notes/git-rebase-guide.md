@@ -103,4 +103,4 @@ Se a sua branch estiver apenas desatualizada em relação à `develop` e você p
 
 4. Seguindo esses passos, o GitHub fará a atualização da `develop` na sua branch automaticamente.
 
->Se o GitHub detectar conflitos que não consegue resolver sozinho, ele avisará que a resolução manual via terminal (seguindo os itens 1 e 2 acima) será necessária.
+Se o GitHub detectar conflitos que não consegue resolver sozinho, ele avisará que a resolução manual via terminal será necessária. Nesse caso, repita o processo dos itens 1 e 2 acima.
