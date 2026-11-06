@@ -1,116 +1,133 @@
 # Contrato de API — Stack Exchange
 
-**Projeto:** CommunityLab  
-**Base URL:** `https://bot.rsa.ia.br`  
-**Versão:** 1.0  
-**Formato:** JSON UTF-8 e download de arquivo JSON  
-**Autenticação:** Header Auth
+**Projeto:** CommunityLab — MVP  
+**Base dos webhooks:** `https://bot.rsa.ia.br/webhook/`  
+**Formato:** JSON UTF-8; WF05 entrega ZIP.  
+**Referência:** análise estática dos workflows exportados; execução em produção não validada nesta revisão.
 
-## 1. Visão geral
+**Estado do WF10: em desenvolvimento (06/11/2026).** A avaliação editorial já foi incorporada ao agente, ao parser e ao merge, mas o roteamento e as conexões de persistência ainda estão incompletos. Este documento descreve a exportação local; não representa um contrato estável nem comprova execução de ponta a ponta.
 
-As integrações disponíveis com o n8n estão apresentadas em [n8n-credentials](./n8n-credentials.md).
+## 1. Operações
 
-| Workflow | Arquivo | Dado coletado |
+| Workflow | Método e caminho relativo | Resultado |
 | --- | --- | --- |
-WF02 | [wf02](../../n8n/workflows/wf02_coleta-stack-exchange-questions-integrada.json) | Perguntas |
-WF03 | [wf03](../../n8n/workflows/wf03_coleta-stack-exchange-licenses-integrada.json) | Licenças | 
-WF04 | [wf04](../../n8n/workflows/wf04_coleta-stack-exchange-answer-integrada.json) | Respostas | 
-WF05 | [wf05](../../n8n/workflows/wf05_download-bucket-OCI.json) | Arquivo `.zip` da OCI |
+| [WF02](../../n8n/workflows/wf02_coleta-stack-exchange-questions-integrada.json) | `POST wf02-coleta-stack-exchange` | Coleta e sanitiza perguntas; grava JSON na OCI |
+| [WF03](../../n8n/workflows/wf03_coleta-stack-exchange-licenses-integrada.json) | `POST wf03-coleta-stack-exchange-licenses` | Coleta licenças das perguntas; grava JSON na OCI |
+| [WF04](../../n8n/workflows/wf04_coleta-stack-exchange-answer-integrada.json) | `POST wf04-coleta-stack-exchange-answers` | Busca perguntas e coleta suas respostas em lotes de até 100 IDs; grava JSON na OCI |
+| [WF05](../../n8n/workflows/wf05_download-bucket-OCI.json) | `GET wf05-download-bucket-OCI` | Baixa os objetos listados no bucket e devolve um ZIP |
+| [WF08](../../n8n/workflows/wf08_merge-stackexchange-data.json) | `GET wf08_merge-stackexchange-data` | Combina perguntas, licenças e respostas por `source_id`; grava em `raw/` |
+| [WF10](../../n8n/workflows/wf10_triagem-llm-router_stackexchange.json) | `POST wf10_triagem-llm-router_stackexchange` | Avalia idioma, sentimento e atributos editoriais de cada resposta; roteamento e persistência em desenvolvimento |
 
-Esse arquivo `.zip` recupera todos os arquivos presentes no bucket da OCI. 
+WF02, WF03, WF04, WF05 e WF08 configuram `Header Auth`. Enviar `communitylab-api-key: <SUA_CHAVE_DE_API>`, conforme [credenciais n8n](./n8n-credentials.md). O webhook do WF10 não configura autenticação no arquivo exportado; proteção externa não foi verificada.
 
-## 2. Autenticação
+As operações são independentes: executar WF02, WF03 e WF04 com os mesmos parâmetros, depois WF08 e WF10. WF05 serve para baixar os arquivos. Não há encadeamento automático entre esses workflows.
 
-As operações exigem autenticação por cabeçalho HTTP.
+## 2. Entrada da coleta — WF02, WF03 e WF04
 
-* Nome do cabeçalho: `communitylab-api-key`
-* Valor: Chave de API fornecida para o consumidor
+Enviar um objeto JSON no corpo do POST, com `Content-Type: application/json`. Campos omitidos ou nulos usam os padrões abaixo.
 
-Exemplo de cabeçalho:
+| Campo | Padrão | Validação implementada |
+| --- | --- | --- |
+| `tagged` | `artificial-intelligence` | String não vazia, até 200 caracteres; padrão `^[a-zA-Z0-9.+#_;-]+$` |
+| `fromdate` | `1760929200` | Convertido com `Number`; inteiro seguro positivo, em segundos Unix, sem data futura |
+| `pagesize` | `100` | Convertido com `Number`; inteiro entre 1 e 100 |
+| `site` | `stackoverflow` | String não vazia, até 100 caracteres; padrão `^[a-z0-9.-]+$` |
 
-```http
-communitylab-api-key: <SUA_CHAVE_DE_API>
+```json
+{
+  "tagged": "artificial-intelligence",
+  "fromdate": 1760929200,
+  "pagesize": 100,
+  "site": "stackoverflow"
+}
 ```
 
-A chave deve ser armazenada em um mecanismo seguro de gestão de segredos. Não deve ser incluída no código-fonte, no repositório Git ou em logs.
+A coleta ordena por votos decrescentes e pagina até `has_more === false`, e `pagesize` não limita o total coletado. A validação de `site` verifica formato, sem consultar se a comunidade existe. Para o MVP, utilizar `stackoverflow`.
 
-O consumidor deve enviar o cabeçalho nas duas operações, inclusive no download do arquivo.
+WF05 não recebe filtro de download. WF08 e WF10 usam `source=stackoverflow` e extensão `.json` fixos nos nós de configuração; o corpo da requisição não altera esses valores.
 
-## 3. Integração com Stack Exchange
+## 3. Arquivos e dados
 
-### Parâmetros de entrada
+Todos os arquivos são armazenados no bucket `communitylab-assets`, acessado pelos nós S3.
 
-| Campo | Tipo | Valor padrão | Descrição |
-|---|---|---|---|
-| `tagged` | _string_ | `artificial-intelligence` | Tag utilizada para filtrar perguntas |
-| `fromdate` | _integer_ | `1760929200` | Timestamp Unix que define o início do período de coleta |
-| `pagesize` | _integer_ | `100` | Quantidade solicitada por página à API de origem |
-| `site` | _string_ | `stackoverflow` | Comunidade do Stack Exchange |
+| Etapa | Chave do objeto / estrutura |
+| --- | --- |
+| WF02 | `sample_{site}-questions_{tagged}.json`: perguntas com `source_id` string, título, corpo HTML, autor, link, tags e métricas com sufixo `_question` |
+| WF03 | `sample_{site}-questions-licenses_{tagged}.json`: `source_id` e `content_license_question` (pode ser `null`) |
+| WF04 | `sample_{site}-answers_{tagged_normalizada}.json`: `source_id` string, `answer_id` e campos dinâmicos como `body_answer_{account_id}`, autor, licença e métricas |
+| WF08 | `raw/{nome_derivado}.json`: um registro por `source_id`, campos da pergunta e licença, mais `answers` com os registros do WF04 |
+| WF10 | Destino configurado: `processed/result_stackoverflow.json`, com classificação e avaliação editorial em cada elemento de `answers`; conexão de upload pendente |
 
-Os valores padrão são os configurados no workflow. Os limites efetivamente aceitos para cada parâmetro devem respeitar as regras da API do Stack Exchange.
+No WF04, a tag do nome do arquivo substitui `;`, `#`, `.` e `+` por `_`. Perguntas sem ID, título, corpo ou link são descartadas no WF02; licenças sem ID são descartadas no WF03. O WF04 descarta respostas sem campo `title_answer_` com sufixo numérico, incluindo registros cujo sufixo seja `unknown`. O HTML dos corpos é preservado.
 
-#### Valores para o parâmetro `site` no Stack Exchange
+O WF08 seleciona chaves que contém `sample_stackoverflow` e terminam em `.json`, sem separar tag, período ou execução. Agrupa por ID e acumula respostas sem deduplicação; pode gerar registros sem pergunta. O nome de saída depende da primeira chave selecionada e remove o primeiro háfen da parte da tag (exemplo: `raw/stackoverflow_artificialintelligence.json`).
 
-Existem 183 sites, ou comunidades, disponíveis no Stack Exchange para requisição. O Stack Overflow é somente um dos sites disponíveis. Na [relação de sites](https://stackexchange.com/sites?view=list#oldest), ordenada por _Oldest_, observa-se a presença do `stackoverflow` como o mais antigo, com mais de 18 anos, 24 milhões de questões, 36 milhões de respostas e 32 milhões de usuários. Os cinco sites com as maiores questões por dia:
+O WF05 compacta os objetos listados de todo o bucket, incluindo outras fontes e pastas; não entrega somente dados do Stack Exchange. Retorna HTTP 200 com `Content-Type: application/zip`, `Content-Disposition: attachment` e `Cache-Control: no-store`.
 
-| Site | Tópico | Requisições/dia | Idade |
-|---|---|---|---|
-| `stackoverflow` | Q&A for professional and enthusiast programmers | 59 | 18y3m |
-| `math.exchange` | Q&A for people studying math at any level and professionals in related fields | 26 | 16y3m |
-| `mathoverflow`| Q&A for professional mathematicians | 12 | 17y1m |
-| `askubuntu` | Q&A for Ubuntu users and developers | 11 | 16y3m |
-| `physics.stackexchange` | Q&A for active researchers, academics and students of physics | 7,9 | 15y11m |
+Os nomes não incluem identificador de execução; novas execuções podem sobrescrever objetos existentes.
 
- **Observação: **Informações obtidas no dia 28/10/2026.
+## 4. Triagem atual — WF10
 
+O WF10 lê `raw/stackoverflow*.json`, mantém perguntas com `body_question` preenchido e `is_answered_question=true`, mapeia os campos e aplica `Limit=1` antes do agente. Portanto, processa no máximo uma pergunta por execução, com suas respostas; não há mecanismo de avanço para as próximas perguntas.
 
-## 4. Tratamento de erros
+O `AI Agent` usa título e corpo da pergunta como contexto e avalia cada resposta, sem classificar a pergunta. O `System Message` determina avaliação direta, sem ferramentas. O nó `SKill Router Classification` permanece na exportação, mas está desconectado do agente. A saída estruturada contém `source_id`, `source=stackoverflow` e `answers`, com:
 
-Os nós `Webhook`, `Respond to webhook` e `HTTP Request` estão com a configuração `Retry on Fail` ativada, com 3 tentativas e intervalo de 3 segundos.
+| Campo por resposta | Tipo / valores |
+| --- | --- |
+| `answer_id` | Inteiro positivo, preservado da entrada |
+| `original_language` | `pt`, `es`, `en` ou `other` |
+| `sentiment` | `Excited`, `Happy`, `Neutral`, `Disappointed` ou `Angry` |
+| `strength` | Número de 0 a 1: intensidade do sentimento |
+| `confidence` | Número de 0 a 1: confiança na classificação |
+| `content_type` | `technical_answer`, `job_achievement`, `testimonial`, `technical_question`, `course_feedback`, `debate` ou `noise` |
+| `topics` | Até cinco strings não vazias, sem duplicatas |
+| `relevance_score` | Inteiro de 0 a 100: relevância editorial |
+| `summary` | Resumo não vazio em português brasileiro |
+| `suggested_route` | `success_case`, `faq`, `newsletter_only`, `moderation` ou `discard` |
+| `needs_human_review` | Booleano: necessidade de revisão humana |
+| `assessment_note` | Justificativa editorial não vazia em português brasileiro |
 
-O consumidor deve tratar separadamente erros de transporte, autenticação e processamento.
+O `Structured Output Parser` exige todos os campos listados e rejeita propriedades adicionais. O nó `Merge Classification` exige correspondência de `source_id`, fonte e conjunto de IDs de respostas, rejeita IDs duplicados e valida tipos, categorias e escalas. Preserva os dados originais, incorpora `original_language`, `sentiment`, `strength` e `confidence` na raiz de cada resposta e agrupa os outros sete campos em `answers[].editorial`. Também rejeita tópicos repetidos e conflitos com avaliações já existentes no original. `noise` exige rota `discard`; `moderation` exige revisão humana.
 
-| Situação | Conduta recomendada |
-|---|---|
-| `401` ou `403` | Verificar a credencial e o cabeçalho de autenticação |
-| Erro de resolução DNS ou conexão | Registrar a falha e realizar novas tentativas controladas |
-| Resposta HTTP diferente de sucesso | Registrar status e detalhes seguros da resposta |
-| JSON inválido | Interromper o processamento e registrar a ocorrência |
-| Quantidade de registros divergente | Investigar a execução e o conteúdo efetivamente baixado |
+O roteamento ainda é parcial: `If Human Review` consulta somente `answers[0].editorial.needs_human_review`. O Switch `Editorial Route` contém uma única comparação entre o literal `success_case` e uma string vazia, sem destinos conectados. Não há roteamento individual de todas as respostas. As rotas produzidas pelo agente são recomendações; o fluxo não gera textos finais de FAQ, newsletter ou redes sociais.
 
-Não se deve presumir que toda falha resulte em um código HTTP específico sem validar o comportamento efetivo do workflow.
+## 5. Respostas e falhas
 
-Se ocorrer uma falha de comunicação após o envio do POST, o consumidor deve considerar que o estado da execução pode ser desconhecido antes de repetir a solicitação. Uma nova execução pode produzir outro arquivo e substituir o anterior.
+WF02, WF03, WF04 e WF08 configuram HTTP 200 após o upload, com JSON contendo `status: "success"` e `message`. Não retornam contagem nem `download_url`. WF08 também configura o cabeçalho `filename`. O sucesso HTTP não comprova completude ou qualidade dos dados.
 
-## 7. Segurança e operação
+No WF10, os nós de upload e resposta de sucesso existem, mas `Convert to File` não está conectado a `Upload a file`. Portanto, o caminho atual de triagem não alcança o upload nem a resposta HTTP 200 configurada. A persistência e a resposta de sucesso dependem da conclusão dessas conexões e de validação em execução.
 
-- Manter o bucket OCI privado.
-- Utilizar HTTPS em todas as requisições.
-- Proteger a chave de API e limitar seu compartilhamento.
-- Não registrar chaves, cabeçalhos secretos ou conteúdo sensível nos logs.
-- Validar o JSON baixado antes de utilizá-lo.
-- Não assumir uma quantidade fixa de registros.
-- Considerar que o nome do arquivo é estável e que novas execuções podem substituir seu conteúdo.
+WF02, WF03 e WF04 respondem HTTP 400 para parâmetros inválidos:
 
-## 8. Validação realizada
+```json
+{
+  "status": "error",
+  "message": "Parâmetros de busca inválidos.",
+  "details": "Descrição da validação que falhou."
+}
+```
 
-Na validação de produção de 23/10/2026:
+Não há contrato uniforme de erro para falhas de API externa, OCI, modelo ou ausência de itens. As retentativas são configuradas apenas em alguns nós; não assumir repetição em todo o fluxo. Após falha de comunicação, verificar a execução antes de reenviar a chamada, pois arquivos podem ter sido gravados.
 
-- O WF04 retornou `status: success`.
-- A resposta incluiu `download_url`.
-- O WF04 informou 151 registros.
-- O WF05 entregou o arquivo com HTTP 200.
-- O arquivo baixado foi interpretado como JSON válido e continha 151 registros.
+Manter o bucket privado, usar HTTPS e guardar a chave fora do código e dos logs. Validar os arquivos baixados e as quantidades efetivas; esta revisão não reproduziu os testes históricos de produção.
 
-Esses resultados comprovam o funcionamento do fluxo no momento do teste. Não representam garantia de disponibilidade contínua ou de uma quantidade fixa de registros em execuções futuras.
+## 6. Persistência no bucket
 
-## 9. Pontos para evolução
+Os arquivos são persistidos no bucket `communitylab-assets`. WF02, WF03 e WF04 gravam os dados coletados na raiz do bucket para consolidação pelo WF08. O WF08 grava o resultado em `raw/`, de onde o WF10 lê os dados para triagem. No WF10, o destino em `processed/` está configurado para consumo futuro pela aplicação, mas a conexão de upload ainda precisa ser concluída.
 
-Antes de declarar o contrato como uma API versionada e estável, recomenda-se documentar e validar formalmente:
+| Workflow produtor | Local de persistência | Consumidor e finalidade |
+| --- | --- | --- |
+| WF02 | Raiz do bucket: `sample_{site}-questions_{tagged}.json` | WF08: consolidação das perguntas |
+| WF03 | Raiz do bucket: `sample_{site}-questions-licenses_{tagged}.json` | WF08: associação das licenças às perguntas |
+| WF04 | Raiz do bucket: `sample_{site}-answers_{tagged_normalizada}.json` | WF08: associação das respostas às perguntas |
+| WF08 | `raw/{nome_derivado}.json` | WF10: leitura dos registros consolidados para triagem |
+| WF10 | Destino configurado: `processed/result_stackoverflow.json` | Aplicação: consumo previsto; conexão de upload pendente |
 
-- esquema completo dos registros retornados;
-- limites e validações dos parâmetros;
-- códigos e formatos de erro de cada endpoint;
-- política de repetição e identificação das execuções;
-- estratégia de versionamento do contrato;
-- prazo de validade do arquivo e comportamento em execuções simultâneas.
+O WF05 também lê os arquivos do bucket para disponibilizá-los em um ZIP ao solicitante; não persiste um novo arquivo no bucket. Os critérios de seleção dos arquivos pelos workflows estão descritos nas seções 3 e 4.
+
+## 7. Pendências para concluir o MVP
+
+- Concluir as conexões entre conversão, upload e resposta HTTP e validar a persistência de ponta a ponta.
+- Implementar roteamento por resposta, substituindo a consulta exclusiva a `answers[0]`; configurar as cinco rotas, seus destinos e o tratamento de revisão humana e rota inválida.
+- Validar o agente, o parser e o merge com múltiplas respostas, IDs divergentes, entradas inválidas e conteúdo com instruções embutidas; medir a qualidade das avaliações sem presumir que o JSON válido comprova acurácia.
+- Rever o limite de uma pergunta, a autenticação do WF10 e a seleção de arquivos por coleta para evitar reprocessamento e mistura de conjuntos.
