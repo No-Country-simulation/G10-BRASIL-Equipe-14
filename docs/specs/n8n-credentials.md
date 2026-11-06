@@ -16,18 +16,24 @@ Webhook URL: `https://bot.rsa.ia.br/webhook/PATH`
 
 | Workflow | PATH | Dado coletado | Fonte |
 |---|---|---| --- |
-WF02 | `wf02-coleta-stack-exchange` | Questões | Stack Overflow |
-WF03 | `wf03-coleta-stack-exchange-licenses` | Licenças | Stack Overflow |
-WF04 | `wf04-coleta-stack-exchange-answers` | Respostas | Stack Overflow |
+WF02 | `wf02-coleta-stack-exchange` | Questões | Stack Exchange |
+WF03 | `wf03-coleta-stack-exchange-licenses` | Licenças | Stack Exchange |
+WF04 | `wf04-coleta-stack-exchange-answers` | Respostas | Stack Exchange |
 WF05 | `wf05-download-bucket-OCI` | Download dos arquivos em `.ZIP` | Bucket na OCI |
 WF06 | `wf06-coleta-mastodon` | Dados | Mastodon |
 WF07 | `wf07-hacker-news-search` | Dados completos | Hacker News |
+WF08 | `wf08_merge-stackexchange-data` | Questões, licenças, respostas combinadas | Stack Exchange |
+WF09 | `wf09_triagem-llm-router-mastodon` | Avaliação de publicações | Mastodon |
+WF10 | `wf10_triagem-llm-router_stackexchange` | Avaliação de perguntas e respostas | Stack Exchange |
 
-> **Versionamento:** Necessário definir critério de versão na geração dos arquivos, nos fluxos WF02, WF03, WF04, WF06 e WF07.
+As requisições powershell dos workflows com Agente de IA podem ser vistas [aqui](./requisicoes_powershell_triagem.md). 
+
+## Ações futuras
+* **Versionamento:** Necessário definir critério de versão na geração dos arquivos, nos fluxos WF02, WF03, WF04, WF06 e WF07.
 
 **Sugestão de requisição via Powershell para WF02:**
 
-```
+```powershell
 $headers = @{
     'Content-Type' = 'application/json'
     'communitylab-api-key' = '<CHAVE SECRETA>'
@@ -49,27 +55,6 @@ Invoke-WebRequest `
     -ErrorAction Stop
 
 Write-Host "Download feito com sucesso."
-```
-
-**Sugestão de requisição via Powershell para WF05:**
-
-```powershell
-$headers = @{
-    'communitylab-api-key' = <CHAVE SECRETA>
-}
-
-try {
-    Invoke-WebRequest `
-      -Uri "https://bot.rsa.ia.br/webhook/wf05-download-stack-exchange" `
-      -Headers $headers `
-      -OutFile "$HOME\Downloads\sample_stackoverflow.zip" `
-      -ErrorAction Stop
-
-    Write-Host "Download feito com sucesso. Arquivo na sua pasta Downloads."
-}
-catch {
-    Write-Host "Falha no download: $($_.Exception.Message)" -ForegroundColor Red
-}
 ```
 
 **Disponibilização da chave:** o nome do cabeçalho está documentado para facilitar a configuração. O valor da chave de teste será fornecido **em particular aos integrantes autorizados da equipe, pelo Discord**, e não será incluído neste PR, no repositório ou nos arquivos JSON exportados dos workflows.

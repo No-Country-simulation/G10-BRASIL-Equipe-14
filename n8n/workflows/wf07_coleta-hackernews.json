@@ -1,0 +1,618 @@
+{
+  "name": "wf07_coleta-hackernews",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        -16
+      ],
+      "id": "23a1aa92-2830-44c5-8a0f-8f079701a1c6",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {
+          "format": true,
+          "fileName": "={{ 'hackernews_' +\n  String(\n    $('If').first().json.body?.query ??\n    $('If').first().json.query?.query ??\n    $('If').first().json.query ??\n    'sem_tema'\n  ).trim().replace(/[^a-zA-Z0-9_-]+/g, '') +\n  '_' + $execution.id + '.json'\n}}"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        2240,
+        -112
+      ],
+      "id": "29ab2ef8-e5c8-4dd5-8b7e-ccceb365be04",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "operation": "upload",
+        "bucketName": "communitylab-assets",
+        "fileName": "={{ 'raw/' + $binary.data.fileName }}",
+        "additionalFields": {},
+        "tagsUi": {
+          "tagsValues": []
+        }
+      },
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        2464,
+        -112
+      ],
+      "id": "f1a91f95-3e86-4184-b877-f1d21c9eae47",
+      "name": "Upload a file",
+      "retryOnFail": true,
+      "waitBetweenTries": 3000,
+      "credentials": {
+        "s3": {
+          "id": "WG22ysIkwCiyk8dj",
+          "name": "OCI Object Storage S3"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "wf07-hacker-news-search",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        224,
+        176
+      ],
+      "id": "9559eb93-f1b5-4ddb-a446-ed94267f5e44",
+      "name": "Webhook",
+      "webhookId": "4cb5e69f-07c2-4bf9-9e76-faae494a09ee"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "3bc6f3b6-875f-413d-84c3-fd8db7c4fd9b",
+              "leftValue": "={{ String($json.body?.query ?? $json.query?.query ?? $json.query ?? '').trim() }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        448,
+        80
+      ],
+      "id": "77b77e77-db61-49db-8143-c6b8de07ca2b",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "url": "https://hn.algolia.com/api/v1/search",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "query",
+              "value": "={{ String($json.body?.query ?? $json.query?.query ?? $json.query ?? '').trim() || (() => { throw new Error('O parâmetro query é obrigatório e não pode estar vazio.') })() }}"
+            },
+            {
+              "name": "tags",
+              "value": "={{ $json.body?.type ?? $json.query?.type ?? $json.type ?? 'story' }}"
+            },
+            {
+              "name": "hitsPerPage",
+              "value": "={{ Math.min(100, Math.max(1, Number($json.body?.limit ?? $json.query?.limit ?? $json.limit) || 100)) }}"
+            },
+            {
+              "name": "numericFilters",
+              "value": "={{\n  'created_at_i>=' +\n  Math.floor(\n    Number($json.body?.fromdate ?? $json.query?.fromdate ?? $json.fromdate) ||\n    (Date.now() / 1000 - 30 * 24 * 60 * 60)\n  ) +\n  (\n    ($json.body?.type ?? $json.query?.type ?? $json.type ?? 'story') === 'story'\n      ? ',points>=' + Math.max(\n          0,\n          Number($json.body?.minPoints ?? $json.query?.minPoints ?? $json.minPoints) || 0\n        )\n      : ''\n  )\n}}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        672,
+        -16
+      ],
+      "id": "d519a233-85e6-4976-864b-0659bfc74842",
+      "name": "Search Hacker News",
+      "retryOnFail": true,
+      "waitBetweenTries": 3000,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"error\": \"Parâmetro obrigatório ausente\",\n  \"message\": \"Informe o parâmetro query com o tema que deseja pesquisar.\"\n}",
+        "options": {
+          "responseCode": 400
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        672,
+        176
+      ],
+      "id": "0b1e5fd1-a182-4ebf-917f-a8f29993d795",
+      "name": "Invalid Query return"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{\n  {\n    success: true,\n    message: 'Coleta concluída. Os posts do Hacker News foram armazenados no bucket OCI communitylab-assets.',\n  }\n}}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        2688,
+        -208
+      ],
+      "id": "4fe08195-2bd8-470a-a9a7-3b450e25dbf7",
+      "name": "Valid Hacker News Research return"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"error\": \"Falha na consulta externa\",\n  \"message\": \"Não foi possível consultar o Hacker News. Tente novamente mais tarde.\"\n}",
+        "options": {
+          "responseCode": 502
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        896,
+        80
+      ],
+      "id": "9eddbb22-924c-435c-84d7-576ca6fda351",
+      "name": "Algolia Error Response"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n\"error\": \"Falha na persistência dos dados\",\n\"message\": \"A pesquisa foi processada, mas não foi possível armazenar os resultados. Tente novamente mais tarde.\"\n}",
+        "options": {
+          "responseCode": 502
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        2688,
+        -16
+      ],
+      "id": "7da2c257-1462-44dc-882e-6f15ad0a2509",
+      "name": "OCI Upload Error Response"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "bda7a544-3660-41f9-81a6-4b7236242517",
+              "name": "query",
+              "value": "artificial intelligence",
+              "type": "string"
+            },
+            {
+              "id": "759096d9-e44b-432e-9100-aef388473d42",
+              "name": "type",
+              "value": "story",
+              "type": "string"
+            },
+            {
+              "id": "1b1f8b9a-be25-4172-982f-91765f8a2c30",
+              "name": "limit",
+              "value": 2,
+              "type": "number"
+            },
+            {
+              "id": "90c15554-02d9-4834-a437-743c85b5cb9b",
+              "name": "fromdate",
+              "value": "={{ Math.floor(Date.now() / 1000 - 30 * 24 * 60 * 60) }}",
+              "type": "number"
+            },
+            {
+              "id": "ac0afe07-8ec2-4af8-a2c9-38a27d927835",
+              "name": "minPoints",
+              "value": 10,
+              "type": "number"
+            },
+            {
+              "id": "a4ec066d-96ee-408d-9127-20a4304558b7",
+              "name": "maxCommentsPerStory",
+              "value": "50",
+              "type": "number"
+            },
+            {
+              "id": "0451a389-ade9-4599-b07f-ef68bffa95b9",
+              "name": "maxDepth",
+              "value": "2",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        224,
+        -16
+      ],
+      "id": "92cd5044-2665-45db-aa20-9d11c2e00141",
+      "name": "Set Test Parameters"
+    },
+    {
+      "parameters": {
+        "url": "=https://hacker-news.firebaseio.com/v0/item/{{ $json.objectID }}.json",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        1120,
+        -112
+      ],
+      "id": "f765a08a-c947-4d52-bd36-0c976193521e",
+      "name": "Consult Publication"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "hits",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        896,
+        -112
+      ],
+      "id": "2c10fb1b-d533-4e5a-96c6-b196308274fa",
+      "name": "Split Out Hits"
+    },
+    {
+      "parameters": {
+        "url": "=https://hacker-news.firebaseio.com/v0/item/{{ $json.comment_id }}.json",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        1792,
+        -112
+      ],
+      "id": "9bf88f4b-32c3-4728-a03f-44e0bb110568",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ac5ed1c6-c673-4210-9ebd-b23f25a5244f",
+              "name": "story_id",
+              "value": "={{ $json.id }}",
+              "type": "number"
+            },
+            {
+              "id": "026b123a-9ef9-45bf-9d5c-dcb5398e3470",
+              "name": "story_title",
+              "value": "={{ $json.title ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "3945b621-eed3-4fda-8ecb-b05c94960968",
+              "name": "depth",
+              "value": "1",
+              "type": "number"
+            },
+            {
+              "id": "9311a977-a12e-401f-b185-91d8350a0454",
+              "name": "comment_id",
+              "value": "={{ $json.kids ?? [] }}",
+              "type": "array"
+            },
+            {
+              "id": "a932a704-1ce6-484b-a84f-f3bfe0aac0ca",
+              "name": "maxCommentsPerStory",
+              "value": "2",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1344,
+        -112
+      ],
+      "id": "56eebfad-b33f-4cd7-bc10-6928b0099afb",
+      "name": "Prepare comments"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "comment_id",
+        "include": "allOtherFields",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1568,
+        -112
+      ],
+      "id": "c9583d6d-20ae-4181-9234-47881dcb9906",
+      "name": "Split Out comments"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "10664eaa-2d2a-46a4-a02f-333bf178b93d",
+              "name": "story_id",
+              "value": "={{ $('Split Out comments').item.json.story_id }}",
+              "type": "number"
+            },
+            {
+              "id": "8476c7bc-d2ae-4e13-b528-2fe0e8596429",
+              "name": "story_title",
+              "value": "={{ $('Split Out comments').item.json.story_title }}",
+              "type": "string"
+            },
+            {
+              "id": "3bd90f47-37c7-45de-ac87-8a03590d7c68",
+              "name": "depth",
+              "value": "={{ $('Split Out comments').item.json.depth }}",
+              "type": "number"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        2016,
+        -112
+      ],
+      "id": "c506e20f-5dcd-49a2-9390-85d7ed22cd4a",
+      "name": "Add context"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Set Test Parameters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Upload a file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload a file": {
+      "main": [
+        [
+          {
+            "node": "Valid Hacker News Research return",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "OCI Upload Error Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Search Hacker News",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Invalid Query return",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Hacker News": {
+      "main": [
+        [
+          {
+            "node": "Split Out Hits",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Algolia Error Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Test Parameters": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consult Publication": {
+      "main": [
+        [
+          {
+            "node": "Prepare comments",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out Hits": {
+      "main": [
+        [
+          {
+            "node": "Consult Publication",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Add context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare comments": {
+      "main": [
+        [
+          {
+            "node": "Split Out comments",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out comments": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add context": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": true
+  },
+  "versionId": "05db6f3d-a9fb-4e75-be29-a8af5a77bea3",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
+  },
+  "nodeGroups": [],
+  "id": "GSt04wCSnpgFwNgT",
+  "tags": []
+}
