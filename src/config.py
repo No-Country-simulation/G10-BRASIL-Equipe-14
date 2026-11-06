@@ -1,5 +1,8 @@
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Configuração de diretórios relativos
 SRC_DIR = Path(__file__).resolve().parent
@@ -117,3 +120,11 @@ ENGAGEMENT_BADGES = {
     "medium": ("📊 engajamento médio", "secondary"),
     "high": ("🔥 engajamento alto", "default"),
 }
+
+N8N_BASE_URL = os.getenv("N8N_BASE_URL", "http://localhost:5678").rstrip("/")
+N8N_INGESTION_WEBHOOK_PATH = os.getenv("N8N_INGESTION_WEBHOOK_PATH", "webhook/ingestion").strip("/")
+N8N_INGESTION_WEBHOOK_URL = os.getenv("N8N_INGESTION_WEBHOOK_URL") or f"{N8N_BASE_URL}/{N8N_INGESTION_WEBHOOK_PATH}"
+N8N_REQUEST_TIMEOUT = float(os.getenv("N8N_REQUEST_TIMEOUT", "30"))
+
+CSV_DELIMITERS = ",;\t|"
+INGESTION_TEXT_AREA_NAME = "texto colado"
