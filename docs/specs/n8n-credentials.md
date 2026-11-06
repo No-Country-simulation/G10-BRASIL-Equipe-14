@@ -26,15 +26,10 @@ WF08 | `wf08_merge-stackexchange-data` | Questões, licenças, respostas combina
 WF09 | `wf09_triagem-llm-router-mastodon` | Avaliação de publicações | Mastodon |
 WF10 | `wf10_triagem-llm-router_stackexchange` | Avaliação de perguntas e respostas | Stack Exchange |
 
+As requisições powershell dos workflows com Agente de IA podem ser vistas [aqui](./requisicoes_powershell_triagem.md). 
+
 ## Ações futuras
 * **Versionamento:** Necessário definir critério de versão na geração dos arquivos, nos fluxos WF02, WF03, WF04, WF06 e WF07.
-* **Interação entre workflows:** 
-    * Os workflows WF02, WF03 e WF04 serão invocados automaticamente pelo WF08, quando este for requisitado.
-    * O workflow WF08 será invocado automaticamente quando o WF10 for requisitado.
-    * O workflow WF06 será invocado automaticamente quando o WF09 for requisitado.
-
-Dessa forma, somente os workflows de triagem, WF09 e WF10, serão requisitados diretamente. Assim, os resultados das avaliações estarão na pasta `processed/` do bucket da OCI. As requisições powershell desses workflows podem ser vistas [aqui](./requisicoes_powershell_triagem.md). 
-
 
 **Sugestão de requisição via Powershell para WF02:**
 
