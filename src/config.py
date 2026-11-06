@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 # Configuração de diretórios relativos
@@ -11,11 +12,12 @@ SAMPLES_DATA_DIR = DATA_DIR / "samples"
 SCHEMAS_DATA_DIR = DATA_DIR / "schemas"
 INPUT_SCHEMA_PATH = SCHEMAS_DATA_DIR / "input_schema.json"
 OUTPUT_SCHEMA_PATH = SCHEMAS_DATA_DIR / "output_schema.json"
+FIXTURES_DIR = DATA_DIR / "fixtures"
 
 # Definindo os parâmetros padrões de coleta
 DEFAULT_LIMIT = 10
 DEFAULT_TAG = "artificial-intelligence"
-DEFAULT_PERIOD = 1761027120  # Timestamp do período de 1 ano fixo em formato Unix. Data: 2025-10-21 06:12:00 UTC
+DEFAULT_PERIOD = 1760929200  # 2025-10-20 03:00 UTC, período fixo definido pelo time (Rodrigo, 02/11)
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
@@ -52,6 +54,12 @@ MASTODON_PARAMS = {
     "limit": DEFAULT_LIMIT,
 }
 
+# Armazenamento OCI (S2-04). Valores da infraestrutura do projeto.
+# Credenciais NÃO ficam aqui: são lidas do ~/.oci/config ou de variáveis de ambiente.
+OCI_REGION = os.getenv("OCI_REGION", "sa-saopaulo-1")
+OCI_NAMESPACE = os.getenv("OCI_NAMESPACE", "grue2tm7tuaq")
+OCI_BUCKET_NAME = os.getenv("OCI_BUCKET_NAME", "communitylab-assets")
+OCI_ASSETS_PREFIX = "ativos"  # objeto final: ativos/YYYY-semana-XX/pacote-distribuicao.json
 # Streamlit
 PAGE_TITLE = "CommunityLab"
 
