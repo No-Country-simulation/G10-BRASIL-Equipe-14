@@ -140,3 +140,44 @@ def test_validate_input_csv_without_interactions_fails():
     from src.services.ingestion import validate_input
 
     assert validate_input([{"id": "1", "source": "mastodon", "url": "https://example.com/1"}], True)[1]
+
+
+def test_default_webhook_url_is_used_when_none_given(monkeypatch):
+    captured = {}
+
+    class Resp:
+        status_code = 200
+
+    def fake_post(url, json, timeout):
+        captured["url"] = url
+        return Resp()
+
+    monkeypatch.setattr(ingestion.requests, "post", fake_post)
+    send_to_ingestion({"ok": 1})
+    assert captured["url"] == ingestion.N8N_INGESTION_WEBHOOK_URL
+
+
+def test_default_webhook_url_falls_back_to_base_url_and_path(monkeypatch):
+    import importlib
+
+    from src import config
+
+    monkeypatch.setattr("dotenv.load_dotenv", lambda *a, **k: False)  # ignora o .env local do desenvolvedor
+    for var in ("N8N_BASE_URL", "N8N_INGESTION_WEBHOOK_PATH", "N8N_INGESTION_WEBHOOK_URL"):
+        monkeypatch.delenv(var, raising=False)
+    try:
+        reloaded = importlib.reload(config)
+        assert reloaded.N8N_INGESTION_WEBHOOK_URL == "http://localhost:5678/webhook/ingestion"
+    finally:
+        monkeypatch.undo()
+        importlib.reload(config)
+
+
+@pytest.mark.parametrize(
+    "record",
+    [{"id": "1"}, {**VALID_RECORD, "source": "twitter"}, {**VALID_RECORD, "url": "nope"}, {**VALID_RECORD, "x": 1}],
+)
+def test_validate_input_rejects_records_outside_schema(record):
+    from src.services.ingestion import validate_input
+
+    assert validate_input([record])[1]
