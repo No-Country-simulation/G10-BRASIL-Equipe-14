@@ -50,7 +50,8 @@ def test_parse_csv_invalid(raw, msg):
 
 
 def test_parse_input_dispatches_by_format():
-    assert parse_input('{"a": 1}', as_csv=False) == {"a": 1}
+    assert parse_input('{"a": 1}', as_csv=False) == [{"a": 1}]
+    assert parse_input('[{"a": 1}, {"a": 2}]', as_csv=False) == [{"a": 1}, {"a": 2}]
     assert parse_input("a;b\n1;2", as_csv=True) == [{"a": "1", "b": "2"}]
 
 
@@ -75,7 +76,8 @@ def test_parse_csv_wraps_csv_error():
 
 
 def test_parse_pasted_text_json_scalar_and_csv_and_errors():
-    assert parse_pasted_text("42") == 42
+    with pytest.raises(ValueError, match="objeto"):
+        parse_pasted_text("[1, 2]")
     assert parse_pasted_text("a,b\n1,2") == [{"a": "1", "b": "2"}]
     with pytest.raises(ValueError, match="JSON inválido"):
         parse_pasted_text("{oops")
@@ -94,7 +96,7 @@ VALID_RECORD = {
 def test_validate_input_accepts_object_and_list():
     from src.services.ingestion import validate_input
 
-    assert validate_input(VALID_RECORD)[1] == []
+    assert validate_input([VALID_RECORD])[1] == []
     assert validate_input([VALID_RECORD, VALID_RECORD])[1] == []
 
 

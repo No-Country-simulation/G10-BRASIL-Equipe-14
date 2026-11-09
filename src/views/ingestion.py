@@ -10,19 +10,19 @@ from src.services.ingestion import parse_input, parse_pasted_text_with_format, s
 logger = logging.getLogger(__name__)
 
 
-def _validate(data: Any, as_csv: bool) -> Any:
+def _validate(data: list[dict[str, Any]], as_csv: bool) -> list[dict[str, Any]]:
     data, schema_errors = validate_input(data, as_csv)
     if schema_errors:
         raise ValueError("fora do schema de entrada:\n" + "\n".join(f"- {e}" for e in schema_errors))
     return data
 
 
-def _parse_and_validate(raw: bytes, as_csv: bool) -> Any:
+def _parse_and_validate(raw: bytes, as_csv: bool) -> list[dict[str, Any]]:
     return _validate(parse_input(raw, as_csv), as_csv)
 
 
-def collect_items(files: list, text: str) -> tuple[list[tuple[str, Any]], list[str]]:
-    items: list[tuple[str, Any]] = []
+def collect_items(files: list, text: str) -> tuple[list[tuple[str, list[dict[str, Any]]]], list[str]]:
+    items: list[tuple[str, list[dict[str, Any]]]] = []
     errors: list[str] = []
     sources = []
     for f in files or []:
@@ -41,19 +41,16 @@ def collect_items(files: list, text: str) -> tuple[list[tuple[str, Any]], list[s
     return items, errors
 
 
-def render_preview(items: list[tuple[str, Any]]) -> None:
-    for name, data in items:
-        records = [data] if isinstance(data, dict) else data
-        is_table = bool(records) and isinstance(records, list) and all(isinstance(r, dict) for r in records)
-        count = len(records) if isinstance(records, list) else 1
-        with st.expander(f"{name} — {count} registro(s)", expanded=True):
-            if is_table:
-                st.dataframe(records, width="stretch")
+def render_preview(items: list[tuple[str, list[dict[str, Any]]]]) -> None:
+    for name, records in items:
+        with st.expander(f"{name} — {len(records)} registro(s)", expanded=True):
+            if len(records) == 1:
+                st.json(records[0])
             else:
-                st.json(data)
+                st.dataframe(records, width="stretch")
 
 
-def send_items(items: list[tuple[str, Any]]) -> None:
+def send_items(items: list[tuple[str, list[dict[str, Any]]]]) -> None:
     with st.spinner("Enviando..."):
         for name, data in items:
             try:
@@ -70,8 +67,8 @@ def send_items(items: list[tuple[str, Any]]) -> None:
 
 
 @st.dialog("Confirmar envio")
-def confirm_send(items: list[tuple[str, Any]]) -> None:
-    total = sum(len(data) if isinstance(data, list) else 1 for _, data in items)
+def confirm_send(items: list[tuple[str, list[dict[str, Any]]]]) -> None:
+    total = sum(len(records) for _, records in items)
     st.write(f"Enviar **{len(items)}** item(ns) com **{total}** registro(s) para a ingestão?")
     for name, _ in items:
         st.markdown(f"- {name}")

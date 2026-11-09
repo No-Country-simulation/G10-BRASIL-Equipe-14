@@ -54,13 +54,23 @@ def parse_csv(raw: bytes | str) -> list[dict[str, str]]:
     return records
 
 
-def parse_input(raw: bytes | str, as_csv: bool) -> Any:
-    return parse_csv(raw) if as_csv else parse_json(raw)
+def _as_records(data: Any) -> list[dict[str, Any]]:
+    """Unifica o retorno dos parsers: sempre uma lista de objetos."""
+    if isinstance(data, dict):
+        return [data]
+    if isinstance(data, list) and all(isinstance(r, dict) for r in data):
+        return data
+    raise ValueError("o JSON deve ser um objeto ou uma lista de objetos")
 
 
-def parse_pasted_text_with_format(text: str) -> tuple[Any, bool]:
+def parse_input(raw: bytes | str, as_csv: bool) -> list[dict[str, Any]]:
+    return parse_csv(raw) if as_csv else _as_records(parse_json(raw))
+
+
+def parse_pasted_text_with_format(text: str) -> tuple[list[dict[str, Any]], bool]:
+    """Interpreta o texto colado como JSON ou CSV; retorna os registros e se eram CSV."""
     try:
-        return parse_json(text), False
+        return _as_records(parse_json(text)), False
     except ValueError as json_error:
         try:
             return parse_csv(text), True
@@ -68,7 +78,7 @@ def parse_pasted_text_with_format(text: str) -> tuple[Any, bool]:
             raise (json_error if text.lstrip().startswith(("{", "[")) else csv_error) from None
 
 
-def parse_pasted_text(text: str) -> Any:
+def parse_pasted_text(text: str) -> list[dict[str, Any]]:
     return parse_pasted_text_with_format(text)[0]
 
 
@@ -92,20 +102,21 @@ def _input_schema() -> dict[str, Any]:
     return load_json(INPUT_SCHEMA_PATH)
 
 
-def validate_input(data: Any, as_csv: bool = False) -> tuple[Any, list[str]]:
-    if as_csv and isinstance(data, list):
-        data = [_normalize_csv_record(r) if isinstance(r, dict) else r for r in data]
+def validate_input(records: list[dict[str, Any]], as_csv: bool = False) -> tuple[list[dict[str, Any]], list[str]]:
+    """Valida cada registro contra o input_schema.json.
+
+    Retorna os registros (normalizados, no caso de CSV) e a lista de erros, prefixados com o registro."""
+    if as_csv:
+        records = [_normalize_csv_record(r) for r in records]
+    if not records:
+        return records, ["<root>: a lista está vazia"]
     schema = _input_schema()
-    if not isinstance(data, list):
-        return data, validate_data(data, schema)
-    if not data:
-        return data, ["<root>: a lista está vazia"]
     errors = [
         f"registro {index}: {error}"
-        for index, record in enumerate(data, start=1)
+        for index, record in enumerate(records, start=1)
         for error in validate_data(record, schema)
     ]
-    return data, errors
+    return records, errors
 
 
 def send_to_ingestion(data: Any, url: str = N8N_INGESTION_WEBHOOK_URL) -> int:
