@@ -1,5 +1,7 @@
+import hashlib
 import json
-from types import SimpleNamespace
+from pathlib import Path
+from types import ModuleType, SimpleNamespace
 
 import pytest
 import requests
@@ -16,9 +18,16 @@ VALID_RECORD = {
 
 @pytest.fixture(scope="module")
 def view():
-    from src.views import ingestion
-
-    return ingestion
+    # A view renderiza a página no import (`render_ingestion()` no fim do arquivo). Para testar as funções sem esse
+    # efeito colateral (que deixa o contexto de formulário do Streamlit aberto e quebra os testes com AppTest),
+    # executamos o código do módulo sem a chamada final.
+    path = Path(__file__).resolve().parent.parent / "src" / "views" / "ingestion.py"
+    source = path.read_text(encoding="utf-8")
+    assert source.rstrip().endswith("render_ingestion()")
+    source = source.rstrip().removesuffix("render_ingestion()")
+    module = ModuleType("ingestion_view_under_test")
+    exec(compile(source, str(path), "exec"), module.__dict__)  # noqa: S102
+    return module
 
 
 def make_file(name: str, content: bytes | str, size: int | None = None):
@@ -148,3 +157,48 @@ def test_render_send_summary(view, fake_st, sent, failed, kind, text):
     view.render_send_summary(sent, failed)
     [(shown_kind, message)] = fake_st.messages
     assert shown_kind == kind and text in message
+
+
+# --- botão "Validar e enviar" após o envio ---------------------------------------------------------------
+
+
+def test_input_signature_changes_with_text_and_files(view):
+    base = view.input_signature([], "a")
+    assert view.input_signature([], " a \n") == base  # espaços nas bordas não contam
+    assert view.input_signature([], "b") != base
+    assert view.input_signature([make_file("x.json", "{}")], "a") != base
+    assert view.input_signature([make_file("x.json", "{}")], "a") != view.input_signature([make_file("x.json", "[]")], "a")
+
+
+def run_page(text, sent_text=None):
+    from streamlit.testing.v1 import AppTest
+
+    page = Path(__file__).resolve().parent.parent / "src" / "views" / "ingestion.py"
+    at = AppTest.from_file(str(page), default_timeout=15)
+    if sent_text is not None:
+        # Sem arquivos, a assinatura é o sha256 do texto (importar a view aqui a renderizaria fora do AppTest).
+        at.session_state["ingestion_sent_signature"] = hashlib.sha256(sent_text.strip().encode()).hexdigest()
+    at.run()
+    at.text_area[0].set_value(text)
+    next(b for b in at.button if b.label == "Pré-visualizar").click()
+    return at.run()
+
+
+def send_button(at):
+    return next(b for b in at.button if "enviar" in b.label.lower() or "enviado" in b.label.lower())
+
+
+def test_send_button_is_enabled_before_any_send():
+    at = run_page(json.dumps(VALID_RECORD))
+    assert send_button(at).label == "Validar e enviar" and not send_button(at).disabled
+
+
+def test_send_button_is_disabled_for_already_sent_input():
+    text = json.dumps(VALID_RECORD)
+    at = run_page(text, sent_text=text)
+    assert send_button(at).disabled and "Enviado" in send_button(at).label
+
+
+def test_send_button_is_enabled_again_when_input_changes():
+    at = run_page(json.dumps({**VALID_RECORD, "id": "2"}), sent_text=json.dumps(VALID_RECORD))
+    assert send_button(at).label == "Validar e enviar" and not send_button(at).disabled

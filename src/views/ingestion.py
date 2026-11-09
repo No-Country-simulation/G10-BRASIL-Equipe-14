@@ -1,3 +1,4 @@
+import hashlib
 import logging
 from typing import Any
 
@@ -9,6 +10,8 @@ from src.services.ingestion import parse_input, parse_pasted_text_with_format, s
 
 logger = logging.getLogger(__name__)
 
+SENT_SIGNATURE_KEY = "ingestion_sent_signature"
+
 
 def _validate(data: list[dict[str, Any]], as_csv: bool) -> list[dict[str, Any]]:
     data, schema_errors = validate_input(data, as_csv)
@@ -19,6 +22,14 @@ def _validate(data: list[dict[str, Any]], as_csv: bool) -> list[dict[str, Any]]:
 
 def _parse_and_validate(raw: bytes, as_csv: bool) -> list[dict[str, Any]]:
     return _validate(parse_input(raw, as_csv), as_csv)
+
+
+def input_signature(files: list, text: str) -> str:
+    digest = hashlib.sha256()
+    for f in files or []:
+        digest.update(f.name.encode() + b"\0" + f.getvalue() + b"\0")
+    digest.update(text.strip().encode())
+    return digest.hexdigest()
 
 
 def collect_items(files: list, text: str) -> tuple[list[tuple[str, list[dict[str, Any]]]], list[str]]:
@@ -86,7 +97,7 @@ def render_send_summary(sent: int, failed: int) -> None:
 
 
 @st.dialog("Confirmar envio")
-def confirm_send(items: list[tuple[str, list[dict[str, Any]]]]) -> None:
+def confirm_send(items: list[tuple[str, list[dict[str, Any]]]], signature: str) -> None:
     total = sum(len(records) for _, records in items)
     st.write(f"Enviar **{len(items)}** item(ns) com **{total}** registro(s) para a ingestão?")
     for name, _ in items:
@@ -99,7 +110,10 @@ def confirm_send(items: list[tuple[str, list[dict[str, Any]]]]) -> None:
         st.rerun()
     if confirmed:
         actions.empty()
-        render_send_summary(*send_items(items))
+        sent, failed = send_items(items)
+        render_send_summary(sent, failed)
+        if not failed:
+            st.session_state[SENT_SIGNATURE_KEY] = signature
 
 
 def render_ingestion() -> None:
@@ -124,7 +138,13 @@ def render_ingestion() -> None:
         )
         preview_col, send_col = st.columns(2)
         previewed = preview_col.form_submit_button("Pré-visualizar", width="stretch")
-        submitted = send_col.form_submit_button("Validar e enviar", type="primary", width="stretch")
+        already_sent = st.session_state.get(SENT_SIGNATURE_KEY) == input_signature(files, text)
+        submitted = send_col.form_submit_button(
+            "✓ Enviado — altere a entrada para reenviar" if already_sent else "Validar e enviar",
+            type="primary",
+            width="stretch",
+            disabled=already_sent,
+        )
 
     if not (previewed or submitted):
         return
@@ -147,7 +167,7 @@ def render_ingestion() -> None:
         render_preview(items)
         return
 
-    confirm_send(items)
+    confirm_send(items, input_signature(files, text))
 
 
 render_ingestion()
