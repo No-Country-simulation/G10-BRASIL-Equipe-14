@@ -49,6 +49,13 @@ def test_parse_csv_invalid(raw, msg):
         parse_csv(raw)
 
 
+def test_parse_input_rejects_empty_list_and_primitives():
+    with pytest.raises(ValueError, match="vazia"):
+        parse_input("[]", as_csv=False)
+    with pytest.raises(ValueError, match="objeto"):
+        parse_input("42", as_csv=False)
+
+
 def test_parse_input_dispatches_by_format():
     assert parse_input('{"a": 1}', as_csv=False) == [{"a": 1}]
     assert parse_input('[{"a": 1}, {"a": 2}]', as_csv=False) == [{"a": 1}, {"a": 2}]
@@ -78,6 +85,8 @@ def test_parse_csv_wraps_csv_error():
 def test_parse_pasted_text_json_scalar_and_csv_and_errors():
     with pytest.raises(ValueError, match="objeto"):
         parse_pasted_text("[1, 2]")
+    with pytest.raises(ValueError, match="vazia"):
+        parse_pasted_text("[]")
     assert parse_pasted_text("a,b\n1,2") == [{"a": "1", "b": "2"}]
     with pytest.raises(ValueError, match="JSON inválido"):
         parse_pasted_text("{oops")

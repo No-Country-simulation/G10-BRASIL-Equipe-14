@@ -55,10 +55,11 @@ def parse_csv(raw: bytes | str) -> list[dict[str, str]]:
 
 
 def _as_records(data: Any) -> list[dict[str, Any]]:
-    """Unifica o retorno dos parsers: sempre uma lista de objetos."""
     if isinstance(data, dict):
         return [data]
     if isinstance(data, list) and all(isinstance(r, dict) for r in data):
+        if not data:
+            raise ValueError("o JSON não pode ser uma lista vazia")
         return data
     raise ValueError("o JSON deve ser um objeto ou uma lista de objetos")
 
@@ -68,7 +69,6 @@ def parse_input(raw: bytes | str, as_csv: bool) -> list[dict[str, Any]]:
 
 
 def parse_pasted_text_with_format(text: str) -> tuple[list[dict[str, Any]], bool]:
-    """Interpreta o texto colado como JSON ou CSV; retorna os registros e se eram CSV."""
     try:
         return _as_records(parse_json(text)), False
     except ValueError as json_error:
@@ -103,9 +103,6 @@ def _input_schema() -> dict[str, Any]:
 
 
 def validate_input(records: list[dict[str, Any]], as_csv: bool = False) -> tuple[list[dict[str, Any]], list[str]]:
-    """Valida cada registro contra o input_schema.json.
-
-    Retorna os registros (normalizados, no caso de CSV) e a lista de erros, prefixados com o registro."""
     if as_csv:
         records = [_normalize_csv_record(r) for r in records]
     if not records:
