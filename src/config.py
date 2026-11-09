@@ -2,11 +2,14 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv()
-
 # Configuração de diretórios relativos
 SRC_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SRC_DIR.parent
+
+ENV_PATH = PROJECT_ROOT / ".env"
+if ENV_PATH.exists():
+    load_dotenv(ENV_PATH)
+
 DATA_DIR = PROJECT_ROOT / "data"
 RAW_DATA_DIR = DATA_DIR / "raw"
 PROMPTS_DATA_DIR = DATA_DIR / "prompts"
@@ -128,3 +131,5 @@ N8N_REQUEST_TIMEOUT = float(os.getenv("N8N_REQUEST_TIMEOUT", "30"))
 
 CSV_DELIMITERS = ",;\t|"
 INGESTION_TEXT_AREA_NAME = "texto colado"
+MAX_UPLOAD_FILE_SIZE_MB = 10
+MAX_UPLOAD_FILE_SIZE_BYTES = MAX_UPLOAD_FILE_SIZE_MB * 1024 * 1024
