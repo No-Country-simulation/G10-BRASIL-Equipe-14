@@ -101,7 +101,7 @@ def render_ingestion() -> None:
                 "(separadores aceitos: vírgula, ponto e vírgula, tab ou barra vertical). "
                 "Se também enviar arquivos, o texto colado é tratado como mais um item."
             ),
-            placeholder='{"source": "..."}  ou  id,source,url',
+            placeholder='{"id": "...", "source": "..."}  ou  id,source,url',
         )
         preview_col, send_col = st.columns(2)
         previewed = preview_col.form_submit_button("Pré-visualizar", width="stretch")
