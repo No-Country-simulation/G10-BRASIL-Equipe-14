@@ -6,7 +6,14 @@ from src.services.ingestion import parse_csv, parse_input, parse_json, parse_pas
 
 
 def test_parse_json_valid_and_bom():
-    assert parse_json(b'\xef\xbb\xbf{"a": 1}') == {"a": 1}
+    assert parse_json(b'\xef\xbb\xbf{"a": 1}') == [{"a": 1}]
+    assert parse_json('[{"a": 1}, {"a": 2}]') == [{"a": 1}, {"a": 2}]
+
+
+@pytest.mark.parametrize(("raw", "msg"), [("[]", "vazia"), ("42", "objeto"), ('"x"', "objeto"), ("null", "objeto"), ("[1, 2]", "objeto"), ('[{"a": 1}, 3]', "objeto")])
+def test_parse_json_rejects_empty_and_non_object(raw, msg):
+    with pytest.raises(ValueError, match=msg):
+        parse_json(raw)
 
 
 def test_parse_json_invalid():

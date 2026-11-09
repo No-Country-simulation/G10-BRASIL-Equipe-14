@@ -17,11 +17,22 @@ def _decode(raw: bytes | str) -> str:
         raise ValueError("o arquivo não está em UTF-8") from None
 
 
-def parse_json(raw: bytes | str) -> Any:
+def _as_records(data: Any) -> list[dict[str, Any]]:
+    if isinstance(data, dict):
+        return [data]
+    if isinstance(data, list) and all(isinstance(r, dict) for r in data):
+        if not data:
+            raise ValueError("o JSON não pode ser uma lista vazia")
+        return data
+    raise ValueError("o JSON deve ser um objeto ou uma lista de objetos")
+
+
+def parse_json(raw: bytes | str) -> list[dict[str, Any]]:
     try:
-        return json.loads(_decode(raw))
+        data = json.loads(_decode(raw))
     except json.JSONDecodeError as exc:
         raise ValueError(f"JSON inválido (linha {exc.lineno}, coluna {exc.colno}): {exc.msg}") from None
+    return _as_records(data)
 
 
 def _detect_delimiter(text: str) -> str:
@@ -54,23 +65,13 @@ def parse_csv(raw: bytes | str) -> list[dict[str, str]]:
     return records
 
 
-def _as_records(data: Any) -> list[dict[str, Any]]:
-    if isinstance(data, dict):
-        return [data]
-    if isinstance(data, list) and all(isinstance(r, dict) for r in data):
-        if not data:
-            raise ValueError("o JSON não pode ser uma lista vazia")
-        return data
-    raise ValueError("o JSON deve ser um objeto ou uma lista de objetos")
-
-
 def parse_input(raw: bytes | str, as_csv: bool) -> list[dict[str, Any]]:
-    return parse_csv(raw) if as_csv else _as_records(parse_json(raw))
+    return parse_csv(raw) if as_csv else parse_json(raw)
 
 
 def parse_pasted_text_with_format(text: str) -> tuple[list[dict[str, Any]], bool]:
     try:
-        return _as_records(parse_json(text)), False
+        return parse_json(text), False
     except ValueError as json_error:
         try:
             return parse_csv(text), True
