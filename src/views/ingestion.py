@@ -50,20 +50,39 @@ def render_preview(items: list[tuple[str, list[dict[str, Any]]]]) -> None:
                 st.dataframe(records, width="stretch")
 
 
-def send_items(items: list[tuple[str, list[dict[str, Any]]]]) -> None:
+def send_items(items: list[tuple[str, list[dict[str, Any]]]]) -> tuple[int, int]:
+    sent = 0
+    failed = 0
     with st.spinner("Enviando..."):
-        for name, data in items:
-            try:
-                status = send_to_ingestion(data)
-            except requests.RequestException:
-                logger.exception("Ingestion service unavailable while sending %r", name)
-                st.error(f"{name}: serviço de ingestão indisponível. Tente novamente em instantes.")
-                continue
-            if requests.codes.ok <= status < requests.codes.multiple_choices:
-                st.success(f"{name}: enviado.")
-            else:
-                logger.error("Ingestion failed for %r: HTTP %s", name, status)
-                st.error(f"{name}: falha no envio.")
+        for name, payloads in items:
+            for index, payload in enumerate(payloads, start=1):
+                label = name if len(payloads) == 1 else f"{name}, registro {index}"
+                try:
+                    status = send_to_ingestion(payload)
+                except requests.RequestException:
+                    logger.exception("Ingestion service unavailable while sending %r", label)
+                    failed += 1
+                    st.error(f"{label}: falha de comunicação com o serviço.")
+                    continue
+                if requests.codes.ok <= status < requests.codes.multiple_choices:
+                    sent += 1
+                    st.success(f"{label}: enviado.")
+                else:
+                    logger.error("Ingestion failed for %r: HTTP %s", label, status)
+                    failed += 1
+                    st.error(f"{label}: falha no envio.")
+                    st.caption(f"Status HTTP recebido: {status}")
+    return sent, failed
+
+
+def render_send_summary(sent: int, failed: int) -> None:
+    total = sent + failed
+    if failed == 0:
+        st.success(f"{sent} de {total} registro(s) enviado(s) com sucesso.")
+    elif sent == 0:
+        st.error(f"Nenhum registro foi enviado: {failed} de {total} falhou(aram).")
+    else:
+        st.warning(f"Envio parcial: {sent} de {total} registro(s) enviado(s) com sucesso, {failed} falhou(aram).")
 
 
 @st.dialog("Confirmar envio")
@@ -80,7 +99,7 @@ def confirm_send(items: list[tuple[str, list[dict[str, Any]]]]) -> None:
         st.rerun()
     if confirmed:
         actions.empty()
-        send_items(items)
+        render_send_summary(*send_items(items))
 
 
 def render_ingestion() -> None:
