@@ -81,3 +81,51 @@ def test_parse_pasted_text_json_scalar_and_csv_and_errors():
         parse_pasted_text("{oops")
     with pytest.raises(ValueError, match="CSV sem linhas"):
         parse_pasted_text("only,header")
+
+
+VALID_RECORD = {
+    "id": "1",
+    "source": "mastodon",
+    "url": "https://example.com/1",
+    "interactions": [{"author": "a", "created_at": "2026-10-19T14:32:00Z"}],
+}
+
+
+def test_validate_input_accepts_object_and_list():
+    from src.services.ingestion import validate_input
+
+    assert validate_input(VALID_RECORD)[1] == []
+    assert validate_input([VALID_RECORD, VALID_RECORD])[1] == []
+
+
+def test_validate_input_reports_record_index():
+    from src.services.ingestion import validate_input
+
+    _, errors = validate_input([VALID_RECORD, {"id": "2"}])
+    assert errors and all(e.startswith("registro 2:") for e in errors)
+
+
+def test_validate_input_rejects_empty_list():
+    from src.services.ingestion import validate_input
+
+    assert validate_input([])[1]
+
+
+def test_validate_input_csv_decodes_json_cells_and_drops_empty():
+    import json
+
+    from src.services.ingestion import parse_pasted_text_with_format, validate_input
+
+    csv_text = "id,source,url,reference_period,interactions\n"
+    csv_text += f'1,mastodon,https://example.com/1,,"{json.dumps(VALID_RECORD["interactions"]).replace(chr(34), chr(34) * 2)}"\n'
+    data, as_csv = parse_pasted_text_with_format(csv_text)
+    assert as_csv
+    normalized, errors = validate_input(data, as_csv)
+    assert errors == []
+    assert "reference_period" not in normalized[0]
+
+
+def test_validate_input_csv_without_interactions_fails():
+    from src.services.ingestion import validate_input
+
+    assert validate_input([{"id": "1", "source": "mastodon", "url": "https://example.com/1"}], True)[1]

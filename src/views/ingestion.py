@@ -5,9 +5,20 @@ import requests
 import streamlit as st
 
 from src.config import INGESTION_TEXT_AREA_NAME, MAX_UPLOAD_FILE_SIZE_BYTES, MAX_UPLOAD_FILE_SIZE_MB
-from src.services.ingestion import parse_input, parse_pasted_text, send_to_ingestion
+from src.services.ingestion import parse_input, parse_pasted_text_with_format, send_to_ingestion, validate_input
 
 logger = logging.getLogger(__name__)
+
+
+def _validate(data: Any, as_csv: bool) -> Any:
+    data, schema_errors = validate_input(data, as_csv)
+    if schema_errors:
+        raise ValueError("fora do schema de entrada:\n" + "\n".join(f"- {e}" for e in schema_errors))
+    return data
+
+
+def _parse_and_validate(raw: bytes, as_csv: bool) -> Any:
+    return _validate(parse_input(raw, as_csv), as_csv)
 
 
 def collect_items(files: list, text: str) -> tuple[list[tuple[str, Any]], list[str]]:
@@ -18,9 +29,9 @@ def collect_items(files: list, text: str) -> tuple[list[tuple[str, Any]], list[s
         if f.size > MAX_UPLOAD_FILE_SIZE_BYTES:
             errors.append(f"**{f.name}**: arquivo excede o limite de {MAX_UPLOAD_FILE_SIZE_MB} MB.")
             continue
-        sources.append((f.name, lambda f=f: parse_input(f.getvalue(), f.name.lower().endswith(".csv"))))
+        sources.append((f.name, lambda f=f: _parse_and_validate(f.getvalue(), f.name.lower().endswith(".csv"))))
     if text.strip():
-        sources.append((INGESTION_TEXT_AREA_NAME, lambda: parse_pasted_text(text)))
+        sources.append((INGESTION_TEXT_AREA_NAME, lambda: _validate(*parse_pasted_text_with_format(text))))
     for name, parse in sources:
         try:
             items.append((name, parse()))
@@ -111,6 +122,9 @@ def render_ingestion() -> None:
             st.error("JSON ou CSV inválido.")
         else:
             st.error(f"{len(errors)} JSON ou CSV inválidos.")
+        with st.expander("Ver detalhes", expanded=True):
+            for error in errors:
+                st.markdown(f"- {error}")
         return
 
     if previewed:
