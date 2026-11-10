@@ -1,13 +1,13 @@
 ---
-prompt_id: router
-issue: "#8 [S1-03] Desenvolver Prompt do Router"
-versao: 0.4.1
-autor: Gustavo/Equipe 14 G10
-modelo_alvo: Gemini free tier (gemini-3.5-flash-lite ou gemini-3.1-flash-lite) | Groq
-temperatura: 1.0 nos modelos Gemini 3 (recomendação do Google); 0.0 nos demais
-formato_saida: JSON (responseMimeType="application/json" no Gemini; response_format={"type":"json_object"} no Groq)
-entrada: 1 thread (pergunta/post + respostas) no formato data/schemas/input_schema.json
-atualizado em: 09/11/2026
+Prompt_id: router
+Issue: "#8 [S1-03] Desenvolver Prompt do Router"
+Versão: 0.4.1
+Autor: Equipe 14 G10 (Gustavo/Vitor)
+Modelo: Gemini free tier (gemini-3.5-flash-lite ou gemini-3.1-flash-lite) | Groq
+Temperatura: 1.0 nos modelos Gemini 3 (recomendação do Google); 0.0 nos demais
+Entrada: 1 thread (pergunta/post + respostas) no formato data/schemas/input_schema.json
+Formato_saida: JSON (responseMimeType="application/json" no Gemini; response_format={"type":"json_object"} no Groq)
+Atualizado em: 09/11/2026
 ---
 
 # Sistema de Roteamento e Classificação LLM (Router Prompt)
@@ -23,16 +23,21 @@ O Sistema de Roteamento e Classificação (Router Prompt) é o componente centra
    - [2.1. Estrutura de Pastas](#21-estrutura-de-pastas)
    - [2.2. Decisão de Arquitetura](#22-decisão-de-arquitetura)
 - [3. Configurações e Variáveis de Ambiente](#3-configurações-e-variáveis-de-ambiente)
+   - [3.1. Configurações Principais](#31-configurações-principais)
+   - [3.2. Provedores e Modelos](#32-provedores-e-modelos)
 - [4. Contrato de Dados e Validação de Schema](#4-contratos-de-dados-e-validação-de-schema)
+   - [4.1. Validação de Entrada](#41-validação-de-entrada)
+   - [4.2. Contrato de Saída](#42-contrato-de-saída)
 - [5. Regras de Negócio e Roteamento](#5-regras-de-negócio-e-roteamento)
 - [6. Organização dos Prompts](#6-organização-dos-prompts)
+   - [6.1. System Prompts](#61-system-prompts)
+   - [6.2. Correção da Resposta](#62-correção-da-resposta)
 - [7. Fluxo de Execução do Pipeline](#7-fluxo-de-execução-do-pipeline)
+   - [7.1. Pipeline](#71-pipeline)
+   - [7.2. Métricas](#72-métricas)
 - [8. Execução e Avaliação do Benchmark](#8-execução-e-avaliação-do-benchmark)
-- [9. Resultados](#9-resultados)
-   - [9.1. Resumo Executivo](#91-resumo-executivo)
-   - [9.2. Casos Reais por Fonte de Dados](#92-casos-reais-por-fonte-de-dados)
-   - [9.3. Casos Sintéticos por Fonte de Dados](#93-casos-sintéticos-por-fonte-de-dados)
-   - [9.4. Resultado dos Casos Executados](#94-resultado-dos-casos-executados)
+- [9. Resultados do Benchmark](#9-resultados-do-benchmark)
+- [10.Changelog](#10-changelog)
 
 ---
 
@@ -58,9 +63,9 @@ thread (input_schema) ──► LLM Router (Pipeline) ──► JSON de classifi
 │   └── 📁 prompts/
 │       ├── 📁 router/
 │       │     ├── 📄 system.md                     # Define a persona central do Router e diretrizes de saída em JSON
-│       │     ├── 📄 evaluation_rubric.md          # Contém os critérios analíticos de cálculo do relevance_score em 4 passos
-│       │     ├── 📄 few_shot_examples.md          # Exemplos práticos modelados (conquistas, dúvidas, ruídos) para calibração
-│       │     └── 📄 guardrails.md                 # Regras rígidas de segurança contra prompt injection e tratamento de links
+│       │     ├── 📄 evaluation_rubric.md          # Contém os critérios analíticos de cálculo do relevance_score
+│       │     ├── 📄 few_shot_examples.md          # Exemplos práticos modelados para calibração
+│       │     └── 📄 guardrails.md                 # Regras de segurança contra prompt injection e proteção de PII
 │       │
 │       ├── 📁 cases/
 │       │    ├── 📄 router_cases_reais.json        # Define o case real
@@ -77,8 +82,8 @@ thread (input_schema) ──► LLM Router (Pipeline) ──► JSON de classifi
 │   │   └── 📄 router_report.py                    # Exibe resultados, consolida métricas e salva os relatórios
 │   │ 
 │   ├── 📁 services/
-│   │   ├── 📄 llm_service.py                      # Implementa as funções específicas de chamada por API (call_gemini, call_groq)
-│   │   └── 📄 llm_providers.py                    # Dicionário de Registro (LLM_PROVIDERS) e fachada unificada call_llm
+│   │   ├── 📄 llm_service.py                      # Implementa as funções específicas de chamada por API
+│   │   └── 📄 llm_providers.py                    # Dicionário de Registro e fachada unificada call_llm
 │   ├── 📁 utils/
 │   │   ├── 📄 prompt_reader.py                    # Faz a leitura dos arquivos markdown dos prompts
 │   │   ├── 📄 cases_loader.py                     # Carrega os arquivos de casos e replay
@@ -91,70 +96,107 @@ thread (input_schema) ──► LLM Router (Pipeline) ──► JSON de classifi
 ```
 
 ### 2.2. Decisão de Arquitetura
-Adoção de arquitetura orientada à Responsabilidade Única (Single Responsibility Principle - SRP). Cada módulo do diretório `src/` e `data/` possui um papel estrito e bem delimitado na aplicação:
 
-1. **Gestão de prompts (`data/prompts/router` e `src/pipeline/router_loader.py`)**
+A arquitetura atual separa configuração da execução, composição dos prompts, processamento dos casos, integração com provedores, validação determinística e geração de relatórios.
 
-   - Os prompts de sistema, as regras de avaliação, os exemplos *few-shot* e os *guardrails* residem em arquivos Markdown independentes.
+O `eval_router.py`é o ponto de entrada do benchmark, enquanto as responsabilidades são distribuídas entre `router_setup.py`, `router_processor.py` e `router_report.py`.
 
-   - O `router_loader.py` carrega e concatena esses arquivos para formar o prompt utilizado pelo Router.
-
-2. **Camada de utilitários (`src/utils/`)**
-   * `http_client.py`: Centraliza a infraestrutura de rede e o tratamento de conexões HTTP.
-   * `json_parser.py`: Interpreta as respostas JSON retornadas pelos provedores LLM.
-   * `prompt_reader.py`: Realiza a leitura dos arquivos markdown.
-   * `cases_loader.py`: Realiza o carregamentos dos arquivos de casos e de replay.
-
-3. **Isolamento de Provedores e Serviços de LLM (`src/services/`):**
-   - `llm_service.py`: Contém a lógica de baixo nível para chamadas às APIs do Gemini e do Groq.
-   - `llm_providers.py`: fornece o registro de provedores e a fachada `call_llm`, associando cada provedor à sua função e à sua API Key carregada de `src/config.py`. A fachada `call_llm` centraliza a seleção do provedor, mas não contém regras de classificação nem de validação. Essas responsabilidades permanecem no pipeline e no `router_validator.py`.
-   - `eval_router.py`: seleciona o provedor pela opção `--provider` e chama `call_llm`, mantendo a escolha da implementação fora da lógica do benchmark.
-
-4. **Orquestração e Validação do Pipeline (`src/pipeline/`):**
-
-   * `router_setup.py`: Define os argumentos da linha de comando, carrega e filtra os casos, carrega arquivos de replay e prepara o contexto de execução, incluindo provedor, modelo e temperatura.
-
-   * `router_processor.py`: Executa cada caso em modo normal, `dry-run` ou `replay`; monta o prompt de entrada, chama o provedor LLM, interpreta a resposta JSON, mede a duração e registra o uso de tokens quando disponível.
-
-   * `router_report.py`: Exibe os resultados individuais e o resumo da execução, consolida acurácia, latência e tokens e salva o relatório JSON do benchmark.
-
-   * `eval_router.py`: Atua como ponto de entrada e orquestrador do benchmark, conectando a configuração da CLI, o processamento dos casos e a geração do relatório.
-
-   * `router_validator.py`: Aplica as regras determinísticas de validação do schema, dos campos obrigatórios, dos enums, dos scores, de `has_answer` e das rotas esperadas.
-
-5. **Testes Unitários (`tests/test_router_validator.py`):**
-
-   * `test_router_validator.py`: Contém os testes das regras de validação, incluindo tipos, campos obrigatórios, enums, faixas de score, rotas e rejeição de campos adicionais.
-
-
-Essa divisão facilita a escrita de testes, evita acoplamentos desnecessários e permite adicionar novos provedores sem alterar as regras de classificação.
+>[!TIP]
+>A decisão arquitetural, suas motivações, alternativas e consequências estão documentadas no [ADR-004 — Arquitetura do Sistema de Roteamento e Classificação LLM](../adr/004-arquitetura-router.md).
 
 ---
 
 ## 3. Configurações e Variáveis de Ambiente
 
-O arquivo `src/config.py` centraliza a inicialização do ambiente e define as constantes globais:
+O arquivo `src/config.py` centraliza caminhos, modelos, temperaturas, URLs e chaves utilizadas pelo pipeline.
 
-- **`PROJECT_ROOT`:** caminho raiz do projeto.
-- **`GEMINI_TEMPERATURE`:** temperatura utilizada nas chamadas Gemini (`1.0` por padrão).
-- **`DEFAULT_TEMPERATURE`:** temperatura padrão utilizada pelos demais provedores, atualmente `0.0`.
-- **`PROMPT_ENUMS`:** conjunto de valores permitidos para os campos de saída, utilizado pelo `router_validator.py`.
+### 3.1. Configurações Principais
 
-### Provedores e modelos
+- `PROJECT_ROOT`: raiz do projeto.
+- `DEFAULT_CASES`: arquivos de casos utilizados por padrão.
+- `OUTPUTS_DIR`: diretório dos relatórios gerados.
+- `ROUTER_VERSION`: versão do prompt e do benchmark.
+- `GEMINI_MODEL` e `GROQ_MODEL`: modelos utilizados pelos provedores.
+- `GEMINI_TEMPERATURE`: temperatura aplicada ao Gemini.
+- `DEFAULT_TEMPERATURE`: temperatura padrão dos demais provedores.
+- `GEMINI_API_KEY` e `GROQ_API_KEY`: chaves carregadas por meio de arquivo de variável de ambiente `.env`.
 
-- **`{LLM}_MODEL` e `{LLM}_API_URL`:** modelo e URL configurados para cada provedor.
-- **`{LLM}_API_KEY`:** chaves de API obtidas a partir do arquivo `.env`.
-- Os provedores atualmente integrados ao pipeline são Gemini e Groq.
+>[!WARNING]
+>As chaves de API não devem ser incluídas em código, casos de teste, relatórios ou arquivos versionados.
+
+### 3.2. Provedores e Modelos
+
+O Router foi configurado com os seguintes provedores:
+
+- `gemini`;
+- `groq`.
+
+A seleção ocorre pela opção:
+
+```bash
+--provider gemini
+--provider groq
+```
+
+A fachada `call_llm` normaliza a resposta dos provedores em uma estrutura
+comum contendo:
+
+- Texto retornado;
+- Tokens de entrada;
+- Tokens de conclusão;
+- Tokens totais.
+
+Com essa estrutura é possível adicionar ou remover modelos de forma simplificada e centralizada.
 
 ---
 
 ## 4. Contratos de Dados e Validação de Schema
 
-A integridade do pipeline depende de duas barreiras contratuais implementadas em JSON Schema:
+O Router recebe uma thread por chamada, conforme o `data/schemas/input_schema.json`.
 
-- **Schema de Entrada (input_schema.json):** Valida o payload recebido (post original, metadados, lista de interações e timestamps) antes de enviá-lo para processamento. Rejeita payloads que não contenham as chaves obrigatórias (como id, source, interactions).
+A entrada contém:
 
-- **Schema de Saída (output_schema.json):** Valida o objeto retornado pela LLM. Assegura que os campos de classificação, pontuação de confiança e rota editorial estejam dentro dos tipos de dados e enumerations (enums) esperados pelo sistema downstream (ex: n8n).
+- `id`;
+- `source`;
+- `url`;
+- `interactions`.
+
+A primeira interação representa o post original. As demais representam respostas ou comentários.
+
+### 4.1. Validação de entrada
+
+O `router_setup.py` valida os casos antes da execução usando `invalid_inputs()` do `router_validator.py`. Casos incompatíveis com o schema impedem o início do benchmark.
+
+### 4.2. Contrato de saída
+
+A resposta do modelo deve ser um objeto JSON contendo exatamente os campos definidos pelo contrato de saída:
+
+- `id`;
+- `source`;
+- `type`;
+- `sentiment`;
+- `topic_category`;
+- `topics`;
+- `original_language`;
+- `has_answer`;
+- `relevance_score`;
+- `suggested_route`;
+- `summary`;
+- `justification`.
+
+O `router_validator.py` rejeita:
+
+- Campos ausentes;
+- Campos adicionais;
+- Tipos inválidos;
+- Valores fora dos enums;
+- `topics` vazio, com mais de três itens ou com itens não textuais;
+- `relevance_score` fora do intervalo de 0 a 100;
+- `summary` com mais de 200 caracteres;
+- Inconsistências em `has_answer`;
+- Rotas incompatíveis com as regras determinísticas.
+
+`has_answer` só pode ser `true` quando uma interação posterior possuir `raw_metadata.is_accepted = true`.
 
 ---
 
@@ -162,7 +204,7 @@ A integridade do pipeline depende de duas barreiras contratuais implementadas em
 
 - O LLM **classifica** cada thread (tipo, sentimento, tema, score) e **sugere** uma rota.
 
-- O n8n recalcula a rota com as regras determinísticas. Se o modelo errar só a rota, o nó condicional corrige.
+- O n8n recalcula a rota com as regras determinísticas. Se o modelo errar só a rota, o nó condicional pode corrigir.
 
 - A regra "≥ 3 conquistas na semana → Resumo Semanal" não é decidida pelo LLM: é uma agregação do lote feita no n8n/DuckDB contando os itens com `type = job_achievement`.
 
@@ -172,45 +214,74 @@ A integridade do pipeline depende de duas barreiras contratuais implementadas em
 
 ## 6. Organização dos Prompts
 
-O *system prompt* é dividido em arquivos específicos carregados dinamicamente pelo `router_loader.py`:
+### 6.1. System Prompts
 
-- **`system.md`:** define o papel do Router, o formato de entrada e o schema de saída.
-- **`evaluation_rubric.md`:** define os critérios de classificação, cálculo do `relevance_score` e escolha das rotas.
-- **`few_shot_examples.md`:** contém exemplos de conquistas, dúvidas, ruídos e frustrações para calibrar o formato e as regras.
-- **`guardrails.md`:** define as regras de segurança contra *prompt injection*, tratamento de HTML e links, proteção de PII e contrato estrito de saída JSON.
+Os prompts do Router são mantidos em arquivos Markdown independentes dentro de `data/prompts/router/`:
+
+- `system.md`: define o papel do Router, as instruções gerais e o contrato de saída;
+- `evaluation_rubric.md`: define tipos, sentimentos, cálculo de relevância e regras de roteamento;
+- `guardrails.md`: define proteção contra prompt injection, PII, credenciais, segredos e saídas fora do contrato;
+- `few_shot_examples.md`: contém exemplos de referência usados para corrigir respostas inválidas.
+
+O `router_loader.py` carrega o prompt base com:
+
+- `system.md`;
+- `evaluation_rubric.md`;
+- `guardrails.md`.
+
+Os exemplos de `few_shot_examples.md` são carregados separadamente e incluídos somente quando a primeira resposta apresentar erro de formato ou de rótulo. Essa estratégia reduz os tokens de entrada nas chamadas que já produzem uma resposta válida.
+
+### 6.2. Correção da Resposta
+
+Quando necessário, o `router_processor.py`:
+
+1. Preserva a resposta anterior;
+2. Envia os erros encontrados ao modelo;
+3. Inclui os exemplos *few-shot*;
+4. Solicita somente um novo JSON válido;
+5. Faz o parsing e a validação novamente;
+6. Soma os tokens e a duração das chamadas realizadas.
 
 ---
 
 ## 7. Fluxo de Execução do Pipeline
 
-- **Entrada:** o `router_setup.py` define os argumentos da execução e carrega os casos reais ou sintéticos a partir de:
-  - `data/prompts/cases/router_cases_reais.json`;
-  - `data/prompts/cases/router_cases_sinteticos.json`.
+### 7.1. Pipeline
 
-- **Validação inicial:** o `router_setup.py` verifica se os casos de entrada são compatíveis com o schema esperado, utilizando `invalid_inputs()` do `router_validator.py`.
+1. **Entrada:** o `router_setup.py` interpreta os argumentos da CLI; 
+2. **Carregamento dos casos:** São carregados os casos reais ou sintéticos a partir de:
+  - `data/prompts/cases/router_cases_reais.json`
+  - `data/prompts/cases/router_cases_sinteticos.json`
+3. **Validação inicial:** o `router_setup.py` verifica se os casos de entrada são compatíveis com o schema de entrada, utilizando `invalid_inputs()` do `router_validator.py`;
+4. **Preparação da execução:** o `router_setup.py` carrega o prompt base  e os exemplos *few-shot* separadamente;
+5. **Definição dos provedores:** O provedor, modelo, temperatura e modo de execução são definidos;
+6. **Execução dos casos:** O `eval_router.py` percorre os casos e delega o processamento individual ao `router_processor.py`;
+7. **Chamada LLM:** O `router_processor.py` chama `call_llm(provider, system, user)`. A fachada localiza o provedor no registro `LLM_PROVIDERS`, recupera a API Key correspondente e delega a chamada para `call_gemini` ou `call_groq`:
+   - Chama o provedor em execução normal
+   - Gera uma saída simulada em `dry-run`
+   - Reutiliza uma saída existente em `replay`
+8. **Parsing da resposta:** O `router_processor.py` utiliza o `json_parser.py` para interpretar o JSON retornado pelo provedor;
 
-- **Preparação da execução:** o `router_setup.py` carrega o system prompt, prepara o contexto de execução, seleciona o provedor e configura o modelo, a temperatura e o modo de execução.
+9. **Validação de saída:** o `router_processor.py` utiliza o `router_validator.py` para verificar o JSON retornado em relação ao schema, às regras de negócio e aos valores esperados do caso;
+10. **Fallback:** Se houver erro de formato ou rótulo, o processador faz uma nova chamada com os exemplos *few-shot* e revalida a resposta;
+11. **Medição de latência e tokens:** o `router_processor.py` mede a duração de cada chamada utilizando `time.perf_counter()` e registra os tokens de entrada, saída e totais quando o provedor disponibiliza essas métricas;
+12. **Relatório:** o `router_report.py` exibe os resultados individuais e consolida as métricas;
+13. **Persistência:** o `router_report.py` salva os resultados, metadados, acurácia, latência e uso de tokens em `data/prompts/outputs/` nas execuções reais.
 
-- **Seleção do provedor:** permite alternar entre Gemini e Groq usando `--provider gemini` ou `--provider groq`.
+### 7.2. Métricas
 
-- **Execução dos casos:** o `eval_router.py` percorre os casos e delega o processamento individual ao `router_processor.py`.
+O relatório registra:
 
-- **Chamada LLM:** o `router_processor.py` chama `call_llm(provider, system, user)`. A fachada localiza o provedor no registro `LLM_PROVIDERS`, recupera a API Key correspondente e delega a chamada para `call_gemini` ou `call_groq`.
+- Duração por caso;
+- Duração média;
+- Duração total;
+- Tokens de entrada;
+- Tokens de saída;
+- Tokens totais;
+- Quantidade de retries, quando registrada;
+- Acurácia da execução.
 
-- **Parsing da resposta:** o `router_processor.py` utiliza o `json_parser.py` para interpretar o JSON retornado pelo provedor.
-
-- **Medição de latência e tokens:** o `router_processor.py` mede a duração de cada chamada utilizando `time.perf_counter()` e registra os tokens de entrada, saída e totais quando o provedor disponibiliza essas métricas.
-
-- **Validação de saída:** o `router_processor.py` utiliza o `router_validator.py` para verificar o JSON retornado em relação ao schema, às regras de negócio e aos valores esperados do caso.
-
-- **Modos sem chamada à API:**
-  - `dry-run` gera uma saída simulada para validar o fluxo;
-  - `replay` reutiliza saídas previamente salvas;
-  - nesses modos, os tokens são informados como indisponíveis quando não existem métricas armazenadas.
-
-- **Relatório:** o `router_report.py` exibe os resultados individuais, a taxa de acerto, a latência média e os tokens consolidados.
-
-- **Persistência:** o `router_report.py` salva os resultados, metadados, acurácia, latência e uso de tokens em `data/prompts/outputs/` nas execuções reais.
+Em `dry-run`, os tokens são informados como indisponíveis. Em `replay`, também são indisponíveis quando o arquivo reutilizado não contém métricas de uso.
 
 ---
 
@@ -219,110 +290,92 @@ O *system prompt* é dividido em arquivos específicos carregados dinamicamente 
 Os comandos devem ser executados na raiz do repositório:
 
 ```bash
-# Executa os casos usando Gemini por padrão
+# Execução padrão com Gemini
 uv run python -m src.pipeline.eval_router
 
-# Executa os casos usando Groq
+# Execução com Groq
 uv run python -m src.pipeline.eval_router --provider groq
 
-# Executa a pipeline sem realizar chamadas às APIs
-# O valor de Tokens será apresentado como indisponível
+# Execução sem chamadas à API
 uv run python -m src.pipeline.eval_router --dry-run
 
-# Executa somente casos cujo nome contém "real_se"
+# Execução filtrada por nome de caso
 uv run python -m src.pipeline.eval_router --only real_se
 
-# Executa todos os casos reais
-uv run python -m src.pipeline.eval_router --cases data/prompts/cases/router_cases_reais.json
+# Execução dos casos reais
+uv run python -m src.pipeline.eval_router --cases data/prompts/cases/router_cases_reais.json --tag reais
 
-# Executa todos os casos sintéticos
-uv run python -m src.pipeline.eval_router --cases data/prompts/cases/router_cases_sinteticos.json
+# Execução dos casos sintéticos
+uv run python -m src.pipeline.eval_router --cases data/prompts/cases/router_cases_sinteticos.json --tag sinteticos
 
-# Executa somente casos reais cujo nome contém "mastodon"
+# Execução filtrada por fonte ou identificador
 uv run python -m src.pipeline.eval_router --cases data/prompts/cases/router_cases_reais.json --only mastodon
 
-# Reavalia saídas já salvas, sem chamar a API
-# Tokens: indisponível se o replay não contiver métricas de uso
-uv run python -m src.pipeline.eval_router --replay data/prompts/outputs/<arquivo>.json
+# Reavaliação de saídas de casos reais previamente salvos
+uv run python -m src.pipeline.eval_router --cases data/prompts/cases/router_cases_reais.json --replay data/prompts/outputs/<arquivo>.json
+
+# Reavaliação de saídas de casos sintéticos previamente salvos
+uv run python -m src.pipeline.eval_router --cases data/prompts/cases/router_cases_sinteticos.json --replay data/prompts/outputs/<arquivo>.json
 ```
 
-## 9. Resultados
->**Configurações:** gemini-3.5-flash-lite, temperatura 1.0
->**Execução:** 09/11/2026 | 32 casos (17 reais e 15 sintéticos) | Versão: 0.4.1
+- **Modos de execução:**
+   - **Execução normal:** chama o provedor selecionado e salva o relatório.
+   - `dry-run`: não chama APIs, usa saídas simuladas e não mede tokens reais.
+   - `replay`: reutiliza saídas previamente salvas e não realiza novas chamadas. O arquivo de casos ainda é carregado separadamente; informe `--cases` para avaliar apenas o conjunto correspondente ao replay.
 
-### 9.1. Resumo Executivo:
+A opção `--sleep` controla o intervalo entre casos em execução normal. Em casos que exigem retry, a chamada adicional também deve respeitar o limite do provedor.
 
-| Conjunto         | Acerto | Percentual | Tempo de Execução | Tempo Médio por Requisição |
-|:-----------------|:-------|:-----------|:------------------|:------------------|
-| Dados Reais      | 13/17  | 72%        | 52.81s            | 2.93s             |
-| Dados Sintéticos | 15/15  | 100%       | 22.66s            | 1.89s             |
-
-
-### 9.2. Casos Reais por Fonte de Dados:
-
-| Fonte	                         | Casos  | Tipos  |
-|:-------------------------------|:-------|:-------|
-| Stack Overflow/Stack Exchange	 |  10    | perguntas técnicas, respostas aceitas e score |
-| Mastodon	                     |   5    | ruído, opinião, idioma e sentimento           |
-| Hacker News	                   |   2    | propaganda, debates e análises textuais       |
-| **Total**	                         |  **17**    |  |
-
-### 9.3. Casos Sintéticos por Fonte de Dados:
-
-| Fonte	                         | Casos  | Tipos  |
-|:-------------------------------|:-------|:-------|
-| Stack Overflow/Stack Exchange	 |   2    | perguntas técnicas, resposta aceita e pergunta sem resposta |
-| Mastodon	                     |  10    | conquistas, depoimento, dúvidas, feedback de curso, debate, ruído, prompt injection e certificação           |
-| Hacker News	                   |   3    | relato de sucesso, jailbreak e exposição de PII/secret      |
-| **Total**	                     |  **15**    |  |
-
-### 9.4. Resultado dos Casos Executados
-
-| Conjunto         | Fonte de Dados                | Case                     | Acerto | Tempo de Execução |
-|:-----------------|:------------------------------|:-------------------------|:-------|:------------------|
-| Dados Reais      | Stack Overflow/Stack Exchange | real_se_duvida_com_resposta_aceita_llamaindex | Ok | 2.26s |
-| Dados Reais      | Stack Overflow/Stack Exchange | real_se_duvida_com_resposta_aceita_vscode |  Ok     | 1.83s |
-| Dados Reais      | Stack Overflow/Stack Exchange | real_se_duvida_com_resposta_aceita_symfony_ai | Ok     | 1.85s|
-| Dados Reais      | Stack Overflow/Stack Exchange | real_se_resposta_nao_aceita_windsurf |Ok     | 2.01s |
-| Dados Reais      | Stack Overflow/Stack Exchange | real_se_duvida_sem_resposta_muito_vista | Ok     | 2.39s   |
-| Dados Reais      | Stack Overflow/Stack Exchange | real_se_duvida_sem_resposta_langchain_mcp | Ok     | 1.95s  |
-| Dados Reais      | Stack Overflow/Stack Exchange | real_se_limitacao_de_ferramenta_tom_objetivo | Ok     | 1.89s  |
-| Dados Reais      | Stack Overflow/Stack Exchange | real_se_desanimo_pessoal_vibe_coder |  Ok     | 2.01s       |
-| Dados Reais      | Stack Overflow/Stack Exchange | real_se_debate_mercado_com_respostas |  Ok     | 1.94s    |
-| Dados Reais      | Stack Overflow/Stack Exchange | real_se_pergunta_vaga_ruido |  Falha     | 2.02s     |
-| Dados Reais      | Mastodon | real_mastodon_bot_politica | Ok     | 1.86s        |
-| Dados Reais      | Mastodon | real_mastodon_noticia_ia_rss | Ok     | 1.91s         |
-| Dados Reais      | Mastodon | real_mastodon_opiniao_com_link | Ok     | 19.33s    |
-| Dados Reais      | Mastodon | real_mastodon_japones_metadado_errado | Ok     | 1.97s  |
-| Dados Reais      | Mastodon | real_mastodon_opiniao_negativa | Ok     | 1.92s  |
-| Dados Reais      | Hacker News | real_hn_propaganda    | Ok     | 1.84s            |
-| Dados Reais      | Hacker News | real_hn_sem_conteudo    | Ok     | 1.84s            |
-| Dados Sintéticos | Sintético (Mastodon) | conquista_vaga_detalhada  |   OK   | 1.86s             |
-| Dados Sintéticos | Sintético (Mastodon)  | conquista_vaga_ingles     |   OK   | 1.97s             |
-| Dados Sintéticos | Sintético (Mastodon)  | depoimento_generico       |   OK   | 1.82s             |
-| Dados Sintéticos | Sintético (Stack Overflow/Stack Exchange)  | duvida_com_resposta_aceita|   OK   | 1.87s             |
-| Dados Sintéticos | Sintético (Stack Overflow/Stack Exchange) | duvida_sem_resposta       |   OK   | 2.06s             |
-| Dados Sintéticos | Sintético (Mastodon)  | duvida_frustrada          |   OK   | 1.84s             |
-| Dados Sintéticos | Sintético (Mastodon)   | feedback_negativo_curso   |   OK   | 1.81s             |
-| Dados Sintéticos | Sintético (Mastodon)  | spam                      |   OK   | 1.81s             |
-| Dados Sintéticos | Sintético (Mastodon)   | so_emoji                  |   OK   | 1.76s             |
-| Dados Sintéticos | Sintético (Mastodon)   | prompt_injection          |   OK   | 1.95s             |
-| Dados Sintéticos | Sintético (Mastodon)   | debate                    |   OK   | 1.92s             |
-| Dados Sintéticos | Sintético (Mastodon)   | certificacao              |   OK   | 1.99s             |
-| Dados Sintéticos | Sintético (Hacker News)   | relato_sucesso      |   OK   | 1.99s             |
-| Dados Sintéticos | Sintético (Hacker News)   | jailbreaking           |   OK   | 1.99s             |
-| Dados Sintéticos | Sintético (Hacker News)   | pii_secret_exposto      |   OK   | 1.99s             |
-
-
-
->[!ATTENTION]
->Critério de aceite: 100% dos casos aprovados.
+O relatório salvo contém os resultados dos casos, a acurácia, a latência e o uso consolidado de tokens quando essas métricas estiverem disponíveis.
 
 ---
 
-## Changelog
+## 9. Resultados do Benchmark
+- **Configurações:** gemini-3.5-flash-lite, temperatura 1.0
+- **Execução:** 09/11/2026 e 10/11/2026 (2 Rodadas de Teste) 
+- **Casos:** 32 casos (17 reais e 15 sintéticos) 
+- **Versão:** 0.4.1
+
+### 9.1. Execução de Teste 01 (09/11/2026)
+| Conjunto         | Acerto | Percentual | Tempo de Execução | Tempo Médio por Requisição | Tokens Consolidados (Entrada) | Tokens Consolidados (Saída) | Tokens Consolidados (Total) | Tokens Consolidados (Média) |
+|:-----------------|:-------|:-----------|:------------------|:----------|:----------|:----------|:----------|:--------|
+| Dados Reais      | 17/17  | 100%       | 48.18s            | 2.83s     | 76.101    | 3.674     | 79.775    |4.693    |
+| Dados Sintéticos | 15/15  | 100%       | 46.19s            | 3.08s     | 42.716    | 2.509     | 45.225    |3.015    |
+
+### 9.2. Execução de Teste 02 (10/11/2026)
+| Conjunto         | Acerto | Percentual | Tempo de Execução | Tempo Médio por Requisição | Tokens Consolidados (Entrada) | Tokens Consolidados (Saída) | Tokens Consolidados (Total) | Tokens Consolidados (Média) |
+|:-----------------|:-------|:-----------|:------------------|:----------|:----------|:----------|:----------|:--------|
+| Dados Reais      | 17/17  | 100%       | 186.24s            | 10.96s     | 76.110    | 3.599    | 79.709    |4.689    |
+| Dados Sintéticos | 15/15  | 100%       | 124.61s            | 8.31s     | 47.508    | 2.685     | 50.193    |3.347    |
+
+### 9.3. Conclusão
+
+Os testes atenderam com êxito ao critério de aceite do benchmark, alcançando **100% de aprovação** nos casos esperados.
+
+Durante o Teste 02, foram identificadas requisições com status HTTP 503, possivelmente relacionadas à limitação ou à instabilidade do provedor, tanto no conjunto de dados reais quanto no sintético. Essas ocorrências, entretanto, não impediram a conclusão das execuções.
+
+No caso CT32 (`pii_secret_exposto`), verificou-se uma anomalia por conta do retry na segunda rodada de teste. O CT32 mais que dobrou o consumo de tokens, partindo de **3.111 tokens** e **sem retry** no teste 01 (09/11) para **8.066 tokens** e **com retry** no teste 02 (10/11). 
+
+As definições do retry no `router_processor.py` foram ajustadas para evitar que o prompt inteiro fosse carregado novamente a cada retry. Com esse ajuste, em duas execuções isoladas, o CT32 consumiu um total de **3556 tokens** e **3205 tokens**, respectivamente.
+
+**Avisos**
+- Em um caso, a rota sugerida pelo modelo diferiu da rota definida pelas regras, que podem ser ajustadas no n8n:
+   * CT32 (`pii_secret_exposto`): modelo sugeriu 'moderation', as regras dão 'discard' (o n8n corrige)
+
+>[!TIP]
+>Os resultados detalhados das execuções do Router estão documentados em [docs/benchmarks](../benchmarks/).
+
+
+---
+
+## 10. Changelog
 
 ### 0.4.1 (09/11/2026) — Revisão, Modularização e Instrumentação do Router
+- **Documentação e arquitetura:**
+  - Separação da decisão arquitetural em um ADR específico: `docs/adr/004-arquitetura-router.md`.
+  - Atualização da especificação para refletir os módulos `router_setup.py`, `router_processor.py` e `router_report.py`.
+  - Separação dos resultados detalhados do benchmark em documento próprio: `docs/benchmarks/router-benchmark-results.md`.
+  - Uso condicional de `few_shot_examples.md` somente em tentativas de correção.
+
 - **Prompts do Router:**
   - Revisão do `system.md`, mantendo o papel do Router, o formato de entrada e o schema de saída.
   - Revisão do `evaluation_rubric.md`, alinhando as regras de tipos, `has_answer`, sentimento, relevância e roteamento.
@@ -333,8 +386,10 @@ uv run python -m src.pipeline.eval_router --replay data/prompts/outputs/<arquivo
 - **Casos de avaliação:**
   - Revisão dos casos reais das fontes Stack Overflow/Stack Exchange, Mastodon e Hacker News.
   - Manutenção apenas de casos reais sustentados pelos samples disponíveis no projeto.
-  - O conjunto real passou a totalizar 17 casos: 10 de Stack Overflow/Stack Exchange, 5 de Mastodon e 2 de Hacker News.
+  - Adição de 1 casos real de Mastodon, abrangendo uma opinião negativa e 2 casos reais do Hacker News, abrangendo uma propaganda e um post somente com título, sem conteúdo.
   - Adição de 3 casos sintéticos do Hacker News, abrangendo relato de sucesso, tentativa de jailbreak e exposição de PII/segredo fictício.
+  - O conjunto real passou a totalizar 17 casos: 10 de Stack Overflow/Stack Exchange, 5 de Mastodon e 2 de Hacker News.
+  - O conjunto sintético passou a totalizar 15 casos: 2 de Stack Overflow/Stack Exchange, 10 de Mastodon e 3 de Hacker News.
 
 - **Validação do Router:**
   - Ajuste da validação para rejeitar campos adicionais no JSON de saída.

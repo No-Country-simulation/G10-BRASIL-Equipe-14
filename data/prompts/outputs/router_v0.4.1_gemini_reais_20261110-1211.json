@@ -1,0 +1,527 @@
+{
+  "prompt_version": "0.4.1",
+  "model": "gemini-3.5-flash-lite",
+  "temperature": 1.0,
+  "accuracy": "17/17",
+  "case_files": [
+    "data\\prompts\\cases\\router_cases_reais.json"
+  ],
+  "average_duration_seconds": 10.955,
+  "total_duration_seconds": 186.237,
+  "ran_at": "2026-11-10T12:11:59",
+  "token_usage": {
+    "prompt_tokens": 76110,
+    "completion_tokens": 3599,
+    "total_tokens": 79709
+  },
+  "results": {
+    "real_se_duvida_com_resposta_aceita_llamaindex": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 2.005,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 3982,
+        "completion_tokens": 178,
+        "total_tokens": 4160
+      }
+    },
+    "real_se_duvida_com_resposta_aceita_vscode": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 9.23,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 3443,
+        "completion_tokens": 191,
+        "total_tokens": 3634
+      }
+    },
+    "real_se_duvida_com_resposta_aceita_symfony_ai": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 7.829,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 4712,
+        "completion_tokens": 153,
+        "total_tokens": 4865
+      }
+    },
+    "real_se_resposta_nao_aceita_windsurf": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 5.511,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 3339,
+        "completion_tokens": 190,
+        "total_tokens": 3529
+      }
+    },
+    "real_se_duvida_sem_resposta_muito_vista": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 5.262,
+      "retry_used": true,
+      "token_usage": {
+        "prompt_tokens": 9756,
+        "completion_tokens": 359,
+        "total_tokens": 10115
+      }
+    },
+    "real_se_duvida_sem_resposta_langchain_mcp": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 13.22,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 4289,
+        "completion_tokens": 150,
+        "total_tokens": 4439
+      }
+    },
+    "real_se_limitacao_de_ferramenta_tom_objetivo": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 6.586,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 3295,
+        "completion_tokens": 186,
+        "total_tokens": 3481
+      }
+    },
+    "real_se_desanimo_pessoal_vibe_coder": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 1.935,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 3146,
+        "completion_tokens": 174,
+        "total_tokens": 3320
+      }
+    },
+    "real_se_debate_mercado_com_respostas": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 11.933,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 3989,
+        "completion_tokens": 181,
+        "total_tokens": 4170
+      }
+    },
+    "real_se_pergunta_vaga_ruido": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 3.313,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 3028,
+        "completion_tokens": 190,
+        "total_tokens": 3218
+      }
+    },
+    "real_mastodon_bot_politica": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 16.833,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 3565,
+        "completion_tokens": 173,
+        "total_tokens": 3738
+      }
+    },
+    "real_mastodon_noticia_ia_rss": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 2.667,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 3250,
+        "completion_tokens": 194,
+        "total_tokens": 3444
+      }
+    },
+    "real_mastodon_opiniao_com_link": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 8.836,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 3161,
+        "completion_tokens": 196,
+        "total_tokens": 3357
+      }
+    },
+    "real_mastodon_japones_metadado_errado": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 60.559,
+      "retry_used": true,
+      "token_usage": {
+        "prompt_tokens": 9069,
+        "completion_tokens": 349,
+        "total_tokens": 9418
+      }
+    },
+    "real_mastodon_opiniao_negativa": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 3.818,
+      "retry_used": true,
+      "token_usage": {
+        "prompt_tokens": 8216,
+        "completion_tokens": 397,
+        "total_tokens": 8613
+      }
+    },
+    "real_hn_propaganda": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 2.427,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 3006,
+        "completion_tokens": 170,
+        "total_tokens": 3176
+      }
+    },
+    "real_hn_sem_conteudo": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 24.275,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 2864,
+        "completion_tokens": 168,
+        "total_tokens": 3032
+      }
+    }
+  },
+  "outputs": {
+    "real_se_duvida_com_resposta_aceita_llamaindex": {
+      "id": "se-79838505",
+      "source": "stackoverflow",
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "topic_category": "ai_ml",
+      "topics": [
+        "python",
+        "llama-index",
+        "ollama"
+      ],
+      "original_language": "en",
+      "has_answer": true,
+      "relevance_score": 75,
+      "suggested_route": "faq",
+      "summary": "Dúvida sobre erro ao carregar modelo no LlamaIndex com Ollama e sua solução.",
+      "justification": "Score na faixa de 60-79 para pergunta técnica com resposta aceita."
+    },
+    "real_se_duvida_com_resposta_aceita_vscode": {
+      "id": "se-79998781",
+      "source": "stackoverflow",
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "topic_category": "dev_tools",
+      "topics": [
+        "vs-code",
+        "inteligência artificial",
+        "git"
+      ],
+      "original_language": "en",
+      "has_answer": true,
+      "relevance_score": 65,
+      "suggested_route": "faq",
+      "summary": "Como desativar a geração de mensagens de commit por IA no VS Code mantendo outras funções ativas.",
+      "justification": "Score na faixa 60-79 devido a technical_question com resposta aceita; rota faq aplicada pela regra 5."
+    },
+    "real_se_duvida_com_resposta_aceita_symfony_ai": {
+      "id": "se-79857625",
+      "source": "stackoverflow",
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "topic_category": "ai_ml",
+      "topics": [
+        "Symfony AI",
+        "PHP",
+        "Inteligência Artificial"
+      ],
+      "original_language": "en",
+      "has_answer": true,
+      "relevance_score": 75,
+      "suggested_route": "faq",
+      "summary": "Dúvida sobre como adicionar modelos customizados ao bridge do LM Studio no Symfony AI.",
+      "justification": "Score 75 na faixa de 60-79, pois é uma pergunta técnica com resposta aceita e foco em inteligência artificial."
+    },
+    "real_se_resposta_nao_aceita_windsurf": {
+      "id": "se-79850130",
+      "source": "stackoverflow",
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "topic_category": "ai_ml",
+      "topics": [
+        "intellij",
+        "windsurf",
+        "code-completion"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 52,
+      "suggested_route": "newsletter_only",
+      "summary": "Dúvida sobre o funcionamento do autocompletar do Windsurf no IntelliJ IDEA sem resposta aceita.",
+      "justification": "Score na faixa de 40-59 para technical_question sem resposta aceita, aplicando a regra newsletter_only."
+    },
+    "real_se_duvida_sem_resposta_muito_vista": {
+      "id": "se-79837611",
+      "source": "stackoverflow",
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "topic_category": "ai_ml",
+      "topics": [
+        "Laravel",
+        "Ollama",
+        "Embeddings"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 55,
+      "suggested_route": "newsletter_only",
+      "summary": "Dúvida técnica no Stack Overflow sobre erro EOF ao gerar embeddings com Ollama em Laravel.",
+      "justification": "Score na faixa de 40-59 para technical_question sem resposta aceita, direcionado para newsletter_only."
+    },
+    "real_se_duvida_sem_resposta_langchain_mcp": {
+      "id": "se-79935672",
+      "source": "stackoverflow",
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "topic_category": "ai_ml",
+      "topics": [
+        "python",
+        "langchain",
+        "ia"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 50,
+      "suggested_route": "newsletter_only",
+      "summary": "Dúvida sobre erro de validação de tipo de dado ao usar o adaptador MCP do LangChain.",
+      "justification": "Score na faixa 40-59 para technical_question sem resposta aceita, aplicando a rota newsletter_only."
+    },
+    "real_se_limitacao_de_ferramenta_tom_objetivo": {
+      "id": "se-79958777",
+      "source": "stackoverflow",
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "topic_category": "dev_tools",
+      "topics": [
+        "Cursor IDE",
+        "IA",
+        "otimização de tokens"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 45,
+      "suggested_route": "newsletter_only",
+      "summary": "Pergunta técnica sobre o esgotamento rápido da cota gratuita na Cursor IDE.",
+      "justification": "Score na faixa de 40-59 para technical_question sem resposta aceita, direcionado para newsletter_only."
+    },
+    "real_se_desanimo_pessoal_vibe_coder": {
+      "id": "se-79874274",
+      "source": "stackoverflow",
+      "type": "debate",
+      "sentiment": "neutral",
+      "topic_category": "career",
+      "topics": [
+        "carreira",
+        "inteligência artificial",
+        "boas práticas"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 50,
+      "suggested_route": "newsletter_only",
+      "summary": "Iniciante relata preocupação sobre o uso excessivo de IA prejudicar o desenvolvimento de suas habilidades.",
+      "justification": "Score na faixa de 40 a 59 para debates e troca de experiências sem resposta técnica."
+    },
+    "real_se_debate_mercado_com_respostas": {
+      "id": "se-79835621",
+      "source": "stackoverflow",
+      "type": "debate",
+      "sentiment": "neutral",
+      "topic_category": "career",
+      "topics": [
+        "Inteligência Artificial",
+        "Mercado de Trabalho",
+        "Carreira"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 50,
+      "suggested_route": "newsletter_only",
+      "summary": "Discussão sobre o impacto da inteligência artificial no futuro da demanda por desenvolvedores de software.",
+      "justification": "Score na faixa de 40-59 para tipo debate, direcionado para a newsletter."
+    },
+    "real_se_pergunta_vaga_ruido": {
+      "id": "se-79893379",
+      "source": "stackoverflow",
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "topic_category": "ai_ml",
+      "topics": [
+        "java",
+        "model context protocol",
+        "monitoramento"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 25,
+      "suggested_route": "discard",
+      "summary": "Dúvida ampla em Java sobre hospedagem e monitoramento de tráfego do Model Context Protocol sem código ou contexto.",
+      "justification": "Score na faixa de 20-39 por ser uma pergunta técnica vaga sem resposta aceita e sem contexto suficiente."
+    },
+    "real_mastodon_bot_politica": {
+      "id": "mst-117476946010510390",
+      "source": "mastodon",
+      "type": "noise",
+      "sentiment": "neutral",
+      "topic_category": "other",
+      "topics": [
+        "notícias",
+        "política"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 0,
+      "suggested_route": "discard",
+      "summary": "Post automático de RSS compartilhando link de notícias sem interação ou opinião própria.",
+      "justification": "Score na faixa 0-19 e regra de ruído aplicada para descarte."
+    },
+    "real_mastodon_noticia_ia_rss": {
+      "id": "mst-117476765783818325",
+      "source": "mastodon",
+      "type": "noise",
+      "sentiment": "neutral",
+      "topic_category": "ai_ml",
+      "topics": [
+        "inteligência artificial",
+        "modelos de previsão"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 0,
+      "suggested_route": "discard",
+      "summary": "Postagem automática compartilhando manchete e link sobre novo modelo de IA, sem interação ou opinião original.",
+      "justification": "O post é puramente uma divulgação de notícia por feed, classificado como ruído na faixa de 0 a 19."
+    },
+    "real_mastodon_opiniao_com_link": {
+      "id": "mst-117476661482589915",
+      "source": "mastodon",
+      "type": "debate",
+      "sentiment": "neutral",
+      "topic_category": "ai_ml",
+      "topics": [
+        "inteligência artificial",
+        "qualidade de dados",
+        "machine learning"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 50,
+      "suggested_route": "newsletter_only",
+      "summary": "Discussão sobre como a qualidade dos dados impacta o desempenho de modelos de inteligência artificial.",
+      "justification": "Score na faixa de 40 a 59 para debate com opinião e compartilhamento de link relevante."
+    },
+    "real_mastodon_japones_metadado_errado": {
+      "id": "mst-117476505156844059",
+      "source": "mastodon",
+      "type": "noise",
+      "sentiment": "neutral",
+      "topic_category": "ai_ml",
+      "topics": [
+        "Notícias de IA",
+        "Automação"
+      ],
+      "original_language": "other",
+      "has_answer": false,
+      "relevance_score": 0,
+      "suggested_route": "discard",
+      "summary": "Postagem contendo apenas link de notícias e hashtags sobre inteligência artificial.",
+      "justification": "Score 0 pois trata-se de um post do tipo noise sem opinião ou relato próprio."
+    },
+    "real_mastodon_opiniao_negativa": {
+      "id": "117526905034556320",
+      "source": "mastodon",
+      "type": "debate",
+      "sentiment": "negative",
+      "topic_category": "ai_ml",
+      "topics": [
+        "política de IA",
+        "privacidade",
+        "mercado de trabalho"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 45,
+      "suggested_route": "moderation",
+      "summary": "Membro expressa forte descontentamento com as políticas agressivas de adoção de IA na Proton.",
+      "justification": "Faixa 40-59: debate sobre mercado e IA; regra 2 (moderation) por sentimento negativo."
+    },
+    "real_hn_propaganda": {
+      "id": "50268879",
+      "source": "hackernews",
+      "type": "noise",
+      "sentiment": "neutral",
+      "topic_category": "ai_ml",
+      "topics": [
+        "IA",
+        "gerador de vídeo",
+        "propaganda"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 0,
+      "suggested_route": "discard",
+      "summary": "Post promocional de ferramenta de IA classificado como ruído.",
+      "justification": "Score na faixa 0-19 e regra de ruído aplicam a rota discard."
+    },
+    "real_hn_sem_conteudo": {
+      "id": "49942002",
+      "source": "hackernews",
+      "type": "noise",
+      "sentiment": "neutral",
+      "topic_category": "ai_ml",
+      "topics": [
+        "inteligência artificial",
+        "tecnologia"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 0,
+      "suggested_route": "discard",
+      "summary": "Link compartilhado sem pergunta, opinião ou relato pessoal da própria pessoa.",
+      "justification": "Pontuação na faixa 0-19 e rota discard aplicadas porque o tipo é noise."
+    }
+  }
+}
