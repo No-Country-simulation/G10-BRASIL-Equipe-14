@@ -133,3 +133,5 @@ CSV_DELIMITERS = ",;\t|"
 INGESTION_TEXT_AREA_NAME = "texto colado"
 MAX_UPLOAD_FILE_SIZE_MB = 10
 MAX_UPLOAD_FILE_SIZE_BYTES = MAX_UPLOAD_FILE_SIZE_MB * 1024 * 1024
+
+SCORE_TIP = "Média do score de relevância (0–100) das interações do lote."
