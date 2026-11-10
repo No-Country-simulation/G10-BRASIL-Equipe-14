@@ -37,6 +37,8 @@ O Sistema de Roteamento e Classificação (Router Prompt) é o componente centra
    - [7.2. Métricas](#72-métricas)
 - [8. Execução e Avaliação do Benchmark](#8-execução-e-avaliação-do-benchmark)
 - [9. Resultados do Benchmark](#9-resultados-do-benchmark)
+   - [9.1. Execução do Teste 01 (09/11/2026)](#91-execução-de-teste-01-09112026)
+   - [9.2. Execução do Teste 02 (10/11/2026)](#92-execução-de-teste-02-10112026)
 - [10.Changelog](#10-changelog)
 
 ---
@@ -341,11 +343,15 @@ O relatório salvo contém os resultados dos casos, a acurácia, a latência e o
 | Dados Reais      | 17/17  | 100%       | 48.18s            | 2.83s     | 76.101    | 3.674     | 79.775    |4.693    |
 | Dados Sintéticos | 15/15  | 100%       | 46.19s            | 3.08s     | 42.716    | 2.509     | 45.225    |3.015    |
 
+**Saídas do modelo:** `data/prompts/outputs/router_v0.4.1_gemini_reais_20261109-1100.json` e `data/prompts/outputs/router_v0.4.1_gemini_sinteticos_20261109-1207.json`.
+
 ### 9.2. Execução de Teste 02 (10/11/2026)
 | Conjunto         | Acerto | Percentual | Tempo de Execução | Tempo Médio por Requisição | Tokens Consolidados (Entrada) | Tokens Consolidados (Saída) | Tokens Consolidados (Total) | Tokens Consolidados (Média) |
 |:-----------------|:-------|:-----------|:------------------|:----------|:----------|:----------|:----------|:--------|
 | Dados Reais      | 17/17  | 100%       | 186.24s            | 10.96s     | 76.110    | 3.599    | 79.709    |4.689    |
 | Dados Sintéticos | 15/15  | 100%       | 124.61s            | 8.31s     | 47.508    | 2.685     | 50.193    |3.347    |
+
+**Saídas do modelo:** `data/prompts/outputs/router_v0.4.1_gemini_reais_20261110-1211.json` e `data/prompts/outputs/router_v0.4.1_gemini_sinteticos_20261110-1203.json`.
 
 ### 9.3. Conclusão
 

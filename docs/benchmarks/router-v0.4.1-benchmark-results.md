@@ -21,19 +21,23 @@ Elaborado em: 10/11/2026
 
 ## 1. Resumo Executivo:
 
-### 1.1. Rodada de Teste 01 (09/11/26)
+### 1.1. Execução do Teste 01 (09/11/26)
 
 | Conjunto         | Acerto | Percentual | Tempo de Execução | Tempo Médio por Requisição | Tokens Consolidados (Entrada) | Tokens Consolidados (Saída) | Tokens Consolidados (Total) | Tokens Consolidados (Média) |
 |:-----------------|:-------|:-----------|:------------------|:----------|:----------|:----------|:----------|:--------|
 | Dados Reais      | 17/17  | 100%       | 48.18s            | 2.83s     | 76.101    | 3.674     | 79.775    |4.693    |
 | Dados Sintéticos | 15/15  | 100%       | 46.19s            | 3.08s     | 42.716    | 2.509     | 45.225    |3.015    |
 
-### 1.2. Rodada de Teste 02 (10/11/26)
+**Saídas do modelo:** `data/prompts/outputs/router_v0.4.1_gemini_reais_20261109-1100.json` e `data/prompts/outputs/router_v0.4.1_gemini_sinteticos_20261109-1207.json`.
+
+### 1.2. Execução do Teste 02 (10/11/26)
 
 | Conjunto         | Acerto | Percentual | Tempo de Execução | Tempo Médio por Requisição | Tokens Consolidados (Entrada) | Tokens Consolidados (Saída) | Tokens Consolidados (Total) | Tokens Consolidados (Média) |
 |:-----------------|:-------|:-----------|:------------------|:----------|:----------|:----------|:----------|:--------|
 | Dados Reais      | 17/17  | 100%       | 186.24s            | 10.96s     | 76.110    | 3.599    | 79.709    |4.689    |
 | Dados Sintéticos | 15/15  | 100%       | 124.61s            | 8.31s     | 47.508    | 2.685     | 50.193    |3.347    |
+
+**Saídas do modelo:** `data/prompts/outputs/router_v0.4.1_gemini_reais_20261110-1211.json` e `data/prompts/outputs/router_v0.4.1_gemini_sinteticos_20261110-1203.json`.
 
 ## 2. Casos Reais por Fonte de Dados:
 
@@ -55,7 +59,7 @@ Elaborado em: 10/11/2026
 
 ## 4. Resultado dos Casos Executados
 
-### 4.1. Rodada de Teste 01 (09/11/26)
+### 4.1. Execução do Teste 01 (09/11/26)
 
 | Caso de Teste | Conjunto         | Fonte de Dados                | Case                     | Acerto | Tempo de Execução | Tokens Consolidados (Entrada)  | Tokens Consolidados (Saída) | Tokens Consolidados (Total) |
 |:-----|:-----------------|:------------------------------|:-------------------------|:-------|:--------------------|:------|:----------|:-----|
@@ -92,9 +96,7 @@ Elaborado em: 10/11/2026
 | CT31 | Casos Sintéticos | Sintético (Hacker News)       | jailbreaking                                   |   OK   | 1.93s |2887 |164  | 3051 |
 | CT32 | Casos Sintéticos | Sintético (Hacker News)       | pii_secret_exposto                             |   OK   | 1.81s |2951 |170  | 3121 |
 
-### 4.2. Rodada de Teste 02 (10/11/26)
-
-#### Casos Reais
+### 4.2. Execução do Teste 02 (10/11/26)
 
 | Caso de Teste | Conjunto         | Fonte de Dados                | Case                     | Acerto | Tempo de Execução | Tokens Consolidados (Entrada)  | Tokens Consolidados (Saída) | Tokens Consolidados (Total) |
 |:-----|:-----------------|:------------------------------|:-------------------------|:-------|:--------------------|:------|:----------|:-----|
