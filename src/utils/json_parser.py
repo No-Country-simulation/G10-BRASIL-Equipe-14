@@ -1,24 +1,35 @@
 import json
-import re
+from typing import Any
+
+from src.config import CODE_FENCE_PATTERN
 
 
-def parse_llm_json(text: str) -> dict:
-    if not text or not isinstance(text, str):
+def remove_code_fence(text: str) -> str:
+    match = CODE_FENCE_PATTERN.match(text)
+
+    if match:
+        return match.group(1).strip()
+
+    return text.strip()
+
+
+def parse_llm_json(text: str) -> dict[str, Any]:
+    if not isinstance(text, str) or not text.strip():
         raise ValueError(
             "O texto fornecido para parsing está vazio ou não é uma string válida."
         )
 
-    text_clean = text.strip()
-
-    match = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", text_clean, re.DOTALL)
-    if match:
-        text_clean = match.group(1)
-    else:
-        text_clean = re.sub(r"^```(?:json)?\s*|\s*```$", "", text_clean)
+    text_clean = remove_code_fence(text)
 
     try:
-        return json.loads(text_clean)
-    except json.JSONDecodeError as e:
+        data: Any = json.loads(text_clean)
+    except json.JSONDecodeError as exc:
         raise ValueError(
-            f"Falha ao decodificar JSON da resposta do LLM: {e}. Texto recebido: {text_clean[:300]}"
-        ) from e
+            "Falha ao decodificar JSON da resposta do LLM: "
+            f"{exc.msg} (linha {exc.lineno}, coluna {exc.colno})."
+        ) from exc
+
+    if not isinstance(data, dict):
+        raise ValueError("A resposta do LLM deve ser um objeto JSON.")
+
+    return data
