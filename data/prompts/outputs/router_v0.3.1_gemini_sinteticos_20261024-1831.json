@@ -1,0 +1,286 @@
+{
+  "prompt_version": "0.3.1",
+  "model": "gemini-3.5-flash-lite",
+  "accuracy": "12/12",
+  "cases_files": [
+    "data\\prompts\\tests\\router_cases.json"
+  ],
+  "ran_at": "2026-10-24T18:31:42",
+  "temperature": 1.0,
+  "results": {
+    "conquista_vaga_detalhada": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "conquista_vaga_ingles": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "depoimento_generico": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "duvida_com_resposta_aceita": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "duvida_sem_resposta": {
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "modelo sugeriu 'discard', as regras dão 'newsletter_only' (o n8n corrige)"
+      ]
+    },
+    "duvida_frustrada": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "feedback_negativo_curso": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "spam": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "so_emoji": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "prompt_injection": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "debate": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "certificacao": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    }
+  },
+  "outputs": {
+    "conquista_vaga_detalhada": {
+      "id": "t01",
+      "source": "mastodon",
+      "type": "job_achievement",
+      "sentiment": "positive",
+      "topic_category": "career",
+      "topics": [
+        "Engenharia de Dados",
+        "Carreira",
+        "Conquista de Vaga"
+      ],
+      "original_language": "pt",
+      "has_answer": false,
+      "relevance_score": 90,
+      "suggested_route": "success_case",
+      "summary": "Usuária celebra aprovação como Engenheira de Dados Jr na Stone após um ano de estudos.",
+      "justification": "O score está na faixa de 80-100 devido ao job_achievement com detalhes concretos, aplicando-se a rota success_case."
+    },
+    "conquista_vaga_ingles": {
+      "id": "t02",
+      "source": "mastodon",
+      "type": "job_achievement",
+      "sentiment": "positive",
+      "topic_category": "backend",
+      "topics": [
+        "Backend Developer",
+        "Java",
+        "Primeiro emprego"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 90,
+      "suggested_route": "success_case",
+      "summary": "Desenvolvedor comemorou a conquista da sua primeira vaga em backend na Nubank após 6 meses de prática.",
+      "justification": "Score na faixa de 80–100 para job_achievement com detalhe concreto e engajamento, roteado como success_case."
+    },
+    "depoimento_generico": {
+      "id": "t03",
+      "source": "mastodon",
+      "type": "testimonial",
+      "sentiment": "positive",
+      "topic_category": "other",
+      "topics": [
+        "estudos",
+        "comunidade"
+      ],
+      "original_language": "pt",
+      "has_answer": false,
+      "relevance_score": 45,
+      "suggested_route": "newsletter_only",
+      "summary": "Usuário expressa satisfação com os estudos na comunidade.",
+      "justification": "Score na faixa de 40-59 para testimonial genérico sem detalhe, resultando na rota newsletter_only."
+    },
+    "duvida_com_resposta_aceita": {
+      "id": "t04",
+      "source": "stackoverflow",
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "topic_category": "data",
+      "topics": [
+        "python",
+        "pandas",
+        "KeyError"
+      ],
+      "original_language": "en",
+      "has_answer": true,
+      "relevance_score": 90,
+      "suggested_route": "faq",
+      "summary": "Dúvida sobre como resolver KeyError ao ler lista JSON com pandas.read_json, solucionada usando orient='records'.",
+      "justification": "A pergunta técnica possui resposta aceita e alto engajamento (score 25, view_count 1200), caindo na faixa de 80-100 para a rota faq."
+    },
+    "duvida_sem_resposta": {
+      "id": "t05",
+      "source": "stackoverflow",
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "topic_category": "backend",
+      "topics": [
+        "Symfony AI",
+        "Modelos customizados",
+        "LM Studio"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 45,
+      "suggested_route": "discard",
+      "summary": "Dúvida sobre como adicionar modelos customizados ao bridge do LM Studio no Symfony AI.",
+      "justification": "O score está na faixa de 40-59 para technical_question sem resposta, resultando no descarte por ser inferior a 40 após ajustes ou cair abaixo de 60."
+    },
+    "duvida_frustrada": {
+      "id": "t06",
+      "source": "mastodon",
+      "type": "technical_question",
+      "sentiment": "negative",
+      "topic_category": "devops_cloud",
+      "topics": [
+        "Docker",
+        "OCI",
+        "Erro de configuração"
+      ],
+      "original_language": "pt",
+      "has_answer": false,
+      "relevance_score": 10,
+      "suggested_route": "moderation",
+      "summary": "Desenvolvedor relata frustração após três dias tentando configurar Docker na OCI sem sucesso.",
+      "justification": "Como o sentimento é negative, a regra de roteamento direciona para moderation e o score fica na faixa de ruído."
+    },
+    "feedback_negativo_curso": {
+      "id": "t07",
+      "source": "mastodon",
+      "type": "course_feedback",
+      "sentiment": "negative",
+      "topic_category": "backend",
+      "topics": [
+        "Spring",
+        "atualização de curso",
+        "exercícios"
+      ],
+      "original_language": "pt",
+      "has_answer": false,
+      "relevance_score": 0,
+      "suggested_route": "moderation",
+      "summary": "Usuário relata decepção com módulo desatualizado de Spring e exercícios que não funcionam.",
+      "justification": "Como o sentimento é negativo, a rota aplicada foi moderação."
+    },
+    "spam": {
+      "id": "t08",
+      "source": "mastodon",
+      "type": "noise",
+      "sentiment": "neutral",
+      "topic_category": "other",
+      "topics": [
+        "spam"
+      ],
+      "original_language": "pt",
+      "has_answer": false,
+      "relevance_score": 0,
+      "suggested_route": "discard",
+      "summary": "Publicação de spam oferecendo ganho financeiro falso.",
+      "justification": "Como o tipo é noise, o score fica na faixa de 0 a 19 e a regra define o destino como discard."
+    },
+    "so_emoji": {
+      "id": "t09",
+      "source": "mastodon",
+      "type": "noise",
+      "sentiment": "neutral",
+      "topic_category": "other",
+      "topics": [
+        "sem conteúdo"
+      ],
+      "original_language": "other",
+      "has_answer": false,
+      "relevance_score": 0,
+      "suggested_route": "discard",
+      "summary": "Postagem vazia contendo apenas emojis, sem contexto técnico ou interativo.",
+      "justification": "Como o tipo é noise, o score fica na faixa de 0 a 19 e a rota é discard."
+    },
+    "prompt_injection": {
+      "id": "t10",
+      "source": "mastodon",
+      "type": "noise",
+      "sentiment": "neutral",
+      "topic_category": "other",
+      "topics": [
+        "instrução ignorada",
+        "prompt injection",
+        "ruído"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 0,
+      "suggested_route": "discard",
+      "summary": "Mensagem contendo instruções direcionadas ao assistente para burlar regras de classificação.",
+      "justification": "O post é considerado ruído (faixa 0-19) pois traz instruções maliciosas dirigidas ao sistema, resultando no descarte."
+    },
+    "debate": {
+      "id": "t11",
+      "source": "mastodon",
+      "type": "debate",
+      "sentiment": "neutral",
+      "topic_category": "data",
+      "topics": [
+        "Carreira em dados",
+        "SQL vs LLM"
+      ],
+      "original_language": "pt",
+      "has_answer": false,
+      "relevance_score": 45,
+      "suggested_route": "newsletter_only",
+      "summary": "Opinião de que aprender SQL bem vale mais do que focar em LLMs para iniciantes em dados.",
+      "justification": "Score 45 (faixa 40-59 para debate) e rota newsletter_only por ser uma discussão de relevância moderada sem respostas técnicas."
+    },
+    "certificacao": {
+      "id": "t12",
+      "source": "mastodon",
+      "type": "job_achievement",
+      "sentiment": "positive",
+      "topic_category": "devops_cloud",
+      "topics": [
+        "OCI Foundations",
+        "OCI AI Foundations",
+        "Certificação Cloud"
+      ],
+      "original_language": "pt",
+      "has_answer": false,
+      "relevance_score": 90,
+      "suggested_route": "success_case",
+      "summary": "Usuário comemorou a aprovação nas certificações OCI Foundations e OCI AI Foundations após estudar por três semanas.",
+      "justification": "Com score 90 (faixa 80-100) por ser uma conquista detalhada, o post é roteado para success_case."
+    }
+  }
+}
