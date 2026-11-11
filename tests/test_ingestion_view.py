@@ -112,6 +112,12 @@ def test_collect_items_reports_partial_failures_across_files(view):
 # --- send_items: status HTTP e falhas parciais -----------------------------------------------------------
 
 
+class FakeResponse:
+    def __init__(self, status_code):
+        self.status_code = status_code
+        self.text = ""
+
+
 def stub_send(monkeypatch, view, outcomes):
     calls = iter(outcomes)
 
@@ -119,7 +125,7 @@ def stub_send(monkeypatch, view, outcomes):
         outcome = next(calls)
         if isinstance(outcome, Exception):
             raise outcome
-        return outcome
+        return FakeResponse(outcome)
 
     monkeypatch.setattr(view, "send_to_ingestion", fake_send)
 

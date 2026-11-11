@@ -1,4 +1,5 @@
 import csv
+import hashlib
 import io
 import json
 from functools import lru_cache
@@ -117,5 +118,15 @@ def validate_input(records: list[dict[str, Any]], as_csv: bool = False) -> tuple
     return records, errors
 
 
-def send_to_ingestion(data: Any, url: str = N8N_INGESTION_WEBHOOK_URL) -> int:
-    return requests.post(url, json=data, timeout=N8N_REQUEST_TIMEOUT).status_code
+def idempotency_key(data: Any) -> str:
+    canonical = json.dumps(data, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
+def send_to_ingestion(data: Any, url: str | None = None) -> requests.Response:
+    return requests.post(
+        url or N8N_INGESTION_WEBHOOK_URL,
+        json=data,
+        headers={"Idempotency-Key": idempotency_key(data)},
+        timeout=N8N_REQUEST_TIMEOUT,
+    )

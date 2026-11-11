@@ -26,16 +26,28 @@ def test_parse_json_bad_encoding():
         parse_json(b"\xff\xfe\x00")
 
 
-def test_send_to_ingestion_returns_status_code(monkeypatch):
+def test_send_to_ingestion_returns_response_with_idempotency_key(monkeypatch):
     class Resp:
         status_code = 202
 
-    monkeypatch.setattr(ingestion.requests, "post", lambda url, json, timeout: Resp())
-    assert send_to_ingestion({"ok": 1}, "http://x") == 202
+    captured = {}
+
+    def fake_post(url, json, headers, timeout):
+        captured["headers"] = headers
+        return Resp()
+
+    monkeypatch.setattr(ingestion.requests, "post", fake_post)
+    assert send_to_ingestion({"ok": 1}, "http://x").status_code == 202
+    assert captured["headers"]["Idempotency-Key"] == ingestion.idempotency_key({"ok": 1})
+
+
+def test_idempotency_key_is_stable_across_key_order():
+    assert ingestion.idempotency_key({"a": 1, "b": 2}) == ingestion.idempotency_key({"b": 2, "a": 1})
+    assert ingestion.idempotency_key({"a": 1}) != ingestion.idempotency_key({"a": 2})
 
 
 def test_send_to_ingestion_propagates_network_errors(monkeypatch):
-    def fake_post(url, json, timeout):
+    def fake_post(url, json, headers, timeout):
         raise requests.ConnectionError("down")
 
     monkeypatch.setattr(ingestion.requests, "post", fake_post)
@@ -155,7 +167,7 @@ def test_default_webhook_url_is_used_when_none_given(monkeypatch):
     class Resp:
         status_code = 200
 
-    def fake_post(url, json, timeout):
+    def fake_post(url, json, headers, timeout):
         captured["url"] = url
         return Resp()
 

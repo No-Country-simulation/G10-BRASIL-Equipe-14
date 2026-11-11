@@ -69,17 +69,18 @@ def send_items(items: list[tuple[str, list[dict[str, Any]]]]) -> tuple[int, int]
             for index, payload in enumerate(payloads, start=1):
                 label = name if len(payloads) == 1 else f"{name}, registro {index}"
                 try:
-                    status = send_to_ingestion(payload)
+                    response = send_to_ingestion(payload)
                 except requests.RequestException:
                     logger.exception("Ingestion service unavailable while sending %r", label)
                     failed += 1
                     st.error(f"{label}: falha de comunicação com o serviço.")
                     continue
+                status = response.status_code
                 if requests.codes.ok <= status < requests.codes.multiple_choices:
                     sent += 1
                     st.success(f"{label}: enviado.")
                 else:
-                    logger.error("Ingestion failed for %r: HTTP %s", label, status)
+                    logger.error("Ingestion failed for %r: HTTP %s: %.500s", label, status, response.text)
                     failed += 1
                     st.error(f"{label}: falha no envio.")
                     st.caption(f"Status HTTP recebido: {status}")
