@@ -4,7 +4,7 @@ from collections.abc import Callable
 import streamlit as st
 import streamlit_shadcn_ui as ui
 
-from src.config import PROCESSING_SECONDS
+from src.config import PROCESSING_SECONDS, SCORE_TIP
 from src.services.community_sources import list_community_sources
 
 def go_to_curation(batch_id: str) -> None:
@@ -20,14 +20,14 @@ def render_community_source_card(batch: dict, on_open_curation: Callable[[str], 
         st.caption(f"Período de referência: {start} → {end}")
 
         figures = [
-            ("Interações", batch["interactions"]),
-            ("Autores únicos", batch["authors"]),
-            ("Com conteúdo", batch["with_content"]),
-            ("Score médio", f"{batch['avg_score']:.1f}"),
+            ("Interações", batch["interactions"], None),
+            ("Autores únicos", batch["authors"], None),
+            ("Com conteúdo", batch["with_content"], None),
+            ("Score médio", f"{batch['avg_score']:.1f}", SCORE_TIP),
         ]
-        for col, (label, value) in zip(st.columns(len(figures)), figures):
+        for col, (label, value, tip) in zip(st.columns(len(figures)), figures):
             with col:
-                ui.metric_card(label=label, value=str(value), key=f"s_{batch['id']}_{label}")
+                st.metric(label, value, help=tip, border=True)
 
         st.markdown("**Principais tags**")
         ui.badges([(f"{tag} ({n})", "secondary") for tag, n in batch["top_tags"]], key=f"tags_{batch['id']}")
@@ -36,7 +36,7 @@ def render_community_source_card(batch: dict, on_open_curation: Callable[[str], 
         processed = st.session_state["processed_batches"]
         with st.container(horizontal=True, gap="xsmall"):
             st.link_button("Abrir fonte", batch["url"])
-            started = st.button("Iniciar processamento", key=f"process_{batch['id']}")
+            started = st.button("Iniciar processamento", key=f"process_{batch['id']}", type="primary")
             open_curation = batch["id"] in processed and st.button(
                 "Ver na Curadoria", key=f"curation_{batch['id']}"
             )

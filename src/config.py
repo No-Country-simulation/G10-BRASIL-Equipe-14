@@ -1,9 +1,15 @@
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Configuração de diretórios relativos
 SRC_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SRC_DIR.parent
+
+ENV_PATH = PROJECT_ROOT / ".env"
+if ENV_PATH.exists():
+    load_dotenv(ENV_PATH)
+
 DATA_DIR = PROJECT_ROOT / "data"
 RAW_DATA_DIR = DATA_DIR / "raw"
 PROMPTS_DATA_DIR = DATA_DIR / "prompts"
@@ -117,3 +123,19 @@ ENGAGEMENT_BADGES = {
     "medium": ("📊 engajamento médio", "secondary"),
     "high": ("🔥 engajamento alto", "default"),
 }
+
+N8N_BASE_URL = os.getenv("N8N_BASE_URL", "http://localhost:5678").rstrip("/")
+N8N_INGESTION_WEBHOOK_PATH = os.getenv("N8N_INGESTION_WEBHOOK_PATH", "webhook/ingestion").strip("/")
+N8N_INGESTION_WEBHOOK_URL = os.getenv("N8N_INGESTION_WEBHOOK_URL") or f"{N8N_BASE_URL}/{N8N_INGESTION_WEBHOOK_PATH}"
+N8N_REQUEST_TIMEOUT = float(os.getenv("N8N_REQUEST_TIMEOUT", "30"))
+
+CSV_DELIMITERS = ",;\t|"
+INGESTION_TEXT_AREA_NAME = "texto colado"
+MAX_INGESTION_TEXT_CHARS = 10_000
+MAX_UPLOAD_FILE_COUNT = 10
+MAX_UPLOAD_FILE_SIZE_MB = 10
+MAX_UPLOAD_FILE_SIZE_BYTES = MAX_UPLOAD_FILE_SIZE_MB * 1024 * 1024
+MAX_TOTAL_UPLOAD_SIZE_MB = 100
+MAX_TOTAL_UPLOAD_SIZE_BYTES = MAX_TOTAL_UPLOAD_SIZE_MB * 1024 * 1024
+
+SCORE_TIP = "Média do score de relevância (0–100) das interações do lote."
