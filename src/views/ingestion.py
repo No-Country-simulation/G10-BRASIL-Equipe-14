@@ -115,8 +115,9 @@ def render_send_summary(sent: int, failed: int) -> None:
 def confirm_send(items: list[tuple[str, list[dict[str, Any]]]], signature: str) -> None:
     total = sum(len(records) for _, records in items)
     st.write(f"Enviar **{len(items)}** item(ns) com **{total}** registro(s) para a ingestão?")
-    for name, _ in items:
-        st.markdown(f"- {name}")
+    with st.expander("Ver fontes"):
+        for name, records in items:
+            st.markdown(f"- {name} — {len(records)} registro(s)")
     actions = st.empty()
     with actions.container(horizontal=True):
         confirmed = st.button("Confirmar envio", type="primary", key="ingestion_confirm")
