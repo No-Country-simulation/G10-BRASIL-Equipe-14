@@ -164,8 +164,9 @@ def render_ingestion() -> None:
     preview_col, send_col = st.columns(2)
     previewed = preview_col.button("Pré-visualizar", width="stretch")
     already_sent = st.session_state.get(SENT_SIGNATURE_KEY) == signature
+    send_label = "Enviado — altere os dados para reenviar" if already_sent else "Enviar dados"
     submitted = send_col.button(
-        "✓ Enviado — altere a entrada para reenviar" if already_sent else "Enviar dados",
+        send_label,
         type="primary",
         width="stretch",
         disabled=preview is None or already_sent,
