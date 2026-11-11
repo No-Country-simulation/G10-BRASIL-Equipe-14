@@ -7,6 +7,7 @@ import streamlit as st
 
 from src.config import (
     INGESTION_TEXT_AREA_NAME,
+    MAX_INGESTION_TEXT_CHARS,
     MAX_UPLOAD_FILE_COUNT,
     MAX_UPLOAD_FILE_SIZE_BYTES,
     MAX_UPLOAD_FILE_SIZE_MB,
@@ -147,10 +148,12 @@ def render_ingestion() -> None:
     text = st.text_area(
         "Ou cole os dados no formato JSON ou CSV",
         height=250,
+        max_chars=MAX_INGESTION_TEXT_CHARS,
         help=(
             "Cole um objeto ou lista JSON, ou um CSV com cabeçalho na primeira linha "
             "(separadores aceitos: vírgula, ponto e vírgula, tab ou barra vertical). "
-            "Se também enviar arquivos, o texto colado é tratado como mais um item."
+            "Se também enviar arquivos, o texto colado é tratado como mais um item. "
+            f"Limite de {MAX_INGESTION_TEXT_CHARS:,} caracteres.".replace(",", ".")
         ),
         placeholder='{"id": "...", "source": "..."}  ou  id,source,url',
     )

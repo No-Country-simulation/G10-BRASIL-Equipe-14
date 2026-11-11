@@ -247,3 +247,10 @@ def test_send_button_is_disabled_for_already_sent_input():
 def test_send_button_is_enabled_for_new_input_after_a_send():
     at = run_page(json.dumps({**VALID_RECORD, "id": "2"}), sent_text=json.dumps(VALID_RECORD))
     assert send_button(at).label == "Enviar dados" and not send_button(at).disabled
+
+
+def test_text_area_applies_max_chars_limit():
+    from src.config import MAX_INGESTION_TEXT_CHARS
+
+    at = run_page_without_preview()
+    assert at.text_area[0].max_chars == MAX_INGESTION_TEXT_CHARS
