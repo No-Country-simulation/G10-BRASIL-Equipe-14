@@ -133,10 +133,7 @@ def confirm_send(items: list[tuple[str, list[dict[str, Any]]]], signature: str) 
 
 
 def render_errors(errors: list[str]) -> None:
-    if len(errors) == 1:
-        st.error("JSON ou CSV inválido.")
-    else:
-        st.error(f"{len(errors)} JSON ou CSV inválidos.")
+    st.error("Não foi possível validar a entrada.")
     with st.expander("Ver detalhes", expanded=True):
         for error in errors:
             st.markdown(f"- {error}")
