@@ -32,11 +32,19 @@ def _load_schema() -> dict:
 
 def _latest_pacote(client, bucket: str, prefix: str):
     """Retorna (nome, sha256) do pacote mais recente da semana, ou None."""
-    objects = client.list_objects(OCI_NAMESPACE, bucket, prefix=prefix).data.objects
+    # Erros reais (permissão, bucket inexistente) propagam de propósito:
+    # engolir a exceção faria o publish regravar um pacote já existente.
+    objects = client.list_objects(
+        OCI_NAMESPACE, bucket, prefix=prefix,
+        retry_strategy=oci.retry.DEFAULT_RETRY_STRATEGY,
+    ).data.objects
     if not objects:
         return None
     latest = max(objects, key=lambda o: o.name)  # timestamp de largura fixa ordena como texto
-    head = client.head_object(OCI_NAMESPACE, bucket, latest.name)
+    head = client.head_object(
+        OCI_NAMESPACE, bucket, latest.name,
+        retry_strategy=oci.retry.DEFAULT_RETRY_STRATEGY,
+    )
     return latest.name, head.headers.get("opc-meta-sha256")
 
 def publish_package(payload: dict, week: str | None = None, client=None,
