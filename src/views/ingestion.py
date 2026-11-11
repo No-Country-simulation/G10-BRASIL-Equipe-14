@@ -204,6 +204,7 @@ def render_ingestion() -> None:
 
     if submitted:
         confirm_send(preview["items"], signature)
+    st.success("Dados validados e prontos para envio.")
     render_preview(preview["items"])
 
 

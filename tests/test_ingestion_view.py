@@ -240,6 +240,14 @@ def test_send_button_is_enabled_after_valid_preview():
     assert send_button(at).label == "Enviar dados"
 
 
+def test_valid_preview_shows_ready_message_until_input_changes():
+    at = run_page(json.dumps(VALID_RECORD))
+    assert any("prontos para envio" in s.value for s in at.success)
+    at.text_area[0].set_value(json.dumps({**VALID_RECORD, "id": "2"}))
+    at.run()
+    assert not any("prontos para envio" in s.value for s in at.success)
+
+
 def test_send_button_stays_disabled_after_invalid_preview():
     at = run_page("{oops")
     assert send_button(at).disabled
