@@ -116,6 +116,21 @@ def test_collect_items_rejects_too_many_files(view):
     assert any("no máximo" in error for error in errors)
 
 
+def test_collect_items_rejects_total_size_above_limit(view, monkeypatch):
+    monkeypatch.setattr(view, "MAX_TOTAL_UPLOAD_SIZE_BYTES", 100)
+    files = [make_file(f"{i}.json", json.dumps(VALID_RECORD), size=60) for i in range(2)]
+    items, errors = view.collect_items(files, "")
+    assert items == []
+    assert len(errors) == 1 and "tamanho total" in errors[0]
+
+
+def test_collect_items_accepts_total_size_at_limit(view, monkeypatch):
+    monkeypatch.setattr(view, "MAX_TOTAL_UPLOAD_SIZE_BYTES", 120)
+    files = [make_file(f"{i}.json", json.dumps(VALID_RECORD), size=60) for i in range(2)]
+    items, errors = view.collect_items(files, "")
+    assert errors == [] and len(items) == 2
+
+
 def test_collect_items_accepts_exactly_the_file_limit(view):
     files = [make_file(f"{index}.json", json.dumps(VALID_RECORD)) for index in range(MAX_UPLOAD_FILE_COUNT)]
     items, errors = view.collect_items(files, "")

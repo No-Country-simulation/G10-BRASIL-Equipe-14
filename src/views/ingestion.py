@@ -9,6 +9,8 @@ from src.config import (
     INGESTION_TEXT_AREA_NAME,
     MAX_INGESTION_TEXT_CHARS,
     MAX_UPLOAD_FILE_COUNT,
+    MAX_TOTAL_UPLOAD_SIZE_BYTES,
+    MAX_TOTAL_UPLOAD_SIZE_MB,
     MAX_UPLOAD_FILE_SIZE_BYTES,
     MAX_UPLOAD_FILE_SIZE_MB,
 )
@@ -44,6 +46,9 @@ def collect_items(files: list, text: str) -> tuple[list[tuple[str, list[dict[str
     errors: list[str] = []
     if files and len(files) > MAX_UPLOAD_FILE_COUNT:
         return items, [f"Envie no máximo {MAX_UPLOAD_FILE_COUNT} arquivos por vez (recebidos: {len(files)})."]
+    total_size = sum(f.size for f in files or [])
+    if total_size > MAX_TOTAL_UPLOAD_SIZE_BYTES:
+        return items, [f"O tamanho total dos arquivos excede o limite de {MAX_TOTAL_UPLOAD_SIZE_MB} MB."]
     sources = []
     for f in files or []:
         if f.size > MAX_UPLOAD_FILE_SIZE_BYTES:
@@ -143,7 +148,11 @@ def render_ingestion() -> None:
         "Adicione os arquivos JSON ou CSV",
         type=["json", "csv"],
         accept_multiple_files=True,
-        help=f"Até {MAX_UPLOAD_FILE_COUNT} arquivos, com tamanho máximo de {MAX_UPLOAD_FILE_SIZE_MB} MB cada.",
+        help=(
+            f"Tamanho máximo por arquivo: {MAX_UPLOAD_FILE_SIZE_MB} MB. "
+            f"Limite de arquivos: {MAX_UPLOAD_FILE_COUNT}. "
+            f"Tamanho total máximo: {MAX_TOTAL_UPLOAD_SIZE_MB} MB."
+        ),
     )
     text = st.text_area(
         "Ou cole os dados no formato JSON ou CSV",
