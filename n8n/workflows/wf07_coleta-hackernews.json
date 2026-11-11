@@ -6,8 +6,8 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        0,
-        -16
+        -80,
+        -96
       ],
       "id": "23a1aa92-2830-44c5-8a0f-8f079701a1c6",
       "name": "When clicking ‘Execute workflow’"
@@ -17,14 +17,14 @@
         "operation": "toJson",
         "options": {
           "format": true,
-          "fileName": "={{ 'hackernews_' +\n  String(\n    $('If').first().json.body?.query ??\n    $('If').first().json.query?.query ??\n    $('If').first().json.query ??\n    'sem_tema'\n  ).trim().replace(/[^a-zA-Z0-9_-]+/g, '') +\n  '_' + $execution.id + '.json'\n}}"
+          "fileName": "={{\n  (() => {\n    const input = $('If').first().json;\n    const value =\n      input.body?.query ??\n      input.query?.query ??\n      input.query;\n\n    const theme = typeof value === 'string' ? value.trim() : '';\n\n    return 'hackernews_' +\n      theme.replace(/[^a-zA-Z0-9_-]+/g, '') +\n      '.json';\n  })()\n}}"
         }
       },
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
-        2240,
-        -112
+        3056,
+        -288
       ],
       "id": "29ab2ef8-e5c8-4dd5-8b7e-ccceb365be04",
       "name": "Convert to File"
@@ -42,8 +42,8 @@
       "type": "n8n-nodes-base.s3",
       "typeVersion": 1,
       "position": [
-        2464,
-        -112
+        3280,
+        -288
       ],
       "id": "f1a91f95-3e86-4184-b877-f1d21c9eae47",
       "name": "Upload a file",
@@ -61,18 +61,25 @@
       "parameters": {
         "httpMethod": "POST",
         "path": "wf07-hacker-news-search",
+        "authentication": "headerAuth",
         "responseMode": "responseNode",
         "options": {}
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        224,
-        176
+        144,
+        96
       ],
       "id": "9559eb93-f1b5-4ddb-a446-ed94267f5e44",
       "name": "Webhook",
-      "webhookId": "4cb5e69f-07c2-4bf9-9e76-faae494a09ee"
+      "webhookId": "4cb5e69f-07c2-4bf9-9e76-faae494a09ee",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "QNmmh3RzZbp9CXSq",
+          "name": "Hackathon CommunityLab"
+        }
+      }
     },
     {
       "parameters": {
@@ -86,7 +93,7 @@
           "conditions": [
             {
               "id": "3bc6f3b6-875f-413d-84c3-fd8db7c4fd9b",
-              "leftValue": "={{ String($json.body?.query ?? $json.query?.query ?? $json.query ?? '').trim() }}",
+              "leftValue": "={{\n  (() => {\n    const value =\n      $json.body?.query ??\n      $json.query?.query ??\n      $json.query;\n\n    return typeof value === 'string' ? value.trim() : '';\n  })()\n}}",
               "rightValue": "",
               "operator": {
                 "type": "string",
@@ -102,8 +109,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        448,
-        80
+        368,
+        0
       ],
       "id": "77b77e77-db61-49db-8143-c6b8de07ca2b",
       "name": "If"
@@ -116,15 +123,11 @@
           "parameters": [
             {
               "name": "query",
-              "value": "={{ String($json.body?.query ?? $json.query?.query ?? $json.query ?? '').trim() || (() => { throw new Error('O parâmetro query é obrigatório e não pode estar vazio.') })() }}"
+              "value": "={{\n  (() => {\n    const value =\n      $json.body?.query ??\n      $json.query?.query ??\n      $json.query;\n\n    return typeof value === 'string' ? value.trim() : '';\n  })()\n}}"
             },
             {
               "name": "tags",
               "value": "={{ $json.body?.type ?? $json.query?.type ?? $json.type ?? 'story' }}"
-            },
-            {
-              "name": "hitsPerPage",
-              "value": "={{ Math.min(100, Math.max(1, Number($json.body?.limit ?? $json.query?.limit ?? $json.limit) || 100)) }}"
             },
             {
               "name": "numericFilters",
@@ -143,8 +146,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.5,
       "position": [
-        672,
-        -16
+        592,
+        -96
       ],
       "id": "d519a233-85e6-4976-864b-0659bfc74842",
       "name": "Search Hacker News",
@@ -163,8 +166,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        672,
-        176
+        592,
+        96
       ],
       "id": "0b1e5fd1-a182-4ebf-917f-a8f29993d795",
       "name": "Invalid Query return"
@@ -180,8 +183,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        2688,
-        -208
+        3504,
+        -384
       ],
       "id": "4fe08195-2bd8-470a-a9a7-3b450e25dbf7",
       "name": "Valid Hacker News Research return"
@@ -197,8 +200,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        896,
-        80
+        816,
+        0
       ],
       "id": "9eddbb22-924c-435c-84d7-576ca6fda351",
       "name": "Algolia Error Response"
@@ -214,8 +217,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        2688,
-        -16
+        3504,
+        -192
       ],
       "id": "7da2c257-1462-44dc-882e-6f15ad0a2509",
       "name": "OCI Upload Error Response"
@@ -259,12 +262,6 @@
               "name": "maxCommentsPerStory",
               "value": "50",
               "type": "number"
-            },
-            {
-              "id": "0451a389-ade9-4599-b07f-ef68bffa95b9",
-              "name": "maxDepth",
-              "value": "2",
-              "type": "number"
             }
           ]
         },
@@ -273,8 +270,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.5,
       "position": [
-        224,
-        -16
+        144,
+        -96
       ],
       "id": "92cd5044-2665-45db-aa20-9d11c2e00141",
       "name": "Set Test Parameters"
@@ -293,8 +290,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.5,
       "position": [
-        1120,
-        -112
+        1712,
+        -288
       ],
       "id": "f765a08a-c947-4d52-bd36-0c976193521e",
       "name": "Consult Publication"
@@ -307,11 +304,228 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        896,
-        -112
+        816,
+        -192
       ],
       "id": "2c10fb1b-d533-4e5a-96c6-b196308274fa",
-      "name": "Split Out Hits"
+      "name": "Split Out Hits",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ac5ed1c6-c673-4210-9ebd-b23f25a5244f",
+              "name": "pub_story_id",
+              "value": "={{ $json.id }}",
+              "type": "number"
+            },
+            {
+              "id": "026b123a-9ef9-45bf-9d5c-dcb5398e3470",
+              "name": "pub_story_title",
+              "value": "={{ $json.title ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "3945b621-eed3-4fda-8ecb-b05c94960968",
+              "name": "pub_depth",
+              "value": 3,
+              "type": "number"
+            },
+            {
+              "id": "9311a977-a12e-401f-b185-91d8350a0454",
+              "name": "comment_id",
+              "value": "={{\n  (() => {\n    const input = $('If').first().json;\n    const value = Number(\n      input.body?.maxCommentsPerStory ??\n      input.query?.maxCommentsPerStory ??\n      input.maxCommentsPerStory ??\n      50\n    );\n\n    const limit = Number.isFinite(value)\n      ? Math.min(50, Math.max(1, Math.floor(value)))\n      : 50;\n\n    return Array.isArray($json.kids)\n      ? $json.kids.slice(0, limit)\n      : [];\n  })()\n}}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1936,
+        -192
+      ],
+      "id": "56eebfad-b33f-4cd7-bc10-6928b0099afb",
+      "name": "Prepare comments"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "comment_id",
+        "include": "allOtherFields",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        2160,
+        -192
+      ],
+      "id": "c9583d6d-20ae-4181-9234-47881dcb9906",
+      "name": "Split Out comments"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "10664eaa-2d2a-46a4-a02f-333bf178b93d",
+              "name": "comment_id",
+              "value": "={{ $json.id }}",
+              "type": "number"
+            },
+            {
+              "id": "8476c7bc-d2ae-4e13-b528-2fe0e8596429",
+              "name": "comment_author",
+              "value": "={{ $json.by }}",
+              "type": "string"
+            },
+            {
+              "id": "fc54e83c-fa30-440a-aa9a-4e34cd838ce5",
+              "name": "comment_kids",
+              "value": "={{ $json.kids }}",
+              "type": "array"
+            },
+            {
+              "id": "70827948-1bd0-49e1-a777-b94a98efc0c6",
+              "name": "comment_text",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            },
+            {
+              "id": "0a8007c5-2661-4253-9869-b436d678924f",
+              "name": "comment_time",
+              "value": "={{ $json.time }}",
+              "type": "number"
+            },
+            {
+              "id": "59f03509-3f6e-4959-9c69-92cd0163869d",
+              "name": "comment_type",
+              "value": "={{ $json.type }}",
+              "type": "string"
+            },
+            {
+              "id": "92db5b9f-9884-4e39-8f27-eff5bfd5d89e",
+              "name": "comment_parent",
+              "value": "={{ $json.parent }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        2608,
+        -192
+      ],
+      "id": "c506e20f-5dcd-49a2-9390-85d7ed22cd4a",
+      "name": "Add context"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ac5ed1c6-c673-4210-9ebd-b23f25a5244f",
+              "name": "pub_story_id",
+              "value": "={{ $json.id }}",
+              "type": "number"
+            },
+            {
+              "id": "026b123a-9ef9-45bf-9d5c-dcb5398e3470",
+              "name": "pub_story_title",
+              "value": "={{ $json.title ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "3945b621-eed3-4fda-8ecb-b05c94960968",
+              "name": "pub_depth",
+              "value": "1",
+              "type": "number"
+            },
+            {
+              "id": "9311a977-a12e-401f-b185-91d8350a0454",
+              "name": "comment_id",
+              "value": "={{ $json.kids ?? [] }}",
+              "type": "array"
+            },
+            {
+              "id": "a932a704-1ce6-484b-a84f-f3bfe0aac0ca",
+              "name": "pub_maxComments",
+              "value": "={{ Array.isArray($json.kids) ? $json.kids.length : 0 }}",
+              "type": "number"
+            },
+            {
+              "id": "e89a1b92-9194-401a-8d6c-a897e76096cf",
+              "name": "pub_score",
+              "value": "={{ $json.score }}",
+              "type": "number"
+            },
+            {
+              "id": "1a174d08-6e87-46b5-a66e-84125229b151",
+              "name": "pub_time",
+              "value": "={{ $json.time }}",
+              "type": "number"
+            },
+            {
+              "id": "0b400339-62d4-4915-b83c-5cded5faa55a",
+              "name": "pub_url",
+              "value": "={{ $json.url }}",
+              "type": "string"
+            },
+            {
+              "id": "b77003e1-9abd-4859-9eaa-f4918bf276bd",
+              "name": "pub_author",
+              "value": "={{ $json.by }}",
+              "type": "string"
+            },
+            {
+              "id": "d9c74512-2b0e-41d7-a2f9-414416b04a2c",
+              "name": "pub_text",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        2608,
+        -384
+      ],
+      "id": "17339d45-e443-4cc9-b070-08144d6cc284",
+      "name": "Prepare publication"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "advanced": true,
+        "mergeByFields": {
+          "values": [
+            {
+              "field1": "pub_story_id",
+              "field2": "comment_parent"
+            }
+          ]
+        },
+        "joinMode": "enrichInput1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        2832,
+        -288
+      ],
+      "id": "14846ed7-2cd5-4edc-8a64-94899dcc2b47",
+      "name": "Merge"
     },
     {
       "parameters": {
@@ -327,109 +541,120 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.5,
       "position": [
-        1792,
-        -112
+        2384,
+        -192
       ],
       "id": "9bf88f4b-32c3-4728-a03f-44e0bb110568",
-      "name": "HTTP Request"
+      "name": "HTTP Request Comments"
     },
     {
       "parameters": {
-        "assignments": {
-          "assignments": [
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
             {
-              "id": "ac5ed1c6-c673-4210-9ebd-b23f25a5244f",
-              "name": "story_id",
-              "value": "={{ $json.id }}",
-              "type": "number"
+              "id": "5c38d116-d6c1-4b95-b5f0-cf03351d6179",
+              "leftValue": "={{ $json._highlightResult?.story_text }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "exists",
+                "singleValue": true
+              }
             },
             {
-              "id": "026b123a-9ef9-45bf-9d5c-dcb5398e3470",
-              "name": "story_title",
-              "value": "={{ $json.title ?? '' }}",
-              "type": "string"
-            },
-            {
-              "id": "3945b621-eed3-4fda-8ecb-b05c94960968",
-              "name": "depth",
-              "value": "1",
-              "type": "number"
-            },
-            {
-              "id": "9311a977-a12e-401f-b185-91d8350a0454",
-              "name": "comment_id",
-              "value": "={{ $json.kids ?? [] }}",
-              "type": "array"
-            },
-            {
-              "id": "a932a704-1ce6-484b-a84f-f3bfe0aac0ca",
-              "name": "maxCommentsPerStory",
-              "value": "2",
-              "type": "number"
+              "id": "17aa483f-e361-4c74-b34d-fed2431ab4f3",
+              "leftValue": "={{ $json._highlightResult?.story_text }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
             }
-          ]
+          ],
+          "combinator": "and"
         },
         "options": {}
       },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.5,
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
       "position": [
-        1344,
-        -112
+        1040,
+        -192
       ],
-      "id": "56eebfad-b33f-4cd7-bc10-6928b0099afb",
-      "name": "Prepare comments"
+      "id": "fa283bbf-45c5-476d-9af5-1d87ae827057",
+      "name": "Filter",
+      "alwaysOutputData": true
     },
     {
       "parameters": {
-        "fieldToSplitOut": "comment_id",
-        "include": "allOtherFields",
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "e8c61628-d030-4e22-ad51-194d0c6b870a",
+              "leftValue": "={{ $json.objectID !== undefined && $json.objectID !== null }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
         "options": {}
       },
-      "type": "n8n-nodes-base.splitOut",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1264,
+        -192
+      ],
+      "id": "ae683831-f3ae-4022-9014-a7561eacbecf",
+      "name": "Has Eligible Publication"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"success\": true,\n  \"message\": \"Nenhuma publicação elegível encontrada. Nenhum arquivo foi armazenado.\"\n}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1488,
+        -96
+      ],
+      "id": "0481dc74-dd43-4845-826a-daa8c4f3a1d9",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "maxItems": "={{\n  (() => {\n    const input = $('If').first().json;\n    const value = Number(\n      input.body?.limit ??\n      input.query?.limit ??\n      input.limit ??\n      2\n    );\n\n    return Number.isFinite(value)\n      ? Math.min(20, Math.max(1, Math.floor(value)))\n      : 2;\n  })()\n}}"
+      },
+      "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        1568,
-        -112
+        1488,
+        -288
       ],
-      "id": "c9583d6d-20ae-4181-9234-47881dcb9906",
-      "name": "Split Out comments"
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "10664eaa-2d2a-46a4-a02f-333bf178b93d",
-              "name": "story_id",
-              "value": "={{ $('Split Out comments').item.json.story_id }}",
-              "type": "number"
-            },
-            {
-              "id": "8476c7bc-d2ae-4e13-b528-2fe0e8596429",
-              "name": "story_title",
-              "value": "={{ $('Split Out comments').item.json.story_title }}",
-              "type": "string"
-            },
-            {
-              "id": "3bd90f47-37c7-45de-ac87-8a03590d7c68",
-              "name": "depth",
-              "value": "={{ $('Split Out comments').item.json.depth }}",
-              "type": "number"
-            }
-          ]
-        },
-        "includeOtherFields": true,
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.5,
-      "position": [
-        2016,
-        -112
-      ],
-      "id": "c506e20f-5dcd-49a2-9390-85d7ed22cd4a",
-      "name": "Add context"
+      "id": "dc3f3c80-d4a5-439b-8230-d9cf90ed2c8c",
+      "name": "Limit"
     }
   ],
   "pinData": {},
@@ -539,6 +764,11 @@
             "node": "Prepare comments",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Prepare publication",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -547,18 +777,7 @@
       "main": [
         [
           {
-            "node": "Consult Publication",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "HTTP Request": {
-      "main": [
-        [
-          {
-            "node": "Add context",
+            "node": "Filter",
             "type": "main",
             "index": 0
           }
@@ -580,7 +799,7 @@
       "main": [
         [
           {
-            "node": "HTTP Request",
+            "node": "HTTP Request Comments",
             "type": "main",
             "index": 0
           }
@@ -591,7 +810,80 @@
       "main": [
         [
           {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Prepare publication": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
             "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request Comments": {
+      "main": [
+        [
+          {
+            "node": "Add context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Has Eligible Publication",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Eligible Publication": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Consult Publication",
             "type": "main",
             "index": 0
           }
@@ -607,7 +899,7 @@
     "callerPolicy": "workflowsFromSameOwner",
     "availableInMCP": true
   },
-  "versionId": "05db6f3d-a9fb-4e75-be29-a8af5a77bea3",
+  "versionId": "dc03f81e-a945-4226-9066-705e7353ec74",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
