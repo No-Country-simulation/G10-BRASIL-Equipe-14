@@ -5,12 +5,18 @@ from typing import Any
 import requests
 import streamlit as st
 
-from src.config import INGESTION_TEXT_AREA_NAME, MAX_UPLOAD_FILE_SIZE_BYTES, MAX_UPLOAD_FILE_SIZE_MB
+from src.config import (
+    INGESTION_TEXT_AREA_NAME,
+    MAX_UPLOAD_FILE_COUNT,
+    MAX_UPLOAD_FILE_SIZE_BYTES,
+    MAX_UPLOAD_FILE_SIZE_MB,
+)
 from src.services.ingestion import parse_input, parse_pasted_text_with_format, send_to_ingestion, validate_input
 
 logger = logging.getLogger(__name__)
 
 SENT_SIGNATURE_KEY = "ingestion_sent_signature"
+PREVIEW_KEY = "ingestion_preview"
 
 
 def _validate(data: list[dict[str, Any]], as_csv: bool) -> list[dict[str, Any]]:
@@ -35,6 +41,8 @@ def input_signature(files: list, text: str) -> str:
 def collect_items(files: list, text: str) -> tuple[list[tuple[str, list[dict[str, Any]]]], list[str]]:
     items: list[tuple[str, list[dict[str, Any]]]] = []
     errors: list[str] = []
+    if files and len(files) > MAX_UPLOAD_FILE_COUNT:
+        return items, [f"Envie no máximo {MAX_UPLOAD_FILE_COUNT} arquivos por vez (recebidos: {len(files)})."]
     sources = []
     for f in files or []:
         if f.size > MAX_UPLOAD_FILE_SIZE_BYTES:
@@ -117,58 +125,72 @@ def confirm_send(items: list[tuple[str, list[dict[str, Any]]]], signature: str) 
             st.session_state[SENT_SIGNATURE_KEY] = signature
 
 
+def render_errors(errors: list[str]) -> None:
+    if len(errors) == 1:
+        st.error("JSON ou CSV inválido.")
+    else:
+        st.error(f"{len(errors)} JSON ou CSV inválidos.")
+    with st.expander("Ver detalhes", expanded=True):
+        for error in errors:
+            st.markdown(f"- {error}")
+
+
 def render_ingestion() -> None:
     st.header("Ingestão de dados")
 
-    with st.form("ingestion_form"):
-        files = st.file_uploader(
-            "Adicione os arquivos JSON ou CSV",
-            type=["json", "csv"],
-            accept_multiple_files=True,
-            help=f"Tamanho máximo por arquivo: {MAX_UPLOAD_FILE_SIZE_MB} MB.",
-        )
-        text = st.text_area(
-            "Ou cole os dados no formato JSON ou CSV",
-            height=250,
-            help=(
-                "Cole um objeto ou lista JSON, ou um CSV com cabeçalho na primeira linha "
-                "(separadores aceitos: vírgula, ponto e vírgula, tab ou barra vertical). "
-                "Se também enviar arquivos, o texto colado é tratado como mais um item."
-            ),
-            placeholder='{"id": "...", "source": "..."}  ou  id,source,url',
-        )
-        preview_col, send_col = st.columns(2)
-        previewed = preview_col.form_submit_button("Pré-visualizar", width="stretch")
-        already_sent = st.session_state.get(SENT_SIGNATURE_KEY) == input_signature(files, text)
-        submitted = send_col.form_submit_button(
-            "✓ Enviado — altere a entrada para reenviar" if already_sent else "Validar e enviar",
-            type="primary",
-            width="stretch",
-            disabled=already_sent,
-        )
+    files = st.file_uploader(
+        "Adicione os arquivos JSON ou CSV",
+        type=["json", "csv"],
+        accept_multiple_files=True,
+        help=f"Até {MAX_UPLOAD_FILE_COUNT} arquivos, com tamanho máximo de {MAX_UPLOAD_FILE_SIZE_MB} MB cada.",
+    )
+    text = st.text_area(
+        "Ou cole os dados no formato JSON ou CSV",
+        height=250,
+        help=(
+            "Cole um objeto ou lista JSON, ou um CSV com cabeçalho na primeira linha "
+            "(separadores aceitos: vírgula, ponto e vírgula, tab ou barra vertical). "
+            "Se também enviar arquivos, o texto colado é tratado como mais um item."
+        ),
+        placeholder='{"id": "...", "source": "..."}  ou  id,source,url',
+    )
+    signature = input_signature(files, text)
 
-    if not (previewed or submitted):
-        return
+    preview = st.session_state.get(PREVIEW_KEY)
+    if preview and preview["signature"] != signature:
+        st.session_state.pop(PREVIEW_KEY)
+        preview = None
 
-    items, errors = collect_items(files, text)
-    if not items and not errors:
-        st.warning("Envie ao menos um arquivo ou cole um JSON/CSV.")
-        return
-    if errors:
-        if len(errors) == 1:
-            st.error("JSON ou CSV inválido.")
-        else:
-            st.error(f"{len(errors)} JSON ou CSV inválidos.")
-        with st.expander("Ver detalhes", expanded=True):
-            for error in errors:
-                st.markdown(f"- {error}")
-        return
+    preview_col, send_col = st.columns(2)
+    previewed = preview_col.button("Pré-visualizar", width="stretch")
+    already_sent = st.session_state.get(SENT_SIGNATURE_KEY) == signature
+    submitted = send_col.button(
+        "✓ Enviado — altere a entrada para reenviar" if already_sent else "Enviar dados",
+        type="primary",
+        width="stretch",
+        disabled=preview is None or already_sent,
+    )
 
     if previewed:
-        render_preview(items)
+        items, errors = collect_items(files, text)
+        if errors:
+            st.session_state.pop(PREVIEW_KEY, None)
+            render_errors(errors)
+            return
+        if not items:
+            st.session_state.pop(PREVIEW_KEY, None)
+            st.warning("Envie ao menos um arquivo ou cole um JSON/CSV.")
+            return
+        preview = {"signature": signature, "items": items}
+        st.session_state[PREVIEW_KEY] = preview
+        st.rerun()
+
+    if preview is None:
         return
 
-    confirm_send(items, input_signature(files, text))
+    if submitted:
+        confirm_send(preview["items"], signature)
+    render_preview(preview["items"])
 
 
 render_ingestion()

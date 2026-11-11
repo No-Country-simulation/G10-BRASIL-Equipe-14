@@ -6,7 +6,7 @@ from types import ModuleType, SimpleNamespace
 import pytest
 import requests
 
-from src.config import MAX_UPLOAD_FILE_SIZE_BYTES
+from src.config import MAX_UPLOAD_FILE_COUNT, MAX_UPLOAD_FILE_SIZE_BYTES
 
 VALID_RECORD = {
     "id": "1",
@@ -109,6 +109,19 @@ def test_collect_items_reports_partial_failures_across_files(view):
     assert any("huge.json" in e and "limite" in e for e in errors)
 
 
+def test_collect_items_rejects_too_many_files(view):
+    files = [make_file(f"{index}.json", json.dumps(VALID_RECORD)) for index in range(MAX_UPLOAD_FILE_COUNT + 1)]
+    items, errors = view.collect_items(files, "")
+    assert items == []
+    assert any("no máximo" in error for error in errors)
+
+
+def test_collect_items_accepts_exactly_the_file_limit(view):
+    files = [make_file(f"{index}.json", json.dumps(VALID_RECORD)) for index in range(MAX_UPLOAD_FILE_COUNT)]
+    items, errors = view.collect_items(files, "")
+    assert errors == [] and len(items) == MAX_UPLOAD_FILE_COUNT
+
+
 # --- send_items: status HTTP e falhas parciais -----------------------------------------------------------
 
 
@@ -165,7 +178,7 @@ def test_render_send_summary(view, fake_st, sent, failed, kind, text):
     assert shown_kind == kind and text in message
 
 
-# --- botão "Validar e enviar" após o envio ---------------------------------------------------------------
+# --- botão "Enviar dados": prévia, alteração da entrada e envio -------------------------------------------
 
 
 def test_input_signature_changes_with_text_and_files(view):
@@ -176,7 +189,7 @@ def test_input_signature_changes_with_text_and_files(view):
     assert view.input_signature([make_file("x.json", "{}")], "a") != view.input_signature([make_file("x.json", "[]")], "a")
 
 
-def run_page(text, sent_text=None):
+def run_page_without_preview(text=None, sent_text=None):
     from streamlit.testing.v1 import AppTest
 
     page = Path(__file__).resolve().parent.parent / "src" / "views" / "ingestion.py"
@@ -185,7 +198,14 @@ def run_page(text, sent_text=None):
         # Sem arquivos, a assinatura é o sha256 do texto (importar a view aqui a renderizaria fora do AppTest).
         at.session_state["ingestion_sent_signature"] = hashlib.sha256(sent_text.strip().encode()).hexdigest()
     at.run()
-    at.text_area[0].set_value(text)
+    if text is not None:
+        at.text_area[0].set_value(text)
+        at.run()
+    return at
+
+
+def run_page(text, sent_text=None):
+    at = run_page_without_preview(text, sent_text)
     next(b for b in at.button if b.label == "Pré-visualizar").click()
     return at.run()
 
@@ -194,9 +214,28 @@ def send_button(at):
     return next(b for b in at.button if "enviar" in b.label.lower() or "enviado" in b.label.lower())
 
 
-def test_send_button_is_enabled_before_any_send():
+def test_send_button_is_disabled_before_preview():
+    at = run_page_without_preview(json.dumps(VALID_RECORD))
+    assert send_button(at).disabled
+
+
+def test_send_button_is_enabled_after_valid_preview():
     at = run_page(json.dumps(VALID_RECORD))
-    assert send_button(at).label == "Validar e enviar" and not send_button(at).disabled
+    assert not send_button(at).disabled
+    assert send_button(at).label == "Enviar dados"
+
+
+def test_send_button_stays_disabled_after_invalid_preview():
+    at = run_page("{oops")
+    assert send_button(at).disabled
+    assert at.error
+
+
+def test_send_button_is_disabled_after_input_changes():
+    at = run_page(json.dumps(VALID_RECORD))
+    at.text_area[0].set_value(json.dumps({**VALID_RECORD, "id": "2"}))
+    at.run()
+    assert send_button(at).disabled
 
 
 def test_send_button_is_disabled_for_already_sent_input():
@@ -205,6 +244,6 @@ def test_send_button_is_disabled_for_already_sent_input():
     assert send_button(at).disabled and "Enviado" in send_button(at).label
 
 
-def test_send_button_is_enabled_again_when_input_changes():
+def test_send_button_is_enabled_for_new_input_after_a_send():
     at = run_page(json.dumps({**VALID_RECORD, "id": "2"}), sent_text=json.dumps(VALID_RECORD))
-    assert send_button(at).label == "Validar e enviar" and not send_button(at).disabled
+    assert send_button(at).label == "Enviar dados" and not send_button(at).disabled
