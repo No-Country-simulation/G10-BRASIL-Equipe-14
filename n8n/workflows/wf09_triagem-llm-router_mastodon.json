@@ -57,7 +57,7 @@
             {
               "id": "fb5c486d-2149-4a62-99e3-390abfffd08c",
               "leftValue": "={{ $json.Key }}",
-              "rightValue": "={{ $('Define Search Parameters').item.json.file_type }}",
+              "rightValue": "={{ $('Define Search Parameters').item.json.tag.replace(' ','') + $('Define Search Parameters').item.json.file_type }}",
               "operator": {
                 "type": "string",
                 "operation": "endsWith"
@@ -354,7 +354,7 @@
         "operation": "toJson",
         "options": {
           "format": true,
-          "fileName": "result_mastodon.json"
+          "fileName": "={{ \"result_\" + $('Define Search Parameters').item.json.source + '_' + $('Define Search Parameters').item.json.tag.replace(' ','') + \".json\"}}"
         }
       },
       "type": "n8n-nodes-base.convertToFile",
@@ -367,7 +367,9 @@
       "name": "Convert to File"
     },
     {
-      "parameters": {},
+      "parameters": {
+        "maxItems": 50
+      },
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
@@ -391,6 +393,12 @@
               "id": "aa617609-6a7e-427f-9205-e0710215d344",
               "name": "source",
               "value": "mastodon",
+              "type": "string"
+            },
+            {
+              "id": "21f2fd72-9382-4f11-97e4-14a3ab7b12a2",
+              "name": "tag",
+              "value": "artificial intelligence",
               "type": "string"
             }
           ]
@@ -645,6 +653,7 @@
       "parameters": {
         "httpMethod": "POST",
         "path": "wf09_triagem-llm-router-mastodon",
+        "authentication": "headerAuth",
         "responseMode": "responseNode",
         "options": {}
       },
@@ -656,7 +665,13 @@
       ],
       "id": "3d59e42f-85f8-4113-8c62-d38dc6b56c46",
       "name": "Webhook",
-      "webhookId": "90f22129-3c85-4000-9486-fb1d2851600b"
+      "webhookId": "90f22129-3c85-4000-9486-fb1d2851600b",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "QNmmh3RzZbp9CXSq",
+          "name": "Hackathon CommunityLab"
+        }
+      }
     },
     {
       "parameters": {
@@ -711,8 +726,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatNvidia",
       "typeVersion": 1,
       "position": [
-        2536,
-        56
+        2544,
+        64
       ],
       "id": "cc8042b0-0394-451e-b16f-afb5e266ed0a",
       "name": "NVIDIA Nemotron Chat Model",
@@ -764,8 +779,8 @@
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.3,
       "position": [
-        3624,
-        248
+        3632,
+        256
       ],
       "id": "f0362379-406c-4a01-b0a9-852bfc389dbd",
       "name": "Structured Output Parser"
@@ -781,8 +796,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatNvidia",
       "typeVersion": 1,
       "position": [
-        3496,
-        248
+        3488,
+        256
       ],
       "id": "bed5d65d-4b12-43a9-9c63-22610c979ecb",
       "name": "NVIDIA Nemotron Chat Model1",
@@ -1340,7 +1355,7 @@
         "operation": "toJson",
         "options": {
           "format": true,
-          "fileName": "={{ 'result_mastodon_' + $json.routing.destination + '_' + $execution.id + '.json' }}"
+          "fileName": "={{ 'result_' + $('Define Search Parameters').item.json.source + '_' + $json.routing.destination + '_' + $('Define Search Parameters').item.json.tag.replace(' ','') + '_' + $execution.id + '.json' }}"
         }
       },
       "type": "n8n-nodes-base.convertToFile",
@@ -1382,7 +1397,7 @@
         "operation": "toJson",
         "options": {
           "format": true,
-          "fileName": "={{ 'result_mastodon_' + $json.routing.destination + '_' + $execution.id + '.json' }}"
+          "fileName": "={{ 'result_' + $('Define Search Parameters').item.json.source + '_' + $json.routing.destination + '_' + $('Define Search Parameters').item.json.tag.replace(' ','') + '_' + $execution.id + '.json' }}"
         }
       },
       "type": "n8n-nodes-base.convertToFile",
@@ -1424,7 +1439,7 @@
         "operation": "toJson",
         "options": {
           "format": true,
-          "fileName": "={{ 'result_mastodon_' + $json.routing.destination + '_' + $execution.id + '.json' }}"
+          "fileName": "={{ 'result_' + $('Define Search Parameters').item.json.source + '_' + $json.routing.destination + '_' + $('Define Search Parameters').item.json.tag.replace(' ','') + '_' + $execution.id + '.json' }}"
         }
       },
       "type": "n8n-nodes-base.convertToFile",
@@ -1441,7 +1456,7 @@
         "operation": "toJson",
         "options": {
           "format": true,
-          "fileName": "={{ 'result_mastodon_' + $json.routing.destination + '_' + $execution.id + '.json' }}"
+          "fileName": "={{ 'result_' + $('Define Search Parameters').item.json.source + '_' + $json.routing.destination + '_' + $('Define Search Parameters').item.json.tag.replace(' ','') + '_' + $execution.id + '.json' }}"
         }
       },
       "type": "n8n-nodes-base.convertToFile",
@@ -1458,7 +1473,7 @@
         "operation": "toJson",
         "options": {
           "format": true,
-          "fileName": "={{ 'result_mastodon_' + $json.routing.destination + '_' + $execution.id + '.json' }}"
+          "fileName": "={{ 'result_' + $('Define Search Parameters').item.json.source + '_' + $json.routing.destination + '_' + $('Define Search Parameters').item.json.tag.replace(' ','') + '_' + $execution.id + '.json' }}"
         }
       },
       "type": "n8n-nodes-base.convertToFile",
@@ -1475,7 +1490,7 @@
         "operation": "toJson",
         "options": {
           "format": true,
-          "fileName": "={{ 'result_mastodon_' + $json.routing.destination + '_' + $execution.id + '.json' }}"
+          "fileName": "={{ 'result_' + $('Define Search Parameters').item.json.source + '_' + $json.routing.destination + '_' + $('Define Search Parameters').item.json.tag.replace(' ','') + '_' + $execution.id + '.json' }}"
         }
       },
       "type": "n8n-nodes-base.convertToFile",
@@ -1492,7 +1507,7 @@
         "operation": "toJson",
         "options": {
           "format": true,
-          "fileName": "={{ 'result_mastodon_' + $json.routing.destination + '_' + $execution.id + '.json' }}"
+          "fileName": "={{ 'result_' + $('Define Search Parameters').item.json.source + '_' + $json.routing.destination + '_' + $('Define Search Parameters').item.json.tag.replace(' ','') + '_' + $execution.id + '.json' }}"
         }
       },
       "type": "n8n-nodes-base.convertToFile",
@@ -1558,7 +1573,7 @@
       "parameters": {
         "operation": "upload",
         "bucketName": "communitylab-assets",
-        "fileName": "={{ 'processed/routing/human_review/' + $binary.data.fileName }}",
+        "fileName": "={{ 'processed/routing/moderation/' + $binary.data.fileName }}",
         "additionalFields": {},
         "tagsUi": {
           "tagsValues": []
@@ -2300,7 +2315,7 @@
     "callerPolicy": "workflowsFromSameOwner",
     "availableInMCP": true
   },
-  "versionId": "83e8e7c5-efa8-4558-901f-d76720d6b8d0",
+  "versionId": "9b88198e-6f68-417a-bcd7-989bb9b99d24",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
