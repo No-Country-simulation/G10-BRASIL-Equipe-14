@@ -16,7 +16,11 @@
       "parameters": {
         "operation": "getAll",
         "bucketName": "communitylab-assets",
-        "options": {}
+        "returnAll": true,
+        "options": {
+          "fetchOwner": false,
+          "folderKey": "processed/"
+        }
       },
       "type": "n8n-nodes-base.s3",
       "typeVersion": 1,
@@ -57,7 +61,7 @@
       "parameters": {
         "operation": "compress",
         "binaryPropertyName": "={{ Object.keys($binary).join() }}",
-        "fileName": "={{ $binary.data.fileName.split('-')[0] + '.zip' }}"
+        "fileName": "processed_results.zip"
       },
       "type": "n8n-nodes-base.compression",
       "typeVersion": 1.1,
@@ -218,9 +222,12 @@
   "active": true,
   "settings": {
     "executionOrder": "v1",
-    "binaryMode": "separate"
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": true
   },
-  "versionId": "6a27f3af-7a59-4c57-b106-cdbf8552a864",
+  "versionId": "a0fa8a7f-1acb-4cea-a2e9-82ed79829536",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
