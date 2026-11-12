@@ -67,13 +67,20 @@ def test_negative_interaction_count_is_reported(tmp_path):
     assert any("less than the minimum of 0" in e for e in errors)
 
 
-def test_invalid_target_channel_is_reported(tmp_path):
+def test_mastodon_target_is_accepted(tmp_path):
     package = copy.deepcopy(VALID_PACKAGE)
-    package["suggested_content"][0]["target"] = "mastodon"  # ver pendência: enum sem mastodon
+    package["suggested_content"][0]["target"] = "mastodon"
+
+    assert validate_output(_write(tmp_path, package)) == []
+
+
+def test_unknown_target_channel_is_reported(tmp_path):
+    package = copy.deepcopy(VALID_PACKAGE)
+    package["suggested_content"][0]["target"] = "orkut"
 
     errors = validate_output(_write(tmp_path, package))
 
-    assert any("'mastodon' is not one of" in e for e in errors)
+    assert any("'orkut' is not one of" in e for e in errors)
 
 
 def test_empty_content_body_is_reported(tmp_path):
