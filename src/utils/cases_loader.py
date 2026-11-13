@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Any
 
 
-def load_cases(paths: list[Path]) -> list[dict[str, Any]]:
+def load_router_cases(paths: list[Path]) -> list[dict[str, Any]]:
     cases: list[dict[str, Any]] = []
 
     for path in paths:
