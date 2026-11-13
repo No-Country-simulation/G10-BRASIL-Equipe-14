@@ -10,10 +10,12 @@ def load_router_cases(paths: list[Path]) -> list[dict[str, Any]]:
         try:
             data = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError) as exc:
-            raise ValueError(f"Não foi possível carregar {path}: {exc}") from exc
+            raise ValueError(
+                f"Não foi possível carregar {path}: {exc}") from exc
 
         if not isinstance(data, list):
-            raise ValueError(f"O arquivo de casos deve conter uma lista: {path}")
+            raise ValueError(
+                f"O arquivo de casos deve conter uma lista: {path}")
 
         if not all(isinstance(item, dict) for item in data):
             raise ValueError(f"Todos os casos devem ser objetos JSON: {path}")
@@ -45,7 +47,8 @@ def load_replay(path: Path) -> dict[str, Any]:
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
-        raise ValueError(f"Não foi possível carregar o replay {path}: {exc}") from exc
+        raise ValueError(
+            f"Não foi possível carregar o replay {path}: {exc}") from exc
 
     if not isinstance(data, dict):
         raise ValueError("O arquivo de replay deve conter um objeto JSON.")

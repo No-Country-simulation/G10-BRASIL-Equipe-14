@@ -3,18 +3,16 @@ from pathlib import Path
 from src.pipeline.eval_adapters import main
 
 
-@patch("src.pipeline.eval_adapters.save_csv_report")  # 1º de cima -> último parâmetro
-@patch("src.pipeline.eval_adapters.save_report")  # 2º de cima -> penúltimo parâmetro
-@patch("src.pipeline.eval_adapters.execute_case")  # 3º de cima
-@patch("src.pipeline.eval_adapters.load_adapter_base_prompt")  # 4º de cima
-@patch("src.pipeline.eval_adapters.load_sources")  # 5º de cima
-@patch("src.pipeline.eval_adapters.prepare_execution")  # 6º de cima
-@patch("src.pipeline.eval_adapters.build_parser")  # 7º de cima -> primeiro parâmetro
+@patch("src.pipeline.eval_adapters.save_csv_report")
+@patch("src.pipeline.eval_adapters.save_report")
+@patch("src.pipeline.eval_adapters.execute_case")
+@patch("src.pipeline.eval_adapters.load_adapter_base_prompt")
+@patch("src.pipeline.eval_adapters.load_sources")
+@patch("src.pipeline.eval_adapters.prepare_execution")
+@patch("src.pipeline.eval_adapters.build_parser")
 def test_main_execution_success(
     mock_build_parser,
     mock_prepare_execution,
-    mock_load_sources,
-    mock_load_prompt,
     mock_execute_case,
     mock_save_report,
     mock_save_csv,
@@ -31,7 +29,8 @@ def test_main_execution_success(
     # Mock do contexto de execução
     mock_context = MagicMock()
     mock_context.header = "Header Test"
-    mock_context.jobs = [{"nome": "job_1", "canal": "linkedin", "itens": ["item_1"]}]
+    mock_context.jobs = [
+        {"nome": "job_1", "canal": "linkedin", "itens": ["item_1"]}]
     mock_context.items = {"item_1": {}}
     mock_context.reference_period = None
     mock_context.provider = "gemini"
@@ -56,7 +55,6 @@ def test_main_execution_success(
     mock_report_path.write_text("{}", encoding="utf-8")
     mock_save_report.return_value = mock_report_path
 
-    # Executa a main
     exit_code = main()
 
     assert exit_code == 0

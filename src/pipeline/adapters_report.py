@@ -143,11 +143,13 @@ def save_report(
 
         if job_items:
             origem_val = sorted(
-                {i.get("origem") for i in job_items if i.get("origem") is not None}
+                {i.get("origem")
+                 for i in job_items if i.get("origem") is not None}
             )
         else:
             raw_origem = job.get("origem", ["sintetico"])
-            origem_val = raw_origem if isinstance(raw_origem, list) else [raw_origem]
+            origem_val = raw_origem if isinstance(
+                raw_origem, list) else [raw_origem]
 
         if isinstance(job_item_ids, str):
             itens_val = [job_item_ids]

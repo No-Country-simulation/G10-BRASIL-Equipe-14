@@ -65,7 +65,8 @@ def test_validate_data_rejects_unknown_top_level_property():
 
     errors = validate_data(record, SCHEMA)
 
-    assert any("Additional properties are not allowed" in error for error in errors)
+    assert any(
+        "Additional properties are not allowed" in error for error in errors)
 
 
 def test_is_valid_true_for_conforming_record():

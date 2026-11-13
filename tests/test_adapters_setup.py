@@ -23,7 +23,8 @@ def test_load_and_filter_cases_success(mock_invalid, mock_load_cases, tmp_path: 
         "router_run": {"version": 1},
     }
 
-    jobs, items, period, router_run = load_and_filter_cases(dummy_file, only=None)
+    jobs, items, period, router_run = load_and_filter_cases(
+        dummy_file, only=None)
 
     assert len(jobs) == 1
     assert jobs[0]["nome"] == "job_a"
