@@ -1,0 +1,376 @@
+{
+  "name": "wf12_consulta_resultados_processados",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "wf12-processed-results",
+        "authentication": "headerAuth",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        208,
+        384
+      ],
+      "id": "b9a340c2-15ac-4727-8f19-e23d3f318a1f",
+      "name": "Webhook",
+      "webhookId": "2d659a05-aff0-4c40-b2a7-9d94e78df42a",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "QNmmh3RzZbp9CXSq",
+          "name": "Hackathon CommunityLab"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "fromJson",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        1104,
+        96
+      ],
+      "id": "d1926754-d6a0-4177-9522-8b5c06bd4d94",
+      "name": "Extract from File",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst request = $('Validate Request').first().json;\n\nif (!Array.isArray(input.data)) {\n  return [{\n    json: {\n      success: false,\n      statusCode: 502,\n      source: request.source,\n      tag: request.tag,\n      object_key: request.object_key,\n      error: {\n        code: 'INVALID_PROCESSED_DATA',\n        message: 'O arquivo processado deve conter um array JSON.',\n      },\n    },\n  }];\n}\n\nreturn [{\n  json: {\n    success: true,\n    statusCode: 200,\n    source: request.source,\n    tag: request.tag,\n    object_key: request.object_key,\n    count: input.data.length,\n    items: input.data,\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1328,
+        0
+      ],
+      "id": "91719ad9-201a-4a88-8778-969f57b5dd5a",
+      "name": "Prepare Return"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseCode": "={{ $json.statusCode }}",
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Cache-Control",
+                "value": "no-store"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1552,
+        192
+      ],
+      "id": "a51befe4-3720-4143-8536-9474ab5ea05f",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -16,
+        192
+      ],
+      "id": "05a9b820-7906-4594-bf10-a98295053b7c",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "becb6a3e-b5f5-4ffe-a48a-7f561c1cf247",
+              "name": "query",
+              "value": "={\n  \"source\": \"stackoverflow\",\n  \"tag\": \"artificialintelligence\"\n}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        208,
+        192
+      ],
+      "id": "006edad8-5dbb-4f9f-8ce2-5d45d4cb62ef",
+      "name": "Manual Test"
+    },
+    {
+      "parameters": {
+        "jsCode": "const query = $input.first().json.query;\n\nfunction invalid(message) {\n  return [{\n    json: {\n      success: false,\n      statusCode: 400,\n      error: {\n        code: 'INVALID_QUERY',\n        message,\n      },\n    },\n  }];\n}\n\nif (!query || typeof query !== 'object' || Array.isArray(query)) {\n  return invalid('Informe os parâmetros source e tag em query.');\n}\n\nconst allowedSources = ['stackoverflow', 'mastodon', 'hackernews'];\n\nif (\n  typeof query.source !== 'string' ||\n  !allowedSources.includes(query.source)\n) {\n  return invalid(\n    'source deve ser stackoverflow, mastodon ou hackernews.'\n  );\n}\n\n// A tag deve corresponder exatamente ao tópico no nome do arquivo.\n// Não removemos espaços ou hífens automaticamente.\nif (\n  typeof query.tag !== 'string' ||\n  query.tag.length > 200 ||\n  !/^[a-zA-Z0-9][a-zA-Z0-9.+#_;-]*$/.test(query.tag)\n) {\n  return invalid(\n    'tag deve ter entre 1 e 200 caracteres, começar com letra ou número ' +\n    'e conter apenas letras, números, ponto, +, #, _, ; ou hífen.'\n  );\n}\n\nconst source = query.source;\nconst tag = query.tag;\n\nreturn [{\n  json: {\n    success: true,\n    source,\n    tag,\n    object_key: `processed/result_${source}_${tag}.json`,\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        432,
+        288
+      ],
+      "id": "01c27c62-35d5-4065-8f4e-e6e53314d409",
+      "name": "Validate Request"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "c3884eab-72f6-4878-875e-e9bd62bb1084",
+              "leftValue": "={{ $json.success }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        656,
+        288
+      ],
+      "id": "376a578a-0e3d-4793-912d-4df2bf3877df",
+      "name": "Request Is Valid"
+    },
+    {
+      "parameters": {
+        "bucketName": "communitylab-assets",
+        "fileKey": "={{ $json.object_key }}"
+      },
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        880,
+        192
+      ],
+      "id": "242d42c5-1fcd-411f-9575-3b0d46e3b6f1",
+      "name": "Download a file",
+      "credentials": {
+        "s3": {
+          "id": "WG22ysIkwCiyk8dj",
+          "name": "OCI Object Storage S3"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseCode": 400
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        880,
+        384
+      ],
+      "id": "e76bc28a-75db-4f77-9bb7-7751ece96beb",
+      "name": "Respond Invalid Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\n\n// A saída observada fornece apenas a mensagem, sem código HTTP.\nconst message = typeof input.error === 'string'\n  ? input.error.trim()\n  : '';\n\nconst notFound =\n  message === 'The resource you are requesting could not be found';\n\nreturn [{\n  json: {\n    success: false,\n    statusCode: notFound ? 404 : 502,\n    source: input.source,\n    tag: input.tag,\n    object_key: input.object_key,\n    error: {\n      code: notFound\n        ? 'PROCESSED_FILE_NOT_FOUND'\n        : 'STORAGE_DOWNLOAD_FAILED',\n      message: notFound\n        ? 'Nenhum arquivo processado foi encontrado para a fonte e o tópico informados.'\n        : 'Não foi possível recuperar o arquivo processado na OCI.',\n    },\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1328,
+        384
+      ],
+      "id": "821b09fe-b3af-4d08-9f9a-0c54649ea303",
+      "name": "Prepare Download Error"
+    },
+    {
+      "parameters": {
+        "jsCode": "const request = $('Validate Request').first().json;\n\nreturn [{\n  json: {\n    success: false,\n    statusCode: 502,\n    source: request.source,\n    tag: request.tag,\n    object_key: request.object_key,\n    error: {\n      code: 'INVALID_PROCESSED_DATA',\n      message: 'Não foi possível interpretar o arquivo processado como JSON.',\n    },\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1328,
+        192
+      ],
+      "id": "56f2a6ff-1b17-443d-9689-39c97f82a3a0",
+      "name": "Prepare Extraction Error"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Validate Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Prepare Return",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare Extraction Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Return": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Manual Test",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual Test": {
+      "main": [
+        [
+          {
+            "node": "Validate Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Request": {
+      "main": [
+        [
+          {
+            "node": "Request Is Valid",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Request Is Valid": {
+      "main": [
+        [
+          {
+            "node": "Download a file",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond Invalid Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download a file": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare Download Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Download Error": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Extraction Error": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": true
+  },
+  "versionId": "bf2f7f33-27ac-4235-b760-6e9b249f625b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
+  },
+  "nodeGroups": [],
+  "id": "rhulMBZuWQu6QUPR",
+  "tags": []
+}

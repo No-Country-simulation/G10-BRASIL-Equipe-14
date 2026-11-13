@@ -7,7 +7,7 @@
       "typeVersion": 1,
       "position": [
         -32,
-        192
+        96
       ],
       "id": "9bcdd69a-8877-4ae7-a8e1-afce80fb85c8",
       "name": "When clicking ‘Execute workflow’"
@@ -16,18 +16,23 @@
       "parameters": {
         "operation": "getAll",
         "bucketName": "communitylab-assets",
-        "options": {}
+        "returnAll": true,
+        "options": {
+          "fetchOwner": false,
+          "folderKey": "={{ $json.folder }}"
+        }
       },
       "type": "n8n-nodes-base.s3",
       "typeVersion": 1,
       "position": [
-        192,
+        864,
         96
       ],
       "id": "57e674f8-bd9c-4141-9035-99245574229d",
       "name": "Get many files",
       "retryOnFail": true,
       "waitBetweenTries": 3000,
+      "alwaysOutputData": true,
       "credentials": {
         "s3": {
           "id": "WG22ysIkwCiyk8dj",
@@ -47,8 +52,8 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        640,
-        96
+        1536,
+        0
       ],
       "id": "5e4cd7e4-ec5a-40e6-b6ab-65821c902a3b",
       "name": "Aggregate"
@@ -57,13 +62,13 @@
       "parameters": {
         "operation": "compress",
         "binaryPropertyName": "={{ Object.keys($binary).join() }}",
-        "fileName": "={{ $binary.data.fileName.split('-')[0] + '.zip' }}"
+        "fileName": "={{ $('Validate Folder').first().json.folder\n  .replace(/\\/$/, '')\n  .replace(/[^a-zA-Z0-9_-]/g, '_') + '.zip' }}"
       },
       "type": "n8n-nodes-base.compression",
       "typeVersion": 1.1,
       "position": [
-        864,
-        96
+        1760,
+        0
       ],
       "id": "1fd6afa8-ea13-44fc-bd96-d6aee2bd98f0",
       "name": "ZIP files"
@@ -86,6 +91,18 @@
               {
                 "name": "Cache-Control",
                 "value": "no-store"
+              },
+              {
+                "name": "X-Download-Status",
+                "value": "success"
+              },
+              {
+                "name": "X-Download-Folder",
+                "value": "={{ encodeURIComponent($('Validate Folder').first().json.folder) }}"
+              },
+              {
+                "name": "X-Download-Message",
+                "value": "Download completed successfully"
               }
             ]
           }
@@ -94,8 +111,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        1088,
-        96
+        1984,
+        0
       ],
       "id": "060b23b0-0759-4adc-ab4d-1d621ac4c27e",
       "name": "Return with ZIP file"
@@ -108,8 +125,8 @@
       "type": "n8n-nodes-base.s3",
       "typeVersion": 1,
       "position": [
-        416,
-        96
+        1312,
+        0
       ],
       "id": "dc73fd32-b652-4fa5-9f79-cd66f7d51f20",
       "name": "Download a file",
@@ -133,7 +150,7 @@
       "typeVersion": 2.1,
       "position": [
         -32,
-        0
+        288
       ],
       "id": "06c39ea8-99f2-413c-9d41-cb18dc6e6a85",
       "name": "Webhook",
@@ -144,6 +161,160 @@
           "name": "Hackathon CommunityLab"
         }
       }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "21a62c11-b27d-4fcf-8055-629ad1aa1ed9",
+              "name": "folder",
+              "value": "={{ $json.query?.folder ?? $json.folder ?? 'processed/' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        192,
+        192
+      ],
+      "id": "11e6ecac-410e-4684-86a6-4eeaca53c120",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all().map((item, index) => {\n  const value = item.json.folder;\n\n  const invalid = (message) => ({\n    json: {\n      ...item.json,\n      valid: false,\n      statusCode: 400,\n      error: 'INVALID_FOLDER',\n      message,\n    },\n    pairedItem: { item: index },\n  });\n\n  if (typeof value !== 'string' || value.trim() === '') {\n    return invalid('Informe uma pasta não vazia.');\n  }\n\n  const folder = value.trim();\n\n  if (\n    folder.startsWith('/') ||\n    folder.includes('\\\\') ||\n    /[\\u0000-\\u001F\\u007F]/.test(folder)\n  ) {\n    return invalid(\n      'Use um caminho relativo com barras / e sem caracteres de controle.'\n    );\n  }\n\n  // Remove somente a barra final antes de validar os segmentos.\n  const path = folder.endsWith('/') ? folder.slice(0, -1) : folder;\n  const segments = path.split('/');\n\n  if (\n    segments.some(\n      (segment) => segment === '' || segment === '.' || segment === '..'\n    )\n  ) {\n    return invalid('A pasta contém segmentos vazios, \".\" ou \"..\".');\n  }\n\n  return {\n    json: {\n      ...item.json,\n      folder: `${path}/`,\n      valid: true,\n    },\n    pairedItem: { item: index },\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        416,
+        192
+      ],
+      "id": "2cb4136f-7656-4cb3-969a-d330a54416fb",
+      "name": "Validate Folder"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "4041767e-04e9-4823-b299-78d9945597e1",
+              "leftValue": "={{ $json.valid }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        640,
+        192
+      ],
+      "id": "75a0ba09-be7f-48b7-96a9-05e4c8f98646",
+      "name": "Folder Is Valid"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ {\n  success: false,\n  statusCode: 400,\n  error: $json.error,\n  message: $json.message\n} }}",
+        "options": {
+          "responseCode": 400,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Cache-Control",
+                "value": "no-store"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        864,
+        288
+      ],
+      "id": "3947995e-bbbf-4c8a-b8a1-0aa81a064761",
+      "name": "Return Invalid Folder"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "a82b119a-6e14-41f8-8949-b7956fb7f80e",
+              "leftValue": "={{ $json.Key }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1088,
+        96
+      ],
+      "id": "6d0bda09-1c40-4c28-aa35-49c0b830a6c3",
+      "name": "Files Found"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ {\n  success: false,\n  statusCode: 404,\n  error: 'FOLDER_EMPTY_OR_NOT_FOUND',\n  message: 'Nenhum arquivo encontrado na pasta informada.',\n  folder: $('Validate Folder').first().json.folder\n} }}",
+        "options": {
+          "responseCode": 404,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Cache-Control",
+                "value": "no-store"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1312,
+        192
+      ],
+      "id": "20ac65e5-cd8a-446c-9b8a-e05817379434",
+      "name": "Return Folder Empty"
     }
   ],
   "pinData": {},
@@ -152,7 +323,7 @@
       "main": [
         [
           {
-            "node": "Get many files",
+            "node": "Edit Fields",
             "type": "main",
             "index": 0
           }
@@ -163,7 +334,7 @@
       "main": [
         [
           {
-            "node": "Download a file",
+            "node": "Files Found",
             "type": "main",
             "index": 0
           }
@@ -207,7 +378,65 @@
       "main": [
         [
           {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Validate Folder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Folder": {
+      "main": [
+        [
+          {
+            "node": "Folder Is Valid",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Folder Is Valid": {
+      "main": [
+        [
+          {
             "node": "Get many files",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Return Invalid Folder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Files Found": {
+      "main": [
+        [
+          {
+            "node": "Download a file",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Return Folder Empty",
             "type": "main",
             "index": 0
           }
@@ -218,9 +447,12 @@
   "active": true,
   "settings": {
     "executionOrder": "v1",
-    "binaryMode": "separate"
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": true
   },
-  "versionId": "6a27f3af-7a59-4c57-b106-cdbf8552a864",
+  "versionId": "1ddcc0c6-162b-4de7-9c05-e594dba8e257",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"

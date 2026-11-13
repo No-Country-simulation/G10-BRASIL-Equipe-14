@@ -15,6 +15,7 @@ from src.config import (
     MAX_UPLOAD_FILE_SIZE_MB,
 )
 from src.services.ingestion import parse_input, parse_pasted_text_with_format, send_to_ingestion, validate_input
+from src.services.bucket_download import download_folder
 
 logger = logging.getLogger(__name__)
 
@@ -141,6 +142,28 @@ def render_errors(errors: list[str]) -> None:
 
 def render_ingestion() -> None:
     st.header("Ingestão de dados")
+
+    with st.container(border=True):
+        folder = st.selectbox("pastas disponíveis", ["raw/", "processed/"], key="download_folder")
+        if st.button("Download", key="request_bucket_download"):
+            st.session_state.pop("bucket_download", None)
+            try:
+                with st.spinner("Preparando os arquivos para download..."):
+                    content = download_folder(folder)
+                st.session_state["bucket_download"] = {"folder": folder, "content": content}
+            except ValueError as exc:
+                st.error(str(exc))
+            except requests.RequestException:
+                st.error("Não foi possível baixar os arquivos. Confira a conexão e a configuração do WF05.")
+        archive = st.session_state.get("bucket_download")
+        if archive and archive["folder"] == folder:
+            st.download_button(
+                "Salvar ZIP", data=archive["content"],
+                file_name=f"{folder.rstrip('/')}_results.zip", mime="application/zip",
+                on_click="ignore",
+            )
+        st.caption("Salve o ZIP, extraia os arquivos e selecione o JSON desejado abaixo. O local de download depende do navegador.")
+        st.caption("O envio continua exigindo o schema de entrada; os arquivos do bucket podem precisar de adaptação.")
 
     files = st.file_uploader(
         "Adicione os arquivos JSON ou CSV",
