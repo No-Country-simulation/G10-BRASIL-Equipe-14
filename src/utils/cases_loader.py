@@ -23,6 +23,24 @@ def load_cases(paths: list[Path]) -> list[dict[str, Any]]:
     return cases
 
 
+def load_adapter_cases(path: Path) -> dict[str, Any]:
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise ValueError(f"Não foi possível carregar {path}: {exc}") from exc
+
+    if not isinstance(data, dict):
+        raise ValueError("O arquivo de adapters deve conter um objeto JSON.")
+
+    if not isinstance(data.get("jobs"), list):
+        raise ValueError("O arquivo de adapters deve conter a lista 'jobs'.")
+
+    if not isinstance(data.get("items"), list):
+        raise ValueError("O arquivo de adapters deve conter a lista 'items'.")
+
+    return data
+
+
 def load_replay(path: Path) -> dict[str, Any]:
     try:
         data = json.loads(path.read_text(encoding="utf-8"))

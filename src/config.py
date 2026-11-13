@@ -1,6 +1,5 @@
 import os
 from pathlib import Path
-import re
 from dotenv import load_dotenv
 
 # Configuração de diretórios relativos
@@ -28,11 +27,15 @@ ROUTER_CASES = [
     CASES_DIR / "router_cases_sinteticos.json",
     CASES_DIR / "router_cases_reais.json",
 ]
+PROMPTS_ADAPTERS_DIR = PROMPTS_DATA_DIR / "adapters"
+ADAPTER_CASES = CASES_DIR / "adapters_cases.json"
 
 # Definindo os parâmetros padrões de coleta
 DEFAULT_LIMIT = 10
 DEFAULT_TAG = "artificial-intelligence"
-DEFAULT_PERIOD = 1760929200  # 2025-10-20 03:00 UTC, período fixo definido pelo time (Rodrigo, 02/11)
+DEFAULT_PERIOD = (
+    1760929200  # 2025-10-20 03:00 UTC, período fixo definido pelo time (Rodrigo, 02/11)
+)
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
@@ -74,7 +77,9 @@ MASTODON_PARAMS = {
 OCI_REGION = os.getenv("OCI_REGION", "sa-saopaulo-1")
 OCI_NAMESPACE = os.getenv("OCI_NAMESPACE", "grue2tm7tuaq")
 OCI_BUCKET_NAME = os.getenv("OCI_BUCKET_NAME", "communitylab-assets")
-OCI_ASSETS_PREFIX = "ativos"  # objeto final: ativos/YYYY-semana-XX/pacote-distribuicao.json
+OCI_ASSETS_PREFIX = (
+    "ativos"  # objeto final: ativos/YYYY-semana-XX/pacote-distribuicao.json
+)
 # Streamlit
 PAGE_TITLE = "CommunityLab"
 
@@ -134,8 +139,13 @@ ENGAGEMENT_BADGES = {
 }
 
 N8N_BASE_URL = os.getenv("N8N_BASE_URL", "http://localhost:5678").rstrip("/")
-N8N_INGESTION_WEBHOOK_PATH = os.getenv("N8N_INGESTION_WEBHOOK_PATH", "webhook/ingestion").strip("/")
-N8N_INGESTION_WEBHOOK_URL = os.getenv("N8N_INGESTION_WEBHOOK_URL") or f"{N8N_BASE_URL}/{N8N_INGESTION_WEBHOOK_PATH}"
+N8N_INGESTION_WEBHOOK_PATH = os.getenv(
+    "N8N_INGESTION_WEBHOOK_PATH", "webhook/ingestion"
+).strip("/")
+N8N_INGESTION_WEBHOOK_URL = (
+    os.getenv("N8N_INGESTION_WEBHOOK_URL")
+    or f"{N8N_BASE_URL}/{N8N_INGESTION_WEBHOOK_PATH}"
+)
 N8N_REQUEST_TIMEOUT = float(os.getenv("N8N_REQUEST_TIMEOUT", "30"))
 
 CSV_DELIMITERS = ",;\t|"
@@ -193,6 +203,59 @@ REQUIRED_FIELDS = set(PROMPT_ENUMS) | {
 }
 SPECIAL_KEYS = {"suggested_route_in", "min_score", "max_score"}
 
+
+# Configuração de prompts e schemas
+ADAPTER_SOCIAL_VERSION = "0.4.0"
+ADAPTER_NEWSLETTER_FAQ_VERSION = "0.4.0"
+
+# Configurações de Adapters
+SCHEMA_KEYS = {"target", "title", "body", "potential_engagement"}
+TARGETS_SCHEMA = {
+    "linkedin",
+    "newsletter",
+    "faq",
+    "instagram",
+    "mastodon",
+    "x/twitter",
+    "discord",
+    "blog",
+}
+
+CHANNEL_PROMPTS = {
+    "linkedin": "adapter_linkedin.md",
+    "x/twitter": "adapter_x_twitter.md",
+    "mastodon": "adapter_mastodon.md",
+    "instagram": "adapter_instagram.md",
+    "discord": "adapter_discord.md",
+    "blog": "adapter_blog.md",
+    "faq": "adapter_faq.md",
+    "newsletter": "adapter_newsletter.md",
+}
+
+# canal: (mín. caracteres, máx. caracteres, mín. hashtags, máx. hashtags, máx. emojis, máx. caracteres do título)
+CHANNEL_LIMITS = {
+    "linkedin": (600, 1300, 3, 5, 3, 80),
+    "x/twitter": (1, 280, 1, 2, None, 80),
+    "mastodon": (1, 500, 0, 2, None, 80),
+    "instagram": (1, 2200, 5, 10, 5, 120),
+    "discord": (1, 2000, 0, 2, None, 80),
+    "faq": (1, 1200, 0, 0, None, 80),
+    "newsletter": (1, 3000, 0, 0, None, 60),
+    "blog": (500, 5000, 0, 5, None, 120),
+}
+
+FORBIDDEN = [
+    "é com grande alegria",
+    "gratidão!",
+    "nada nos dá mais orgulho",
+    "venha fazer parte",
+    "não perca",
+    "esperamos que esteja bem",
+    "imperdível",
+    "clique aqui",
+]
+
+REVIEW_TAG = "[PRECISA DE REVISÃO TÉCNICA]"
 
 # Configurações de LLM Providers
 DEFAULT_TEMPERATURE = 0.0
