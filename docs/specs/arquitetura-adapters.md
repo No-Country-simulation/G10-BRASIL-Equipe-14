@@ -43,7 +43,6 @@ O Sistema de Adaptação e Geração de Conteúdo é o componente de infraestrut
    - [8.2. Execução do Teste 02](#82-execução-de-teste-02)
 - [9.Changelog](#9-changelog)
 
-
 ---
 
 ## 1. Objetivo

@@ -20,7 +20,7 @@ Elaboração: 13/11/2026
 - [3. Alternativas Consideradas](#3-alternativas-consideradas)
   - [Manter toda a lógica em eval_adapters.py](#31-manter-toda-a-lógica-em-eval_adapterspy)
   - [3.2. Criar uma classe única para todo o Adapter](#32-criar-uma-classe-única-para-todo-o-adapter)
-- [4. Consequências](#3-consequências)
+- [4. Consequências](#4-consequências)
   - [4.1. Benefícios](#41-benefícios)
   - [4.2. Limitações e Riscos](#42-limitações-e-riscos)
     
@@ -210,7 +210,7 @@ A execução do subsistema de Adapters segue uma cadeia clara de responsabilidad
 
 ## 3. Alternativas Consideradas
 
-### 3.1. Manter toda a lógica em `eval_adapters.py`
+### 3.1. Manter toda a lógica em `run_adapters.py`
 
 Foi rejeitado porque concentrava CLI, carregamento de arquivos, requisições de API, parsing, validação estrita, controle de retries, métricas e persistência em um script monolítico, gerando alto acoplamento e impossibilitando testes unitários granulares.
 

@@ -33,7 +33,7 @@ O Sistema de Adaptação para FAQ e Newsletter é o componente responsável por 
 - [5. Casos de Teste Específicos e Exemplos de Saída](#5-casos-de-teste-específicos-e-exemplos-de-saída)
    - [5.1. Exemplo de Saída: Card de FAQ](#51-exemplo-de-saída-card-de-faq)
    - [5.2. Exemplo de Saída: Edição de Newsletter](#52-exemplo-de-saída-edição-de-newsletter)
-- [6.Changelog](#10-changelog)
+- [6.Changelog](#6-changelog)
 
 ---
 
