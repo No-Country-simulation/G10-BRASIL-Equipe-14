@@ -1,10 +1,9 @@
 {
-  "_sobre": "Entradas dos adapters (issues #9 e #10). Cada item traz a thread no formato do input_schema.json e a classificação feita pelo Gemini (Router v0.3.1, rodada de 24/10/2026), com suggested_route recalculada pelas regras do router.md, como o n8n fará. Itens \"sintetico\" vêm do router_cases.json e servem só para testar conquistas e certificações, que não aparecem nos dados reais.",
   "router_run": {
-    "real": "2026-10-24T18:30:22",
-    "sintetico": "2026-10-24T18:31:42",
+    "real": "2026-11-09T11:00:44",
+    "sintetico": "2026-11-09T12:07:35",
     "model": "gemini-3.5-flash-lite",
-    "prompt_version": "0.3.1"
+    "prompt_version": "0.4.1"
   },
   "reference_period_newsletter": "2025-12-02T08:05:44Z/2026-10-21T02:59:57Z",
   "jobs": [
@@ -78,7 +77,6 @@
         "se-79958777",
         "se-79874274",
         "se-79835621",
-        "se-79893379",
         "mst-117476661482589915"
       ]
     }
@@ -87,7 +85,7 @@
     {
       "id": "mst-117476661482589915",
       "origem": "real",
-      "caso_router": "real_mastodon_opiniao_com_link",
+      "case_router": "real_mastodon_opiniao_com_link",
       "input": {
         "id": "mst-117476661482589915",
         "source": "mastodon",
@@ -122,21 +120,22 @@
         "sentiment": "neutral",
         "topic_category": "ai_ml",
         "topics": [
-          "Inteligência Artificial",
-          "Qualidade de dados"
+          "inteligência artificial",
+          "qualidade de dados",
+          "machine learning"
         ],
         "original_language": "en",
         "has_answer": false,
-        "relevance_score": 45,
+        "relevance_score": 50,
         "suggested_route": "newsletter_only",
-        "summary": "Opinião sobre como a qualidade dos dados impacta a inteligência artificial.",
-        "justification": "O score está na faixa de 40 a 59 para debates e a rota aplicada foi newsletter_only."
+        "summary": "Discussão sobre como a qualidade dos dados impacta o desempenho de sistemas de inteligência artificial.",
+        "justification": "Score na faixa 40-59 para debate com opinião e compartilhamento de link sobre IA."
       }
     },
     {
       "id": "se-79835621",
       "origem": "real",
-      "caso_router": "real_se_debate_mercado_com_respostas",
+      "case_router": "real_se_debate_mercado_com_respostas",
       "input": {
         "id": "se-79835621",
         "source": "stackoverflow",
@@ -209,22 +208,22 @@
         "sentiment": "neutral",
         "topic_category": "career",
         "topics": [
-          "impacto da IA",
-          "futuro da carreira",
-          "desenvolvimento de software"
+          "Inteligência Artificial",
+          "Mercado de Trabalho",
+          "Desenvolvimento de Software"
         ],
         "original_language": "en",
         "has_answer": false,
         "relevance_score": 50,
         "suggested_route": "newsletter_only",
-        "summary": "Discussão sobre o impacto da inteligência artificial na demanda por desenvolvedores de software e nas tendências de mercado.",
-        "justification": "O post original é um debate sobre IA e carreira, enquadrado na faixa de 40-59 com rota newsletter_only."
+        "summary": "Discussão sobre o impacto da inteligência artificial na demanda por desenvolvedores de software e no futuro da carreira.",
+        "justification": "Score na faixa de debate (40-59), classificado como newsletter_only."
       }
     },
     {
       "id": "se-79837611",
       "origem": "real",
-      "caso_router": "real_se_duvida_sem_resposta_muito_vista",
+      "case_router": "real_se_duvida_sem_resposta_muito_vista",
       "input": {
         "id": "se-79837611",
         "source": "stackoverflow",
@@ -260,25 +259,24 @@
         "source": "stackoverflow",
         "type": "technical_question",
         "sentiment": "neutral",
-        "topic_category": "backend",
+        "topic_category": "ai_ml",
         "topics": [
+          "Laravel",
           "Ollama",
-          "Erro EOF",
-          "Embedding"
+          "Embeddings"
         ],
         "original_language": "en",
         "has_answer": false,
-        "relevance_score": 45,
+        "relevance_score": 55,
         "suggested_route": "newsletter_only",
-        "summary": "Dúvida técnica sobre erro EOF ao gerar embeddings com Ollama em aplicação Laravel.",
-        "justification": "A pergunta é técnica com has_answer = false, ficando na faixa 40-59 com score 45, resultando em descarte pela regra de relevance_score < 60 para faq.",
-        "suggested_route_modelo": "discard"
+        "summary": "Dúvida técnica sobre erro de EOF ao gerar embeddings com Ollama em aplicação Laravel.",
+        "justification": "Faixa 40–59: dúvida técnica sem resposta aceita; regra 6 (newsletter_only)."
       }
     },
     {
       "id": "se-79838505",
       "origem": "real",
-      "caso_router": "real_se_duvida_com_resposta_aceita_llamaindex",
+      "case_router": "real_se_duvida_com_resposta_aceita_llamaindex",
       "input": {
         "id": "se-79838505",
         "source": "stackoverflow",
@@ -330,22 +328,22 @@
         "sentiment": "neutral",
         "topic_category": "ai_ml",
         "topics": [
-          "LlamaIndex",
-          "Ollama",
-          "Erro de memória"
+          "python",
+          "llama-index",
+          "ollama"
         ],
         "original_language": "en",
         "has_answer": true,
         "relevance_score": 75,
         "suggested_route": "faq",
-        "summary": "Dúvida sobre erro de carregamento de modelo local com LlamaIndex e Ollama resolvida adicionando context_window.",
-        "justification": "A pergunta técnica tem resposta aceita e pontua na faixa de 60-79, com bônus pelo tema de IA."
+        "summary": "Dúvida sobre erro ao carregar modelo no LlamaIndex com Ollama resolvida definindo explicitamente a janela de contexto.",
+        "justification": "Score na faixa 60-79 para technical_question com resposta aceita, direcionado para faq."
       }
     },
     {
       "id": "se-79850130",
       "origem": "real",
-      "caso_router": "real_se_resposta_nao_aceita_windsurf",
+      "case_router": "real_se_resposta_nao_aceita_windsurf",
       "input": {
         "id": "se-79850130",
         "source": "stackoverflow",
@@ -395,22 +393,22 @@
         "sentiment": "neutral",
         "topic_category": "dev_tools",
         "topics": [
-          "Windsurf",
-          "IntelliJ IDEA",
-          "Autocompletar"
+          "intellij",
+          "windsurf",
+          "autocomplete"
         ],
         "original_language": "en",
         "has_answer": false,
-        "relevance_score": 45,
+        "relevance_score": 48,
         "suggested_route": "newsletter_only",
-        "summary": "Dúvida técnica sobre o motivo do autocompletar do Windsurf não funcionar no IntelliJ IDEA 2024.",
-        "justification": "Score na faixa 40-59 (technical_question sem resposta aceita) e rota newsletter_only por falta de resposta aceita."
+        "summary": "Dúvida sobre o funcionamento do autocomplete do Windsurf no IntelliJ IDEA sem resposta aceita.",
+        "justification": "Score na faixa de 40 a 59 para technical_question sem resposta aceita, aplicando a regra newsletter_only."
       }
     },
     {
       "id": "se-79857625",
       "origem": "real",
-      "caso_router": "real_se_duvida_com_resposta_aceita_symfony_ai",
+      "case_router": "real_se_duvida_com_resposta_aceita_symfony_ai",
       "input": {
         "id": "se-79857625",
         "source": "stackoverflow",
@@ -458,24 +456,24 @@
         "source": "stackoverflow",
         "type": "technical_question",
         "sentiment": "neutral",
-        "topic_category": "backend",
+        "topic_category": "ai_ml",
         "topics": [
           "Symfony AI",
           "LM Studio",
-          "Model Catalog"
+          "PHP"
         ],
         "original_language": "en",
         "has_answer": true,
-        "relevance_score": 75,
+        "relevance_score": 73,
         "suggested_route": "faq",
-        "summary": "Como adicionar modelos personalizados ao bridge do LM Studio no Symfony AI.",
-        "justification": "Score 75 na faixa de 60-79 para pergunta técnica com resposta aceita, aplicando a rota de FAQ."
+        "summary": "Como adicionar modelos personalizados ao catálogo do LM Studio bridge no Symfony AI.",
+        "justification": "O score está na faixa de 60-79 para technical_question com resposta aceita, direcionando para a rota faq."
       }
     },
     {
       "id": "se-79874274",
       "origem": "real",
-      "caso_router": "real_se_desanimo_pessoal_vibe_coder",
+      "case_router": "real_se_desanimo_pessoal_vibe_coder",
       "input": {
         "id": "se-79874274",
         "source": "stackoverflow",
@@ -512,79 +510,24 @@
         "source": "stackoverflow",
         "type": "debate",
         "sentiment": "neutral",
-        "topic_category": "ai_ml",
+        "topic_category": "career",
         "topics": [
-          "Uso de IA",
-          "Habilidades de programação",
-          "Práticas de desenvolvimento"
+          "inteligência artificial",
+          "carreira",
+          "boas práticas"
         ],
         "original_language": "en",
         "has_answer": false,
         "relevance_score": 45,
         "suggested_route": "newsletter_only",
-        "summary": "Programador iniciante questiona o impacto do uso excessivo de IA no desenvolvimento de suas habilidades técnicas.",
-        "justification": "O score está na faixa de 40 a 59 para o tipo debate, aplicando a regra de rota newsletter_only."
-      }
-    },
-    {
-      "id": "se-79893379",
-      "origem": "real",
-      "caso_router": "real_se_pergunta_vaga_ruido",
-      "input": {
-        "id": "se-79893379",
-        "source": "stackoverflow",
-        "url": "https://stackoverflow.com/questions/79893379/model-context-protocol",
-        "interactions": [
-          {
-            "author": "Lokesha M V",
-            "title": "Model context protocol",
-            "content": "<p>I am using this in my project so I need to start mcp server for my project how can I do this mcp hosting in java. I need to monitor the traffic of the mcp server outgoing and incoming data packets how can I achieve this.</p>\n",
-            "tags": [
-              "java",
-              "security",
-              "artificial-intelligence",
-              "model-context-protocol",
-              "tooling-recommendation"
-            ],
-            "created_at": "2026-02-21T03:43:24Z",
-            "raw_metadata": {
-              "question_id": 79893379,
-              "link": "https://stackoverflow.com/questions/79893379/model-context-protocol",
-              "score": 0,
-              "view_count": 78,
-              "answer_count": 2,
-              "is_answered": false,
-              "comment_count": 0,
-              "content_license": "CC BY-SA 4.0",
-              "enriched_from": "api.stackexchange.com 2.3 (consultado em 2026-10-21)"
-            }
-          }
-        ]
-      },
-      "classification": {
-        "id": "se-79893379",
-        "source": "stackoverflow",
-        "type": "technical_question",
-        "sentiment": "neutral",
-        "topic_category": "ai_ml",
-        "topics": [
-          "Model Context Protocol",
-          "Java",
-          "Monitoramento de tráfego"
-        ],
-        "original_language": "en",
-        "has_answer": false,
-        "relevance_score": 45,
-        "suggested_route": "newsletter_only",
-        "summary": "Dúvida sobre como iniciar e monitorar o tráfego de um servidor Model Context Protocol em Java.",
-        "justification": "Score na faixa de 40 a 59 para technical_question sem resposta aceita e rota de descarte pois o score é maior ou igual a 40 mas a regra de faq exige has_answer = true.",
-        "suggested_route_modelo": "discard"
+        "summary": "Estudante relata preocupação de que o uso excessivo de IA esteja prejudicando o desenvolvimento de suas habilidades de programação.",
+        "justification": "Score na faixa 40-59 devido a ser um debate sobre o impacto da IA, aplicando a rota newsletter_only."
       }
     },
     {
       "id": "se-79935672",
       "origem": "real",
-      "caso_router": "real_se_duvida_sem_resposta_langchain_mcp",
+      "case_router": "real_se_duvida_sem_resposta_langchain_mcp",
       "input": {
         "id": "se-79935672",
         "source": "stackoverflow",
@@ -623,23 +566,22 @@
         "sentiment": "neutral",
         "topic_category": "ai_ml",
         "topics": [
-          "LangChain",
-          "Model Context Protocol",
-          "Erro de validação"
+          "langchain",
+          "model context protocol",
+          "python"
         ],
         "original_language": "en",
         "has_answer": false,
         "relevance_score": 45,
         "suggested_route": "newsletter_only",
-        "summary": "Dúvida técnica sobre erro de validação de tipo de número em argumentos de ferramentas do LangChain MCP adapter.",
-        "justification": "Como é uma technical_question sem resposta aceita (has_answer = false), cai na faixa de 40-59 e rota discard.",
-        "suggested_route_modelo": "discard"
+        "summary": "Dúvida técnica sobre erro de validação de tipo de número em argumentos de ferramentas do LangChain MCP.",
+        "justification": "Faixa 40-59 para technical_question sem resposta aceita, usando a rota newsletter_only."
       }
     },
     {
       "id": "se-79958777",
       "origem": "real",
-      "caso_router": "real_se_limitacao_de_ferramenta_tom_objetivo",
+      "case_router": "real_se_limitacao_de_ferramenta_tom_objetivo",
       "input": {
         "id": "se-79958777",
         "source": "stackoverflow",
@@ -676,25 +618,24 @@
         "source": "stackoverflow",
         "type": "technical_question",
         "sentiment": "neutral",
-        "topic_category": "dev_tools",
+        "topic_category": "ai_ml",
         "topics": [
           "Cursor IDE",
-          "Cotas de IA",
-          "Consumo de tokens"
+          "IA",
+          "Tokens"
         ],
         "original_language": "en",
         "has_answer": false,
-        "relevance_score": 45,
+        "relevance_score": 42,
         "suggested_route": "newsletter_only",
-        "summary": "Dúvida sobre o esgotamento rápido da cota gratuita da Cursor IDE após poucos prompts.",
-        "justification": "Score na faixa de 40 a 59 para technical_question sem resposta, aplicando a regra de descarte para score inferior a 40.",
-        "suggested_route_modelo": "discard"
+        "summary": "Dúvida sobre o esgotamento rápido da cota gratuita na Cursor IDE e possíveis ajustes de contexto.",
+        "justification": "Score na faixa 40-59 para technical_question sem resposta aceita, aplicando a rota newsletter_only."
       }
     },
     {
       "id": "se-79998781",
       "origem": "real",
-      "caso_router": "real_se_duvida_com_resposta_aceita_vscode",
+      "case_router": "real_se_duvida_com_resposta_aceita_vscode",
       "input": {
         "id": "se-79998781",
         "source": "stackoverflow",
@@ -743,22 +684,21 @@
         "sentiment": "neutral",
         "topic_category": "dev_tools",
         "topics": [
-          "VS Code",
-          "GitHub Copilot",
-          "Configuração"
+          "vs-code",
+          "ia"
         ],
         "original_language": "en",
         "has_answer": true,
-        "relevance_score": 60,
+        "relevance_score": 64,
         "suggested_route": "faq",
-        "summary": "Como desativar apenas o botão de gerar mensagem de commit por IA no VS Code mantendo as demais funções.",
-        "justification": "Questão técnica com resposta aceita, caindo na faixa 60-79 e rota de FAQ."
+        "summary": "Dúvida sobre como desativar o botão de gerar commit por IA no VS Code mantendo outras funções ativas.",
+        "justification": "Score na faixa de 60-79 para pergunta técnica com resposta aceita."
       }
     },
     {
       "id": "t01",
       "origem": "sintetico",
-      "caso_router": "conquista_vaga_detalhada",
+      "case_router": "conquista_vaga_detalhada",
       "input": {
         "id": "t01",
         "source": "mastodon",
@@ -781,22 +721,21 @@
         "sentiment": "positive",
         "topic_category": "career",
         "topics": [
-          "Engenharia de Dados",
-          "Carreira",
-          "Conquista de Vaga"
+          "engenharia de dados",
+          "carreira"
         ],
         "original_language": "pt",
         "has_answer": false,
         "relevance_score": 90,
         "suggested_route": "success_case",
-        "summary": "Usuária celebra aprovação como Engenheira de Dados Jr na Stone após um ano de estudos.",
-        "justification": "O score está na faixa de 80-100 devido ao job_achievement com detalhes concretos, aplicando-se a rota success_case."
+        "summary": "Usuária relata aprovação como Engenheira de Dados Jr na Stone após estudos.",
+        "justification": "Score na faixa 80-100 por conquista com detalhes concretos, aplicando a rota success_case."
       }
     },
     {
       "id": "t02",
       "origem": "sintetico",
-      "caso_router": "conquista_vaga_ingles",
+      "case_router": "conquista_vaga_ingles",
       "input": {
         "id": "t02",
         "source": "mastodon",
@@ -816,22 +755,22 @@
         "sentiment": "positive",
         "topic_category": "backend",
         "topics": [
-          "Backend Developer",
+          "Carreira",
           "Java",
-          "Primeiro emprego"
+          "Backend"
         ],
         "original_language": "en",
         "has_answer": false,
         "relevance_score": 90,
         "suggested_route": "success_case",
-        "summary": "Desenvolvedor comemorou a conquista da sua primeira vaga em backend na Nubank após 6 meses de prática.",
-        "justification": "Score na faixa de 80–100 para job_achievement com detalhe concreto e engajamento, roteado como success_case."
+        "summary": "Desenvolvedor relata a conquista de sua primeira vaga como backend na Nubank após estudos em Java.",
+        "justification": "Score na faixa 80-100 devido a conquista com detalhes concretos, roteado para success_case."
       }
     },
     {
       "id": "t12",
       "origem": "sintetico",
-      "caso_router": "certificacao",
+      "case_router": "certificacao",
       "input": {
         "id": "t12",
         "source": "mastodon",
@@ -851,16 +790,16 @@
         "sentiment": "positive",
         "topic_category": "devops_cloud",
         "topics": [
-          "OCI Foundations",
-          "OCI AI Foundations",
-          "Certificação Cloud"
+          "certificação",
+          "OCI",
+          "IA"
         ],
         "original_language": "pt",
         "has_answer": false,
-        "relevance_score": 90,
+        "relevance_score": 85,
         "suggested_route": "success_case",
-        "summary": "Usuário comemorou a aprovação nas certificações OCI Foundations e OCI AI Foundations após estudar por três semanas.",
-        "justification": "Com score 90 (faixa 80-100) por ser uma conquista detalhada, o post é roteado para success_case."
+        "summary": "Usuário celebrou a aprovação em duas certificações OCI após estudo com trilha e simulados.",
+        "justification": "Score na faixa 80-100 por conquista com detalhe concreto, enviado para success_case."
       }
     }
   ]
