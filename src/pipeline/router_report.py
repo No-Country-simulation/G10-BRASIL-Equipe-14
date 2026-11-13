@@ -111,7 +111,8 @@ def save_report(
     tag_suffix = f"_{tag}" if tag else ""
 
     output_file = (
-        output_dir / f"router_v{version}_{provider}" f"{tag_suffix}_{stamp}.json"
+        output_dir /
+        f"router_v{version}_{provider}" f"{tag_suffix}_{stamp}.json"
     )
 
     average_duration = total_duration / len(cases) if cases else 0.0
@@ -164,7 +165,8 @@ def save_csv_report(
 ) -> Path:
     tag_suffix = f"_{tag}" if tag else ""
     output_file = (
-        output_dir / f"router_v{version}_{provider}" f"{tag_suffix}_{stamp}.csv"
+        output_dir /
+        f"router_v{version}_{provider}" f"{tag_suffix}_{stamp}.csv"
     )
 
     fieldnames = [

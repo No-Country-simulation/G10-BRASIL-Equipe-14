@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 import time
 from dataclasses import dataclass
 from typing import Any
@@ -12,6 +11,10 @@ from src.validation.router_validator import (
     fake_output,
 )
 from src.config import RETRYABLE_ERROR_PREFIXES
+from src.pipeline.router_prompt_builder import (
+    build_user_prompt,
+    build_correction_prompt,
+)
 
 TokenUsage = dict[str, int]
 
@@ -51,17 +54,7 @@ class CaseResult:
         return result
 
 
-def _build_user_prompt(
-    case: dict[str, Any],
-) -> str:
-    return (
-        "Classifique a thread abaixo:\n\n"
-        "THREAD:\n"
-        f"{json.dumps(case['input'], ensure_ascii=False)}"
-    )
-
-
-def _merge_token_usage(
+def merge_token_usage(
     first: TokenUsage | None,
     second: TokenUsage | None,
 ) -> TokenUsage | None:
@@ -78,12 +71,13 @@ def _merge_token_usage(
             + (second or {}).get("completion_tokens", 0)
         ),
         "total_tokens": (
-            (first or {}).get("total_tokens", 0) + (second or {}).get("total_tokens", 0)
+            (first or {}).get("total_tokens", 0) +
+            (second or {}).get("total_tokens", 0)
         ),
     }
 
 
-def _response_token_usage(
+def response_token_usage(
     response: Any,
 ) -> TokenUsage:
     return {
@@ -93,7 +87,7 @@ def _response_token_usage(
     }
 
 
-def _is_retryable_error(
+def is_retryable_error(
     errors: list[str],
 ) -> bool:
     return any(
@@ -103,29 +97,7 @@ def _is_retryable_error(
     )
 
 
-def _build_correction_prompt(
-    *,
-    previous_response: str,
-    errors: list[str],
-) -> tuple[str, str]:
-    correction_system = (
-        "Você é um corretor de saída JSON. "
-        "Corrija somente os erros informados na resposta anterior. "
-        "Retorne exclusivamente um objeto JSON válido, sem markdown ou explicações. "
-        "Não invente dados e preserve os valores corretos já existentes."
-    )
-
-    correction_user = (
-        "RESPOSTA ANTERIOR:\n"
-        f"{previous_response or '{}'}\n\n"
-        "ERROS ENCONTRADOS:\n" + "\n".join(f"- {error}" for error in errors) + "\n\n"
-        "Reavalie apenas o necessário e retorne o JSON corrigido."
-    )
-
-    return correction_system, correction_user
-
-
-def _call_and_parse(
+def call_and_parse(
     *,
     provider: str,
     system: str,
@@ -138,7 +110,7 @@ def _call_and_parse(
             user=user,
         )
 
-        usage = _response_token_usage(response)
+        usage = response_token_usage(response)
         output = parse_llm_json(response.text)
 
         return output, usage, None, response.text
@@ -147,7 +119,7 @@ def _call_and_parse(
         return {}, None, str(exc), ""
 
 
-def _execute_live_case(
+def execute_live_case(
     case: dict[str, Any],
     *,
     base_prompt: str,
@@ -160,10 +132,10 @@ def _execute_live_case(
     str | None,
     bool,
 ]:
-    user_prompt = _build_user_prompt(case)
+    user_prompt = build_user_prompt(case)
     started_at = time.perf_counter()
 
-    output, first_usage, call_error, raw_response = _call_and_parse(
+    output, first_usage, call_error, raw_response = call_and_parse(
         provider=provider,
         system=base_prompt,
         user=user_prompt,
@@ -178,12 +150,12 @@ def _execute_live_case(
     retry_used = False
     second_usage: TokenUsage | None = None
 
-    should_retry = call_error is None and _is_retryable_error(errors)
+    should_retry = call_error is None and is_retryable_error(errors)
 
     if should_retry:
         retry_used = True
 
-        correction_system, correction_user = _build_correction_prompt(
+        correction_system, correction_user = build_correction_prompt(
             previous_response=raw_response, errors=errors,
         )
 
@@ -192,7 +164,7 @@ def _execute_live_case(
             second_usage,
             call_error,
             _,
-        ) = _call_and_parse(
+        ) = call_and_parse(
             provider=provider,
             system=correction_system,
             user=correction_user,
@@ -205,7 +177,7 @@ def _execute_live_case(
         )
 
     duration = time.perf_counter() - started_at
-    token_usage = _merge_token_usage(
+    token_usage = merge_token_usage(
         first_usage,
         second_usage,
     )
@@ -263,7 +235,7 @@ def execute_case(
             token_usage,
             call_error,
             retry_used,
-        ) = _execute_live_case(
+        ) = execute_live_case(
             case,
             base_prompt=system,
             few_shot_prompt=few_shot,

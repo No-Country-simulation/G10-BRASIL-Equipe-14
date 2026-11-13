@@ -133,7 +133,8 @@ def check_output(
     extra_fields = set(output) - REQUIRED_FIELDS
 
     if extra_fields:
-        errors.append(f"Campos adicionais não permitidos: {sorted(extra_fields)}")
+        errors.append(
+            f"Campos adicionais não permitidos: {sorted(extra_fields)}")
 
     if case is not None and "has_answer" in output:
         expected_answer = expected_has_answer(case)
@@ -228,10 +229,12 @@ def check_output(
             )
 
     if "min_score" in expected and normalized_score < expected["min_score"]:
-        errors.append(f"relevance_score {normalized_score} < {expected['min_score']}")
+        errors.append(
+            f"relevance_score {normalized_score} < {expected['min_score']}")
 
     if "max_score" in expected and normalized_score > expected["max_score"]:
-        errors.append(f"relevance_score {normalized_score} > {expected['max_score']}")
+        errors.append(
+            f"relevance_score {normalized_score} > {expected['max_score']}")
 
     return errors, warnings
 

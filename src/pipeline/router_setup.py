@@ -6,15 +6,9 @@ from pathlib import Path
 from typing import Any
 
 from src.config import (
-    DEFAULT_CASES,
-    DEFAULT_TEMPERATURE,
-    GEMINI_API_KEY,
-    GEMINI_MODEL,
-    GEMINI_TEMPERATURE,
-    GROQ_API_KEY,
-    GROQ_MODEL,
     OUTPUTS_DIR,
     PROJECT_ROOT,
+    ROUTER_CASES,
     ROUTER_VERSION,
 )
 from src.pipeline.router_loader import (
@@ -22,6 +16,7 @@ from src.pipeline.router_loader import (
     load_router_few_shot_prompt,
 )
 from src.utils.cases_loader import load_cases, load_replay
+from src.utils.provider_config import provider_config
 from src.validation.router_validator import invalid_inputs
 
 
@@ -145,30 +140,6 @@ def load_replay_file(
         raise ValueError(f"Erro ao carregar replay: {exc}") from exc
 
 
-def provider_config(
-    provider: str,
-) -> tuple[str, str, float, str]:
-    configurations = {
-        "gemini": (
-            GEMINI_API_KEY,
-            GEMINI_MODEL,
-            GEMINI_TEMPERATURE,
-            "GEMINI_API_KEY",
-        ),
-        "groq": (
-            GROQ_API_KEY,
-            GROQ_MODEL,
-            DEFAULT_TEMPERATURE,
-            "GROQ_API_KEY",
-        ),
-    }
-
-    try:
-        return configurations[provider]
-    except KeyError as exc:
-        raise ValueError(f"Provedor não suportado: {provider}") from exc
-
-
 def execution_mode(
     *,
     dry_run: bool,
@@ -188,7 +159,7 @@ def execution_mode(
 def prepare_execution(
     args: argparse.Namespace,
 ) -> RouterContext:
-    case_paths = args.cases or list(DEFAULT_CASES)
+    case_paths = args.cases or list(ROUTER_CASES)
 
     cases = load_and_filter_cases(
         case_paths=case_paths,

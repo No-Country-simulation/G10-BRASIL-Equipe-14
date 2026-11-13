@@ -1,10 +1,10 @@
-from src.config import PROMPTS_ROUTER
+from src.config import PROMPTS_ROUTER_DIR
 from src.utils.prompt_reader import load_markdown_prompt
 
 
 def load_prompt_files(*file_names: str) -> str:
     contents = [
-        load_markdown_prompt(PROMPTS_ROUTER / file_name) for file_name in file_names
+        load_markdown_prompt(PROMPTS_ROUTER_DIR / file_name) for file_name in file_names
     ]
 
     return "\n\n".join(contents)

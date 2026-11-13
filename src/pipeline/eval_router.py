@@ -56,7 +56,8 @@ def main() -> int:
 
     passed = sum(1 for result in results.values() if result.passed)
 
-    total_duration = sum(result.duration_seconds for result in results.values())
+    total_duration = sum(
+        result.duration_seconds for result in results.values())
 
     print_summary(
         passed=passed,
@@ -66,9 +67,8 @@ def main() -> int:
     )
 
     is_live_execution = not args.dry_run and context.replay is None
-    is_complete_execution = args.only is None
 
-    if is_live_execution and is_complete_execution:
+    if is_live_execution:
         report_path = save_report(
             output_dir=context.output_dir,
             project_root=context.project_root,

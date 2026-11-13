@@ -1,7 +1,7 @@
 import json
 from typing import Any
 
-from src.config import CODE_FENCE_PATTERN
+from src.utils.regex_patterns import CODE_FENCE_PATTERN
 
 
 def remove_code_fence(text: str) -> str:

@@ -23,21 +23,11 @@ OUTPUT_SCHEMA_PATH = SCHEMAS_DATA_DIR / "output_schema.json"
 FIXTURES_DIR = DATA_DIR / "fixtures"
 CASES_DIR = PROMPTS_DATA_DIR / "cases"
 OUTPUTS_DIR = PROMPTS_DATA_DIR / "outputs"
-PROMPTS_ROUTER = PROMPTS_DATA_DIR / "router"
-DEFAULT_CASES = [
+PROMPTS_ROUTER_DIR = PROMPTS_DATA_DIR / "router"
+ROUTER_CASES = [
     CASES_DIR / "router_cases_sinteticos.json",
     CASES_DIR / "router_cases_reais.json",
 ]
-
-
-# Arquivo .env
-try:
-    from dotenv import load_dotenv
-
-    load_dotenv(PROJECT_ROOT / ".env")
-except ImportError:
-    pass
-
 
 # Definindo os parâmetros padrões de coleta
 DEFAULT_LIMIT = 10
@@ -221,12 +211,6 @@ RETRYABLE_STATUS_CODES = {429, 500, 503}
 DEFAULT_TIMEOUT_SECONDS = 90
 RETRY_BACKOFF_SECONDS = 5
 MAX_RETRY_WAIT_SECONDS = 30
-
-# Configuração de regex para remover code fences
-CODE_FENCE_PATTERN = re.compile(
-    r"^\s*```(?:json)?\s*(.*?)\s*```\s*$",
-    re.IGNORECASE | re.DOTALL,
-)
 
 # Configuração de palavras-chave sensíveis para segurança
 SECURITY_MARKERS = (
