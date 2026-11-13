@@ -137,7 +137,8 @@ def invalid_inputs(data: dict) -> list[str]:
         if not isinstance(item.get("input"), dict):
             problems.append(f"{label}: campo 'input' deve ser um objeto")
         if not isinstance(item.get("classification"), dict):
-            problems.append(f"{label}: campo 'classification' deve ser um objeto")
+            problems.append(
+                f"{label}: campo 'classification' deve ser um objeto")
         if schema_validator is not None and isinstance(item.get("input"), dict):
             for error in schema_validator.iter_errors(item["input"]):
                 location = "/".join(str(part) for part in error.path)
@@ -170,7 +171,8 @@ def invalid_inputs(data: dict) -> list[str]:
 
         references = job.get("itens")
         if not isinstance(references, list) or not references:
-            problems.append(f"{label}: campo 'itens' deve ser uma lista não vazia")
+            problems.append(
+                f"{label}: campo 'itens' deve ser uma lista não vazia")
         else:
             for item_id in references:
                 if item_id not in items_by_id:
@@ -212,7 +214,8 @@ def check_output(
         )
         return errors, warnings
 
-    target, body, title = out.get("target"), out.get("body", ""), out.get("title", "")
+    target, body, title = out.get("target"), out.get(
+        "body", ""), out.get("title", "")
 
     extra = set(out) - SCHEMA_KEYS
     if extra == {"source_link"} and target == "faq":
@@ -242,7 +245,8 @@ def check_output(
         EMOJI_RE.findall(body),
     )
     if not min_c <= n_chars <= max_c:
-        errors.append(f"body com {n_chars} caracteres (limite {min_c}–{max_c})")
+        errors.append(
+            f"body com {n_chars} caracteres (limite {min_c}–{max_c})")
     if not min_h <= len(hashtags) <= max_h:
         errors.append(f"{len(hashtags)} hashtags (limite {min_h}–{max_h})")
     if max_e is not None and len(emojis) > max_e:
@@ -258,22 +262,26 @@ def check_output(
         if phrase in body.lower():
             errors.append(f"frase proibida (tom de voz): {phrase!r}")
 
-    origin = [sources[i] for i in example.get("itens_de_origem", []) if i in sources]
+    origin = [sources[i]
+              for i in example.get("itens_de_origem", []) if i in sources]
     if len(origin) < len(example.get("itens_de_origem", [])):
-        warnings.append("algum item de origem não foi encontrado nos arquivos de casos")
+        warnings.append(
+            "algum item de origem não foi encontrado nos arquivos de casos")
     needs_review = body.startswith(REVIEW_TAG)
 
     if target == "faq":
         if needs_review:
             if out.get("potential_engagement") != "low":
-                errors.append("FAQ em revisão deve ter potential_engagement = 'low'")
+                errors.append(
+                    "FAQ em revisão deve ter potential_engagement = 'low'")
             if "**Resposta curta:**" in body:
                 errors.append("FAQ em revisão não pode trazer resposta")
         else:
             normalize_body = body
             for error_answer in ("**Resposta:**", "**Explicação:**", "**Solução:**"):
                 if error_answer in normalize_body:
-                    normalize_body = normalize_body.replace(error_answer, "**Resposta curta:**")
+                    normalize_body = normalize_body.replace(
+                        error_answer, "**Resposta curta:**")
             for section in ("**Pergunta:**", "**Resposta curta:**", "**Fonte:**"):
                 if section not in normalize_body:
                     errors.append(f"card de FAQ sem a seção {section}")
@@ -298,7 +306,8 @@ def check_output(
         and target in ("linkedin", "faq", "newsletter", "instagram")
         and "CC BY-SA" not in body
     ):
-        errors.append("conteúdo do Stack Overflow sem linha de crédito (CC BY-SA 4.0)")
+        errors.append(
+            "conteúdo do Stack Overflow sem linha de crédito (CC BY-SA 4.0)")
 
     if origin:
         missing = unknown_numbers(body, source_text(origin))

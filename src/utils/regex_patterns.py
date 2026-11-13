@@ -24,9 +24,12 @@ CODE_FENCE_PATTERN = re.compile(
 DIGIT_CLEANUP_RE = re.compile(r"[.,\s]")
 
 # Isola o ano atual para evitar falsos positivos numéricos em textos
+
+
 def get_current_year_re():
     current_year = str(datetime.now().year)
     return re.compile(rf"(?<![\d-]){current_year}(?![\d-]s)")
+
 
 # Valida se o título de FAQ começa com as perguntas permitidas
 FAQ_TITLE_START_RE = re.compile(r"(Como|Por que|O que)\b")

@@ -90,7 +90,8 @@ def execute_case(
     started_at = time.perf_counter()
     if dry_run:
         return CaseResult(
-            output={"target": job["canal"], "title": "dry-run", "body": "dry-run"},
+            output={"target": job["canal"],
+                    "title": "dry-run", "body": "dry-run"},
             errors=[],
             warnings=[],
         )
@@ -129,7 +130,7 @@ def execute_case(
             system=correction_system,
             user=correction_user,
         )
-        
+
     if call_error:
         errors = [f"erro na chamada/JSON: {call_error}"]
         warnings = []
@@ -140,9 +141,9 @@ def execute_case(
                 "canal": job["canal"],
                 "itens_de_origem": job["itens"],
                 "output": output,
-        },
-        sources,
-    )
+            },
+            sources,
+        )
 
     return CaseResult(
         output=output,

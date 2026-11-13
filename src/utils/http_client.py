@@ -86,4 +86,5 @@ def http_post(
 
             raise RuntimeError(f"Falha de conexão com a API: {exc}") from exc
 
-    raise RuntimeError("Sem resposta da API após esgotar as tentativas de retry.")
+    raise RuntimeError(
+        "Sem resposta da API após esgotar as tentativas de retry.")

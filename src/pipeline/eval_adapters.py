@@ -54,7 +54,8 @@ def main() -> int:
             time.sleep(args.sleep)
 
     passed = sum(result.passed for result in results.values())
-    total_duration = sum(result.duration_seconds for result in results.values())
+    total_duration = sum(
+        result.duration_seconds for result in results.values())
     print_summary(
         passed=passed,
         total_cases=len(context.jobs),

@@ -27,9 +27,9 @@ def test_call_gemini_success(mock_http_post):
             "totalTokenCount": 15
         }
     }
-    
+
     response = call_gemini(system="sys", user="usr", api_key="fake-key")
-    
+
     assert isinstance(response, LLMResponse)
     assert response.text == '{"result": "ok"}'
     assert response.prompt_tokens == 10
@@ -49,9 +49,9 @@ def test_call_groq_success(mock_http_post):
             "total_tokens": 20
         }
     }
-    
+
     response = call_groq(system="sys", user="usr", api_key="fake-key")
-    
+
     assert isinstance(response, LLMResponse)
     assert response.text == '{"result": "groq_ok"}'
     assert response.total_tokens == 20
