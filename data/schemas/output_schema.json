@@ -99,7 +99,7 @@
         },
         "object_path": {
           "type": "string",
-          "description": "Caminho do objeto dentro do bucket (ex: ativos/2026-semana-04/pacote-distribuicao.json).",
+          "description": "Caminho do objeto dentro do bucket (ex: ativos/2026-W44/pacote-distribuicao-20261026T120000Z.json).",
           "minLength": 1
         },
         "status": {
@@ -155,7 +155,7 @@
       ],
       "storage": {
         "bucket": "communitylab-assets",
-        "object_path": "ativos/2026-semana-04/pacote-distribuicao.json",
+        "object_path": "ativos/2026-W44/pacote-distribuicao-20261026T120000Z.json",
         "status": "success"
       },
       "created_at": "2026-10-21T12:00:00Z"
