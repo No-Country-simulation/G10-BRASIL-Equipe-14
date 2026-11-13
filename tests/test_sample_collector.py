@@ -26,7 +26,8 @@ class TestDataSourceCollector(unittest.TestCase):
         mock_get.return_value = mock_response
 
         collector = DataSourceCollector()
-        data = collector.fetch_stack_exchange(tag="artificial-intelligence", limit=1)
+        data = collector.fetch_stack_exchange(
+            tag="artificial-intelligence", limit=1)
 
         self.assertIsInstance(data, list)
         self.assertEqual(len(data), 1)
@@ -53,7 +54,8 @@ class TestDataSourceCollector(unittest.TestCase):
         mock_get.return_value = mock_response
 
         collector = DataSourceCollector()
-        data = collector.fetch_hacker_news(query="artificial-intelligence", limit=1)
+        data = collector.fetch_hacker_news(
+            query="artificial-intelligence", limit=1)
 
         self.assertIsInstance(data, list)
         self.assertEqual(len(data), 1)
