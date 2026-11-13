@@ -34,7 +34,7 @@ O Sistema de Adaptação e Geração de Conteúdo para Canais Sociais é o compo
 - [5. Casos de Teste Específicos e Exemplos de Saída](#5-casos-de-teste-específicos-e-exemplos-de-saída)
    - [5.1. Exemplo de Saída: Post de Conquista](#51-exemplo-de-saída-post-de-conquista)
    - [5.2. Exemplo de Saída: Dica Técnica](#52-exemplo-de-saída-dica-técnica)
-- [6.Changelog](#10-changelog)
+- [6.Changelog](#6-changelog)
 
 ---
 

@@ -36,13 +36,12 @@ O Sistema de Adaptação e Geração de Conteúdo é o componente de infraestrut
 - [6. Fluxo de Execução do Pipeline](#6-fluxo-de-execução-do-pipeline)
    - [6.1. Orquestração do Pipeline](#61-orquestração-do-pipeline)
    - [6.2. Métricas](#62-métricas)
-   - [6.3. Saída Agregada ](#63-saída-agregada-para-o-pacote)
+   - [6.3. Saída Agregada para o Pacote ](#63-saída-agregada-para-o-pacote)
 - [7. Execução e Avaliação do Benchmark](#7-execução-e-avaliação-do-benchmark)
 - [8. Resultados do Benchmark](#8-resultados-do-benchmark)
    - [8.1. Execução do Teste 01](#81-execução-de-teste-01)
    - [8.2. Execução do Teste 02](#82-execução-de-teste-02)
 - [9.Changelog](#9-changelog)
-
 
 ---
 
@@ -280,15 +279,15 @@ Esses templates garantem que a LLM receba o contexto estruturado gerado pelo **r
 5. **Definição dos provedores:** O provedor, modelo, temperatura e modo de execução são definidos;
 6. **Execução dos jobs:** O `eval_adapters.py` percorre os jobs e delega o processamento individual ao `adapters_processor.py`;
 7. **Chamada LLM:** O `adapters_processor.py` chama `call_llm(provider, system, user)`. A fachada localiza o provedor no registro `LLM_PROVIDERS`, recupera a API Key correspondente e delega a chamada para `call_gemini` ou `call_groq`:
-* Chama o provedor em execução normal;
-* Gera uma saída simulada em `dry-run`;
+    * Chama o provedor em execução normal;
+    * Gera uma saída simulada em `dry-run`;
 
 8. **Parsing da resposta:** O `adapters_processor.py` utiliza o `json_parser.py` para remover cercas de código (*code fences*) e interpretar o JSON retornado pelo provedor;
 9. **Validação de saída:** o `adapters_processor.py` utiliza o `adapters_validator.py` para verificar o JSON retornado em relação ao schema, aos limites estritos do canal e às restrições editoriais;
 10. **Auto-Correção (Retry):** Se houver falha de validação (estouro de limite, erro de schema ou ausência de seções obrigatórias), o processador faz uma nova chamada direcionada com os erros apontados e revalida a resposta corrigida;
 11. **Medição de latência e tokens:** o `adapters_processor.py` mede a duração de cada chamada utilizando `time.perf_counter()` e registra os tokens de entrada, saída e totais quando o provedor disponibiliza essas métricas;
 12. **Relatório:** o `adapters_report.py` exibe os resultados individuais no terminal e consolida as métricas do benchmark;
-13. **Persistência:** o `adapters_report.py` salva os resultados detalhados, metadados, taxa de sucesso, latência e uso de tokens em formatos JSON e CSV dentro do diretório de saídas (`data/outputs/`).
+13. **Persistência:** o `adapters_report.py` salva os resultados detalhados, metadados, taxa de sucesso, latência e uso de tokens em formatos JSON e CSV dentro do diretório de saídas (`data/prompts/outputs/`).
 
 ### 6.2. Métricas
 

@@ -13,7 +13,7 @@ Elaborado em: 13/11/2026
 
 # Resultados do Benchmark do Adapter
 - **Configurações:** gemini-3.5-flash-lite, temperatura 1.0
-- **Execução:** 12/11/2026 e 13/11/2026 (2 Rodadas de Teste)
+- **Execução:** 12/11/26 (1º rodada de testes) | 13/11/26 (2º rodada de testes)
 - **Jobs:** 9
 - **Versão:** 0.4.0
 
@@ -42,15 +42,6 @@ Elaborado em: 13/11/2026
 **Saídas do modelo:** `data/prompts/outputs/adapters_gemini_20261113-1039.json`.
 
 ---
-
-  "average_duration_seconds": 2.511,
-  "total_duration_seconds": 22.599,
-  "ran_at": "2026-11-13T10:39:15",
-  "token_usage": {
-    "prompt_tokens": 19517,
-    "completion_tokens": 1964,
-    "total_tokens": 21481
-  },
 
 ## 2. Casos por Canais:
 
