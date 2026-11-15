@@ -1,0 +1,10 @@
+﻿Caso de Teste,Canal,Itens de Origem,Case,Acerto,Tempo de Execução,Tokens Consolidados (Entrada),Tokens Consolidados (Saída),Tokens Consolidados (Total)
+CT01,linkedin,t01,linkedin_conquista_sintetica,Ok,5.08s,1873,426,2299
+CT02,linkedin,se-79838505,linkedin_dica_tecnica_real,Ok,2.19s,2723,218,2941
+CT03,x/twitter,t02,x_conquista_sintetica,Ok,1.75s,1232,84,1316
+CT04,x/twitter,se-79998781,x_dica_tecnica_real,Ok,1.80s,1856,117,1973
+CT05,mastodon,t12,mastodon_certificacao_sintetica,Ok,2.09s,1285,95,1380
+CT06,faq,se-79998781,faq_resposta_aceita_vscode_real,Ok,2.82s,1522,258,1780
+CT07,faq,se-79857625,faq_resposta_aceita_symfony_real,Ok,2.39s,2793,305,3098
+CT08,faq,se-79837611,faq_sem_resposta_ollama_real,Ok,1.88s,2031,73,2104
+CT09,newsletter,"se-79838505, se-79998781, se-79857625, se-79850130, se-79837611, se-79935672, se-79958777, se-79874274, se-79835621, mst-117476661482589915",newsletter_lote_real,Ok,2.60s,4202,388,4590
