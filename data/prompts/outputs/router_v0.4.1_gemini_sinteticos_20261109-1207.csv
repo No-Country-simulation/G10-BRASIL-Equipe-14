@@ -1,0 +1,16 @@
+﻿Caso de Teste,Conjunto,Fonte de Dados,Case,Acerto,Tempo de Execução,Tokens Consolidados (Entrada),Tokens Consolidados (Saída),Tokens Consolidados (Total)
+CT01,Casos Sintéticos,Sintético (Mastodon),conquista_vaga_detalhada,OK,1.95s,2842,171,3013
+CT02,Casos Sintéticos,Sintético (Mastodon),conquista_vaga_ingles,OK,1.93s,2820,178,2998
+CT03,Casos Sintéticos,Sintético (SE),depoimento_generico,OK,1.92s,2797,162,2959
+CT04,Casos Sintéticos,Sintético (SE),duvida_com_resposta_aceita,OK,1.91s,2947,178,3125
+CT05,Casos Sintéticos,Sintético (Mastodon),duvida_sem_resposta,OK,2.07s,2845,173,3018
+CT06,Casos Sintéticos,Sintético (Mastodon),duvida_frustrada,OK,1.93s,2816,166,2982
+CT07,Casos Sintéticos,Sintético (Mastodon),feedback_negativo_curso,OK,2.23s,2812,168,2980
+CT08,Casos Sintéticos,Sintético (Mastodon),spam,OK,1.80s,2807,143,2950
+CT09,Casos Sintéticos,Sintético (Mastodon),so_emoji,OK,2.06s,2790,157,2947
+CT10,Casos Sintéticos,Sintético (Mastodon),prompt_injection,OK,1.82s,2811,151,2962
+CT11,Casos Sintéticos,Sintético (Mastodon),debate,OK,6.36s,2815,169,2984
+CT12,Casos Sintéticos,Sintético (Mastodon),certificacao,OK,1.97s,2828,180,3008
+CT13,Casos Sintéticos,Sintético (Hacker News),relato_sucesso,OK,1.94s,2948,179,3127
+CT14,Casos Sintéticos,Sintético (Hacker News),jailbreaking,OK,1.93s,2887,164,3051
+CT15,Casos Sintéticos,Sintético (Hacker News),pii_secret_exposto,OK,1.81s,2951,170,3121

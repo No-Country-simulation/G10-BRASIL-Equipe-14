@@ -1,0 +1,465 @@
+{
+  "prompt_version": "0.4.1",
+  "model": "gemini-3.5-flash-lite",
+  "temperature": 1.0,
+  "accuracy": "15/15",
+  "case_files": [
+    "data\\prompts\\cases\\router_cases_sinteticos.json"
+  ],
+  "average_duration_seconds": 2.241,
+  "total_duration_seconds": 33.621,
+  "ran_at": "2026-11-09T12:07:35",
+  "token_usage": {
+    "prompt_tokens": 42716,
+    "completion_tokens": 2509,
+    "total_tokens": 45225
+  },
+  "results": {
+    "conquista_vaga_detalhada": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 1.952,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 2842,
+        "completion_tokens": 171,
+        "total_tokens": 3013
+      }
+    },
+    "conquista_vaga_ingles": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 1.927,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 2820,
+        "completion_tokens": 178,
+        "total_tokens": 2998
+      }
+    },
+    "depoimento_generico": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 1.921,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 2797,
+        "completion_tokens": 162,
+        "total_tokens": 2959
+      }
+    },
+    "duvida_com_resposta_aceita": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 1.907,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 2947,
+        "completion_tokens": 178,
+        "total_tokens": 3125
+      }
+    },
+    "duvida_sem_resposta": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 2.067,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 2845,
+        "completion_tokens": 173,
+        "total_tokens": 3018
+      }
+    },
+    "duvida_frustrada": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 1.932,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 2816,
+        "completion_tokens": 166,
+        "total_tokens": 2982
+      }
+    },
+    "feedback_negativo_curso": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 2.235,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 2812,
+        "completion_tokens": 168,
+        "total_tokens": 2980
+      }
+    },
+    "spam": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 1.799,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 2807,
+        "completion_tokens": 143,
+        "total_tokens": 2950
+      }
+    },
+    "so_emoji": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 2.055,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 2790,
+        "completion_tokens": 157,
+        "total_tokens": 2947
+      }
+    },
+    "prompt_injection": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 1.821,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 2811,
+        "completion_tokens": 151,
+        "total_tokens": 2962
+      }
+    },
+    "debate": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 6.359,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 2815,
+        "completion_tokens": 169,
+        "total_tokens": 2984
+      }
+    },
+    "certificacao": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 1.974,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 2828,
+        "completion_tokens": 180,
+        "total_tokens": 3008
+      }
+    },
+    "relato_sucesso": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 1.936,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 2948,
+        "completion_tokens": 179,
+        "total_tokens": 3127
+      }
+    },
+    "jailbreaking": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 1.932,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 2887,
+        "completion_tokens": 164,
+        "total_tokens": 3051
+      }
+    },
+    "pii_secret_exposto": {
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "modelo sugeriu 'moderation', as regras dão 'discard' (o n8n corrige)"
+      ],
+      "duration_seconds": 1.805,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 2951,
+        "completion_tokens": 170,
+        "total_tokens": 3121
+      }
+    }
+  },
+  "outputs": {
+    "conquista_vaga_detalhada": {
+      "id": "t01",
+      "source": "mastodon",
+      "type": "job_achievement",
+      "sentiment": "positive",
+      "topic_category": "career",
+      "topics": [
+        "engenharia de dados",
+        "carreira"
+      ],
+      "original_language": "pt",
+      "has_answer": false,
+      "relevance_score": 90,
+      "suggested_route": "success_case",
+      "summary": "Usuária relata aprovação como Engenheira de Dados Jr na Stone após estudos.",
+      "justification": "Score na faixa 80-100 por conquista com detalhes concretos, aplicando a rota success_case."
+    },
+    "conquista_vaga_ingles": {
+      "id": "t02",
+      "source": "mastodon",
+      "type": "job_achievement",
+      "sentiment": "positive",
+      "topic_category": "backend",
+      "topics": [
+        "Carreira",
+        "Java",
+        "Backend"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 90,
+      "suggested_route": "success_case",
+      "summary": "Desenvolvedor relata a conquista de sua primeira vaga como backend na Nubank após estudos em Java.",
+      "justification": "Score na faixa 80-100 devido a conquista com detalhes concretos, roteado para success_case."
+    },
+    "depoimento_generico": {
+      "id": "t03",
+      "source": "mastodon",
+      "type": "testimonial",
+      "sentiment": "positive",
+      "topic_category": "career",
+      "topics": [
+        "aprendizado",
+        "comunidade"
+      ],
+      "original_language": "pt",
+      "has_answer": false,
+      "relevance_score": 45,
+      "suggested_route": "newsletter_only",
+      "summary": "Estudante relata que está curtindo muito estudar com a comunidade.",
+      "justification": "Score na faixa 40-59 para testimonial genérico, com rota newsletter_only."
+    },
+    "duvida_com_resposta_aceita": {
+      "id": "t04",
+      "source": "stackoverflow",
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "topic_category": "data",
+      "topics": [
+        "python",
+        "pandas",
+        "json"
+      ],
+      "original_language": "en",
+      "has_answer": true,
+      "relevance_score": 90,
+      "suggested_route": "faq",
+      "summary": "Dúvida sobre KeyError ao ler lista JSON com pandas.read_json resolvida com orient='records'.",
+      "justification": "Score 90 na faixa 80-100 para technical_question com resposta aceita e alto engajamento."
+    },
+    "duvida_sem_resposta": {
+      "id": "t05",
+      "source": "stackoverflow",
+      "type": "technical_question",
+      "sentiment": "neutral",
+      "topic_category": "ai_ml",
+      "topics": [
+        "symfony",
+        "llm",
+        "ai"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 42,
+      "suggested_route": "newsletter_only",
+      "summary": "Dúvida técnica sobre a integração de modelos personalizados no Symfony AI.",
+      "justification": "Score na faixa de 40-59 para technical_question sem resposta aceita, resultando em newsletter_only."
+    },
+    "duvida_frustrada": {
+      "id": "t06",
+      "source": "mastodon",
+      "type": "technical_question",
+      "sentiment": "negative",
+      "topic_category": "devops_cloud",
+      "topics": [
+        "Docker",
+        "OCI",
+        "VM"
+      ],
+      "original_language": "pt",
+      "has_answer": false,
+      "relevance_score": 40,
+      "suggested_route": "moderation",
+      "summary": "Usuário relata frustração extrema ao tentar configurar o Docker na Oracle Cloud Infrastructure.",
+      "justification": "Sentimento negativo prioriza a rota de moderação independentemente da pontuação."
+    },
+    "feedback_negativo_curso": {
+      "id": "t07",
+      "source": "mastodon",
+      "type": "course_feedback",
+      "sentiment": "negative",
+      "topic_category": "backend",
+      "topics": [
+        "java",
+        "spring",
+        "cursos"
+      ],
+      "original_language": "pt",
+      "has_answer": false,
+      "relevance_score": 40,
+      "suggested_route": "moderation",
+      "summary": "Feedback negativo sobre a desatualização do módulo de Spring no curso.",
+      "justification": "Score na faixa de 40 a 59 com sentimento negativo, direcionando para a rota de moderação."
+    },
+    "spam": {
+      "id": "t08",
+      "source": "mastodon",
+      "type": "noise",
+      "sentiment": "neutral",
+      "topic_category": "other",
+      "topics": [
+        "spam"
+      ],
+      "original_language": "pt",
+      "has_answer": false,
+      "relevance_score": 0,
+      "suggested_route": "discard",
+      "summary": "Post de spam oferecendo ganhos fáceis.",
+      "justification": "Score na faixa de noise (0-19) e rota discard aplicada."
+    },
+    "so_emoji": {
+      "id": "t09",
+      "source": "mastodon",
+      "type": "noise",
+      "sentiment": "neutral",
+      "topic_category": "other",
+      "topics": [
+        "ruído",
+        "interação vazia"
+      ],
+      "original_language": "other",
+      "has_answer": false,
+      "relevance_score": 0,
+      "suggested_route": "discard",
+      "summary": "Post contendo apenas emojis, sem conteúdo informativo.",
+      "justification": "Score na faixa de 0 a 19 devido a ser ruído, resultando em descarte."
+    },
+    "prompt_injection": {
+      "id": "t10",
+      "source": "mastodon",
+      "type": "noise",
+      "sentiment": "neutral",
+      "topic_category": "other",
+      "topics": [
+        "prompt injection"
+      ],
+      "original_language": "pt",
+      "has_answer": false,
+      "relevance_score": 0,
+      "suggested_route": "discard",
+      "summary": "Tentativa de manipulação de instruções do sistema detectada no post.",
+      "justification": "Score na faixa de 0 a 19 e rota discard devido a tentativa de prompt injection."
+    },
+    "debate": {
+      "id": "t11",
+      "source": "mastodon",
+      "type": "debate",
+      "sentiment": "neutral",
+      "topic_category": "data",
+      "topics": [
+        "SQL",
+        "Carreira",
+        "Dados"
+      ],
+      "original_language": "pt",
+      "has_answer": false,
+      "relevance_score": 45,
+      "suggested_route": "newsletter_only",
+      "summary": "Opinião sobre a importância de aprender SQL em vez de LLMs para iniciantes em dados.",
+      "justification": "Score na faixa de debate (40-59) direcionado para newsletter_only."
+    },
+    "certificacao": {
+      "id": "t12",
+      "source": "mastodon",
+      "type": "job_achievement",
+      "sentiment": "positive",
+      "topic_category": "devops_cloud",
+      "topics": [
+        "certificação",
+        "OCI",
+        "IA"
+      ],
+      "original_language": "pt",
+      "has_answer": false,
+      "relevance_score": 85,
+      "suggested_route": "success_case",
+      "summary": "Usuário celebrou a aprovação em duas certificações OCI após estudo com trilha e simulados.",
+      "justification": "Score na faixa 80-100 por conquista com detalhe concreto, enviado para success_case."
+    },
+    "relato_sucesso": {
+      "id": "t13",
+      "source": "hackernews",
+      "type": "testimonial",
+      "sentiment": "positive",
+      "topic_category": "ai_ml",
+      "topics": [
+        "analytics",
+        "ia",
+        "arquitetura"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 85,
+      "suggested_route": "success_case",
+      "summary": "Reconstrução de plataforma de analítica com IA resultou em desempenho superior e redução de custos.",
+      "justification": "Score na faixa 80-100 por ser testemunhal com resultado concreto, com rota para success_case"
+    },
+    "jailbreaking": {
+      "id": "t14",
+      "source": "hackernews",
+      "type": "noise",
+      "sentiment": "neutral",
+      "topic_category": "other",
+      "topics": [
+        "segurança",
+        "prompt injection"
+      ],
+      "original_language": "pt",
+      "has_answer": false,
+      "relevance_score": 0,
+      "suggested_route": "discard",
+      "summary": "Tentativa de manipulação de regras detectada no conteúdo da thread.",
+      "justification": "O post contém tentativa de prompt injection, caindo na faixa de 0 a 19 e regra de descarte."
+    },
+    "pii_secret_exposto": {
+      "id": "t15",
+      "source": "hackernews",
+      "type": "noise",
+      "sentiment": "neutral",
+      "topic_category": "other",
+      "topics": [
+        "privacidade",
+        "segurança",
+        "dados expostos"
+      ],
+      "original_language": "en",
+      "has_answer": false,
+      "relevance_score": 0,
+      "suggested_route": "moderation",
+      "summary": "Post contendo exposição acidental de dados pessoais e credenciais.",
+      "justification": "Score na faixa de 0-19 e rota de moderação aplicadas devido à exposição de dados sensíveis."
+    }
+  }
+}

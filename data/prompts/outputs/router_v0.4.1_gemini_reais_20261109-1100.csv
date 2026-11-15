@@ -1,0 +1,18 @@
+﻿Caso de Teste,Conjunto,Fonte de Dados,Case,Acerto,Tempo de Execução,Tokens Consolidados (Entrada),Tokens Consolidados (Saída),Tokens Consolidados (Total)
+CT01,Casos Reais,Stack Overflow/Stack Exchange,real_se_duvida_com_resposta_aceita_llamaindex,Ok,2.11s,3982,190,4172
+CT02,Casos Reais,Stack Overflow/Stack Exchange,real_se_duvida_com_resposta_aceita_vscode,Ok,2.19s,3443,177,3620
+CT03,Casos Reais,Stack Overflow/Stack Exchange,real_se_duvida_com_resposta_aceita_symfony_ai,Ok,2.29s,4712,181,4893
+CT04,Casos Reais,Stack Overflow/Stack Exchange,real_se_resposta_nao_aceita_windsurf,Ok,1.85s,3339,186,3525
+CT05,Casos Reais,Stack Overflow/Stack Exchange,real_se_duvida_sem_resposta_muito_vista,Ok,2.39s,9747,347,10094
+CT06,Casos Reais,Stack Overflow/Stack Exchange,real_se_duvida_sem_resposta_langchain_mcp,Ok,1.91s,4289,188,4477
+CT07,Casos Reais,Stack Overflow/Stack Exchange,real_se_limitacao_de_ferramenta_tom_objetivo,Ok,1.87s,3295,187,3482
+CT08,Casos Reais,Stack Overflow/Stack Exchange,real_se_desanimo_pessoal_vibe_coder,Ok,2.48s,3146,195,3341
+CT09,Casos Reais,Stack Overflow/Stack Exchange,real_se_debate_mercado_com_respostas,Ok,2.09s,3989,185,4174
+CT10,Casos Reais,Stack Overflow/Stack Exchange,real_se_pergunta_vaga_ruido,Ok,2.03s,3028,174,3202
+CT11,Casos Reais,Mastodon,real_mastodon_bot_politica,Ok,1.98s,3565,173,3738
+CT12,Casos Reais,Mastodon,real_mastodon_noticia_ia_rss,Ok,1.90s,3250,187,3437
+CT13,Casos Reais,Mastodon,real_mastodon_opiniao_com_link,Ok,1.86s,3161,195,3356
+CT14,Casos Reais,Mastodon,real_mastodon_japones_metadado_errado,Ok,11.55s,9070,354,9424
+CT15,Casos Reais,Mastodon,real_mastodon_opiniao_negativa,Ok,4.04s,8215,405,8620
+CT16,Casos Reais,Hacker News,real_hn_propaganda,Ok,2.00s,3006,183,3189
+CT17,Casos Reais,Hacker News,real_hn_sem_conteudo,Ok,1.87s,2864,167,3031
