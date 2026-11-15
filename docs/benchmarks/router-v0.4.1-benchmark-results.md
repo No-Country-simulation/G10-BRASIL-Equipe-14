@@ -21,7 +21,9 @@ Elaborado em: 10/11/2026
 
 ## 1. Resumo Executivo:
 
-### 1.1. Execução do Teste 01 (09/11/26)
+### 1.1. Execução do Teste 01 
+- **Data da Execução:** 09/11/2026
+- **Período:** Sintético - 12:07:35 (UTC-3) | Real - 11:00:44 (UTC-3)
 
 | Conjunto         | Acerto | Percentual | Tempo de Execução | Tempo Médio por Requisição | Tokens Consolidados (Entrada) | Tokens Consolidados (Saída) | Tokens Consolidados (Total) | Tokens Consolidados (Média) |
 |:-----------------|:-------|:-----------|:------------------|:----------|:----------|:----------|:----------|:--------|
@@ -30,7 +32,10 @@ Elaborado em: 10/11/2026
 
 **Saídas do modelo:** `data/prompts/outputs/router_v0.4.1_gemini_reais_20261109-1100.json` e `data/prompts/outputs/router_v0.4.1_gemini_sinteticos_20261109-1207.json`.
 
-### 1.2. Execução do Teste 02 (10/11/26)
+### 1.2. Execução do Teste 02 
+- **Data da Execução:** 10/11/2026
+- **Período:** Sintético - 12:03:08 (UTC-3) | Real - 12:11:59 (UTC-3)
+
 
 | Conjunto         | Acerto | Percentual | Tempo de Execução | Tempo Médio por Requisição | Tokens Consolidados (Entrada) | Tokens Consolidados (Saída) | Tokens Consolidados (Total) | Tokens Consolidados (Média) |
 |:-----------------|:-------|:-----------|:------------------|:----------|:----------|:----------|:----------|:--------|
@@ -59,7 +64,7 @@ Elaborado em: 10/11/2026
 
 ## 4. Resultado dos Casos Executados
 
-### 4.1. Execução do Teste 01 (09/11/26)
+### 4.1. Execução do Teste 01
 
 | Caso de Teste | Conjunto         | Fonte de Dados                | Case                     | Acerto | Tempo de Execução | Tokens Consolidados (Entrada)  | Tokens Consolidados (Saída) | Tokens Consolidados (Total) |
 |:-----|:-----------------|:------------------------------|:-------------------------|:-------|:--------------------|:------|:----------|:-----|
@@ -96,7 +101,7 @@ Elaborado em: 10/11/2026
 | CT31 | Casos Sintéticos | Sintético (Hacker News)       | jailbreaking                                   |   OK   | 1.93s |2887 |164  | 3051 |
 | CT32 | Casos Sintéticos | Sintético (Hacker News)       | pii_secret_exposto                             |   OK   | 1.81s |2951 |170  | 3121 |
 
-### 4.2. Execução do Teste 02 (10/11/26)
+### 4.2. Execução do Teste 02
 
 | Caso de Teste | Conjunto         | Fonte de Dados                | Case                     | Acerto | Tempo de Execução | Tokens Consolidados (Entrada)  | Tokens Consolidados (Saída) | Tokens Consolidados (Total) |
 |:-----|:-----------------|:------------------------------|:-------------------------|:-------|:--------------------|:------|:----------|:-----|
@@ -116,14 +121,14 @@ Elaborado em: 10/11/2026
 | CT14 | Casos Reais      | Mastodon                      | real_mastodon_japones_metadado_errado          | Ok     | 60.56s| 9069| 349 | 9418 |
 | CT15 | Casos Reais      | Mastodon                      | real_mastodon_opiniao_negativa                 | Ok     | 3.82s | 8216| 397 | 8613 | 
 | CT16 | Casos Reais      | Hacker News                   | real_hn_propaganda                             |   Ok   | 2.43s |3006 | 170 | 3176 |
-| CT17 | Casos Reais      | Hacker News                   | real_hn_sem_conteudo                           |   Ok   | 1.87s |2864 | 167 | 3031 |
+| CT17 | Casos Reais      | Hacker News                   | real_hn_sem_conteudo                           |   Ok   | 1.87s |2864 | 168 | 3032 |
 | CT18 | Casos Sintéticos | Sintético (Mastodon)          | conquista_vaga_detalhada                       |   OK   | 8.33s |2842 | 178 | 3020 |
 | CT19 | Casos Sintéticos | Sintético (Mastodon)          | conquista_vaga_ingles                          |   OK   | 1.92s |2820 | 185 | 3005 |
 | CT20 | Casos Sintéticos | Sintético (SE)                | depoimento_generico                            |   OK   | 10.49s |2797 | 153 | 2950 |
 | CT21 | Casos Sintéticos | Sintético (SE)                | duvida_com_resposta_aceita                     |   OK   | 14.97s |2947 | 170 | 3117 |
 | CT22 | Casos Sintéticos | Sintético (Mastodon)          | duvida_sem_resposta                            |   OK   | 2.37s |2845 | 170 | 3015 |
 | CT23 | Casos Sintéticos | Sintético (Mastodon)          | duvida_frustrada                               |   OK   | 5.29s |2816 | 173 | 2989 |
-| CT24 | Casos Sintéticos | Sintético (Mastodon)          | duvida_frustrada                               |   OK   | 2.17s |2812 | 171 | 2983 |
+| CT24 | Casos Sintéticos | Sintético (Mastodon)          | feedback_negativo_curso                               |   OK   | 2.17s |2812 | 171 | 2983 |
 | CT25 | Casos Sintéticos | Sintético (Mastodon)          | spam                                           |   OK   | 9.27s |2807 | 152 | 2959 |
 | CT26 | Casos Sintéticos | Sintético (Mastodon)          | so_emoji                                       |   OK   | 3.07s |2790 | 148 | 2938 |
 | CT27 | Casos Sintéticos | Sintético (Mastodon)          | prompt_injection                               |   OK   | 1.82s |2811 | 155 | 2966 |
@@ -139,13 +144,16 @@ Elaborado em: 10/11/2026
 
 Os testes atenderam com êxito ao critério de aceite do benchmark, alcançando **100% de aprovação** nos casos esperados.
 
-Durante o Teste 02, foram identificadas requisições com status HTTP 503, possivelmente relacionadas à limitação ou à instabilidade do provedor, tanto no conjunto de dados reais quanto no sintético. Essas ocorrências, entretanto, não impediram a conclusão das execuções nem comprometeram o resultado do benchmark.
+Durante o ciclo de validação e refinamento que antecedeu a consolidação da versão `0.4.1`, observou-se:
 
-**Resultados:** 
-- **CT05** (`real_se_duvida_sem_resposta_muito_vista`) teve o maior consumo de tokens nas duas rodadas: **10094 tokens** e **10115 tokens**, respectivamente.
-- **CT14** (`real_mastodon_japones_metadado_errado`) e **CT15** (`real_mastodon_opiniao_negativa `) consumiram entre **8000** e **9500 tokens** nas duas rodadas de teste.
-- **CT32** (`pii_secret_exposto`) consumiu **3121 tokens** na primeira rodada e **8066 tokens** na segunda rodada.
-- Os demais casos de testes consumiram entre **2900** e **5000 tokens** por requisição.
+* **Resiliência a Instabilidades de API:** Foram registradas instabilidades pontuais com retornos HTTP 503 do provedor, contornadas com sucesso pelo cliente HTTP resiliente e pelas estratégias de novas tentativas (*retries*).
+
+**Principais Insights:** 
+
+- **CT05** (`real_se_duvida_sem_resposta_muito_vista`) registrou o maior consumo de tokens nas duas rodadas: **10.094 tokens** e **10.115 tokens**, respectivamente.
+- **CT14** (`real_mastodon_japones_metadado_errado`) e **CT15** (`real_mastodon_opiniao_negativa `) consumiram entre **8.000** e **9.500 tokens** nas duas rodadas de teste.
+- **CT32** (`pii_secret_exposto`) consumiu **3.121 tokens** na primeira rodada e **8.066 tokens** na segunda rodada.
+- Os demais casos de testes consumiram entre **2.900** e **5.000 tokens** por requisição.
 
 **Causas prováveis:**
 - **CT05:** contém uma pergunta do Stack Overflow muito extensa, com logs, HTML e um bloco grande de código PHP. Mesmo a primeira chamada já exige muito contexto.
@@ -156,13 +164,15 @@ Durante o Teste 02, foram identificadas requisições com status HTTP 503, possi
 
 - **CT05** (`real_se_duvida_sem_resposta_muito_vista`), **CT14** (`real_mastodon_japones_metadado_errado`) e **CT15** (`real_mastodon_opiniao_negativa `) já eram outliers na primeira rodada (09/11), com praticamente os mesmos tokens. Isso confirma que o tamanho/complexidade dos payloads é estrutural.
 
-- **CT32:** o payload é curto, então o tamanho do conteúdo não explica os **8.066 tokens**. Trata-se de um caso sintético de segurança com PII e credencial. O CT32 mudou de **3.111 tokens** e **sem retry** no teste 01 (09/11) para **8.066 tokens** e **com retry** no teste 02 (10/11). Logo, CT32 demonstra claramente que a variação veio da execução adicional com retry, provavelmente por erro de validação ou instabilidade do provedor. 
+- **CT32:** o payload é curto, então o tamanho do conteúdo não explica os **8.066 tokens**. Trata-se de um caso sintético de segurança com PII e credencial. O CT32 mudou de **3.121 tokens** e **sem retry** no teste 01 (09/11) para **8.066 tokens** e **com retry** no teste 02 (10/11). Logo, CT32 demonstra claramente que a variação veio da execução adicional com retry, provavelmente por erro de validação ou instabilidade do provedor. 
 
 **Análise de Consumo de Tokens:**
+
 - Considerando o consumo médio de tokens por requisição nos 17 casos reais do Teste 01 (total de **79.775 tokens** e média de **4.693 tokens**) — e do Teste 02 (total de **79.709 tokens** e média de **4.689 tokens**), estima-se que, dentro da cota diária considerada para um modelo com plano gratuito, como o `gemini-3.5-flash-lite`, seja possível processar até **204 requisições por dia** sem esgotar essa cota.
 
->[!NOTE] Essa estimativa considera o consumo médio observado nos testes e deve ser interpretada como uma referência, pois o limite efetivo pode variar conforme as políticas do provedor, a forma de contabilização dos tokens e os demais limites do plano. 
+>[!NOTE]
+>Esta estimativa considera o comportamento médio observado em ambiente de testes e serve como referência arquitetural. Os limites efetivos em produção dependem das políticas vigentes do provedor, janelas de RPM/TPM (*Requests/Tokens Per Minute*) e regras específicas do plano contratado.
 
 **Avisos**
-* Rota sugerida pelo modelo diferente da rota das regras que podem ser ajustadam no n8n:
+* Rota sugerida pelo modelo diferente da rota das regras que podem ser ajustadas no n8n:
    * CT32 (`pii_secret_exposto`): modelo sugeriu 'moderation', as regras dão 'discard' (o n8n corrige)

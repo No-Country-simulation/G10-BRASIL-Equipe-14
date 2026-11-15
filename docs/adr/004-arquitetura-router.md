@@ -22,7 +22,7 @@ Elaboração: 09/11/2026
   - [3.2. Criar uma classe única para todo o router](#32-criar-uma-classe-única-para-todo-o-router)
   - [3.3. Enviar os few-shot examples em todas as chamadas](#33-enviar-os-few-shot-examples-em-todas-as-chamadas)
   - [3.4. Confiar somente nos guardrails do Prompt](#34-confiar-somente-nos-guardrails-do-prompt)
-- [4. Consequências](#3-consequências)
+- [4. Consequências](#4-consequências)
   - [4.1. Benefícios](#41-benefícios)
   - [4.2. Limitações e Riscos](#42-limitações-e-riscos)
     
@@ -60,51 +60,54 @@ A concentração dessas responsabilidades em um único arquivo dificultava a man
 
 ## 2. Decisão Tomada
 
-Adotou-se uma arquitetura modular orientada ao Princípio da Responsabilidade Única (*Single Responsibility Principle*).
+Adotou-se uma **arquitetura modular orientada ao Princípio da Responsabilidade Única (SRP)**, desacoplando o pipeline de router em módulos especializados localizados em `src/pipeline/` e organizando os prompts dinâmicos em `data/prompts/router/`.
 
-Cada camada possui uma responsabilidade específica:
+O fluxo de execução obedece à seguinte pipeline estruturada:
 
 ```text
-Casos de entrada
+Casos de entrada  (router_cases_reais.json e router_cases_sinteticos.json)
       |
       v
 router_setup.py
       |
       v
-eval_router.py
+eval_router.py (Orquestrador)
       |
       v
 router_processor.py
       |
-      +--> llm_providers.py --> llm_service.py --> APIs Gemini/Groq/etc.
+      +--> router_loader.py (Carrega os prompts do router)
+      |
+      +--> router_prompt_builder.py (Monta prompt de usuário / fallback de retry)
+      |
+      +--> llm_providers.py --> llm_service.py --> APIs (Gemini/Groq/etc.)
       |
       +--> json_parser.py
       |
-      +--> router_validator.py
+      +--> router_validator.py 
       |
       v
 router_report.py
       |
       v
-Relatório JSON e saída do benchmark
+Relatório JSON, CSV e saída do benchmark (data/prompts/outputs/)
 ```
 
-A arquitetura também separa:
-
-- Configuração da execução;
-- Composição de prompts;
-- Integração com provedores;
+A arquitetura separa explicitamente:
+- A configuração da execução e CLI;
+- A composição modular de prompts;
+- A integração desacoplada com provedores LLM;
 - Processamento de casos;
 - Validação determinística;
-- Geração de relatórios.
+- A geração consolidada de relatórios.
 
 ### 2.1. Princípios Arquiteturais
 
 - **Responsabilidade única**
-Cada módulo deve possuir uma responsabilidade principal e bem delimitada.
+Cada módulo deve possuir uma responsabilidade principal e bem delimitada dentro do ciclo de vida do pipeline.
 
 - **Baixo acoplamento**
-As regras de classificação não devem depender da implementação específica de Gemini ou Groq.
+As regras de adaptação e geração de conteúdo não dependem da implementação específica de um provedor (como Gemini ou Groq).
 
 - **Validação determinística**
 O resultado do LLM não é considerado válido apenas por ser JSON. A saída deve passar pelo `router_validator.py`, que verifica **schema**, **enums**, **scores**, **has_answer**, **campos obrigatórios** e **rota esperada**.
@@ -113,16 +116,15 @@ O resultado do LLM não é considerado válido apenas por ser JSON. A saída dev
 Os prompts definem guardrails contra prompt injection, PII e exposição de segredos. O validador também deve rejeitar saídas incompatíveis com regras determinísticas de segurança.
 
 - **Observabilidade**
-Cada execução deve registrar, quando disponível:
+Cada execução registra, quando disponível:
 
-   - Duração da chamada;
-   - Tokens de entrada;
-   - Tokens de saída;
-   - Tokens totais;
+   - Duração e latência da chamada;
+   - Tokens de entrada, saída e totais;
    - Ocorrência de retry;
    - Erros de parsing ou validação.
 
 ### 2.2. Organização dos Componentes
+
 #### Prompts
 
 Os prompts são mantidos em arquivos Markdown independentes:
@@ -132,48 +134,49 @@ Os prompts são mantidos em arquivos Markdown independentes:
 - `guardrails.md`: define regras de segurança e proteção de dados;
 - `few_shot_examples.md`: contém exemplos usados para correção de formato e rótulos quando a primeira resposta falha.
 
-O [router_loader.py](../../src/pipeline/router_loader.py) carrega o prompt base sem os exemplos *few-shot*. Os exemplos são carregados separadamente e incluídos apenas em uma tentativa de correção.
+- `router_loader.py`: carrega o prompt base sem os exemplos *few-shot*. Os exemplos são carregados separadamente e incluídos apenas em uma tentativa de correção.
+
+- `router_prompt_builder.py`: formata o prompt de usuário a partir do item normalizado e gerencia a injeção condicional de instruções corretivas ou exemplos de few-shot quando um ciclo de retry é acionado.
 
 #### Configuração da execução
 
-O [router_setup.py](../../src/pipeline/router_setup.py):
+- `router_setup.py`:
 
-- Define os argumentos da CLI;
-- Seleciona os arquivos de casos;
-- Filtra casos pelo argumento `--only`;
-- Carrega arquivos de replay;
-- Valida a disponibilidade da API Key;
-- Seleciona provedor, modelo e temperatura;
-- Carrega o prompt base e os exemplos *few-shot*;
-- Cria o contexto de execução.
+      - Define os argumentos da CLI;
+      - Seleciona os arquivos de casos de teste (`router_cases.json`);
+      - Filtra casos pelo argumento `--only`;
+      - Carrega arquivos de replay;
+      - Valida a disponibilidade da API Key;
+      - Seleciona provedor, modelo e temperatura;
+      - Carrega o prompt base e os exemplos *few-shot*;
+      - Inicializa o contexto de execução.
 
 #### Orquestração
 
-O [eval_router.py](../../src/pipeline/eval_router.py) é o ponto de entrada do benchmark. Ele:
+- `eval_router.py`:
 
-- Obtém os argumentos da CLI;
-- Solicita o contexto de execução;
-- Percorre os casos;
-- Chama o processador;
-- Encaminha os resultados para o relatório;
-- Define o código de saída da execução.
+      - Obtém os argumentos da CLI e inicializa o contexto;
+      - Percorre os casos de teste configurados;
+      - Despacha o processamento para o processador;
+      - Chama o processador;
+      - Encaminha os resultados consolidados para o relatório;
+      - Define o código de saída da execução.
 
-Ele não deve conter regras de parsing, classificação, integração com APIs ou persistência detalhada.
+Não contém regras de parsing, chamadas de API ou lógica de validação.
 
 #### Processamento
 
-O [router_processor.py](../../src/pipeline/router_processor.py):
+- `router_processor.py`:
 
-- Monta o prompt de usuário;
-- Chama a fachada `call_llm`;
-- Interpreta a resposta JSON;
-- Executa a validação;
-- Mede a duração;
-- Coleta o uso de tokens;
-- Executa uma segunda chamada quando houver erro de formato ou rótulo;
-- Inclui os *few-shot examples* somente na tentativa de correção;
-- Reprocessa e revalida a segunda resposta;
-- Trata os modos `dry-run` e `replay`.
+      - Utiliza o `router_prompt_builder.py` para formatar os prompts de usuário;
+      - Aciona a fachada `call_llm` via serviços de provedores (`llm_providers.py`);
+      - Interpreta o JSON de resposta com o auxílio do `json_parser.py`;
+      - Executa a validação determinística via `router_validator.py`;
+      - Mede a latência com `time.perf_counter()` e coleta o uso de tokens;
+      - Aciona uma segunda chamada corretiva quando houver falha de formato, estouro de limites ou violação de regras;
+      - Inclui os `few_shot_examples.md` somente na tentativa de correção;
+      - Reprocessa e revalida a segunda resposta;
+      - Trata os modos `dry-run` e `replay`.
 
 A primeira chamada utiliza apenas:
 
@@ -191,22 +194,23 @@ few_shot_examples.md
 
 #### Relatórios
 
-O [router_report.py](../../src/pipeline/router_report.py):
+- `router_report.py`:
 
-- Exibe o resultado de cada caso;
-- Exibe a taxa de acerto;
-- Calcula latência média e total;
-- Consolida os tokens das chamadas realizadas;
-- Registra resultados e metadados;
-- Salva o relatório JSON das execuções reais.
+      - Exibe o resultado detalhado de cada caso no terminal;
+      - Exibe a taxa de acerto;
+      - Calcula latência média e total;
+      - Consolida os tokens das chamadas realizadas;
+      - Registra resultados e metadados;
+      - Salva o relatório JSON das execuções reais.
 
-Tokens são considerados indisponíveis em `dry-run` e em `replay` sem métricas armazenadas.
+>[!NOTE]
+>Tokens são considerados indisponíveis em `dry-run` e `replay` sem métricas armazenadas.
 
 #### Serviços de LLM
 
-O [llm_providers.py](../../src/services/llm_providers.py) mantém o registro de provedores e fornece a fachada `call_llm`.
+- `llm_providers.py`: mantém o registro de provedores e fornece a fachada `call_llm`.
 
-O [llm_service.py](../../src/services/llm_service.py) implementa as chamadas específicas para os modelos selecionados e normaliza as respostas em uma estrutura comum, contendo texto e métricas de uso.
+- `llm_service.py`: implementa as chamadas específicas para os modelos selecionados e normaliza as respostas em uma estrutura comum, contendo texto e métricas de uso.
 
 A escolha do provedor não deve alterar as regras de validação ou roteamento.
 
@@ -214,38 +218,38 @@ A escolha do provedor não deve alterar as regras de validação ou roteamento.
 
 Os utilitários possuem responsabilidades compartilhadas:
 
-- `prompt_reader.py`: lê arquivos Markdown;
-- `cases_loader.py`: carrega casos e arquivos de replay;
-- `json_parser.py`: interpreta respostas JSON;
-- `http_client.py`: executa requisições HTTP, timeout e retries de rede.
+- `cases_loader.py`: carrega casos e arquivos de histórico;
+- `http_client.py`: executa requisições HTTP, timeout e retries de rede;
+- `json_parser.py`: parsing seguro de respostas JSON brutas;
+- `prompt_reader.py`: leitura de arquivos Markdown.
+- `provider_config.py `: centraliza o mapeamento de configurações de cada provedor LLM;
+- `regex_patterns.py`: centraliza as expressões regulares.
 
 #### Validação
 
-O [router_validator.py](../../src/validation/router_validator.py):
+- `router_validator.py`:
 
-- Valida os casos de entrada contra o schema;
-- Valida campos obrigatórios;
-- Rejeita campos adicionais;
-- Valida enums e tipos;
-- Valida `topics`, `summary` e `relevance_score`;
-- Calcula a rota determinística;
-- Verifica `has_answer` com base em `raw_metadata.is_accepted`;
-- Verifica limites específicos para casos de segurança.
-
-#### Testes Unitários
-O [test_router_validator.py](`tests/test_router_validator.py`):**
-
-- Contém os testes unirários das regras de validação, incluindo tipos, campos obrigatórios, enums, faixas de score, rotas e rejeição de campos adicionais.
+      - Valida os casos de entrada contra o schema;
+      - Valida campos obrigatórios;
+      - Rejeita campos adicionais;
+      - Valida enums e tipos;
+      - Valida `topics`, `summary` e `relevance_score`;
+      - Calcula a rota determinística;
+      - Verifica `has_answer` com base em `raw_metadata.is_accepted`;
+      - Verifica limites específicos para casos de segurança.
 
 ### 2.3. Interação entre os Componentes
 
-A execução do Router segue uma cadeia de responsabilidades:
+A execução do subsistema de Router segue uma cadeia clara de responsabilidades e fluxo de dados:
 
-1. `router_setup.py` prepara o contexto da execução.
-2. `eval_router.py` coordena o processamento dos casos.
-3. `router_processor.py` processa cada caso e interage com os serviços de LLM.
-4. `router_validator.py` valida a entrada e a saída do modelo.
-5. `router_report.py` consolida e persiste os resultados.
+1. `router_setup.py` prepara o ambiente, valida credenciais e define os parâmetros de execução da CLI.
+2. `eval_router.py` coordena a varredura e o loop de execução da suíte de casos de teste.
+3. `router_processor.py` gerencia o ciclo de vida individual de cada caso e aciona o carregamento dos prompts.
+4. `router_loader.py` combina o arquivo de regras de prompts.
+5. `router_prompt_builder.py` formata o prompt de usuário com base no item normalizado.
+6. Os serviços de LLM (`llm_providers.py` e `llm_service.py`) despacham a requisição para o provedor selecionado e normalizam a resposta bruta e as métricas de uso.
+7. `router_validator.py` valida a entrada e a saída do modelo.
+8. `router_report.py` consolida as métricas operacionais (latência e tokens) e persiste os relatórios finais em JSON e CSV.
 
 ---
 
@@ -253,18 +257,7 @@ A execução do Router segue uma cadeia de responsabilidades:
 
 ### 3.1. Manter toda a lógica em `eval_router.py`
 
-Foi rejeitado porque concentrava:
-
-- CLI;
-- carregamento;
-- chamadas LLM;
-- parsing;
-- validação;
-- retries;
-- métricas;
-- persistência.
-
-Essa abordagem aumentava o acoplamento e dificultava os testes.
+Foi rejeitado porque concentrava CLI, carregamento de arquivos, requisições de API, parsing, validação estrita, controle de retries, métricas e persistência em um script monolítico, gerando alto acoplamento e impossibilitando testes unitários granulares.
 
 ### 3.2. Criar uma classe única para todo o Router
 
@@ -276,8 +269,7 @@ Foi rejeitado porque aumenta o número de tokens de entrada em todos os casos, m
 
 ### 3.4. Confiar somente nos guardrails do prompt
 
-Foi rejeitado porque o LLM pode produzir JSON válido, mas semanticamente
-incompatível com as regras do sistema.
+Foi rejeitado porque o LLM pode produzir JSON válido, mas semanticamente incompatível com as regras do sistema.
 
 ---
 
@@ -285,7 +277,7 @@ incompatível com as regras do sistema.
 
 ### 4.1. Benefícios
 
-- Redução do tamanho e da complexidade do `eval_router.py`;
+- Redução do tamanho e da complexidade do `eval_router.py`, pois o script de entrada atua apenas como orquestrador;;
 - Responsabilidades claramente separadas;
 - Menor acoplamento entre pipeline e provedores;
 - Possibilidade de adicionar novos provedores;
@@ -294,7 +286,7 @@ incompatível com as regras do sistema.
 - Redução do consumo de tokens nas chamadas bem-sucedidas;
 - *few-shot examples* disponíveis para correção direcionada;
 - Suporte a `dry-run` e `replay`;
-- Medição consolidada de latência e tokens;
+- Rastreabilidade de latência, uso de tokens e histórico de tentativas (retries)
 - Maior facilidade para testes unitários.
 
 ### 4.2. Limitações e Riscos
