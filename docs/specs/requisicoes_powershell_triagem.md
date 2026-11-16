@@ -14,7 +14,7 @@ $headers = @{
 
 $body = @{
     source = "mastodon"
-    message = "Teste de invocação do workflow WF08."
+    message = "Teste de invocação do workflow WF09."
 } | ConvertTo-Json -Depth 10
 
 $response = Invoke-RestMethod `
