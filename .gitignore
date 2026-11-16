@@ -81,3 +81,6 @@ yarn-debug.log*
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+
+# Documentacao de uso local
+/docs/specs/avaliacao-prompts-issues-8-9-10.md
