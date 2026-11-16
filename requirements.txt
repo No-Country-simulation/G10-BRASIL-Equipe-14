@@ -4,6 +4,7 @@ streamlit-shadcn-ui>=1.4.0
 watchdog>=6.0.0
 duckdb>=0.10.0
 pandas>=2.2.0
+plotly>=6.0.0
 jsonschema[format]>=4.22.0
 pydantic>=2.7.0
 oci>=2.125.0

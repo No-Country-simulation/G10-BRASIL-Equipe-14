@@ -4,6 +4,7 @@ from typing import Any
 
 import requests
 import streamlit as st
+from src.ui import page_header, badges
 
 from src.config import (
     INGESTION_TEXT_AREA_NAME,
@@ -68,7 +69,8 @@ def collect_items(files: list, text: str) -> tuple[list[tuple[str, list[dict[str
 
 def render_preview(items: list[tuple[str, list[dict[str, Any]]]]) -> None:
     for name, records in items:
-        with st.expander(f"{name} — {len(records)} registro(s)", expanded=True):
+        count_label = "registro" if len(records) == 1 else "registros"
+        with st.expander(f"{name} — {len(records)} {count_label}", expanded=True):
             if len(records) == 1:
                 st.json(records[0])
             else:
@@ -104,20 +106,23 @@ def send_items(items: list[tuple[str, list[dict[str, Any]]]]) -> tuple[int, int]
 def render_send_summary(sent: int, failed: int) -> None:
     total = sent + failed
     if failed == 0:
-        st.success(f"{sent} de {total} registro(s) enviado(s) com sucesso.")
+        st.success(f"Registros enviados com sucesso: {sent} de {total}.")
     elif sent == 0:
-        st.error(f"Nenhum registro foi enviado: {failed} de {total} falhou(aram).")
+        st.error(f"Nenhum registro foi enviado. Falhas no envio: {failed} de {total}.")
     else:
-        st.warning(f"Envio parcial: {sent} de {total} registro(s) enviado(s) com sucesso, {failed} falhou(aram).")
+        st.warning(f"Envio parcial: {sent} de {total} registros enviados com sucesso. Falhas no envio: {failed}.")
 
 
 @st.dialog("Confirmar envio")
 def confirm_send(items: list[tuple[str, list[dict[str, Any]]]], signature: str) -> None:
     total = sum(len(records) for _, records in items)
-    st.write(f"Enviar **{len(items)}** item(ns) com **{total}** registro(s) para a ingestão?")
+    item_label = "entrada" if len(items) == 1 else "entradas"
+    record_label = "registro" if total == 1 else "registros"
+    st.write(f"Enviar **{len(items)}** {item_label} com **{total}** {record_label} para a ingestão?")
     with st.expander("Ver fontes"):
         for name, records in items:
-            st.markdown(f"- {name} — {len(records)} registro(s)")
+            label = "registro" if len(records) == 1 else "registros"
+            st.markdown(f"- {name} — {len(records)} {label}")
     actions = st.empty()
     with actions.container(horizontal=True):
         confirmed = st.button("Confirmar envio", type="primary", key="ingestion_confirm")
@@ -140,7 +145,12 @@ def render_errors(errors: list[str]) -> None:
 
 
 def render_ingestion() -> None:
-    st.header("Ingestão de dados")
+    page_header("Ingestão de dados", "Prepare a entrada de interações para transformar conversas em ativos de conhecimento.", "Operação / Entrada de dados")
+    badges(["01 · Adicionar", "02 · Validar e conferir", "03 · Confirmar envio"])
+    st.info("Adicione arquivos ou cole os dados. Confira a prévia validada antes de confirmar o envio para processamento.")
+    with st.expander("Orientações de preenchimento"):
+        st.write("Use JSON ou CSV com os campos do contrato de entrada: id, source, url e interactions. O conteúdo será validado antes do envio.")
+        st.caption("Após o envio, consulte a análise para investigar os resultados e a curadoria para revisar o conteúdo.")
 
     files = st.file_uploader(
         "Adicione os arquivos JSON ou CSV",

@@ -15,7 +15,7 @@ from src.pipeline.router_loader import (
     load_router_base_prompt,
     load_router_few_shot_prompt,
 )
-from src.utils.cases_loader import load_cases, load_replay
+from src.utils.cases_loader import load_router_cases, load_replay
 from src.utils.provider_config import provider_config
 from src.validation.router_validator import invalid_inputs
 
@@ -103,7 +103,7 @@ def load_and_filter_cases(
         raise ValueError("Arquivos de casos não encontrados:\n" f"{details}")
 
     try:
-        cases = load_cases(case_paths)
+        cases = load_router_cases(case_paths)
     except ValueError as exc:
         raise ValueError(f"Erro ao carregar casos: {exc}") from exc
 

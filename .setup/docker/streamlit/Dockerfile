@@ -17,6 +17,7 @@ WORKDIR /code
 
 COPY pyproject.toml uv.lock ./
 COPY src ./src
+COPY docs/assets/logo-communitylab.svg ./docs/assets/logo-communitylab.svg
 COPY .setup/docker/streamlit/config.toml ./.streamlit/config.toml
 
 RUN uv sync --frozen --no-dev
