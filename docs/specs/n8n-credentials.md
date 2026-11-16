@@ -25,7 +25,7 @@ WF07 | `wf07-hacker-news-search` | Dados completos | Hacker News |
 WF08 | `wf08_merge-stackexchange-data` | Questões, licenças, respostas combinadas | Stack Exchange |
 WF09 | `wf09_triagem-llm-router-mastodon` | Avaliação de publicações | Mastodon |
 WF10 | `wf10_triagem-llm-router_stackexchange` | Avaliação de perguntas e respostas | Stack Exchange |
-WF11 | `wf11_triagem-llm-router_hackernews` | Avaliação de publicações e comentários | Hacker News |
+WF11 | `wf11_triagem-llm-router_hackernews` | Avaliação de comentários com contexto das publicações | Hacker News |
 
 As requisições powershell dos workflows com Agente de IA podem ser vistas [aqui](./requisicoes_powershell_triagem.md). 
 
