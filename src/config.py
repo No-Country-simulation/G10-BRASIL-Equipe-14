@@ -314,3 +314,6 @@ RETRYABLE_ERROR_PREFIXES = (
     "original_language:",
     "suggested_route:",
 )
+
+CURATION_DB_PATH = DATA_DIR / "curadoria.duckdb"
+

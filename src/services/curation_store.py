@@ -56,3 +56,16 @@ def load_reviews() -> dict[str, dict]:
         con.execute(SCHEMA)
         rows = con.execute("SELECT content_id, status, body FROM curadoria").fetchall()
     return {cid: {"review_status": status, "body": body} for cid, status, body in rows}
+    
+ 
+def to_store_content(item: dict, package: dict) -> dict:
+    """Converte um item da tela para o formato esperado por save_review."""
+    return {
+        "id": item["id"],
+        "package_id": package["package_id"],
+        "batch_id": package["linked_batch_id"],
+        "target": item["target"],
+        "title": item["title"],
+        "body": item["body"],
+        "review_status": item["status"],
+    }
