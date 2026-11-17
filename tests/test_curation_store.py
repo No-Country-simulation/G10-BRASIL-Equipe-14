@@ -77,3 +77,26 @@ def test_chave_obrigatoria_ausente_levanta_keyerror(db_path):
 
     with pytest.raises(KeyError):
         curation_store.save_review(content)
+        
+
+def test_to_store_content_converte_nomes_da_tela():
+    item = {
+        "id": "pkg-1_0",
+        "target": "faq",
+        "title": "Como validar um JSON?",
+        "body": "Use um JSON Schema.",
+        "status": "approved",
+    }
+    package = {"package_id": "pkg-1", "linked_batch_id": "2026-W46"}
+
+    content = curation_store.to_store_content(item, package)
+
+    assert content == {
+        "id": "pkg-1_0",
+        "package_id": "pkg-1",
+        "batch_id": "2026-W46",
+        "target": "faq",
+        "title": "Como validar um JSON?",
+        "body": "Use um JSON Schema.",
+        "review_status": "approved",
+    }
