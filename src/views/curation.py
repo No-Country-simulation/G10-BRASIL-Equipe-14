@@ -18,15 +18,27 @@ from src.services.output_packages import list_output_packages
 
 def load_suggested_content() -> list[dict]:
     packages = list_output_packages()
+    saved = load_reviews()
     for package in packages:
         for index, content in enumerate(package["suggested_content"]):
             content["id"] = f"{package['package_id']}_{index}"
+            content["package_id"] = package["package_id"]
+            content["batch_id"] = package["linked_batch_id"]
             content["review_status"] = "pending"
+            if content["id"] in saved:
+                content["review_status"] = saved[content["id"]]["review_status"]
+                content["body"] = saved[content["id"]]["body"]
     return packages
 
 
+from src.services.curation_store import load_reviews, save_review
+
 def set_review(content: dict, status: str) -> None:
+    edited = st.session_state.get(f"body_{content['id']}")
+    if edited is not None:
+        content["body"] = edited
     content["review_status"] = status
+    save_review(content)
 
 
 def format_period(reference_period: str) -> str:
