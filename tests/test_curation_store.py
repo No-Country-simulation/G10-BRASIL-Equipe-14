@@ -1,5 +1,7 @@
 import duckdb
 import pytest
+import json
+import re
 
 from src.services import curation_store
 
@@ -78,3 +80,21 @@ def test_chave_obrigatoria_ausente_levanta_keyerror(db_path):
     with pytest.raises(KeyError):
         curation_store.save_review(content)
         
+        
+def test_export_approved_exporta_so_aprovados(tmp_path, monkeypatch):
+    monkeypatch.setattr(curation_store, "CURATION_EXPORT_DIR", tmp_path)
+    package = {"package_id": "pkg-1", "linked_batch_id": "lote-se-001"}
+    contents = [
+        {"target": "faq", "title": "A", "body": "a", "potential_engagement": "low", "review_status": "approved"},
+        {"target": "newsletter", "title": "B", "body": "b", "potential_engagement": "medium", "review_status": "rejected"},
+        {"target": "linkedin", "title": "C", "body": "c", "potential_engagement": "high", "review_status": "pending"},
+    ]
+
+    path = curation_store.export_approved(package, contents)
+
+    assert path.parent == tmp_path
+    assert re.fullmatch(r"pacote-lote-se-001-\d{8}-\d{6}\.json", path.name)
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    assert [c["title"] for c in payload["suggested_content"]] == ["A"]
+    assert set(payload["suggested_content"][0]) == {"target", "title", "body", "potential_engagement"}
+
