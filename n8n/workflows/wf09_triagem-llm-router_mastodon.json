@@ -7,7 +7,7 @@
       "typeVersion": 1,
       "position": [
         0,
-        112
+        336
       ],
       "id": "b95e2d70-b765-4e2f-9ca4-32d456dcbbed",
       "name": "When clicking ‘Execute workflow’"
@@ -24,7 +24,7 @@
       "typeVersion": 1,
       "position": [
         448,
-        16
+        240
       ],
       "id": "ce83711f-224d-45dd-bc0d-59dc129749ce",
       "name": "Get OCI Bucket files",
@@ -74,7 +74,7 @@
       "typeVersion": 2.3,
       "position": [
         672,
-        16
+        240
       ],
       "id": "672fa296-b0b4-41b8-b695-c798cad7fb2d",
       "name": "Select sample_ json files"
@@ -88,7 +88,7 @@
       "typeVersion": 1,
       "position": [
         896,
-        16
+        240
       ],
       "id": "1d363e1b-1faf-4404-a473-f474cfeeeea2",
       "name": "Download a file",
@@ -108,7 +108,7 @@
       "typeVersion": 1.1,
       "position": [
         1120,
-        16
+        240
       ],
       "id": "91340dd8-c232-4f42-bf36-af19cdd492b7",
       "name": "Extract from File"
@@ -122,7 +122,7 @@
       "typeVersion": 1,
       "position": [
         1344,
-        16
+        240
       ],
       "id": "ac8989d2-9bc7-425c-919d-02ad9b721e8d",
       "name": "Split Out"
@@ -148,7 +148,7 @@
       "typeVersion": 1.2,
       "position": [
         1568,
-        96
+        304
       ],
       "id": "9def8884-c5c4-423f-a90a-4033a326460c",
       "name": "Sanitize HTML Text"
@@ -163,7 +163,7 @@
       "typeVersion": 3.2,
       "position": [
         1792,
-        16
+        240
       ],
       "id": "456e3101-9b7b-41bd-83f5-69cbf079c5cb",
       "name": "Merge"
@@ -312,7 +312,7 @@
       "typeVersion": 3.5,
       "position": [
         2016,
-        16
+        240
       ],
       "id": "b413ceb0-34bf-4989-bd3d-4ee387873b98",
       "name": "Map Mastodon Fields"
@@ -331,10 +331,11 @@
       "typeVersion": 1.1,
       "position": [
         2464,
-        -272
+        672
       ],
       "id": "edf18a46-ec6f-4f41-9e46-53cdbb5ca0a8",
-      "name": "Sentiment Analysis"
+      "name": "Sentiment Analysis",
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -344,7 +345,7 @@
       "typeVersion": 3.2,
       "position": [
         3040,
-        -176
+        320
       ],
       "id": "70a04227-d731-4547-a621-fc9459363ba9",
       "name": "Merge Evaluation"
@@ -374,7 +375,7 @@
       "typeVersion": 1,
       "position": [
         2240,
-        -272
+        672
       ],
       "id": "8b9658cd-ffa6-4913-8f47-1fe07a7e27f3",
       "name": "Limit"
@@ -409,7 +410,7 @@
       "typeVersion": 3.5,
       "position": [
         224,
-        16
+        240
       ],
       "id": "df5393d9-d986-40ae-90f7-f570628951a2",
       "name": "Define Search Parameters"
@@ -456,7 +457,7 @@
       "typeVersion": 3.5,
       "position": [
         2816,
-        -656
+        64
       ],
       "id": "527ae466-3c64-4775-84fd-b770c79ecf4c",
       "name": "Edit Excited"
@@ -503,7 +504,7 @@
       "typeVersion": 3.5,
       "position": [
         2816,
-        -464
+        256
       ],
       "id": "ed07119b-f3c4-49bf-844e-e40ed9a5ef52",
       "name": "Edit Happy"
@@ -550,7 +551,7 @@
       "typeVersion": 3.5,
       "position": [
         2816,
-        -272
+        448
       ],
       "id": "5036c0ab-22a2-445d-a2cc-3c07fa1d6d49",
       "name": "Edit Neutral"
@@ -597,7 +598,7 @@
       "typeVersion": 3.5,
       "position": [
         2816,
-        -80
+        848
       ],
       "id": "880e46cd-a5bb-41dc-90e7-cbb02a5f3b06",
       "name": "Edit Disappointed"
@@ -644,7 +645,7 @@
       "typeVersion": 3.5,
       "position": [
         2816,
-        112
+        1040
       ],
       "id": "1239ccc4-1c19-4fbd-98f3-c3164402cb76",
       "name": "Edit Angry"
@@ -661,7 +662,7 @@
       "typeVersion": 2.1,
       "position": [
         0,
-        -80
+        144
       ],
       "id": "3d59e42f-85f8-4113-8c62-d38dc6b56c46",
       "name": "Webhook",
@@ -676,7 +677,7 @@
     {
       "parameters": {
         "respondWith": "json",
-        "responseBody": "{\n  \"status\": \"success\",\n  \"message\": \"Análise de sentimento feito e arquivo disponibilizado no bucket OCI.\"\n}",
+        "responseBody": "={{ $json }}",
         "options": {
           "responseCode": 200
         }
@@ -684,8 +685,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        5408,
-        224
+        5632,
+        -320
       ],
       "id": "d7899d98-c885-4198-b665-e4e9053e78d3",
       "name": "Respond to Webhook"
@@ -713,7 +714,8 @@
           "id": "WG22ysIkwCiyk8dj",
           "name": "OCI Object Storage S3"
         }
-      }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -726,8 +728,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatNvidia",
       "typeVersion": 1,
       "position": [
-        2544,
-        64
+        2536,
+        1032
       ],
       "id": "cc8042b0-0394-451e-b16f-afb5e266ed0a",
       "name": "NVIDIA Nemotron Chat Model",
@@ -751,10 +753,11 @@
       "typeVersion": 3.1,
       "position": [
         3488,
-        16
+        112
       ],
       "id": "71590c17-1ce3-49a7-b82b-9f8df906001d",
-      "name": "AI Agent"
+      "name": "AI Agent",
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -766,7 +769,7 @@
       "typeVersion": 3.2,
       "position": [
         3264,
-        16
+        112
       ],
       "id": "e4017b60-ae8c-40ab-aec5-8ce4fefd0ad8",
       "name": "Merge Infos"
@@ -779,8 +782,8 @@
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.3,
       "position": [
-        3632,
-        256
+        3624,
+        344
       ],
       "id": "f0362379-406c-4a01-b0a9-852bfc389dbd",
       "name": "Structured Output Parser"
@@ -796,8 +799,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatNvidia",
       "typeVersion": 1,
       "position": [
-        3488,
-        256
+        3496,
+        344
       ],
       "id": "bed5d65d-4b12-43a9-9c63-22610c979ecb",
       "name": "NVIDIA Nemotron Chat Model1",
@@ -961,7 +964,8 @@
         16
       ],
       "id": "255c8224-65f3-483c-9a76-d0a10795c328",
-      "name": "Edit Fields"
+      "name": "Edit Fields",
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -992,7 +996,7 @@
       "typeVersion": 2.3,
       "position": [
         4064,
-        112
+        -16
       ],
       "id": "d2884194-cda5-44c8-9f1b-7597988e9339",
       "name": "If Human Review"
@@ -1195,7 +1199,7 @@
       "typeVersion": 3.5,
       "position": [
         4512,
-        -272
+        -256
       ],
       "id": "d626d4c9-45e4-4a8e-a75b-ed1f0afb89dc",
       "name": "Success Case"
@@ -1225,7 +1229,7 @@
       "typeVersion": 3.5,
       "position": [
         4512,
-        -80
+        -64
       ],
       "id": "9cfc19d7-cf3e-4a88-b7d0-2d0e29724b9d",
       "name": "FAQ"
@@ -1255,7 +1259,7 @@
       "typeVersion": 3.5,
       "position": [
         4512,
-        112
+        208
       ],
       "id": "e287b0be-0201-48b4-93d3-38bd450fa80b",
       "name": "Newsletter"
@@ -1285,7 +1289,7 @@
       "typeVersion": 3.5,
       "position": [
         4512,
-        304
+        400
       ],
       "id": "e6dcd3a5-cb86-46a5-b93c-f39b2acd2152",
       "name": "Moderation"
@@ -1315,7 +1319,7 @@
       "typeVersion": 3.5,
       "position": [
         4512,
-        496
+        592
       ],
       "id": "032d8654-f101-4f32-971b-e91888efbba2",
       "name": "Discard"
@@ -1345,7 +1349,7 @@
       "typeVersion": 3.5,
       "position": [
         4512,
-        688
+        880
       ],
       "id": "46ae1dda-b013-429e-91d1-e5eb8b42013d",
       "name": "Fallback"
@@ -1390,7 +1394,8 @@
           "id": "WG22ysIkwCiyk8dj",
           "name": "OCI Object Storage S3"
         }
-      }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -1404,7 +1409,7 @@
       "typeVersion": 1.1,
       "position": [
         4736,
-        -272
+        -256
       ],
       "id": "9120189a-0f6a-4221-b9fd-012eb4d88887",
       "name": "Convert to File false"
@@ -1423,7 +1428,7 @@
       "typeVersion": 1,
       "position": [
         4960,
-        -272
+        -256
       ],
       "id": "3983e0d3-57c6-4b71-8c9f-6bef6135afdd",
       "name": "Upload a file false",
@@ -1432,7 +1437,8 @@
           "id": "WG22ysIkwCiyk8dj",
           "name": "OCI Object Storage S3"
         }
-      }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -1446,7 +1452,7 @@
       "typeVersion": 1.1,
       "position": [
         4736,
-        -80
+        -64
       ],
       "id": "d48a7558-e1eb-4c98-bc71-c2a0f807e7e9",
       "name": "Convert to File false1"
@@ -1463,7 +1469,7 @@
       "typeVersion": 1.1,
       "position": [
         4736,
-        112
+        208
       ],
       "id": "1c1b2896-cfe5-4bac-9a57-628cea7f995b",
       "name": "Convert to File false2"
@@ -1480,7 +1486,7 @@
       "typeVersion": 1.1,
       "position": [
         4736,
-        304
+        400
       ],
       "id": "e5814685-f7e0-49e1-9f05-26a9696997d3",
       "name": "Convert to File false3"
@@ -1497,7 +1503,7 @@
       "typeVersion": 1.1,
       "position": [
         4736,
-        496
+        592
       ],
       "id": "272a5421-15ec-42ae-ac8a-c5b725b2b166",
       "name": "Convert to File false4"
@@ -1514,7 +1520,7 @@
       "typeVersion": 1.1,
       "position": [
         4736,
-        688
+        880
       ],
       "id": "4f0c9a18-0b11-40c1-8736-7568a4c7ea7c",
       "name": "Convert to File false5"
@@ -1533,7 +1539,7 @@
       "typeVersion": 1,
       "position": [
         4960,
-        -80
+        -64
       ],
       "id": "14c9547a-3a8b-484d-ab9c-4c64e7844ad5",
       "name": "Upload a file false1",
@@ -1542,7 +1548,8 @@
           "id": "WG22ysIkwCiyk8dj",
           "name": "OCI Object Storage S3"
         }
-      }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -1558,7 +1565,7 @@
       "typeVersion": 1,
       "position": [
         4960,
-        112
+        208
       ],
       "id": "200b6539-e678-4fed-94a6-c0ac00a16d81",
       "name": "Upload a file false2",
@@ -1567,7 +1574,8 @@
           "id": "WG22ysIkwCiyk8dj",
           "name": "OCI Object Storage S3"
         }
-      }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -1583,7 +1591,7 @@
       "typeVersion": 1,
       "position": [
         4960,
-        304
+        400
       ],
       "id": "daacc57f-2fe5-408a-bf7f-e616d39f5939",
       "name": "Upload a file false3",
@@ -1592,7 +1600,8 @@
           "id": "WG22ysIkwCiyk8dj",
           "name": "OCI Object Storage S3"
         }
-      }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -1608,7 +1617,7 @@
       "typeVersion": 1,
       "position": [
         4960,
-        496
+        592
       ],
       "id": "2bfe8a90-ed42-4c03-8c6c-18430bba0bf1",
       "name": "Upload a file false4",
@@ -1617,7 +1626,8 @@
           "id": "WG22ysIkwCiyk8dj",
           "name": "OCI Object Storage S3"
         }
-      }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -1633,7 +1643,7 @@
       "typeVersion": 1,
       "position": [
         4960,
-        688
+        880
       ],
       "id": "964573d0-5918-40bd-81c7-179e9a400e63",
       "name": "Upload a file false5",
@@ -1642,7 +1652,8 @@
           "id": "WG22ysIkwCiyk8dj",
           "name": "OCI Object Storage S3"
         }
-      }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -1652,10 +1663,163 @@
       "typeVersion": 3.2,
       "position": [
         5184,
-        128
+        -416
       ],
       "id": "ccc589e5-c574-41e2-9d30-a094f765882a",
       "name": "Merge Switch"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e60e25ad-750d-4672-b2bb-ad7018d3a1b7",
+              "name": "success",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "186f8d4b-41f2-4153-8316-f1a9fd517fb8",
+              "name": "status",
+              "value": "error",
+              "type": "string"
+            },
+            {
+              "id": "49abafe0-3885-4f55-8211-ea0679f6faf2",
+              "name": "error_code",
+              "value": "SCREENING_FAILED",
+              "type": "string"
+            },
+            {
+              "id": "77e7749a-58e0-4cd7-846a-93f5ba356433",
+              "name": "message",
+              "value": "Não foi possível concluir a classificação das publicações do Mastodon.",
+              "type": "string"
+            },
+            {
+              "id": "8d8d5934-7eb9-464d-af7a-9b05c2009bde",
+              "name": "source",
+              "value": "mastodon",
+              "type": "string"
+            },
+            {
+              "id": "19230d8f-70ed-4d48-aaf9-417a3ed8d24a",
+              "name": "execution_id",
+              "value": "={{ $execution.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        4064,
+        528
+      ],
+      "id": "f05a7a7e-c948-4819-b0ab-d2b813e23b2d",
+      "name": "Prepare Error"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseCode": 502
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        4288,
+        528
+      ],
+      "id": "352c4709-72fc-4048-b0fd-71857024241b",
+      "name": "Screening Error Message"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e60e25ad-750d-4672-b2bb-ad7018d3a1b7",
+              "name": "success",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "186f8d4b-41f2-4153-8316-f1a9fd517fb8",
+              "name": "status",
+              "value": "error",
+              "type": "string"
+            },
+            {
+              "id": "49abafe0-3885-4f55-8211-ea0679f6faf2",
+              "name": "error_code",
+              "value": "STORAGE_UPLOAD_FAILED",
+              "type": "string"
+            },
+            {
+              "id": "77e7749a-58e0-4cd7-846a-93f5ba356433",
+              "name": "message",
+              "value": "Não foi possível concluir a gravação dos resultados do Mastodon na OCI. Pode haver arquivos parcialmente gravados.",
+              "type": "string"
+            },
+            {
+              "id": "8d8d5934-7eb9-464d-af7a-9b05c2009bde",
+              "name": "source",
+              "value": "mastodon",
+              "type": "string"
+            },
+            {
+              "id": "19230d8f-70ed-4d48-aaf9-417a3ed8d24a",
+              "name": "execution_id",
+              "value": "={{ $execution.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        5184,
+        -32
+      ],
+      "id": "16179df5-54a2-4ca0-8d66-87bc4c50a961",
+      "name": "Prepare Storage Error"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseCode": 502
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        5408,
+        -32
+      ],
+      "id": "e436dcb2-7d9f-47ac-b88a-ad945569d983",
+      "name": "Storage Error Message"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Os caminhos de erro já possuem resposta própria.\nif (\n  $('Prepare Error').isExecuted ||\n  $('Prepare Storage Error').isExecuted\n) {\n  return [];\n}\n\nconst items = $('Edit Fields')\n  .all()\n  .map(item => item.json);\n\nconst parameters = $('Define Search Parameters').first().json;\nconst file = $('Convert to File').first().binary?.data;\n\nif (!file?.fileName) {\n  throw new Error('Nome do arquivo processado indisponível.');\n}\n\nreturn [{\n  json: {\n    success: true,\n    status: 'success',\n    source: parameters.source,\n    tag: parameters.tag.replace(' ', ''),\n    execution_id: $execution.id,\n    count: items.length,\n    items,\n    storage: {\n      bucket: 'communitylab-assets',\n      object_path: `processed/${file.fileName}`,\n      status: 'success',\n    },\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5408,
+        -320
+      ],
+      "id": "147a5809-4406-4816-954d-7a8ccd3a0d19",
+      "name": "Prepare Success Response"
     }
   ],
   "pinData": {},
@@ -1805,6 +1969,13 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "Prepare Error",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -1926,6 +2097,13 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "Prepare Storage Error",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -1945,6 +2123,13 @@
         [
           {
             "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare Error",
             "type": "main",
             "index": 0
           }
@@ -1994,6 +2179,13 @@
           },
           {
             "node": "If Human Review",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare Error",
             "type": "main",
             "index": 0
           }
@@ -2226,6 +2418,13 @@
             "type": "main",
             "index": 1
           }
+        ],
+        [
+          {
+            "node": "Prepare Storage Error",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -2236,6 +2435,13 @@
             "node": "Merge Switch",
             "type": "main",
             "index": 2
+          }
+        ],
+        [
+          {
+            "node": "Prepare Storage Error",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -2248,6 +2454,13 @@
             "type": "main",
             "index": 3
           }
+        ],
+        [
+          {
+            "node": "Prepare Storage Error",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -2258,6 +2471,13 @@
             "node": "Merge Switch",
             "type": "main",
             "index": 4
+          }
+        ],
+        [
+          {
+            "node": "Prepare Storage Error",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -2270,6 +2490,13 @@
             "type": "main",
             "index": 5
           }
+        ],
+        [
+          {
+            "node": "Prepare Storage Error",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -2280,6 +2507,13 @@
             "node": "Merge Switch",
             "type": "main",
             "index": 6
+          }
+        ],
+        [
+          {
+            "node": "Prepare Storage Error",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -2292,10 +2526,50 @@
             "type": "main",
             "index": 7
           }
+        ],
+        [
+          {
+            "node": "Prepare Storage Error",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
     "Merge Switch": {
+      "main": [
+        [
+          {
+            "node": "Prepare Success Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Error": {
+      "main": [
+        [
+          {
+            "node": "Screening Error Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Storage Error": {
+      "main": [
+        [
+          {
+            "node": "Storage Error Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Success Response": {
       "main": [
         [
           {
@@ -2315,7 +2589,7 @@
     "callerPolicy": "workflowsFromSameOwner",
     "availableInMCP": true
   },
-  "versionId": "9b88198e-6f68-417a-bcd7-989bb9b99d24",
+  "versionId": "72a2dc14-7435-4599-86b5-69f0b94b6a15",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"

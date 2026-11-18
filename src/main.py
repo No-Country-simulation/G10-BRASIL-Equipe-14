@@ -8,6 +8,9 @@ SOURCES_PAGE = st.Page(
 )
 INGESTION_PAGE = st.Page("views/ingestion.py", title="Ingestão de dados", icon=":material/upload_file:", url_path="ingestao")
 CURATION_PAGE = st.Page("views/curation.py", title="Curadoria", icon=":material/fact_check:", url_path="curadoria")
+PROCESSED_PAGE = st.Page(
+    "views/processed_data.py", title="Dados processados", icon=":material/table_view:", url_path="dados-processados"
+)
 
 
 def configure_page() -> None:
@@ -16,7 +19,7 @@ def configure_page() -> None:
 
 def main() -> None:
     configure_page()
-    st.navigation([HOME_PAGE, INGESTION_PAGE, SOURCES_PAGE, CURATION_PAGE]).run()
+    st.navigation([HOME_PAGE, INGESTION_PAGE, SOURCES_PAGE, PROCESSED_PAGE, CURATION_PAGE]).run()
 
 
 main()
