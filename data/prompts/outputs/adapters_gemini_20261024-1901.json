@@ -1,0 +1,352 @@
+{
+  "prompt_versions": {
+    "social": "0.3.1",
+    "newsletter_faq": "0.3.1"
+  },
+  "model": "gemini-3.5-flash-lite",
+  "temperature": 1.0,
+  "ran_at": "2026-10-24T19:01:34",
+  "approved": "9/9",
+  "router_run": {
+    "real": "2026-10-24T18:30:22",
+    "sintetico": "2026-10-24T18:31:42",
+    "model": "gemini-3.5-flash-lite",
+    "prompt_version": "0.3.1"
+  },
+  "exemplos": [
+    {
+      "nome": "linkedin_conquista_sintetica",
+      "canal": "linkedin",
+      "itens_de_origem": [
+        "t01"
+      ],
+      "origem": [
+        "sintetico"
+      ],
+      "tentativas": [
+        {
+          "output": {
+            "target": "linkedin",
+            "title": "Aprovação como Engenheira de Dados Jr na Stone",
+            "body": "Depois de um ano de estudos no programa ONE, carla_data foi aprovada como Engenheira de Dados Jr na Stone.\n\nO projeto de pipeline com n8n e OCI desenvolvido durante sua jornada foi o destaque de toda a entrevista técnica.\n\nHistórias como essa mostram como a dedicação aos estudos e a prática constroem caminhos reais na tecnologia. 🚀\n\nComo tem sido a sua rotina de estudos de engenharia de dados ultimamente?\n\n#EngenhariaDeDados #CarreiraTech #OracleNextEducation #CommunityLab #Dados",
+            "potential_engagement": "high"
+          },
+          "errors": [
+            "body com 484 caracteres (limite 600–1300)"
+          ]
+        },
+        {
+          "output": {
+            "target": "linkedin",
+            "title": "Aprovação como Engenheira de Dados Jr na Stone",
+            "body": "Depois de um ano dedicado aos estudos no programa ONE, carla_data conquistou a aprovação como Engenheira de Dados Jr na Stone. 🎯\n\nDurante a entrevista, o diferencial foi a prática: o projeto de pipeline utilizando n8n e OCI que carla_data desenvolveu acabou se tornando o assunto principal de toda a conversa com osrecrutadores.\n\nTrajetórias como essa reforçam o valor de colocar o aprendizado técnico em prática e construir projetos reais ao longo da jornada de desenvolvimento.\n\nO que você tem construído nos seus estudos práticos de tecnologia esta semana? Compartilhe nos comentários.\n\n#EngenhariaDeDados #CarreiraTech #OracleNextEducation #CommunityLab",
+            "potential_engagement": "high"
+          },
+          "errors": []
+        }
+      ],
+      "output": {
+        "target": "linkedin",
+        "title": "Aprovação como Engenheira de Dados Jr na Stone",
+        "body": "Depois de um ano dedicado aos estudos no programa ONE, carla_data conquistou a aprovação como Engenheira de Dados Jr na Stone. 🎯\n\nDurante a entrevista, o diferencial foi a prática: o projeto de pipeline utilizando n8n e OCI que carla_data desenvolveu acabou se tornando o assunto principal de toda a conversa com osrecrutadores.\n\nTrajetórias como essa reforçam o valor de colocar o aprendizado técnico em prática e construir projetos reais ao longo da jornada de desenvolvimento.\n\nO que você tem construído nos seus estudos práticos de tecnologia esta semana? Compartilhe nos comentários.\n\n#EngenhariaDeDados #CarreiraTech #OracleNextEducation #CommunityLab",
+        "potential_engagement": "high"
+      },
+      "validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "nome": "linkedin_dica_tecnica_real",
+      "canal": "linkedin",
+      "itens_de_origem": [
+        "se-79838505"
+      ],
+      "origem": [
+        "real"
+      ],
+      "tentativas": [
+        {
+          "output": {
+            "target": "linkedin",
+            "title": "Erro ao rodar modelos locais com LlamaIndex e Ollama",
+            "body": "Seu código tenta carregar um modelo menor, mas o LlamaIndex exige mais memória que o disponível? 🤔\n\nIsso pode acontecer na integração entre LlamaIndex e Ollama. A ferramenta pode tentar carregar o modelo base durante a chamada de metadados, gerando um erro de ResponseError por falta de memória.\n\nUma solução relatada pela comunidade para corrigir esse comportamento é adicionar explicitamente o parâmetro context_window=8000 no seu objeto Ollama.\n\nSalve esta dica para consultar quando precisar integrar modelos locais!\n\nFonte: Stack Overflow, pergunta de Kemp e resposta de Ajeet Verma (CC BY-SA 4.0).\n\n#LlamaIndex #Ollama #IA #Python",
+            "potential_engagement": "medium"
+          },
+          "errors": []
+        }
+      ],
+      "output": {
+        "target": "linkedin",
+        "title": "Erro ao rodar modelos locais com LlamaIndex e Ollama",
+        "body": "Seu código tenta carregar um modelo menor, mas o LlamaIndex exige mais memória que o disponível? 🤔\n\nIsso pode acontecer na integração entre LlamaIndex e Ollama. A ferramenta pode tentar carregar o modelo base durante a chamada de metadados, gerando um erro de ResponseError por falta de memória.\n\nUma solução relatada pela comunidade para corrigir esse comportamento é adicionar explicitamente o parâmetro context_window=8000 no seu objeto Ollama.\n\nSalve esta dica para consultar quando precisar integrar modelos locais!\n\nFonte: Stack Overflow, pergunta de Kemp e resposta de Ajeet Verma (CC BY-SA 4.0).\n\n#LlamaIndex #Ollama #IA #Python",
+        "potential_engagement": "medium"
+      },
+      "validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "nome": "x_conquista_sintetica",
+      "canal": "x/twitter",
+      "itens_de_origem": [
+        "t02"
+      ],
+      "origem": [
+        "sintetico"
+      ],
+      "tentativas": [
+        {
+          "output": {
+            "target": "x/twitter",
+            "title": "Primeira vaga Java na Nubank",
+            "body": "mike.dev assinou a primeira oferta como Backend Developer na Nubank após 6 meses de prática diária em Java e revisão de código com a comunidade. #Java #Backend",
+            "potential_engagement": "high"
+          },
+          "errors": []
+        }
+      ],
+      "output": {
+        "target": "x/twitter",
+        "title": "Primeira vaga Java na Nubank",
+        "body": "mike.dev assinou a primeira oferta como Backend Developer na Nubank após 6 meses de prática diária em Java e revisão de código com a comunidade. #Java #Backend",
+        "potential_engagement": "high"
+      },
+      "validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "nome": "x_dica_tecnica_real",
+      "canal": "x/twitter",
+      "itens_de_origem": [
+        "se-79998781"
+      ],
+      "origem": [
+        "real"
+      ],
+      "tentativas": [
+        {
+          "output": {
+            "target": "x/twitter",
+            "title": "Desativar botao de commit por IA no VS Code",
+            "body": "Como desativar apenas o botão de IA para gerar mensagem de commit no VS Code mantendo o Copilot Chat? Segundo Michael no Stack Overflow, adicione \"scm.showInputActionButton\": false nas configurações (JSON). #VSCode #GitHubCopilot\nFonte: Stack Overflow, pergunta de Stevoisiak e resposta de Michael (CC BY-SA 4.0).",
+            "potential_engagement": "medium"
+          },
+          "errors": [
+            "body com 313 caracteres (limite 1–280)"
+          ]
+        },
+        {
+          "output": {
+            "target": "x/twitter",
+            "title": "Desativar botao de commit por IA no VS Code",
+            "body": "Quer ocultar só o botão de gerar commit por IA no VS Code mantendo o Copilot Chat? No User Settings (JSON), adicione:\n\n\"scm.showInputActionButton\": false\n\n#VSCode #GitHubCopilot\nFonte: Stack Overflow, pergunta de Stevoisiak e resposta de Michael (CC BY-SA 4.0).",
+            "potential_engagement": "medium"
+          },
+          "errors": []
+        }
+      ],
+      "output": {
+        "target": "x/twitter",
+        "title": "Desativar botao de commit por IA no VS Code",
+        "body": "Quer ocultar só o botão de gerar commit por IA no VS Code mantendo o Copilot Chat? No User Settings (JSON), adicione:\n\n\"scm.showInputActionButton\": false\n\n#VSCode #GitHubCopilot\nFonte: Stack Overflow, pergunta de Stevoisiak e resposta de Michael (CC BY-SA 4.0).",
+        "potential_engagement": "medium"
+      },
+      "validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "nome": "mastodon_certificacao_sintetica",
+      "canal": "mastodon",
+      "itens_de_origem": [
+        "t12"
+      ],
+      "origem": [
+        "sintetico"
+      ],
+      "tentativas": [
+        {
+          "output": {
+            "target": "mastodon",
+            "title": "Aprovação em OCI Foundations e AI Foundations",
+            "body": "gus_dados compartilhou que passou nas certificações OCI Foundations Associate e OCI AI Foundations Associate após estudar por três semanas com a trilha do ONE e os simulados compartilhados pela comunidade.\n\n#OracleNextEducation #CloudComputing",
+            "potential_engagement": "high"
+          },
+          "errors": []
+        }
+      ],
+      "output": {
+        "target": "mastodon",
+        "title": "Aprovação em OCI Foundations e AI Foundations",
+        "body": "gus_dados compartilhou que passou nas certificações OCI Foundations Associate e OCI AI Foundations Associate após estudar por três semanas com a trilha do ONE e os simulados compartilhados pela comunidade.\n\n#OracleNextEducation #CloudComputing",
+        "potential_engagement": "high"
+      },
+      "validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": [
+          "target 'mastodon' ainda não está no enum do output_schema.json (decisão do time)"
+        ]
+      }
+    },
+    {
+      "nome": "faq_resposta_aceita_vscode_real",
+      "canal": "faq",
+      "itens_de_origem": [
+        "se-79998781"
+      ],
+      "origem": [
+        "real"
+      ],
+      "tentativas": [
+        {
+          "output": {
+            "target": "faq",
+            "title": "Como desativar o botão de gerar commit por IA no VS Code",
+            "body": "**Pergunta:** Como desativar apenas o botão de gerar mensagem de commit por IA (Inteligência Artificial) sem desativar os demais recursos?\n**Resposta curta:** Você pode ocultar esse botão adicionando uma configuração específica no arquivo de preferências do editor. Abra a paleta de comandos, selecione a opção para abrir as configurações do usuário em formato JSON e adicione a propriedade correspondente.\n**Exemplo:**\n```json\n\"scm.showInputActionButton\": false\n```\n**Próximos passos:** Explore outras configurações do VS Code para personalizar sua interface e otimizar seu fluxo de desenvolvimento.\n**Fonte:** Stack Overflow, pergunta de Stevoisiak e resposta de Michael (CC BY-SA 4.0). https://stackoverflow.com/questions/79998781/how-do-i-disable-generate-commit-message-without-disabling-other-ai-features-i",
+            "potential_engagement": "medium"
+          },
+          "errors": []
+        }
+      ],
+      "output": {
+        "target": "faq",
+        "title": "Como desativar o botão de gerar commit por IA no VS Code",
+        "body": "**Pergunta:** Como desativar apenas o botão de gerar mensagem de commit por IA (Inteligência Artificial) sem desativar os demais recursos?\n**Resposta curta:** Você pode ocultar esse botão adicionando uma configuração específica no arquivo de preferências do editor. Abra a paleta de comandos, selecione a opção para abrir as configurações do usuário em formato JSON e adicione a propriedade correspondente.\n**Exemplo:**\n```json\n\"scm.showInputActionButton\": false\n```\n**Próximos passos:** Explore outras configurações do VS Code para personalizar sua interface e otimizar seu fluxo de desenvolvimento.\n**Fonte:** Stack Overflow, pergunta de Stevoisiak e resposta de Michael (CC BY-SA 4.0). https://stackoverflow.com/questions/79998781/how-do-i-disable-generate-commit-message-without-disabling-other-ai-features-i",
+        "potential_engagement": "medium"
+      },
+      "validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "nome": "faq_resposta_aceita_symfony_real",
+      "canal": "faq",
+      "itens_de_origem": [
+        "se-79857625"
+      ],
+      "origem": [
+        "real"
+      ],
+      "tentativas": [
+        {
+          "output": {
+            "target": "faq",
+            "title": "Como adicionar modelos personalizados ao bridge do LM Studio no Symfony AI",
+            "body": "**Pergunta:** Como adicionar modelos adicionais para o bridge do LM Studio no Symfony AI de forma compatível com a configuração?\n**Resposta curta:** Você pode adicionar modelos extras diretamente no arquivo de configuração `ai.yaml` usando a chave `model` para o LM Studio. Informe a classe e as capacidades necessárias para o modelo funcionar corretamente.\n**Exemplo:**\n```yaml\nai:\n  platform:\n    lmstudio:\n      host_url: \"http://127.0.0.1:1234\"\n\n  model:\n    lmstudio:\n      ministral-3-3b:\n        class: 'Symfony\\AI\\Platform\\Bridge\\Generic\\CompletionsModel'\n        capabilities:\n          - !php/const 'Symfony\\AI\\Platform\\Capability::INPUT_MESSAGES'\n          - !php/const 'Symfony\\AI\\Platform\\Capability::OUTPUT_TEXT'\n          - !php/const 'Symfony\\AI\\Platform\\Capability::OUTPUT_STREAMING'\n\n  agent:\n    test:\n      platform: 'ai.platform.lmstudio'\n      model: 'ministral-3-3b'\n      tools: false\n```\n**Próximos passos:** Teste a configuração do agente executando o comando correspondente no seu console Symfony para garantir que o modelo personalizado seja detectado.\n**Fonte:** Stack Overflow, pergunta de QuenK e resposta de Olivier (CC BY-SA 4.0). https://stackoverflow.com/questions/79857625/symfony-ai-how-to-add-additional-models-for-the-lm-studio-bridge",
+            "potential_engagement": "high"
+          },
+          "errors": [
+            "body com 1273 caracteres (limite 1–1200)"
+          ]
+        },
+        {
+          "output": {
+            "target": "faq",
+            "title": "Como adicionar modelos personalizados ao bridge do LM Studio no Symfony AI",
+            "body": "**Pergunta:** Como adicionar modelos adicionais para o bridge do LM Studio no Symfony AI de forma compatível com a configuração?\n**Resposta curta:** Você pode adicionar modelos extras diretamente no arquivo de configuração `ai.yaml` usando a chave `model` para o LM Studio, informando a classe e as capacidades necessárias.\n**Exemplo:**\n```yaml\nai:\n  model:\n    lmstudio:\n      ministral-3-3b:\n        class: 'Symfony\\AI\\Platform\\Bridge\\Generic\\CompletionsModel'\n        capabilities:\n          - !php/const 'Symfony\\AI\\Platform\\Capability::INPUT_MESSAGES'\n          - !php/const 'Symfony\\AI\\Platform\\Capability::OUTPUT_TEXT'\n          - !php/const 'Symfony\\AI\\Platform\\Capability::OUTPUT_STREAMING'\n```\n**Próximos passos:** Valide se o modelo é detectado executando o seu agente Symfony.\n**Fonte:** Stack Overflow, pergunta de QuenK e resposta de Olivier (CC BY-SA 4.0). https://stackoverflow.com/questions/79857625/symfony-ai-how-to-add-additional-models-for-the-lm-studio-bridge",
+            "potential_engagement": "high"
+          },
+          "errors": []
+        }
+      ],
+      "output": {
+        "target": "faq",
+        "title": "Como adicionar modelos personalizados ao bridge do LM Studio no Symfony AI",
+        "body": "**Pergunta:** Como adicionar modelos adicionais para o bridge do LM Studio no Symfony AI de forma compatível com a configuração?\n**Resposta curta:** Você pode adicionar modelos extras diretamente no arquivo de configuração `ai.yaml` usando a chave `model` para o LM Studio, informando a classe e as capacidades necessárias.\n**Exemplo:**\n```yaml\nai:\n  model:\n    lmstudio:\n      ministral-3-3b:\n        class: 'Symfony\\AI\\Platform\\Bridge\\Generic\\CompletionsModel'\n        capabilities:\n          - !php/const 'Symfony\\AI\\Platform\\Capability::INPUT_MESSAGES'\n          - !php/const 'Symfony\\AI\\Platform\\Capability::OUTPUT_TEXT'\n          - !php/const 'Symfony\\AI\\Platform\\Capability::OUTPUT_STREAMING'\n```\n**Próximos passos:** Valide se o modelo é detectado executando o seu agente Symfony.\n**Fonte:** Stack Overflow, pergunta de QuenK e resposta de Olivier (CC BY-SA 4.0). https://stackoverflow.com/questions/79857625/symfony-ai-how-to-add-additional-models-for-the-lm-studio-bridge",
+        "potential_engagement": "high"
+      },
+      "validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "nome": "faq_sem_resposta_ollama_real",
+      "canal": "faq",
+      "itens_de_origem": [
+        "se-79837611"
+      ],
+      "origem": [
+        "real"
+      ],
+      "tentativas": [
+        {
+          "output": {
+            "target": "faq",
+            "title": "Como corrigir erro EOF ao gerar embeddings com Ollama no Laravel?",
+            "body": "[PRECISA DE REVISÃO TÉCNICA]\n**Pergunta:** Como resolver o erro EOF (End of File, interrupção inesperada de conexão) ao gerar embeddings (vetorização de texto para inteligência artificial) usando o Ollama em uma aplicação Laravel?",
+            "potential_engagement": "low"
+          },
+          "errors": []
+        }
+      ],
+      "nota": "Teste de robustez: o item não tem resposta aceita, então o card precisa sair com [PRECISA DE REVISÃO TÉCNICA].",
+      "output": {
+        "target": "faq",
+        "title": "Como corrigir erro EOF ao gerar embeddings com Ollama no Laravel?",
+        "body": "[PRECISA DE REVISÃO TÉCNICA]\n**Pergunta:** Como resolver o erro EOF (End of File, interrupção inesperada de conexão) ao gerar embeddings (vetorização de texto para inteligência artificial) usando o Ollama em uma aplicação Laravel?",
+        "potential_engagement": "low"
+      },
+      "validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "nome": "newsletter_lote_real",
+      "canal": "newsletter",
+      "itens_de_origem": [
+        "se-79838505",
+        "se-79998781",
+        "se-79857625",
+        "se-79850130",
+        "se-79837611",
+        "se-79935672",
+        "se-79958777",
+        "se-79874274",
+        "se-79835621",
+        "se-79893379",
+        "mst-117476661482589915"
+      ],
+      "origem": [
+        "real"
+      ],
+      "tentativas": [
+        {
+          "output": {
+            "target": "newsletter",
+            "title": "CommunityLab: LlamaIndex, Ollama e IA no desenvolvimento",
+            "body": "Nesta edição, destacamos as discussões e soluções sobre LlamaIndex, Ollama e o uso de IA no desenvolvimento de software.\n\n### 💡 Dica Rápida\nAo carregar um modelo local com LlamaIndex e Ollama, você pode encontrar um erro indicando que o modelo requer mais memória do sistema do que o disponível (por tentar carregar a base 'phi3' em vez da 'phi3:mini'). O ajuste recomendado é adicionar explicitamente o parâmetro `context_window` na inicialização do LLM.\n\n```python\nfrom llama_index.llms.ollama import Ollama\nllms = Ollama(\n    model=\"phi3:mini\",\n    temperature=0.7,\n    max_tokens=100,\n    context_window=8000\n)\n```\n\nFonte: pergunta de Kemp e resposta de Ajeet Verma no Stack Overflow (CC BY-SA 4.0).\n\n### 🔥 Em alta na comunidade\n- LlamaIndex\n- Ollama\n- Erro de memória\n- Symfony AI\n- VS Code\n\nContinue participando da nossa comunidade respondendo às dúvidas e compartilhando suas descobertas!",
+            "potential_engagement": "medium"
+          },
+          "errors": []
+        }
+      ],
+      "output": {
+        "target": "newsletter",
+        "title": "CommunityLab: LlamaIndex, Ollama e IA no desenvolvimento",
+        "body": "Nesta edição, destacamos as discussões e soluções sobre LlamaIndex, Ollama e o uso de IA no desenvolvimento de software.\n\n### 💡 Dica Rápida\nAo carregar um modelo local com LlamaIndex e Ollama, você pode encontrar um erro indicando que o modelo requer mais memória do sistema do que o disponível (por tentar carregar a base 'phi3' em vez da 'phi3:mini'). O ajuste recomendado é adicionar explicitamente o parâmetro `context_window` na inicialização do LLM.\n\n```python\nfrom llama_index.llms.ollama import Ollama\nllms = Ollama(\n    model=\"phi3:mini\",\n    temperature=0.7,\n    max_tokens=100,\n    context_window=8000\n)\n```\n\nFonte: pergunta de Kemp e resposta de Ajeet Verma no Stack Overflow (CC BY-SA 4.0).\n\n### 🔥 Em alta na comunidade\n- LlamaIndex\n- Ollama\n- Erro de memória\n- Symfony AI\n- VS Code\n\nContinue participando da nossa comunidade respondendo às dúvidas e compartilhando suas descobertas!",
+        "potential_engagement": "medium"
+      },
+      "validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      }
+    }
+  ]
+}

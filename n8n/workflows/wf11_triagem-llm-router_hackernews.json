@@ -146,7 +146,7 @@
     },
     {
       "parameters": {
-        "maxItems": 5
+        "maxItems": 10
       },
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
@@ -176,7 +176,7 @@
             {
               "id": "ad73eae7-c92a-423a-bafb-3dea9e4e4bf5",
               "name": "tag",
-              "value": "artificial intelligence",
+              "value": "job",
               "type": "string"
             }
           ]
@@ -270,8 +270,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatNvidia",
       "typeVersion": 1,
       "position": [
-        2264,
-        1032
+        2272,
+        1040
       ],
       "id": "c6848241-dfa7-4e46-ab5d-6bbc5e6bafa9",
       "name": "NVIDIA Nemotron Chat Model",
@@ -420,7 +420,7 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3.1,
       "position": [
-        2296,
+        2304,
         800
       ],
       "id": "915f68b7-475a-4e71-96c7-e8d5e30cd73b",
@@ -487,8 +487,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.3,
       "position": [
-        2392,
-        1032
+        2400,
+        1040
       ],
       "id": "485f20b9-b7de-43fe-bfae-dd1c0639334c",
       "name": "OpenAI Chat Model",
@@ -507,8 +507,8 @@
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.3,
       "position": [
-        2520,
-        1032
+        2528,
+        1040
       ],
       "id": "df335c40-344e-4bc0-a07d-8ea3e0e7afa3",
       "name": "Structured Output Parser"
@@ -2008,7 +2008,7 @@
     "callerPolicy": "workflowsFromSameOwner",
     "availableInMCP": true
   },
-  "versionId": "c95a7cbd-c6d7-40d9-ba51-29a912c6fcb9",
+  "versionId": "b652eccb-d967-4d57-b218-5e263724f7b0",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"

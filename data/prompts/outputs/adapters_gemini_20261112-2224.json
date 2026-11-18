@@ -1,0 +1,335 @@
+{
+  "prompt_versions": {
+    "social": "0.4.0",
+    "newsletter_faq": "0.4.0"
+  },
+  "router_run": {
+    "real": "2026-11-09T11:00:44",
+    "sintetico": "2026-11-09T12:07:35",
+    "model": "gemini-3.5-flash-lite",
+    "prompt_version": "0.4.1"
+  },
+  "model": "gemini-3.5-flash-lite",
+  "temperature": 1.0,
+  "accuracy": "9/9",
+  "case_file": "data\\prompts\\cases\\adapters_cases.json",
+  "reference_period_newsletter": "2025-12-02T08:05:44Z/2026-10-21T02:59:57Z",
+  "average_duration_seconds": 2.891,
+  "total_duration_seconds": 26.023,
+  "ran_at": "2026-11-12T22:24:06",
+  "token_usage": {
+    "prompt_tokens": 20043,
+    "completion_tokens": 2342,
+    "total_tokens": 22385
+  },
+  "results": {
+    "linkedin_conquista_sintetica": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 5.096,
+      "retry_used": true,
+      "token_usage": {
+        "prompt_tokens": 1874,
+        "completion_tokens": 409,
+        "total_tokens": 2283
+      }
+    },
+    "linkedin_dica_tecnica_real": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 2.694,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 2723,
+        "completion_tokens": 211,
+        "total_tokens": 2934
+      }
+    },
+    "x_conquista_sintetica": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 2.152,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 1232,
+        "completion_tokens": 81,
+        "total_tokens": 1313
+      }
+    },
+    "x_dica_tecnica_real": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 1.958,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 1856,
+        "completion_tokens": 114,
+        "total_tokens": 1970
+      }
+    },
+    "mastodon_certificacao_sintetica": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 1.96,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 1285,
+        "completion_tokens": 95,
+        "total_tokens": 1380
+      }
+    },
+    "faq_resposta_aceita_vscode_real": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 2.475,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 1522,
+        "completion_tokens": 306,
+        "total_tokens": 1828
+      }
+    },
+    "faq_resposta_aceita_symfony_real": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 5.152,
+      "retry_used": true,
+      "token_usage": {
+        "prompt_tokens": 3318,
+        "completion_tokens": 683,
+        "total_tokens": 4001
+      }
+    },
+    "faq_sem_resposta_ollama_real": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 1.754,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 2031,
+        "completion_tokens": 74,
+        "total_tokens": 2105
+      }
+    },
+    "newsletter_lote_real": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "duration_seconds": 2.782,
+      "retry_used": false,
+      "token_usage": {
+        "prompt_tokens": 4202,
+        "completion_tokens": 369,
+        "total_tokens": 4571
+      }
+    }
+  },
+  "exemplos": [
+    {
+      "nome": "linkedin_conquista_sintetica",
+      "canal": "linkedin",
+      "itens_de_origem": [
+        "t01"
+      ],
+      "origem": [
+        "sintetico"
+      ],
+      "tentativas": [
+        {
+          "output": {
+            "target": "linkedin",
+            "title": "Aprovação como Engenheira de Dados Jr na Stone",
+            "body": "Depois de 1 ano de estudos intensos e muita dedicação, a carla_data foi aprovada como Engenheira de Dados Jr na Stone 🚀\n\nDurante todo o processo seletivo, o projeto prático de pipeline desenvolvido com n8n e OCI na comunidade foi o grande destaque, sendo o principal assunto discutido em todas as etapas da entrevista técnica.\n\nHistórias inspiradoras como a da carla mostram claramente como o foco nos estudos aliado à prática em projetos reais fazem toda a diferença na consolidação de uma carreira de sucesso na área de tecnologia.\n\nQueremos saber: o que você tem construído e colocado no seu portfólio esta semana? Conta pra gente aqui nos comentários e vamos trocar ideias sobre a sua jornada!\n\n#EngenhariaDeDados #Carreira #OracleNextEducation #Tecnologia #Dados",
+            "potential_engagement": "high"
+          },
+          "errors": []
+        }
+      ]
+    },
+    {
+      "nome": "linkedin_dica_tecnica_real",
+      "canal": "linkedin",
+      "itens_de_origem": [
+        "se-79838505"
+      ],
+      "origem": [
+        "real"
+      ],
+      "tentativas": [
+        {
+          "output": {
+            "target": "linkedin",
+            "title": "Erro ao carregar modelo LlamaIndex com Ollama",
+            "body": "Já tentou rodar um modelo local com LlamaIndex e Ollama e se deparou com um erro de memória dizendo que o modelo exige mais recursos do que o disponível? 🤖\n\nIsso pode acontecer porque a integração tenta carregar o modelo base durante a chamada de metadados. Uma solução relatada pela comunidade é definir explicitamente o parâmetro `context_window=8000` na inicialização do Ollama para evitar o problema.\n\nSalve este post para consultar quando precisar e compartilhe com quem trabalha com IA local! 💡\n\nFonte: Stack Overflow, pergunta de Kemp e resposta de Ajeet Verma (CC BY-SA 4.0).\n\n#Python #LlamaIndex #Ollama #DesenvolvimentoDeSoftware",
+            "potential_engagement": "medium"
+          },
+          "errors": []
+        }
+      ]
+    },
+    {
+      "nome": "x_conquista_sintetica",
+      "canal": "x/twitter",
+      "itens_de_origem": [
+        "t02"
+      ],
+      "origem": [
+        "sintetico"
+      ],
+      "tentativas": [
+        {
+          "output": {
+            "target": "x/twitter",
+            "title": "Primeira vaga Java na Nubank",
+            "body": "mike.dev conseguiu sua primeira vaga como Backend Developer na Nubank após 6 meses de prática diária em Java! É a consistência nos estudos dando resultado. #Java #Backend",
+            "potential_engagement": "high"
+          },
+          "errors": []
+        }
+      ]
+    },
+    {
+      "nome": "x_dica_tecnica_real",
+      "canal": "x/twitter",
+      "itens_de_origem": [
+        "se-79998781"
+      ],
+      "origem": [
+        "real"
+      ],
+      "tentativas": [
+        {
+          "output": {
+            "target": "x/twitter",
+            "title": "Desativar botao de commit por IA no VS Code",
+            "body": "Quer remover só o botão de gerar commit por IA no VS Code sem desligar o Copilot Chat? Adicione \"scm.showInputActionButton\": false nas configurações (JSON). Fonte: Stack Overflow, pergunta de Stevoisiak e resposta de Michael (CC BY-SA 4.0). #VSCode #Dev",
+            "potential_engagement": "medium"
+          },
+          "errors": []
+        }
+      ]
+    },
+    {
+      "nome": "mastodon_certificacao_sintetica",
+      "canal": "mastodon",
+      "itens_de_origem": [
+        "t12"
+      ],
+      "origem": [
+        "sintetico"
+      ],
+      "tentativas": [
+        {
+          "output": {
+            "target": "mastodon",
+            "title": "Aprovação em certificações OCI",
+            "body": "gus_dados compartilhou que foi aprovado nas certificações OCI Foundations Associate e OCI AI Foundations Associate após estudar por 3 semanas com a trilha do ONE e os simulados da comunidade.\n\n#OracleCloud #Certificacao",
+            "potential_engagement": "high"
+          },
+          "errors": []
+        }
+      ]
+    },
+    {
+      "nome": "faq_resposta_aceita_vscode_real",
+      "canal": "faq",
+      "itens_de_origem": [
+        "se-79998781"
+      ],
+      "origem": [
+        "real"
+      ],
+      "tentativas": [
+        {
+          "output": {
+            "target": "faq",
+            "title": "Como desativar o botão de commit por IA no VS Code?",
+            "body": "**Pergunta:** Como remover o botão de gerar mensagem de commit por IA no VS Code sem desativar os demais recursos de inteligência artificial?\n\n**Resposta curta:** Você pode ocultar especificamente esse botão ajustando as configurações do editor no arquivo JSON de preferências do usuário. Adicione a propriedade responsável por controlar a exibição dos botões de ação na caixa de entrada do SCM.\n\n**Exemplo:**\n```json\n\"scm.showInputActionButton\": false\n```\n\n**Por que funciona:** Essa configuração específica oculta o botão de ação na interface do painel de controle de código-fonte (SCM), desativando apenas esse atalho sem afetar o GitHub Copilot ou o chat.\n\n**Próximos passos:** Explore outras configurações do painel SCM no VS Code para personalizar ainda mais o seu fluxo de trabalho.\n\n**Fonte:** Stack Overflow, pergunta de Stevoisiak e resposta de Michael (CC BY-SA 4.0). https://stackoverflow.com/questions/79998781/how-do-i-disable-generate-commit-message-without-disabling-other-ai-features-i",
+            "potential_engagement": "medium"
+          },
+          "errors": []
+        }
+      ]
+    },
+    {
+      "nome": "faq_resposta_aceita_symfony_real",
+      "canal": "faq",
+      "itens_de_origem": [
+        "se-79857625"
+      ],
+      "origem": [
+        "real"
+      ],
+      "tentativas": [
+        {
+          "output": {
+            "target": "faq",
+            "title": "Como adicionar modelos personalizados ao LM Studio bridge no Symfony AI?",
+            "body": "**Pergunta:** Como adicionar modelos personalizados fora do catálogo padrão do Symfony AI para a bridge do LM Studio?\n**Resposta:** Registre modelos adicionais no arquivo de configuração YAML, especificando a classe e capabilities.\n**Exemplo:**\n```yaml\nai:\n  platform:\n    lmstudio:\n      host_url: \"http://127.0.0.1:1234\"\n  model:\n    lmstudio:\n      ministral-3-3b:\n        class: 'Symfony\\AI\\Platform\\Bridge\\Generic\\CompletionsModel'\n        capabilities:\n          - !php/const 'Symfony\\AI\\Platform\\Capability::INPUT_MESSAGES'\n          - !php/const 'Symfony\\AI\\Platform\\Capability::OUTPUT_TEXT'\n          - !php/const 'Symfony\\AI\\Platform\\Capability::OUTPUT_STREAMING'\n```\n**Por que funciona:** O processador de configuração injeta dinamicamente os novos modelos no `ModelCatalog`.\n**Fonte:** Stack Overflow (CC BY-SA 4.0).",
+            "potential_engagement": "high"
+          },
+          "errors": []
+        }
+      ]
+    },
+    {
+      "nome": "faq_sem_resposta_ollama_real",
+      "canal": "faq",
+      "itens_de_origem": [
+        "se-79837611"
+      ],
+      "origem": [
+        "real"
+      ],
+      "tentativas": [
+        {
+          "output": {
+            "target": "faq",
+            "title": "Como corrigir erro de EOF no Ollama ao gerar embeddings no Laravel?",
+            "body": "[PRECISA DE REVISÃO TÉCNICA] Como corrigir o erro de EOF ao gerar embeddings com Ollama em aplicação Laravel?",
+            "potential_engagement": "low"
+          },
+          "errors": []
+        }
+      ]
+    },
+    {
+      "nome": "newsletter_lote_real",
+      "canal": "newsletter",
+      "itens_de_origem": [
+        "se-79838505",
+        "se-79998781",
+        "se-79857625",
+        "se-79850130",
+        "se-79837611",
+        "se-79935672",
+        "se-79958777",
+        "se-79874274",
+        "se-79835621",
+        "mst-117476661482589915"
+      ],
+      "origem": [
+        "real"
+      ],
+      "tentativas": [
+        {
+          "output": {
+            "target": "newsletter",
+            "title": "CommunityLab: Python, LlamaIndex e IA no código",
+            "body": "Esta semana, nossa comunidade focou forte em integrações com Python, LlamaIndex e o uso prático de ferramentas de IA no desenvolvimento. O ritmo está acelerado e cheio de novidades técnicas.\n\n### 💡 Dica Rápida\nAo rodar modelos locais no LlamaIndex com o Ollama, você pode esbarrar em um erro de 500 informando que o modelo exige mais memória do que o disponível. Isso acontece porque o LlamaIndex tenta carregar o modelo base durante a chamada de metadados, mesmo que você especifique uma versão menor como o `phi3:mini`. A solução simples é definir explicitamente uma janela de contexto na inicialização do objeto:\n\n```python\nfrom llama_index.llms.ollama import Ollama\n\nllm = Ollama(\n    model=\"phi3:mini\",\n    temperature=0.7,\n    max_tokens=100,\n    context_window=8000,\n)\n```\n\nFonte: pergunta de Kemp e resposta de Ajeet Verma no Stack Overflow (CC BY-SA 4.0).\n\n### 🔥 Em alta na comunidade\n- Python e LlamaIndex\n- Integração com Ollama\n- Symfony AI e LM Studio\n- Produtividade com VS Code\n- O futuro da carreira dev com IA\n\nResponda este e-mail compartilhando sua principal conquista ou dúvida técnica da semana!",
+            "potential_engagement": "high"
+          },
+          "errors": []
+        }
+      ]
+    }
+  ]
+}
