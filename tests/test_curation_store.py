@@ -27,7 +27,7 @@ def make_content(**overrides):
     return content
 
 
-def test_save_review_cria_tabela_e_grava_linha(db_path):
+def test_save_review_creates_table_and_inserts_row(db_path):
     curation_store.save_review(make_content())
 
     with duckdb.connect(str(db_path)) as con:
@@ -38,7 +38,7 @@ def test_save_review_cria_tabela_e_grava_linha(db_path):
     assert rows == [("pkg-1_0", "approved", "Use um JSON Schema antes de publicar.")]
 
 
-def test_save_review_atualiza_mesmo_id_sem_duplicar(db_path):
+def test_save_review_updates_same_id_without_duplication(db_path):
     curation_store.save_review(make_content(review_status="pending"))
     curation_store.save_review(
         make_content(review_status="approved", body="Texto editado.")
@@ -50,7 +50,7 @@ def test_save_review_atualiza_mesmo_id_sem_duplicar(db_path):
     assert reviews["pkg-1_0"] == {"review_status": "approved", "body": "Texto editado."}
 
 
-def test_load_reviews_retorna_status_e_body_por_id(db_path):
+def test_load_reviews_returns_status_and_body_by_id(db_path):
     curation_store.save_review(make_content(id="a", review_status="rejected"))
     curation_store.save_review(make_content(id="b", review_status="approved"))
 
@@ -60,7 +60,7 @@ def test_load_reviews_retorna_status_e_body_por_id(db_path):
     assert reviews["b"]["review_status"] == "approved"
 
 
-def test_load_reviews_sem_banco_cria_arquivo_e_retorna_vazio(tmp_path, monkeypatch):
+def test_load_reviews_without_db_creates_file_and_returns_empty(tmp_path, monkeypatch):
     path = tmp_path / "subdir" / "curadoria.duckdb"
     monkeypatch.setattr(curation_store, "DB_PATH", path)
 
@@ -68,20 +68,20 @@ def test_load_reviews_sem_banco_cria_arquivo_e_retorna_vazio(tmp_path, monkeypat
     assert path.exists()
 
 
-def test_status_invalido_e_recusado_pelo_check(db_path):
+def test_invalid_status_is_rejected_by_check(db_path):
     with pytest.raises(duckdb.Error):
         curation_store.save_review(make_content(review_status="publicado"))
 
 
-def test_chave_obrigatoria_ausente_levanta_keyerror(db_path):
+def test_missing_mandatory_key_raises_key_error(db_path):
     content = make_content()
     del content["batch_id"]
 
     with pytest.raises(KeyError):
         curation_store.save_review(content)
-        
-        
-def test_export_approved_exporta_so_aprovados(tmp_path, monkeypatch):
+
+
+def test_export_approved_exports_only_approved_items(tmp_path, monkeypatch):
     monkeypatch.setattr(curation_store, "CURATION_EXPORT_DIR", tmp_path)
     package = {"package_id": "pkg-1", "linked_batch_id": "lote-se-001"}
     contents = [
@@ -97,4 +97,3 @@ def test_export_approved_exporta_so_aprovados(tmp_path, monkeypatch):
     payload = json.loads(path.read_text(encoding="utf-8"))
     assert [c["title"] for c in payload["suggested_content"]] == ["A"]
     assert set(payload["suggested_content"][0]) == {"target", "title", "body", "potential_engagement"}
-
