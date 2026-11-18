@@ -13,6 +13,8 @@ from src.pipeline.eval_adapters import main
 def test_main_execution_success(
     mock_build_parser,
     mock_prepare_execution,
+    mock_load_sources,            
+    mock_load_adapter_prompt,
     mock_execute_case,
     mock_save_report,
     mock_save_csv,
