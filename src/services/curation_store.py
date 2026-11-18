@@ -1,12 +1,13 @@
+import json
 from datetime import datetime
 from pathlib import Path
 
 import duckdb
 
-
-from src.config import CURATION_DB_PATH
+from src.config import CURATION_DB_PATH, CURATION_EXPORT_DIR
 
 DB_PATH = CURATION_DB_PATH
+
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS curadoria (
@@ -58,14 +59,27 @@ def load_reviews() -> dict[str, dict]:
     return {cid: {"review_status": status, "body": body} for cid, status, body in rows}
     
  
-def to_store_content(item: dict, package: dict) -> dict:
-    """Converte um item da tela para o formato esperado por save_review."""
-    return {
-        "id": item["id"],
+    
+    
+def export_approved(package: dict, contents: list[dict]) -> Path:
+    """Exporta só os aprovados no formato de suggested_content. Rejeitados não entram."""
+    CURATION_EXPORT_DIR.mkdir(parents=True, exist_ok=True)
+    now = datetime.now()
+    path = CURATION_EXPORT_DIR / f"pacote-{package['linked_batch_id']}-{now:%Y%m%d-%H%M%S}.json"
+    payload = {
         "package_id": package["package_id"],
-        "batch_id": package["linked_batch_id"],
-        "target": item["target"],
-        "title": item["title"],
-        "body": item["body"],
-        "review_status": item["status"],
+        "linked_batch_id": package["linked_batch_id"],
+        "approved_at": now.isoformat(timespec="seconds"),
+        "suggested_content": [
+            {
+                "target": c["target"],
+                "title": c["title"],
+                "body": c["body"],
+                "potential_engagement": c["potential_engagement"],
+            }
+            for c in contents
+            if c["review_status"] == "approved"
+        ],
     }
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    return path

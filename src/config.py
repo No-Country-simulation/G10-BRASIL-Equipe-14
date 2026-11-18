@@ -315,5 +315,7 @@ RETRYABLE_ERROR_PREFIXES = (
     "suggested_route:",
 )
 
+# Curadoria humana (S3-04)
 CURATION_DB_PATH = DATA_DIR / "curadoria.duckdb"
+CURATION_EXPORT_DIR = PROJECT_ROOT / "aprovados"
 
