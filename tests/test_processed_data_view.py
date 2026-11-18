@@ -8,7 +8,7 @@ from src.services import processed_duckdb
 
 def test_missing_database(monkeypatch, tmp_path):
     monkeypatch.setattr(config, "DATA_DIR", tmp_path)
-    app = AppTest.from_file("../src/views/processed_data.py", default_timeout=15).run()
+    app = AppTest.from_file(str(config.PROCESSED_DATA_PATH), default_timeout=15).run()
     assert not app.exception
     assert "ainda não foram carregados" in app.info[0].value
     assert not (tmp_path / "communitylab_oci.duckdb").exists()
@@ -25,7 +25,7 @@ def test_filter_and_totals(monkeypatch, tmp_path):
                    's3://bucket/processed/result_' || source || '_artificialintelligence.json' AS object_key
             FROM (VALUES ('mastodon'), ('hackernews')) t(source)
         """)
-    app = AppTest.from_file("../src/views/processed_data.py", default_timeout=15).run()
+    app = AppTest.from_file(str(config.PROCESSED_DATA_PATH), default_timeout=15).run()
     assert not app.exception
     assert app.metric[0].value == "2"
     assert len(app.dataframe[0].value) == 2
@@ -43,7 +43,7 @@ def test_combined_tag_filter(monkeypatch, tmp_path):
         )
     with duckdb.connect(str(tmp_path / 'communitylab_oci.duckdb')) as con:
         processed_duckdb.refresh(con, str(tmp_path / '*.json'))
-    app = AppTest.from_file('../src/views/processed_data.py', default_timeout=15).run()
+    app = AppTest.from_file(str(config.PROCESSED_DATA_PATH), default_timeout=15).run()
     assert not app.exception
     assert app.selectbox[1].options == ['Todas', 'artificialintelligence', 'docker']
     app.selectbox[1].select('docker').run()
@@ -60,7 +60,7 @@ def test_combined_tag_filter(monkeypatch, tmp_path):
 def test_uninitialized_database(monkeypatch, tmp_path):
     monkeypatch.setattr(config, "DATA_DIR", tmp_path)
     duckdb.connect(str(tmp_path / "communitylab_oci.duckdb")).close()
-    app = AppTest.from_file("../src/views/processed_data.py", default_timeout=15).run()
+    app = AppTest.from_file(str(config.PROCESSED_DATA_PATH), default_timeout=15).run()
     assert not app.exception
     assert "Não foi possível consultar" in app.error[0].value
 
@@ -72,7 +72,7 @@ def test_refresh_button_and_failed_refresh_preserves_snapshot(monkeypatch, tmp_p
         {"source": "hackernews", "comment_id": "42", "comment": {"text": "Conteúdo"}}
     ]), encoding="utf-8")
     monkeypatch.setattr(processed_duckdb, "configure_oci", lambda con: str(sample))
-    app = AppTest.from_file("../src/views/processed_data.py", default_timeout=15).run()
+    app = AppTest.from_file(str(config.PROCESSED_DATA_PATH), default_timeout=15).run()
     app.button[0].click().run()
     assert not app.exception
     assert app.success
@@ -93,7 +93,7 @@ def test_refresh_empty_snapshot(monkeypatch, tmp_path):
     sample = tmp_path / "empty.json"
     sample.write_text('[]', encoding="utf-8")
     monkeypatch.setattr(processed_duckdb, "configure_oci", lambda con: str(sample))
-    app = AppTest.from_file("../src/views/processed_data.py", default_timeout=15).run()
+    app = AppTest.from_file(str(config.PROCESSED_DATA_PATH), default_timeout=15).run()
     app.button[0].click().run()
     assert not app.exception
     assert "não contém registros" in app.info[0].value

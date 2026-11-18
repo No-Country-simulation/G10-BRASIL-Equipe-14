@@ -1,6 +1,8 @@
 """Consulta do snapshot OCI já carregado no DuckDB."""
 
 from datetime import timezone
+import logging
+from traceback import format_tb
 
 import duckdb
 import streamlit as st
@@ -8,8 +10,9 @@ import streamlit as st
 from src.config import DATA_DIR
 from src.services.processed_duckdb import DATABASE_LOCK, refresh_oci_database
 
+logger = logging.getLogger(__name__)
 
-def render_processed_data():
+def render_processed_data() -> None:
     st.header("Dados processados")
     st.caption("Registros coletados e avaliados, disponíveis para consulta por fonte e tag.")
     database = DATA_DIR / "communitylab_oci.duckdb"
@@ -17,18 +20,19 @@ def render_processed_data():
         try:
             with st.spinner("Carregando os dados da OCI..."):
                 refresh_oci_database(database)
-        except (duckdb.Error, ValueError, OSError):
+        except (duckdb.Error, ValueError, OSError) as exc:
             # Não expor exceções de configuração/rede: podem conter dados sensíveis.
+            logger.error("Falha ao atualizar o snapshot OCI no DuckDB %s (%s)\n%s",
+                         database,
+                         type(exc).__name__,
+                         "".join(format_tb(exc.__traceback__)),
+            )
             st.error("Não foi possível atualizar os dados. Confira as credenciais OCI, as permissões e a conexão.")
             st.caption("A última carga concluída foi preservada. Feche outros processos que estejam usando o banco.")
         else:
             st.success("Dados atualizados com sucesso.")
     if not database.is_file():
-        st.info("Os dados ainda não foram carregados. Clique em Atualizar dados ou execute a carga abaixo na raiz do projeto.")
-        st.code(
-            "python -m src.services.processed_duckdb --oci --database data/communitylab_oci.duckdb",
-            language="powershell",
-        )
+        st.info("Os dados ainda não foram carregados. Clique em Atualizar dados.")
         return
 
     try:
@@ -47,7 +51,7 @@ def render_processed_data():
             # A tag de coleta está no nome do arquivo; difere das tags do conteúdo.
             tagged_records = r"""WITH tagged_records AS (
                 SELECT *, nullif(regexp_extract(
-                    replace(object_key, chr(92), '/'),
+                    regexp_replace(object_key, '\\', '/', 'g'),
                     '(?:^|/)(?:processed_)?result_[^_]+_(.+)\.json$', 1
                 ), '') AS tag FROM v_processed
             ) """
@@ -68,6 +72,7 @@ def render_processed_data():
                 query += " WHERE " + " AND ".join(conditions)
             records = con.execute(query + " ORDER BY source, record_id", parameters).df()
     except duckdb.Error:
+        logger.exception("Falha ao consultar o banco %s", database)
         st.error("Não foi possível consultar os dados. Confira se a carga terminou e se o banco está disponível.")
         st.caption("Feche processos que estejam gravando o banco e execute novamente a carga, se necessário.")
         return

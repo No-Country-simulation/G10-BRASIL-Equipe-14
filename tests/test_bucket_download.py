@@ -3,6 +3,7 @@ import zipfile
 from unittest.mock import MagicMock
 
 import pytest
+from requests.exceptions import ConnectionError
 
 from src.services import bucket_download
 
@@ -40,3 +41,17 @@ def test_rejects_non_zip_response(monkeypatch):
     monkeypatch.setattr(bucket_download.requests, 'get', lambda *a, **k: response)
     with pytest.raises(ValueError, match='ZIP válido'):
         bucket_download.download_folder('raw/')
+
+
+def test_handles_request_exception(monkeypatch):
+    monkeypatch.setenv("N8N_API_KEY", "test-key")
+    original_error = ConnectionError("Erro de conexão")
+    monkeypatch.setattr(bucket_download.requests, "get", MagicMock(side_effect=original_error))
+
+    with pytest.raises(
+        bucket_download.BucketDownloadError,
+        match="Falha na comunicação com o webhook do WF05",
+    ) as error:
+        bucket_download.download_folder("raw/")
+
+    assert error.value.__cause__ is original_error

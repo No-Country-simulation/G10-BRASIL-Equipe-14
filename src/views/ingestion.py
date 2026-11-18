@@ -15,7 +15,7 @@ from src.config import (
     MAX_UPLOAD_FILE_SIZE_MB,
 )
 from src.services.ingestion import parse_input, parse_pasted_text_with_format, send_to_ingestion, validate_input
-from src.services.bucket_download import download_folder
+from src.services.bucket_download import BucketDownloadError, download_folder
 
 logger = logging.getLogger(__name__)
 
@@ -151,10 +151,17 @@ def render_ingestion() -> None:
                 with st.spinner("Preparando os arquivos para download..."):
                     content = download_folder(folder)
                 st.session_state["bucket_download"] = {"folder": folder, "content": content}
+            except BucketDownloadError as exc:
+                status = exc.response.status_code if exc.response is not None else None
+                logger.error(
+                    "Falha ao baixar a pasta %s pelo WF05 (tipo=%s, status_http=%s)",
+                    folder,
+                    type(exc.__cause__ or exc).__name__,
+                    status,
+                )
+                st.error("Não foi possível baixar os arquivos. Confira a conexão e a configuração do WF05.")
             except ValueError as exc:
                 st.error(str(exc))
-            except requests.RequestException:
-                st.error("Não foi possível baixar os arquivos. Confira a conexão e a configuração do WF05.")
         archive = st.session_state.get("bucket_download")
         if archive and archive["folder"] == folder:
             st.download_button(

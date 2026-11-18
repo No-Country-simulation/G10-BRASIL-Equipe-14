@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 # Configuração de diretórios relativos
 SRC_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SRC_DIR.parent
+VIEWS_DIR = SRC_DIR / "views"
+PROCESSED_DATA_PATH = VIEWS_DIR / "processed_data.py"
 
 ENV_PATH = PROJECT_ROOT / ".env"
 if ENV_PATH.exists():
@@ -65,6 +67,8 @@ MASTODON_PARAMS = {
 OCI_REGION = os.getenv("OCI_REGION", "sa-saopaulo-1")
 OCI_NAMESPACE = os.getenv("OCI_NAMESPACE", "grue2tm7tuaq")
 OCI_BUCKET_NAME = os.getenv("OCI_BUCKET_NAME", "communitylab-assets")
+OCI_S3_ACCESS_KEY_ID = os.getenv("OCI_S3_ACCESS_KEY_ID", "")
+OCI_S3_SECRET_ACCESS_KEY = os.getenv("OCI_S3_SECRET_ACCESS_KEY", "")
 OCI_ASSETS_PREFIX = "ativos"  # objeto final: ativos/YYYY-semana-XX/pacote-distribuicao.json
 # Streamlit
 PAGE_TITLE = "CommunityLab"
@@ -128,6 +132,7 @@ N8N_BASE_URL = os.getenv("N8N_BASE_URL", "http://localhost:5678").rstrip("/")
 N8N_INGESTION_WEBHOOK_PATH = os.getenv("N8N_INGESTION_WEBHOOK_PATH", "webhook/ingestion").strip("/")
 N8N_INGESTION_WEBHOOK_URL = os.getenv("N8N_INGESTION_WEBHOOK_URL") or f"{N8N_BASE_URL}/{N8N_INGESTION_WEBHOOK_PATH}"
 N8N_REQUEST_TIMEOUT = float(os.getenv("N8N_REQUEST_TIMEOUT", "30"))
+N8N_DOWNLOAD_TIMEOUT = float(os.getenv("N8N_DOWNLOAD_TIMEOUT", "120"))
 
 CSV_DELIMITERS = ",;\t|"
 INGESTION_TEXT_AREA_NAME = "texto colado"
