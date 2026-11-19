@@ -14,19 +14,30 @@ from src.config import (
     REVIEW_BADGES,
 )
 from src.services.output_packages import list_output_packages
+from src.services.curation_store import export_approved, load_reviews, save_review
 
 
 def load_suggested_content() -> list[dict]:
     packages = list_output_packages()
+    saved = load_reviews()
     for package in packages:
         for index, content in enumerate(package["suggested_content"]):
             content["id"] = f"{package['package_id']}_{index}"
+            content["package_id"] = package["package_id"]
+            content["batch_id"] = package["linked_batch_id"]
             content["review_status"] = "pending"
+            if content["id"] in saved:
+                content["review_status"] = saved[content["id"]]["review_status"]
+                content["body"] = saved[content["id"]]["body"]
     return packages
 
 
 def set_review(content: dict, status: str) -> None:
+    edited = st.session_state.get(f"body_{content['id']}")
+    if edited is not None:
+        content["body"] = edited
     content["review_status"] = status
+    save_review(content)
 
 
 def format_period(reference_period: str) -> str:
@@ -66,10 +77,11 @@ def render_feeling_card(feeling: str) -> None:
 def render_processing_summary(package: dict) -> None:
     summary = package["processing_summary"]
     pid = package["package_id"]
+    total = summary["total_interactions"]
     st.subheader("Resumo do processamento", anchor=False)
     col1, col2 = st.columns(2)
     with col1:
-        ui.metric_card(label="Interações processadas", value=str(summary["total_interactions"]), key=f"ps_total_{pid}")
+        ui.metric_card(label="Interações processadas", value=str(total), key=f"ps_total_{pid}")
     with col2:
         render_feeling_card(summary["predominant_feeling"])
     st.markdown("**Interações por origem**")
@@ -79,7 +91,7 @@ def render_processing_summary(package: dict) -> None:
             ui.metric_card(
                 label=source,
                 value=str(count),
-                description=f"{count / summary['total_interactions']:.0%} do total",
+                description=f"{count / total:.0%} do total" if total else "",
                 key=f"ps_source_{pid}_{source}",
             )
     st.markdown("**Principais tópicos**")
@@ -87,7 +99,10 @@ def render_processing_summary(package: dict) -> None:
 
 
 def render_content_badges(content: dict) -> None:
-    badges = [(TARGETS_ENUM[content["target"]], "default"), ENGAGEMENT_BADGES[content["potential_engagement"]]]
+    badges = [
+        (TARGETS_ENUM.get(content["target"], content["target"]), "default"),
+        ENGAGEMENT_BADGES[content["potential_engagement"]],
+    ]
     if content["review_status"] in REVIEW_BADGES:
         badges.append(REVIEW_BADGES[content["review_status"]])
     ui.badges(badges, key=f"b_{content['id']}")
@@ -158,6 +173,7 @@ def render_suggested_content(package: dict) -> None:
     for content in shown:
         render(content)
 
+
 def render_curation() -> None:
     st.header("Curadoria")
     if "packages" not in st.session_state:
@@ -181,6 +197,10 @@ def render_curation() -> None:
     render_processing_summary(package)
     render_reference_period(package)
     render_suggested_content(package)
+
+    if st.button("Exportar aprovados (JSON)", key=f"export_{package['package_id']}"):
+        path = export_approved(package, package["suggested_content"])
+        st.success(f"Exportado em: {path}")
 
 
 render_curation()
