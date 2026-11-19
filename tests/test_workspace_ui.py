@@ -8,7 +8,7 @@ from src.config import PROJECT_ROOT, STREAMLIT_MAIN_PATH
 def test_all_pages_render_with_only_light_appearance():
     app = AppTest.from_file(str(STREAMLIT_MAIN_PATH), default_timeout=30).run()
     assert not app.exception
-    for page in ["home", "ingestion", "community_sources", "sentiment_dashboard", "curation"]:
+    for page in ["home", "ingestion", "community_sources", "sentiment_dashboard", "processed_data", "curation"]:
         app.switch_page(f"views/{page}.py").run()
         assert not app.exception, (page, app.exception)
         assert all(widget.label != "Aparência" for widget in app.sidebar.selectbox)

@@ -9,6 +9,7 @@ LOGO_PATH = PROJECT_ROOT / "docs/assets/logo-communitylab.svg"
 STREAMLIT_MAIN_PATH = SRC_DIR / "main.py"
 VIEWS_DIR = SRC_DIR / "views"
 SENTIMENT_DASHBOARD_PATH = VIEWS_DIR / "sentiment_dashboard.py"
+PROCESSED_DATA_PATH = VIEWS_DIR / "processed_data.py"
 
 ENV_PATH = PROJECT_ROOT / ".env"
 if ENV_PATH.exists():
@@ -156,6 +157,7 @@ N8N_INGESTION_WEBHOOK_URL = (
 )
 N8N_SENTIMENT_CHAT_DEFAULT_URL = "https://bot.rsa.ia.br/webhook/wf13-sentimento-chat"
 N8N_REQUEST_TIMEOUT = float(os.getenv("N8N_REQUEST_TIMEOUT", "30"))
+N8N_DOWNLOAD_TIMEOUT = float(os.getenv("N8N_DOWNLOAD_TIMEOUT", "120"))
 
 SENTIMENTS = ["Excited", "Happy", "Neutral", "Disappointed", "Angry"]
 EDITORIALS = ["success_case", "faq", "newsletter", "moderation", "discard", "other", "fallback", "Sem classificação"]

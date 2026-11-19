@@ -1,7 +1,6 @@
 import streamlit as st
 
-from src.config import PAGE_TITLE
-from src.config import LOGO_PATH
+from src.config import LOGO_PATH, PAGE_TITLE
 from src.ui import apply_theme
 from src.ui_localization import localize_native_controls
 
@@ -15,6 +14,9 @@ DASHBOARD_PAGE = st.Page(
     "views/sentiment_dashboard.py", title="Sentimentos e tópicos",
     icon=":material/monitoring:", url_path="sentimento-e-topicos",
 )
+PROCESSED_PAGE = st.Page(
+    "views/processed_data.py", title="Dados processados", icon=":material/table_view:", url_path="dados-processados"
+)
 
 
 def configure_page() -> None:
@@ -26,7 +28,7 @@ def main() -> None:
     with st.sidebar:
         st.image(str(LOGO_PATH), width=150)
         st.caption("Inteligência de comunidades")
-    sections = {"Principal": [HOME_PAGE], "Análise": [DASHBOARD_PAGE], "Operação": [INGESTION_PAGE, SOURCES_PAGE, CURATION_PAGE]}
+    sections = {"Principal": [HOME_PAGE], "Análise": [DASHBOARD_PAGE, PROCESSED_PAGE], "Operação": [INGESTION_PAGE, SOURCES_PAGE, CURATION_PAGE]}
     page = st.navigation(sections, position="hidden")
     with st.sidebar:
         for heading, pages in sections.items():

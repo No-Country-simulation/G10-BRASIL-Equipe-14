@@ -16,6 +16,7 @@ from src.config import (
     MAX_UPLOAD_FILE_SIZE_MB,
 )
 from src.services.ingestion import parse_input, parse_pasted_text_with_format, send_to_ingestion, validate_input
+from src.services.bucket_download import BucketDownloadError, download_folder
 
 logger = logging.getLogger(__name__)
 
@@ -151,6 +152,35 @@ def render_ingestion() -> None:
     with st.expander("Orientações de preenchimento"):
         st.write("Use JSON ou CSV com os campos do contrato de entrada: id, source, url e interactions. O conteúdo será validado antes do envio.")
         st.caption("Após o envio, consulte a análise para investigar os resultados e a curadoria para revisar o conteúdo.")
+
+    with st.container(border=True):
+        folder = st.selectbox("pastas disponíveis", ["raw/", "processed/"], key="download_folder")
+        if st.button("Download", key="request_bucket_download"):
+            st.session_state.pop("bucket_download", None)
+            try:
+                with st.spinner("Preparando os arquivos para download..."):
+                    content = download_folder(folder)
+                st.session_state["bucket_download"] = {"folder": folder, "content": content}
+            except BucketDownloadError as exc:
+                status = exc.response.status_code if exc.response is not None else None
+                logger.error(
+                    "Falha ao baixar a pasta %s pelo WF05 (tipo=%s, status_http=%s)",
+                    folder,
+                    type(exc.__cause__ or exc).__name__,
+                    status,
+                )
+                st.error("Não foi possível baixar os arquivos. Confira a conexão e a configuração do WF05.")
+            except ValueError as exc:
+                st.error(str(exc))
+        archive = st.session_state.get("bucket_download")
+        if archive and archive["folder"] == folder:
+            st.download_button(
+                "Salvar ZIP", data=archive["content"],
+                file_name=f"{folder.rstrip('/')}_results.zip", mime="application/zip",
+                on_click="ignore",
+            )
+        st.caption("Salve o ZIP, extraia os arquivos e selecione o JSON desejado abaixo. O local de download depende do navegador.")
+        st.caption("O envio continua exigindo o schema de entrada; os arquivos do bucket podem precisar de adaptação.")
 
     files = st.file_uploader(
         "Adicione os arquivos JSON ou CSV",

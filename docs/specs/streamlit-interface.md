@@ -8,6 +8,7 @@ A aplicação segue o padrão oficial de `guia_de_normatiza_o_ui_communitylab.md
 - **Sentimentos e tópicos:** filtros, indicadores, treemap das avaliações, pesquisa e exportação do recorte em CSV, além do assistente contextual. O treemap inicia na ordem fonte → tema da coleta → editorial → sentimento, com um checkbox para ativar cada nível e um seletor de posição de 1 a 4 antes de cada categoria. Alterar a posição troca as categorias de lugar, preservando posições únicas; o gráfico segue a ordem dos níveis ativos. O tamanho representa associações únicas entre interação e tema; ocultar ou reordenar níveis preserva o total.
 - **Ingestão:** orientações, inclusão de arquivos/texto, validação, prévia e confirmação de envio. Mantém as validações e a integração existentes.
 - **Fontes da comunidade:** filtros e lotes demonstrativos, explicitamente identificados. O botão simula o processamento.
+- **Dados processados:** consulta e filtra o snapshot local e permite atualizá-lo a partir da OCI.
 - **Curadoria:** seleção de lote, contagem por estado, edição, aprovação/rejeição, reabertura e exportação dos conteúdos aprovados em JSON. Os pacotes são demonstrativos e a revisão dura somente a sessão.
 
 ## Identidade e manutenção
@@ -29,4 +30,4 @@ uv run python -m streamlit run src/main.py
 uv run pytest tests/test_workspace_ui.py tests/test_ingestion_view.py tests/test_sentiment_dashboard.py tests/test_sentiment_treemap.py tests/test_sentiment_chat.py -q
 ```
 
-Os testes de interface percorrem as cinco páginas no tema claro, verificam a ausência do seletor de aparência, o contraste dos tokens de texto e ações e a edição, aprovação e reabertura de um conteúdo. Eles verificam a execução dos componentes, mas não substituem a inspeção visual em navegador nos tamanhos desktop e móvel.
+Os testes de interface percorrem as seis páginas no tema claro, verificam a ausência do seletor de aparência, o contraste dos tokens de texto e ações e a edição, aprovação e reabertura de um conteúdo. Eles verificam a execução dos componentes, mas não substituem a inspeção visual em navegador nos tamanhos desktop e móvel.
