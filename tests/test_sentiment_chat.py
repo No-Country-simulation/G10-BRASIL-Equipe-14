@@ -3,6 +3,7 @@ from unittest.mock import Mock
 import pytest
 from streamlit.testing.v1 import AppTest
 
+from src.config import SENTIMENT_DASHBOARD_PATH
 from src.services.sentiment_chat import ask_agent, build_context
 from src.services.sentiment_dashboard import normalize
 import pandas as pd
@@ -71,7 +72,7 @@ def test_chat_roundtrip_and_filter_reset(monkeypatch):
     # Isola a interface de arquivos DuckDB locais.
     rows = list(normalize({'source': 'mastodon.social', 'post_id': '1', 'clean_text': 'Texto', 'sentiment': 'Happy'}, 'result_mastodon_docker.json', '2026-11-15'))
     monkeypatch.setattr('src.services.sentiment_dashboard.load_snapshot', lambda: (pd.DataFrame(rows), {'records': 1, 'conflicts': 0}))
-    app = AppTest.from_file('../src/views/sentiment_dashboard.py', default_timeout=20).run()
+    app = AppTest.from_file(str(SENTIMENT_DASHBOARD_PATH), default_timeout=20).run()
     assert not app.chat_input
     assert not app.chat_message
     app.text_area(key='sentiment_question').set_value('Qual sentimento?')

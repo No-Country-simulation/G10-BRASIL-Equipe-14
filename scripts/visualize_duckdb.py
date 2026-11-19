@@ -1,18 +1,27 @@
 """Serve DuckDB UI while keeping the project's analytical database read-only."""
 
+import argparse
+import sys
 from pathlib import Path
 from threading import Event
 
 import duckdb
 
 
-def main():
-    root = Path(__file__).resolve().parents[1]
-    database = root / "data/communitylab_oci.duckdb"
+# Permite executar o arquivo diretamente a partir do diretório scripts.
+if __name__ == "__main__" and not __package__:
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from src.config import DATABASE_PATH, PROJECT_ROOT, UI_DATABASE_PATH
+
+
+def main(database: Path = DATABASE_PATH):
+    if not database.is_absolute():
+        database = PROJECT_ROOT / database
     if not database.is_file():
         raise FileNotFoundError(f"Banco não encontrado: {database}")
 
-    with duckdb.connect(str(root / "data/duckdb_ui.duckdb")) as connection:
+    with duckdb.connect(str(UI_DATABASE_PATH)) as connection:
         connection.execute("INSTALL ui")
         connection.execute("LOAD ui")
         path_literal = str(database).replace("'", "''")
@@ -31,4 +40,12 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Inicia a DuckDB UI para inspeção de um banco.")
+    parser.add_argument(
+        "--database",
+        type=Path,
+        default=DATABASE_PATH,
+        help="Arquivo DuckDB a inspecionar. Caminhos relativos partem da raiz do projeto.",
+    )
+    args = parser.parse_args()
+    main(args.database)

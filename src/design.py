@@ -41,3 +41,14 @@ def category_tone(dimension, value):
         index = int.from_bytes(sha256(f"{dimension}:{value}".encode()).digest()[:4], "big")
         tone = names[index % len(names)]
     return CATEGORY_TONES[tone]
+
+SANKEY_DEFAULT_COLOR = "#64748b"
+SANKEY_SOURCE_COLORS = {"mastodon": "#293943", "hackernews": "#2DAC8A", "stackoverflow": "#47758A"}
+SANKEY_NODE_COLORS = {
+    "source": SANKEY_SOURCE_COLORS,
+    "sentiment": {"Excited": "#7c3aed", "Happy": "#16a34a", "Neutral": "#94a3b8", "Disappointed": "#f59e0b", "Angry": "#dc2626"},
+}
+SANKEY_LEVEL_COLORS = {
+    "theme": "#7c3aed",
+    "editorial": "#0d9488",
+}

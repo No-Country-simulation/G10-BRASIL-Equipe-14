@@ -8,7 +8,7 @@ from uuid import uuid4
 import pandas as pd
 import requests
 
-DEFAULT_URL = "https://bot.rsa.ia.br/webhook/wf13-sentimento-chat"
+from src.config import N8N_SENTIMENT_CHAT_DEFAULT_URL
 
 
 def build_context(frame, filters, loaded_at, quality):
@@ -108,7 +108,7 @@ def ask_agent(question, history, context, session_id):
         raise ValueError("O contexto excedeu o limite do chat. Restrinja os filtros e tente novamente.")
     try:
         response = requests.post(
-            os.getenv("N8N_SENTIMENT_CHAT_WEBHOOK_URL") or DEFAULT_URL,
+            os.getenv("N8N_SENTIMENT_CHAT_WEBHOOK_URL") or N8N_SENTIMENT_CHAT_DEFAULT_URL,
             json=payload, headers={"communitylab-api-key": key}, timeout=(10, 120),
         )
     except requests.Timeout:

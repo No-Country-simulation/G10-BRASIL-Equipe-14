@@ -1,14 +1,12 @@
 """Exercise navigation and editorial actions without calling external services."""
 
-from pathlib import Path
-
 from streamlit.testing.v1 import AppTest
 
-MAIN = Path(__file__).resolve().parents[1] / "src/main.py"
+from src.config import PROJECT_ROOT, STREAMLIT_MAIN_PATH
 
 
 def test_all_pages_render_with_only_light_appearance():
-    app = AppTest.from_file(str(MAIN), default_timeout=30).run()
+    app = AppTest.from_file(str(STREAMLIT_MAIN_PATH), default_timeout=30).run()
     assert not app.exception
     for page in ["home", "ingestion", "community_sources", "sentiment_dashboard", "curation"]:
         app.switch_page(f"views/{page}.py").run()
@@ -34,7 +32,7 @@ def test_text_and_action_colors_have_readable_contrast():
 
 
 def test_review_keeps_edits_and_allows_undo():
-    app = AppTest.from_file(str(MAIN), default_timeout=30).run()
+    app = AppTest.from_file(str(STREAMLIT_MAIN_PATH), default_timeout=30).run()
     app.switch_page("views/curation.py").run()
     content_id = "pkg_2026_w42_001_0"
     app.text_area(key=f"body_{content_id}").set_value("Conteúdo revisado pela equipe.").run()
@@ -58,7 +56,7 @@ def test_treemap_positions_swap_and_respect_disabled_categories(monkeypatch):
         "result_mastodon_docker.json", "2026-11-15",
     ))
     monkeypatch.setattr("src.services.sentiment_dashboard.load_snapshot", lambda: (pd.DataFrame(rows), {"records": 1, "conflicts": 0}))
-    app = AppTest.from_file(str(MAIN), default_timeout=30).run()
+    app = AppTest.from_file(str(STREAMLIT_MAIN_PATH), default_timeout=30).run()
     app.switch_page("views/sentiment_dashboard.py").run()
     app.selectbox(key="treemap_position_source").select(4).run()
     assert not app.exception
@@ -88,7 +86,7 @@ def test_local_and_docker_share_official_theme():
     import tomllib
     from src.design import LIGHT_PALETTE
 
-    root = MAIN.parents[1]
+    root = PROJECT_ROOT
     local = tomllib.loads((root / ".streamlit/config.toml").read_text(encoding="utf-8"))
     docker = tomllib.loads((root / ".setup/docker/streamlit/config.toml").read_text(encoding="utf-8"))
     assert local["theme"] == docker["theme"]

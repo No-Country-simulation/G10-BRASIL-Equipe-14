@@ -2,11 +2,15 @@
 
 import plotly.graph_objects as go
 
-from src.services.sentiment_dashboard import EDITORIALS, SENTIMENTS, THEMES
+from src.config import EDITORIALS, SENTIMENTS, THEMES
+from src.design import (
+    SANKEY_DEFAULT_COLOR,
+    SANKEY_LEVEL_COLORS,
+    SANKEY_NODE_COLORS,
+    SANKEY_SOURCE_COLORS,
+)
 
 SOURCE_LABELS = {"mastodon": "Mastodon", "hackernews": "Hacker News", "stackoverflow": "Stack Overflow"}
-SOURCE_COLORS = {"mastodon": "#293943", "hackernews": "#2DAC8A", "stackoverflow": "#47758A"}
-SENTIMENT_COLORS = {"Excited": "#7c3aed", "Happy": "#16a34a", "Neutral": "#94a3b8", "Disappointed": "#f59e0b", "Angry": "#dc2626"}
 EDITORIAL_LABELS = {"success_case": "Caso de sucesso", "faq": "FAQ", "newsletter": "Newsletter",
                     "moderation": "Moderação", "discard": "Descarte", "other": "Outro", "fallback": "Fallback"}
 
@@ -23,7 +27,9 @@ def build_sankey(frame):
         for i, value in enumerate(values):
             indexes[dimension, value] = len(labels)
             labels.append(SOURCE_LABELS.get(value, value) if level == 0 else EDITORIAL_LABELS.get(value, value) if level == 2 else value)
-            colors.append(SOURCE_COLORS.get(value, "#64748b") if level == 0 else SENTIMENT_COLORS.get(value, "#64748b") if level == 3 else ["", "#7c3aed", "#0d9488"][level])
+            level_color = SANKEY_LEVEL_COLORS.get(dimension, SANKEY_DEFAULT_COLOR)
+            category_colors = SANKEY_NODE_COLORS.get(dimension, {})
+            colors.append(category_colors.get(value, level_color))
             xs.append([0.01, 0.34, 0.67, 0.99][level])
             ys.append((i + 0.5) / len(values))
     sources, targets, totals, link_colors, origins = [], [], [], [], []
@@ -35,7 +41,7 @@ def build_sankey(frame):
             sources.append(indexes[left, a])
             targets.append(indexes[right, b])
             totals.append(int(count))
-            hex_color = SOURCE_COLORS.get(origin, "#64748b").lstrip("#")
+            hex_color = SANKEY_SOURCE_COLORS.get(origin, SANKEY_DEFAULT_COLOR).lstrip("#")
             r, g, blue = (int(hex_color[i:i + 2], 16) for i in (0, 2, 4))
             link_colors.append(f"rgba({r}, {g}, {blue}, 0.4)")
             origins.append(SOURCE_LABELS.get(origin, origin))

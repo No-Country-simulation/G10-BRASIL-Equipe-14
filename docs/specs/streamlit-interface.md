@@ -25,8 +25,8 @@ O consolidado é consultado sem alterar os dados. A última carga exibida corres
 Executar com o ambiente do projeto:
 
 ```powershell
-.venv/Scripts/python.exe -m streamlit run src/main.py
-.venv/Scripts/python.exe -m pytest tests/test_workspace_ui.py tests/test_ingestion_view.py tests/test_sentiment_dashboard.py tests/test_sentiment_treemap.py tests/test_sentiment_chat.py -q
+uv run python -m streamlit run src/main.py
+uv run pytest tests/test_workspace_ui.py tests/test_ingestion_view.py tests/test_sentiment_dashboard.py tests/test_sentiment_treemap.py tests/test_sentiment_chat.py -q
 ```
 
 Os testes de interface percorrem as cinco páginas no tema claro, verificam a ausência do seletor de aparência, o contraste dos tokens de texto e ações e a edição, aprovação e reabertura de um conteúdo. Eles verificam a execução dos componentes, mas não substituem a inspeção visual em navegador nos tamanhos desktop e móvel.

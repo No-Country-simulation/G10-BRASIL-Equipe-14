@@ -4,9 +4,9 @@ import json
 from html import escape
 
 import plotly.graph_objects as go
-from src.design import FONT_STACK, LIGHT_PALETTE, category_tone
 
-DIMENSIONS = ("source", "theme", "editorial", "sentiment")
+from src.config import TREEMAP_DIMENSIONS as DIMENSIONS
+from src.design import FONT_STACK, LIGHT_PALETTE, category_tone
 
 
 def build_treemap(frame, dimensions=DIMENSIONS, label_maps=None):

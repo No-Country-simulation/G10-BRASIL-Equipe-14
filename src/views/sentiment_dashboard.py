@@ -4,7 +4,8 @@ import pandas as pd
 import streamlit as st
 from src.ui import EDITORIAL_LABELS, SENTIMENT_LABELS, SOURCE_LABELS, THEME_LABELS, metric_card, page_header, style_chart
 
-from src.services.sentiment_dashboard import EDITORIALS, SENTIMENTS, THEMES, load_snapshot
+from src.config import EDITORIALS, SENTIMENTS, THEMES
+from src.services.sentiment_dashboard import load_snapshot
 from src.views.dashboard_chat import render_chat
 from src.services.sentiment_treemap import build_treemap
 

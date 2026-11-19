@@ -28,7 +28,7 @@ def render_home():
             st.caption("Sinais do consolidado para orientar a próxima análise da equipe.")
             pending = int(unique.needs_review.eq(True).sum())
             if pending:
-                st.warning(f"Interações sinalizadas para revisão humana: {pending}. Investigue o contexto antes de definir o encaminhamento editorial.")
+                st.warning(f"Interações sinalizadas para revisão humana: {pending}.   \n Investigue o contexto antes de definir o encaminhamento editorial.")
             else:
                 st.info("Nenhuma interação sinalizada para revisão neste consolidado.")
             if quality["conflicts"]:

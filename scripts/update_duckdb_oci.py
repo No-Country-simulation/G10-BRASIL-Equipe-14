@@ -1,12 +1,22 @@
 import argparse
-import os
+import sys
 from pathlib import Path
 
 import duckdb
-from dotenv import load_dotenv
 
 
-ROOT = Path(__file__).resolve().parents[1]
+# Permite executar o arquivo diretamente a partir do diretório scripts.
+if __name__ == "__main__" and not __package__:
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from src.config import (
+    DATABASE_PATH,
+    OCI_BUCKET_NAME,
+    OCI_NAMESPACE,
+    OCI_REGION,
+    OCI_S3_ACCESS_KEY_ID,
+    OCI_S3_SECRET_ACCESS_KEY,
+)
 
 
 def sql_literal(value: str) -> str:
@@ -14,27 +24,18 @@ def sql_literal(value: str) -> str:
 
 
 def atualizar(pasta: str, banco: Path) -> None:
-    load_dotenv(ROOT / ".env")
-
-    access_key = os.getenv("OCI_S3_ACCESS_KEY_ID")
-    secret_key = os.getenv("OCI_S3_SECRET_ACCESS_KEY")
-
-    if not access_key or not secret_key:
+    if not OCI_S3_ACCESS_KEY_ID or not OCI_S3_SECRET_ACCESS_KEY:
         raise ValueError(
             "Configure OCI_S3_ACCESS_KEY_ID e "
             "OCI_S3_SECRET_ACCESS_KEY no .env."
         )
-
-    region = os.getenv("OCI_REGION", "sa-saopaulo-1")
-    namespace = os.environ["OCI_NAMESPACE"]
-    bucket = os.getenv("OCI_BUCKET_NAME", "communitylab-assets")
 
     pasta = pasta.strip("/")
     if not pasta or any(char in pasta for char in "*?[]\\"):
         raise ValueError("Informe uma pasta sem curingas, como processed.")
 
     # Lê apenas JSONs diretamente nessa pasta, sem percorrer subpastas.
-    pattern = f"s3://{bucket}/{pasta}/*.json"
+    pattern = f"s3://{OCI_BUCKET_NAME}/{pasta}/*.json"
 
     banco.parent.mkdir(parents=True, exist_ok=True)
 
@@ -43,15 +44,15 @@ def atualizar(pasta: str, banco: Path) -> None:
         con.execute("LOAD httpfs")
 
         options = {
-            "KEY_ID": access_key,
-            "SECRET": secret_key,
-            "REGION": region,
+            "KEY_ID": OCI_S3_ACCESS_KEY_ID,
+            "SECRET": OCI_S3_SECRET_ACCESS_KEY,
+            "REGION": OCI_REGION,
             "ENDPOINT": (
-                f"{namespace}.compat.objectstorage."
-                f"{region}.oraclecloud.com"
+                f"{OCI_NAMESPACE}.compat.objectstorage."
+                f"{OCI_REGION}.oraclecloud.com"
             ),
             "URL_STYLE": "path",
-            "SCOPE": f"s3://{bucket}/{pasta}/",
+            "SCOPE": f"s3://{OCI_BUCKET_NAME}/{pasta}/",
         }
 
         # Secret temporário: as credenciais não são persistidas no banco.
@@ -123,7 +124,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--banco",
         type=Path,
-        default=ROOT / "data/communitylab_oci.duckdb",
+        default=DATABASE_PATH,
     )
     args = parser.parse_args()
 

@@ -1,12 +1,10 @@
 """Shared corporate interface for the CommunityLab workspace."""
 
 from html import escape
-from pathlib import Path
 
 import streamlit as st
 from src.design import FONT_STACK, LIGHT_PALETTE, OPERATIONAL_TONES
 
-LOGO = Path(__file__).resolve().parents[1] / "docs/assets/logo-communitylab.svg"
 SOURCE_LABELS = {"mastodon": "Mastodon", "hackernews": "Hacker News", "stackoverflow": "Stack Overflow"}
 THEME_LABELS = {"artificial-intelligence": "Inteligência artificial", "docker": "Docker", "frontend": "Desenvolvimento de interfaces", "backend": "Desenvolvimento de sistemas", "devops": "DevOps", "mobile": "Desenvolvimento móvel", "machine-learning": "Aprendizado de máquina", "job": "Carreira e oportunidades"}
 SENTIMENT_LABELS = {"Excited": "Entusiasmado", "Happy": "Satisfeito", "Neutral": "Neutro", "Disappointed": "Decepcionado", "Angry": "Irritado"}

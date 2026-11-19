@@ -7,12 +7,7 @@ from pathlib import Path
 import duckdb
 import pandas as pd
 
-from src.config import DATA_DIR
-
-SENTIMENTS = ["Excited", "Happy", "Neutral", "Disappointed", "Angry"]
-EDITORIALS = ["success_case", "faq", "newsletter", "moderation", "discard", "other", "fallback", "Sem classificação"]
-THEMES = ["artificial-intelligence", "docker", "frontend", "backend", "devops", "mobile", "machine-learning", "job"]
-DATABASE = DATA_DIR / "communitylab_oci.duckdb"
+from src.config import DATABASE_PATH, EDITORIALS, SENTIMENTS
 
 
 def timestamp(value):
@@ -81,7 +76,7 @@ def normalize(payload, object_key, loaded_at):
         }
 
 
-def load_snapshot(database: Path = DATABASE):
+def load_snapshot(database: Path = DATABASE_PATH):
     if not database.is_file():
         raise FileNotFoundError("O snapshot OCI ainda não foi carregado neste ambiente.")
     with duckdb.connect(str(database), read_only=True) as connection:

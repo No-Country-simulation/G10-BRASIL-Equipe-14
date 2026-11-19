@@ -1,7 +1,8 @@
 import streamlit as st
 
 from src.config import PAGE_TITLE
-from src.ui import LOGO, apply_theme
+from src.config import LOGO_PATH
+from src.ui import apply_theme
 from src.ui_localization import localize_native_controls
 
 HOME_PAGE = st.Page("views/home.py", title="Visão executiva", icon=":material/space_dashboard:", url_path="inicio", default=True)
@@ -17,14 +18,13 @@ DASHBOARD_PAGE = st.Page(
 
 
 def configure_page() -> None:
-    st.set_page_config(page_title=PAGE_TITLE, page_icon=str(LOGO), layout="wide")
+    st.set_page_config(page_title=PAGE_TITLE, page_icon=str(LOGO_PATH), layout="wide")
 
 
 def main() -> None:
     configure_page()
     with st.sidebar:
-        st.image(str(LOGO), width=150)
-        st.markdown("### CommunityLab")
+        st.image(str(LOGO_PATH), width=150)
         st.caption("Inteligência de comunidades")
     sections = {"Principal": [HOME_PAGE], "Análise": [DASHBOARD_PAGE], "Operação": [INGESTION_PAGE, SOURCES_PAGE, CURATION_PAGE]}
     page = st.navigation(sections, position="hidden")
