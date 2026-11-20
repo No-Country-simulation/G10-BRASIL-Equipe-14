@@ -12,6 +12,9 @@ __pycache__
 n8n/n8n_data
 data/raw
 data/processed
-docs
+docs/**
+!docs/assets/
+docs/assets/**
+!docs/assets/logo-communitylab.svg
 references
 tests

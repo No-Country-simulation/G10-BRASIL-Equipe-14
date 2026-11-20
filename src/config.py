@@ -5,7 +5,10 @@ from dotenv import load_dotenv
 # Configuração de diretórios relativos
 SRC_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SRC_DIR.parent
+LOGO_PATH = PROJECT_ROOT / "docs/assets/logo-communitylab.svg"
+STREAMLIT_MAIN_PATH = SRC_DIR / "main.py"
 VIEWS_DIR = SRC_DIR / "views"
+SENTIMENT_DASHBOARD_PATH = VIEWS_DIR / "sentiment_dashboard.py"
 PROCESSED_DATA_PATH = VIEWS_DIR / "processed_data.py"
 
 ENV_PATH = PROJECT_ROOT / ".env"
@@ -13,6 +16,8 @@ if ENV_PATH.exists():
     load_dotenv(ENV_PATH)
 
 DATA_DIR = PROJECT_ROOT / "data"
+DATABASE_PATH = DATA_DIR / "communitylab_oci.duckdb"
+UI_DATABASE_PATH = DATA_DIR / "duckdb_ui.duckdb"
 RAW_DATA_DIR = DATA_DIR / "raw"
 PROMPTS_DATA_DIR = DATA_DIR / "prompts"
 PROCESSED_DATA_DIR = DATA_DIR / "processed"
@@ -150,8 +155,15 @@ N8N_INGESTION_WEBHOOK_URL = (
     os.getenv("N8N_INGESTION_WEBHOOK_URL")
     or f"{N8N_BASE_URL}/{N8N_INGESTION_WEBHOOK_PATH}"
 )
+N8N_SENTIMENT_CHAT_DEFAULT_URL = "https://bot.rsa.ia.br/webhook/wf13-sentimento-chat"
 N8N_REQUEST_TIMEOUT = float(os.getenv("N8N_REQUEST_TIMEOUT", "30"))
 N8N_DOWNLOAD_TIMEOUT = float(os.getenv("N8N_DOWNLOAD_TIMEOUT", "120"))
+
+SENTIMENTS = ["Excited", "Happy", "Neutral", "Disappointed", "Angry"]
+EDITORIALS = ["success_case", "faq", "newsletter", "moderation", "discard", "other", "fallback", "Sem classificação"]
+THEMES = ["artificial-intelligence", "docker", "frontend", "backend", "devops", "mobile", "machine-learning", "job"]
+
+TREEMAP_DIMENSIONS = ("source", "theme", "editorial", "sentiment")
 
 CSV_DELIMITERS = ",;\t|"
 INGESTION_TEXT_AREA_NAME = "texto colado"

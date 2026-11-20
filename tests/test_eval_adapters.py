@@ -13,8 +13,8 @@ from src.pipeline.eval_adapters import main
 def test_main_execution_success(
     mock_build_parser,
     mock_prepare_execution,
-    mock_load_sources,            
-    mock_load_adapter_prompt,
+    mock_load_sources,
+    mock_load_adapter_base_prompt,
     mock_execute_case,
     mock_save_report,
     mock_save_csv,
@@ -51,6 +51,8 @@ def test_main_execution_success(
     mock_case_result.duration_seconds = 1.0
     mock_case_result.warnings = []
     mock_execute_case.return_value = mock_case_result
+    mock_load_sources.return_value = {}
+    mock_load_adapter_base_prompt.return_value = "Prompt de teste"
 
     # Mock de salvamento de relatório
     mock_report_path = tmp_path / "adapters_gemini_20261112-1200.json"

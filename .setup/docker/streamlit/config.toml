@@ -2,3 +2,14 @@
 runOnSave = true
 fileWatcherType = "watchdog"
 maxUploadSize = 10
+
+[theme]
+base = "light"
+primaryColor = "#157A56"
+backgroundColor = "#F8FAFC"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#0F172A"
+font = 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+
+[client]
+toolbarMode = "minimal"
