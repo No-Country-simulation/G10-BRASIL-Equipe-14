@@ -46,21 +46,12 @@
           },
           "conditions": [
             {
-              "id": "3097698c-7678-4137-aa0d-2a86518b08f0",
-              "leftValue": "={{ $json.Key }}",
-              "rightValue": "={{ 'raw/' + $('Define Search Parameters').item.json.source }}",
-              "operator": {
-                "type": "string",
-                "operation": "startsWith"
-              }
-            },
-            {
               "id": "fb5c486d-2149-4a62-99e3-390abfffd08c",
-              "leftValue": "={{ $json.Key }}",
-              "rightValue": "={{ $('Define Search Parameters').item.json.tag.replace(' ','') + $('Define Search Parameters').item.json.file_type }}",
+              "leftValue": "={{ $json.Key.toLowerCase().replace(/\\s+/g, '') }}",
+              "rightValue": "={{ (\n  'raw/' +\n  $('Define Search Parameters').first().json.source +\n  '_' +\n  $('Define Search Parameters').first().json.tag +\n  $('Define Search Parameters').first().json.file_type\n).toLowerCase().replace(/\\s+/g, '') }}",
               "operator": {
                 "type": "string",
-                "operation": "endsWith"
+                "operation": "equals"
               }
             }
           ],
@@ -369,7 +360,7 @@
     },
     {
       "parameters": {
-        "maxItems": 50
+        "maxItems": "={{ $('Define Search Parameters').first().json.limit }}"
       },
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
@@ -387,19 +378,31 @@
             {
               "id": "2d00d052-bcca-4a10-b3df-3ad129ac76a0",
               "name": "file_type",
-              "value": ".json",
+              "value": "={{ '.json' }}",
               "type": "string"
             },
             {
               "id": "aa617609-6a7e-427f-9205-e0710215d344",
               "name": "source",
-              "value": "mastodon",
+              "value": "={{ 'mastodon' }}",
               "type": "string"
             },
             {
               "id": "21f2fd72-9382-4f11-97e4-14a3ab7b12a2",
               "name": "tag",
-              "value": "artificial intelligence",
+              "value": "={{ $('Webhook').isExecuted\n  ? ($json.body?.tag ?? '')\n  : 'artificial intelligence'\n}}",
+              "type": "string"
+            },
+            {
+              "id": "4105c56b-dee0-421b-a0fa-802ce3938b7c",
+              "name": "limit",
+              "value": "={{ $('Webhook').isExecuted\n  ? Number($json.body?.limit ?? 50)\n  : 50\n}}",
+              "type": "number"
+            },
+            {
+              "id": "d395f6ba-47a7-495e-91d1-a7e5fc511bc8",
+              "name": "tag_key",
+              "value": "={{ String(\n  $('Webhook').isExecuted\n    ? ($json.body?.tag ?? '')\n    : 'artificial intelligence'\n).trim().toLowerCase().replace(/\\s+/g, '') }}",
               "type": "string"
             }
           ]
@@ -728,8 +731,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatNvidia",
       "typeVersion": 1,
       "position": [
-        2536,
-        1032
+        2544,
+        1040
       ],
       "id": "cc8042b0-0394-451e-b16f-afb5e266ed0a",
       "name": "NVIDIA Nemotron Chat Model",
@@ -782,8 +785,8 @@
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.3,
       "position": [
-        3624,
-        344
+        3632,
+        352
       ],
       "id": "f0362379-406c-4a01-b0a9-852bfc389dbd",
       "name": "Structured Output Parser"
@@ -799,8 +802,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatNvidia",
       "typeVersion": 1,
       "position": [
-        3496,
-        344
+        3504,
+        352
       ],
       "id": "bed5d65d-4b12-43a9-9c63-22610c979ecb",
       "name": "NVIDIA Nemotron Chat Model1",
@@ -2589,7 +2592,7 @@
     "callerPolicy": "workflowsFromSameOwner",
     "availableInMCP": true
   },
-  "versionId": "72a2dc14-7435-4599-86b5-69f0b94b6a15",
+  "versionId": "092c9964-f4a0-43f7-8b04-b6d266afc7bc",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"

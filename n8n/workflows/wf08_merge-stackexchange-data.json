@@ -6,8 +6,8 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        0,
-        64
+        -32,
+        256
       ],
       "id": "c5aa1941-e986-4371-9210-343a07d6a6b2",
       "name": "When clicking ‘Execute workflow’"
@@ -16,16 +16,19 @@
       "parameters": {
         "operation": "getAll",
         "bucketName": "communitylab-assets",
-        "options": {}
+        "options": {
+          "folderKey": "collected/"
+        }
       },
       "type": "n8n-nodes-base.s3",
       "typeVersion": 1,
       "position": [
-        448,
-        -32
+        1088,
+        208
       ],
       "id": "e5e1e62b-a195-4bac-bda6-c1b4dd466d9e",
       "name": "Get OCI Bucket files",
+      "alwaysOutputData": true,
       "credentials": {
         "s3": {
           "id": "WG22ysIkwCiyk8dj",
@@ -41,8 +44,8 @@
       "type": "n8n-nodes-base.s3",
       "typeVersion": 1,
       "position": [
-        896,
-        -32
+        1760,
+        208
       ],
       "id": "6fd326b3-5703-4477-90bb-506a495d75b5",
       "name": "Download a file",
@@ -62,8 +65,8 @@
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1.1,
       "position": [
-        1120,
-        -32
+        1984,
+        208
       ],
       "id": "00db5bd9-ba5d-48db-9cb4-3eac0e5dcd26",
       "name": "Extract from File"
@@ -80,8 +83,8 @@
           "conditions": [
             {
               "id": "fb5c486d-2149-4a62-99e3-390abfffd08c",
-              "leftValue": "={{ $json.Key }}",
-              "rightValue": "={{ $('Define Search Parameters').item.json.file_type }}",
+              "leftValue": "={{ $json.Key ?? '' }}",
+              "rightValue": "={{ '_' + $('Loop Over Items').first(1, $runIndex).json.tagged\n   + $('Loop Over Items').first(1, $runIndex).json.file_type }}",
               "operator": {
                 "type": "string",
                 "operation": "endsWith"
@@ -89,8 +92,8 @@
             },
             {
               "id": "f93b42fe-ff99-43f9-8b9d-95bf5eab2534",
-              "leftValue": "={{ $json.Key }}",
-              "rightValue": "={{ 'sample_' + $('Define Search Parameters').item.json.source }}",
+              "leftValue": "={{ $json.Key ?? '' }}",
+              "rightValue": "={{ 'sample_' + $('Loop Over Items').first(1, $runIndex).json.source + '-' }}",
               "operator": {
                 "type": "string",
                 "operation": "contains"
@@ -104,11 +107,12 @@
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.3,
       "position": [
-        672,
-        -32
+        1312,
+        208
       ],
       "id": "8552d9b0-71b6-42fb-81b1-95566940e9d0",
-      "name": "Select sample_stackoverflow json files"
+      "name": "Select sample_stackoverflow json files",
+      "alwaysOutputData": true
     },
     {
       "parameters": {
@@ -117,25 +121,26 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1344,
-        -32
+        2208,
+        208
       ],
       "id": "3becc844-fa24-4daa-855d-204789450e3e",
-      "name": "Code in JavaScript"
+      "name": "Code in JavaScript",
+      "alwaysOutputData": true
     },
     {
       "parameters": {
         "operation": "toJson",
         "options": {
           "format": true,
-          "fileName": "={{ $('Select sample_stackoverflow json files').first().json.Key.split('_')[1].split('-')[0] + '_' + $('Select sample_stackoverflow json files').first().json.Key.split('_')[2].replace('-','') }}"
+          "fileName": "={{ (() => {\n  const indice = $node[\"Edit Fields\"].runIndex;\n  const parametros = $('Edit Fields').first(0, indice).json;\n\n  return parametros.source + '_' + parametros.tagged + '.json';\n})() }}"
         }
       },
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
-        1568,
-        -32
+        2656,
+        208
       ],
       "id": "dddcb286-bbe6-4d39-8bbe-e1256a6e4f3f",
       "name": "Convert to File"
@@ -155,6 +160,12 @@
               "name": "source",
               "value": "stackoverflow",
               "type": "string"
+            },
+            {
+              "id": "f2613107-b802-4e4e-b89d-a9ce736502de",
+              "name": "tagged",
+              "value": "={{ $prevNode.name === 'Get Tag'\n    ? $json.tag\n    : ($json.body?.tagged ?? 'langsmith') }}",
+              "type": "string"
             }
           ]
         },
@@ -163,8 +174,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.5,
       "position": [
-        224,
-        -32
+        416,
+        352
       ],
       "id": "b9da3a65-a9b3-4c9b-bbee-7304bcea02e8",
       "name": "Define Search Parameters"
@@ -179,8 +190,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        0,
-        -128
+        192,
+        448
       ],
       "id": "0ad30e45-da8a-4ad1-a9b9-43021faaa2cf",
       "name": "Webhook",
@@ -195,24 +206,19 @@
     {
       "parameters": {
         "respondWith": "json",
-        "responseBody": "{\n  \"status\": \"success\",\n  \"message\": \"Dados concatenados e arquivo disponibilizado no bucket OCI.\"\n}",
+        "responseBody": "{\n  \"status\": \"success\",\n  \"message\": \"Processamento concluído. Tags sem arquivos correspondentes ou sem registros foram ignoradas; os arquivos gerados foram enviados ao bucket OCI.\"\n}",
         "options": {
           "responseCode": 200,
           "responseHeaders": {
-            "entries": [
-              {
-                "name": "filename",
-                "value": "={{ $binary.data.fileName }}"
-              }
-            ]
+            "entries": []
           }
         }
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        2016,
-        -32
+        864,
+        16
       ],
       "id": "5fdb95d1-ec45-4325-aa4b-42ac5b806476",
       "name": "Respond to Webhook"
@@ -227,8 +233,8 @@
       "type": "n8n-nodes-base.s3",
       "typeVersion": 1,
       "position": [
-        1792,
-        -32
+        2880,
+        288
       ],
       "id": "4834bcba-efc2-4b61-a85b-3dcff643adb8",
       "name": "Upload a file",
@@ -238,6 +244,159 @@
           "name": "OCI Object Storage S3"
         }
       }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "w0KGwztYZwHjyYtu",
+          "mode": "list",
+          "cachedResultName": "social_topic",
+          "cachedResultUrl": "/projects/PV5HpBB1ukWLMwz1/datatables/w0KGwztYZwHjyYtu"
+        },
+        "returnAll": true,
+        "orderBy": true,
+        "orderByColumn": "id",
+        "orderByDirection": "ASC"
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        192,
+        256
+      ],
+      "id": "57297550-4c7d-447d-b02d-63824fffcf4e",
+      "name": "Get Tag"
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": false
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        640,
+        352
+      ],
+      "id": "818ec930-de8a-4256-bb06-db69d6519c5a",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "cdc22d8a-c87c-4024-87f9-a74b77832c31",
+              "leftValue": "={{ $json.Key ?? '' }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        1536,
+        208
+      ],
+      "id": "afd88080-4890-44dd-b321-0c313bbc9e5f",
+      "name": "Arquivo encontrado?"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "db00730c-3c43-45a7-be91-a236cd1e8fed",
+              "leftValue": "={{ String($json.source_id ?? '').trim() }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        2432,
+        208
+      ],
+      "id": "2d1fd342-b561-48cd-81c9-9eb46e0e582a",
+      "name": "Merge possui registros?"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b7f71ed8-397f-4439-ab16-c31eca003575",
+              "name": "source",
+              "value": "={{ $('Define Search Parameters').item.json.source }}",
+              "type": "string"
+            },
+            {
+              "id": "584614ee-8595-4f20-af4c-5f0813b29dfe",
+              "name": "tagged",
+              "value": "={{ $('Define Search Parameters').item.json.tagged }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        864,
+        208
+      ],
+      "id": "7a46dfbc-daa4-4c78-9065-0d2ac8b5b384",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "content": "# Não publicar \nNão publicar esse workflow para manter a versão que está validada para o Hackathon.",
+        "height": 128,
+        "width": 336,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1216,
+        -32
+      ],
+      "typeVersion": 1,
+      "id": "d7c7b79f-a4ef-4320-9f2c-8d79bd455661",
+      "name": "Sticky Note"
     }
   ],
   "pinData": {},
@@ -246,7 +405,7 @@
       "main": [
         [
           {
-            "node": "Define Search Parameters",
+            "node": "Get Tag",
             "type": "main",
             "index": 0
           }
@@ -279,7 +438,7 @@
       "main": [
         [
           {
-            "node": "Download a file",
+            "node": "Arquivo encontrado?",
             "type": "main",
             "index": 0
           }
@@ -301,7 +460,7 @@
       "main": [
         [
           {
-            "node": "Convert to File",
+            "node": "Merge possui registros?",
             "type": "main",
             "index": 0
           }
@@ -312,7 +471,7 @@
       "main": [
         [
           {
-            "node": "Get OCI Bucket files",
+            "node": "Loop Over Items",
             "type": "main",
             "index": 0
           }
@@ -345,7 +504,83 @@
       "main": [
         [
           {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Tag": {
+      "main": [
+        [
+          {
+            "node": "Define Search Parameters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
             "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Arquivo encontrado?": {
+      "main": [
+        [
+          {
+            "node": "Download a file",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge possui registros?": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Get OCI Bucket files",
             "type": "main",
             "index": 0
           }
@@ -356,9 +591,12 @@
   "active": true,
   "settings": {
     "executionOrder": "v1",
-    "binaryMode": "separate"
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": true
   },
-  "versionId": "6cdf6a37-de94-460a-aae9-aabd512c4f85",
+  "versionId": "cebec302-7d6a-4659-843b-2d95f206106b",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"

@@ -103,7 +103,7 @@
       "parameters": {
         "operation": "upload",
         "bucketName": "communitylab-assets",
-        "fileName": "={{ $binary.data.fileName }}",
+        "fileName": "={{ 'collected/' + $binary.data.fileName }}",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.s3",
@@ -169,7 +169,7 @@
             {
               "id": "57af477e-861d-4b4c-87c8-cb11b08936a0",
               "name": "=tagged",
-              "value": "={{ $json.body?.tagged ?? 'artificial-intelligence' }}",
+              "value": "={{ $json.body?.tagged ?? 'langsmith' }}",
               "type": "string"
             },
             {
@@ -536,10 +536,10 @@
     "binaryMode": "separate",
     "timeSavedMode": "fixed",
     "callerPolicy": "workflowsFromSameOwner",
-    "availableInMCP": false,
+    "availableInMCP": true,
     "timezone": "America/Sao_Paulo"
   },
-  "versionId": "5c2a9cc8-1f05-4318-859e-e8839f16633c",
+  "versionId": "63466600-14e4-4b23-9e13-ba424ed5f564",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
