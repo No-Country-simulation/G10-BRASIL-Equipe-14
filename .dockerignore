@@ -6,12 +6,15 @@
 .claude
 .venv
 .pytest_cache
+.tmp
+.setup/pdf-analysis-deps
 __pycache__
 *.pyc
 .env
 n8n/n8n_data
 data/raw
 data/processed
+data/temp
 docs/**
 !docs/assets/
 docs/assets/**

@@ -2,6 +2,7 @@ import re
 from datetime import datetime
 
 import streamlit as st
+from requests import RequestException
 import streamlit_shadcn_ui as ui
 
 from src.config import (
@@ -13,6 +14,8 @@ from src.config import (
     PACKAGE_STATUS_BADGES,
     REVIEW_BADGES,
 )
+from src.services.approved_packages import can_publish, publish_approved_package
+from src.services.faq_drafts import load_draft_packages, save_draft_review
 from src.services.output_packages import list_output_packages
 from src.services.curation_store import export_approved, load_reviews, save_review
 
@@ -33,6 +36,14 @@ def load_suggested_content() -> list[dict]:
 
 
 def set_review(content: dict, status: str) -> None:
+    body = st.session_state.get(f"body_{content['id']}", content["body"])
+    if content["id"].startswith(("wf09-", "wf10-", "wf11-")):
+        try:
+            save_draft_review(content, status, body)
+        except OSError:
+            st.error("Não foi possível salvar a decisão de curadoria.")
+            return
+        return
     edited = st.session_state.get(f"body_{content['id']}")
     if edited is not None:
         content["body"] = edited
@@ -174,11 +185,32 @@ def render_suggested_content(package: dict) -> None:
         render(content)
 
 
+def render_approved_upload(package: dict) -> None:
+    if "provenance" not in package:
+        return
+    if not st.button(
+        "Salvar pacote aprovado na OCI",
+        disabled=not can_publish(package),
+        key=f"publish_approved_{package['package_id']}",
+    ):
+        return
+    with st.spinner("Salvando pacote aprovado..."):
+        try:
+            key = publish_approved_package(package)
+        except RequestException:
+            st.error("Não foi possível confirmar a gravação na OCI. Você pode tentar novamente.")
+            return
+        except ValueError as error:
+            st.error(str(error))
+            return
+    st.success(f"Pacote aprovado disponível na OCI em `{key}`.")
+
+
 def render_curation() -> None:
     st.header("Curadoria")
     if "packages" not in st.session_state:
         st.session_state["packages"] = load_suggested_content()
-    packages = {p["linked_batch_id"]: p for p in st.session_state["packages"]}
+    packages = {p["linked_batch_id"]: p for p in st.session_state["packages"] + load_draft_packages()}
     if not packages:
         st.info("Nenhum pacote disponível para curadoria.")
         return
@@ -194,9 +226,16 @@ def render_curation() -> None:
     package = packages[batch_id]
 
     render_package_header(package)
+    if provenance := package.get("provenance"):
+        workflow = package["package_id"].split("-", 1)[0].upper()
+        item = f"resposta {provenance['answer_id']}" if "answer_id" in provenance else f"publicação {provenance['post_id']}"
+        st.caption(
+            f"Triagem {workflow} · execução {provenance['execution_id']} · {item}"
+        )
     render_processing_summary(package)
     render_reference_period(package)
     render_suggested_content(package)
+    render_approved_upload(package)
 
     if st.button("Exportar aprovados (JSON)", key=f"export_{package['package_id']}"):
         path = export_approved(package, package["suggested_content"])
