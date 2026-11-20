@@ -1,0 +1,35 @@
+[
+  {
+    "status": "success",
+    "total_posts": 1,
+    "successful_sources": 1,
+    "failed_sources": 0,
+    "posts": [
+      {
+        "id": "91000201",
+        "created_at": "2026-11-17T00:00:00Z",
+        "language": "pt",
+        "url": "https://example.invalid/mastodon/91000201",
+        "uri": "https://example.invalid/mastodon/91000201",
+        "source": "mastodon.social",
+        "author": "perfil_sintetico",
+        "content": "<p>Conquistei minha primeira vaga como desenvolvedora júnior. Na entrevista, apresentei meu projeto de portfólio de automação de testes em Python, desenvolvido durante a formação.</p>",
+        "tags": [
+          {
+            "name": "carreira"
+          }
+        ],
+        "account": {
+          "id": "91000200",
+          "username": "perfil_sintetico",
+          "bot": false
+        },
+        "sensitive": false,
+        "replies_count": 0,
+        "reblogs_count": 0,
+        "edited_at": null,
+        "text": "<p>Conquistei minha primeira vaga como desenvolvedora júnior. Na entrevista, apresentei meu projeto de portfólio de automação de testes em Python, desenvolvido durante a formação.</p>"
+      }
+    ]
+  }
+]

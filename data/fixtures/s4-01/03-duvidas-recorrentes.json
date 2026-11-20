@@ -1,0 +1,50 @@
+﻿[
+  {
+    "pub_story_id": 91000300,
+    "pub_story_title": "Como reenviar um POST sem duplicar gravações?",
+    "pub_author": "autor-sintetico",
+    "pub_time": 1794873600,
+    "pub_url": "https://example.invalid/hackernews/91000300",
+    "pub_text": "Discussão sobre gravações duplicadas ao repetir um POST após um timeout.",
+    "pub_maxComments": 2,
+    "pub_score": 0,
+    "comment_id": 91000301,
+    "comment_time": 1794873600,
+    "comment_type": "comment",
+    "comment_author": "perfil-91000301",
+    "comment_text": "Também tive gravações duplicadas ao reenviar uma solicitação POST após um timeout.",
+    "comment_kids": []
+  },
+  {
+    "pub_story_id": 91000300,
+    "pub_story_title": "Como reenviar um POST sem duplicar gravações?",
+    "pub_author": "autor-sintetico",
+    "pub_time": 1794873600,
+    "pub_url": "https://example.invalid/hackernews/91000300",
+    "pub_text": "Discussão sobre gravações duplicadas ao repetir um POST após um timeout.",
+    "pub_maxComments": 2,
+    "pub_score": 0,
+    "comment_id": 91000302,
+    "comment_time": 1794873600,
+    "comment_type": "comment",
+    "comment_author": "perfil-91000302",
+    "comment_text": "Tive o mesmo problema de gravação duplicada após um timeout no POST. Para evitar duplicatas, reutilize a mesma chave de idempotência no reenvio e faça o servidor armazenar e devolver o resultado da tentativa original para a mesma chave e o mesmo corpo.",
+    "comment_kids": []
+  },
+  {
+    "pub_story_id": 91000300,
+    "pub_story_title": "Como reenviar um POST sem duplicar gravações?",
+    "pub_author": "autor-sintetico",
+    "pub_time": 1794873600,
+    "pub_url": "https://example.invalid/hackernews/91000300",
+    "pub_text": "Discussão sobre gravações duplicadas ao repetir um POST após um timeout.",
+    "pub_maxComments": 2,
+    "pub_score": 0,
+    "comment_id": 91000301,
+    "comment_time": 1794873600,
+    "comment_type": "comment",
+    "comment_author": "perfil-91000301",
+    "comment_text": "Também tive gravações duplicadas ao reenviar uma solicitação POST após um timeout.",
+    "comment_kids": []
+  }
+]

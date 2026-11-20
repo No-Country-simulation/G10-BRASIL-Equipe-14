@@ -16,16 +16,18 @@ Webhook URL: `https://bot.rsa.ia.br/webhook/PATH`
 
 | Workflow | PATH | Dado coletado | Fonte |
 |---|---|---| --- |
-WF02 | `wf02-coleta-stack-exchange` | Questões | Stack Exchange |
-WF03 | `wf03-coleta-stack-exchange-licenses` | Licenças | Stack Exchange |
-WF04 | `wf04-coleta-stack-exchange-answers` | Respostas | Stack Exchange |
-WF05 | `wf05-download-bucket-OCI` | Download dos arquivos em `.ZIP` | Bucket na OCI |
-WF06 | `wf06-coleta-mastodon` | Dados | Mastodon |
-WF07 | `wf07-hacker-news-search` | Dados completos | Hacker News |
-WF08 | `wf08_merge-stackexchange-data` | Questões, licenças, respostas combinadas | Stack Exchange |
-WF09 | `wf09_triagem-llm-router-mastodon` | Avaliação de publicações | Mastodon |
-WF10 | `wf10_triagem-llm-router_stackexchange` | Avaliação de perguntas e respostas | Stack Exchange |
-WF11 | `wf11_triagem-llm-router_hackernews` | Avaliação de comentários com contexto das publicações | Hacker News |
+| WF02 | `wf02-coleta-stack-exchange` | Questões | Stack Exchange |
+| WF03 | `wf03-coleta-stack-exchange-licenses` | Licenças | Stack Exchange |
+| WF04 | `wf04-coleta-stack-exchange-answers` | Respostas | Stack Exchange |
+| WF05 | `wf05-download-bucket-OCI` | Download dos arquivos em `.ZIP` | Bucket na OCI |
+| WF06 | `wf06-coleta-mastodon` | Dados | Mastodon |
+| WF07 | `wf07-hacker-news-search` | Dados completos | Hacker News |
+| WF08 | `wf08_merge-stackexchange-data` | Questões, licenças, respostas combinadas | Stack Exchange |
+| WF09 | `wf09_triagem-llm-router-mastodon` | Avaliação de publicações | Mastodon |
+| WF10 | `wf10_triagem-llm-router_stackexchange` | Avaliação de perguntas e respostas | Stack Exchange |
+| WF11 | `wf11_triagem-llm-router_hackernews` | Avaliação de comentários com contexto das publicações | Hacker News |
+| WF12 | `wf12-processed-results` | Dado avaliado | Consulta e retorna o conteúdo de um arquivo da pasta `processed/` |
+| WF13 | `wf13-sentimento-chat` | Mensagem de usuário | Chat na página Sentimentos e tópicos |
 
 As requisições powershell dos workflows com Agente de IA podem ser vistas [aqui](./requisicoes_powershell_triagem.md). 
 

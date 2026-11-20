@@ -16,6 +16,10 @@ from src.config import (
     MAX_UPLOAD_FILE_SIZE_MB,
 )
 from src.services.ingestion import parse_input, parse_pasted_text_with_format, send_to_ingestion, validate_input
+from src.services.faq_drafts import generate_faq_from_triage
+from src.services.raw_ingestion import SOURCES, prepare_upload, trigger_triage, upload_raw
+from src.services.recurrence_drafts import generate_recurrence_from_triage
+from src.services.success_case_drafts import generate_success_case_from_triage
 from src.services.bucket_download import BucketDownloadError, download_folder
 
 logger = logging.getLogger(__name__)
@@ -147,12 +151,12 @@ def render_errors(errors: list[str]) -> None:
 
 def render_ingestion() -> None:
     page_header("Ingestão de dados", "Prepare a entrada de interações para transformar conversas em ativos de conhecimento.", "Operação / Entrada de dados")
-    badges(["01 · Adicionar", "02 · Validar e conferir", "03 · Confirmar envio"])
-    st.info("Adicione arquivos ou cole os dados. Confira a prévia validada antes de confirmar o envio para processamento.")
-    with st.expander("Orientações de preenchimento"):
-        st.write("Use JSON ou CSV com os campos do contrato de entrada: id, source, url e interactions. O conteúdo será validado antes do envio.")
-        st.caption("Após o envio, consulte a análise para investigar os resultados e a curadoria para revisar o conteúdo.")
-
+    with st.expander("Orientações de preenchimento", expanded=True):
+        st.write(
+            "Selecione a fonte, informe o tema e anexe um JSON bruto no formato "
+            "do workflow escolhido. O upload grava o arquivo na OCI e inicia a triagem."
+        )
+        st.caption("Para Hacker News, use o JSON consolidado do WF07, com publicações e comentários.")
     with st.container(border=True):
         folder = st.selectbox("pastas disponíveis", ["raw/", "processed/"], key="download_folder")
         if st.button("Download", key="request_bucket_download"):
@@ -180,69 +184,70 @@ def render_ingestion() -> None:
                 on_click="ignore",
             )
         st.caption("Salve o ZIP, extraia os arquivos e selecione o JSON desejado abaixo. O local de download depende do navegador.")
-        st.caption("O envio continua exigindo o schema de entrada; os arquivos do bucket podem precisar de adaptação.")
 
-    files = st.file_uploader(
-        "Adicione os arquivos JSON ou CSV",
-        type=["json", "csv"],
-        accept_multiple_files=True,
-        help=(
-            f"Tamanho máximo por arquivo: {MAX_UPLOAD_FILE_SIZE_MB} MB. "
-            f"Limite de arquivos: {MAX_UPLOAD_FILE_COUNT}. "
-            f"Tamanho total máximo: {MAX_TOTAL_UPLOAD_SIZE_MB} MB."
-        ),
+    source = st.selectbox("Fonte dos dados", tuple(SOURCES), index=None)
+    tag = st.text_input("Tema", placeholder="artificial-intelligence", max_chars=80)
+    limit = st.number_input("Limite de itens para triagem", min_value=1, value=1, step=1)
+    file = st.file_uploader(
+        "Arquivo JSON bruto", type=["json"], help=f"Até {MAX_UPLOAD_FILE_SIZE_MB} MB."
     )
-    text = st.text_area(
-        "Ou cole os dados no formato JSON ou CSV",
-        height=250,
-        max_chars=MAX_INGESTION_TEXT_CHARS,
-        help=(
-            "Cole um objeto ou lista JSON, ou um CSV com cabeçalho na primeira linha "
-            "(separadores aceitos: vírgula, ponto e vírgula, tab ou barra vertical). "
-            "Se também enviar arquivos, o texto colado é tratado como mais um item. "
-            f"Limite de {MAX_INGESTION_TEXT_CHARS:,} caracteres.".replace(",", ".")
-        ),
-        placeholder='{"id": "...", "source": "..."}  ou  id,source,url',
-    )
-    signature = input_signature(files, text)
-
-    preview = st.session_state.get(PREVIEW_KEY)
-    if preview and preview["signature"] != signature:
-        st.session_state.pop(PREVIEW_KEY)
-        preview = None
-
-    preview_col, send_col = st.columns(2)
-    previewed = preview_col.button("Pré-visualizar", width="stretch")
-    already_sent = st.session_state.get(SENT_SIGNATURE_KEY) == signature
-    send_label = "Enviado — altere os dados para reenviar" if already_sent else "Enviar dados"
-    submitted = send_col.button(
-        send_label,
-        type="primary",
-        width="stretch",
-        disabled=preview is None or already_sent,
-    )
-
-    if previewed:
-        items, errors = collect_items(files, text)
-        if errors:
-            st.session_state.pop(PREVIEW_KEY, None)
-            render_errors(errors)
-            return
-        if not items:
-            st.session_state.pop(PREVIEW_KEY, None)
-            st.warning("Envie ao menos um arquivo ou cole um JSON/CSV.")
-            return
-        preview = {"signature": signature, "items": items}
-        st.session_state[PREVIEW_KEY] = preview
-        st.rerun()
-
-    if preview is None:
+    if not source or not tag or file is None:
+        return
+    try:
+        workflow_tag, key, content, count = prepare_upload(source, tag, file.getvalue())
+    except ValueError as exc:
+        st.error(str(exc))
         return
 
-    if submitted:
-        confirm_send(preview["items"], signature)
-    st.success("Dados validados e prontos para envio.")
-    render_preview(preview["items"])
+    st.caption(f"{count} registro(s) no arquivo. Objeto OCI: `{key}`")
+    saved = st.session_state.setdefault("raw_ingestion_saved", set())
+    completed = st.session_state.setdefault("raw_ingestion_completed", {})
+    run_key = (key, limit)
+    if run_key in completed:
+        show_triage_result(completed[run_key])
+        return
+    if not st.button("Tentar triagem novamente" if key in saved else "Upload", type="primary"):
+        return
+
+    with st.spinner("Gravando o arquivo e aguardando a triagem..."):
+        try:
+            if key not in saved:
+                upload_raw(key, content)
+                saved.add(key)
+            result = trigger_triage(source, workflow_tag, limit)
+        except requests.RequestException:
+            st.error("Falha de comunicação. A operação remota pode ter sido iniciada. Confira antes de repetir.")
+            if key in saved:
+                st.info("O arquivo já está gravado na OCI.")
+            return
+        except ValueError as exc:
+            st.error(str(exc))
+            if key in saved:
+                st.info("O arquivo já está gravado na OCI.")
+            return
+        completed[run_key] = result
+        show_triage_result(result)
+
+
+def show_triage_result(result: dict) -> None:
+    st.success("Arquivo gravado na OCI e triagem concluída.")
+    if result.get("execution_id"):
+        st.write(f"Execução n8n: `{result['execution_id']}`")
+    if result.get("count") is not None:
+        st.write(f"Itens processados: {result['count']}")
+    try:
+        package = (
+            generate_faq_from_triage(result)
+            or generate_success_case_from_triage(result)
+            or generate_recurrence_from_triage(result)
+        )
+    except (KeyError, OSError, TypeError, ValueError):
+        logger.warning("Falha ao preparar o pacote da execução %s", result.get("execution_id"))
+        st.error("A triagem concluiu, mas não foi possível preparar os rascunhos.")
+        st.button("Tentar geração novamente")
+        return
+    if package:
+        st.success(f"Rascunhos disponíveis na Curadoria, no lote `{package.stem}`.")
 
 
 render_ingestion()

@@ -1,4 +1,3 @@
-import hashlib
 import json
 from pathlib import Path
 from types import ModuleType, SimpleNamespace
@@ -204,76 +203,46 @@ def test_input_signature_changes_with_text_and_files(view):
     assert view.input_signature([make_file("x.json", "{}")], "a") != view.input_signature([make_file("x.json", "[]")], "a")
 
 
-def run_page_without_preview(text=None, sent_text=None):
+
+def test_raw_ingestion_page_requires_source_theme_and_file():
     from streamlit.testing.v1 import AppTest
 
     page = Path(__file__).resolve().parent.parent / "src" / "views" / "ingestion.py"
-    at = AppTest.from_file(str(page), default_timeout=15)
-    if sent_text is not None:
-        # Sem arquivos, a assinatura é o sha256 do texto (importar a view aqui a renderizaria fora do AppTest).
-        at.session_state["ingestion_sent_signature"] = hashlib.sha256(sent_text.strip().encode()).hexdigest()
+    at = AppTest.from_file(str(page)).run()
+    assert not at.exception
+    source = next(widget for widget in at.selectbox if widget.label == "Fonte dos dados")
+    assert source.options == ["Mastodon", "Stack Exchange", "Hacker News"]
+    assert at.number_input[0].value == 1
+    assert all(button.label != "Upload" for button in at.button)
+    source.select("Stack Exchange")
+    at.text_input[0].set_value("artificial-intelligence")
     at.run()
-    if text is not None:
-        at.text_area[0].set_value(text)
-        at.run()
-    return at
+    assert all(button.label != "Upload" for button in at.button)
 
 
-def run_page(text, sent_text=None):
-    at = run_page_without_preview(text, sent_text)
-    next(b for b in at.button if b.label == "Pré-visualizar").click()
-    return at.run()
+def test_stack_exchange_raw_sample_and_routing(monkeypatch):
+    from src.services import raw_ingestion
 
+    sample = Path(__file__).resolve().parents[1] / "data/raw/raw_stackoverflow_artificialintelligence.json"
+    tag, key, content, count = raw_ingestion.prepare_upload(
+        "Stack Exchange", "artificial-intelligence", sample.read_bytes()
+    )
+    assert key == f"raw/stackoverflow_{tag}.json"
+    assert tag.startswith("artificial-intelligence-upload")
+    assert len(json.loads(content)) == count
+    with pytest.raises(ValueError):
+        raw_ingestion.prepare_upload("Hacker News", "docker", content)
 
-def send_button(at):
-    return next(b for b in at.button if "enviar" in b.label.lower() or "enviado" in b.label.lower())
+    monkeypatch.setenv("N8N_API_KEY", "test-key")
+    monkeypatch.setenv("N8N_TRIAGE_BASE_URL", "https://n8n.example")
+    calls = []
 
+    def post(url, **kwargs):
+        calls.append((url, kwargs))
+        return SimpleNamespace(status_code=200, json=lambda: {"success": True, "count": 1})
 
-def test_send_button_is_disabled_before_preview():
-    at = run_page_without_preview(json.dumps(VALID_RECORD))
-    assert send_button(at).disabled
-
-
-def test_send_button_is_enabled_after_valid_preview():
-    at = run_page(json.dumps(VALID_RECORD))
-    assert not send_button(at).disabled
-    assert send_button(at).label == "Enviar dados"
-
-
-def test_valid_preview_shows_ready_message_until_input_changes():
-    at = run_page(json.dumps(VALID_RECORD))
-    assert any("prontos para envio" in s.value for s in at.success)
-    at.text_area[0].set_value(json.dumps({**VALID_RECORD, "id": "2"}))
-    at.run()
-    assert not any("prontos para envio" in s.value for s in at.success)
-
-
-def test_send_button_stays_disabled_after_invalid_preview():
-    at = run_page("{oops")
-    assert send_button(at).disabled
-    assert at.error
-
-
-def test_send_button_is_disabled_after_input_changes():
-    at = run_page(json.dumps(VALID_RECORD))
-    at.text_area[0].set_value(json.dumps({**VALID_RECORD, "id": "2"}))
-    at.run()
-    assert send_button(at).disabled
-
-
-def test_send_button_is_disabled_for_already_sent_input():
-    text = json.dumps(VALID_RECORD)
-    at = run_page(text, sent_text=text)
-    assert send_button(at).disabled and "Enviado" in send_button(at).label
-
-
-def test_send_button_is_enabled_for_new_input_after_a_send():
-    at = run_page(json.dumps({**VALID_RECORD, "id": "2"}), sent_text=json.dumps(VALID_RECORD))
-    assert send_button(at).label == "Enviar dados" and not send_button(at).disabled
-
-
-def test_text_area_applies_max_chars_limit():
-    from src.config import MAX_INGESTION_TEXT_CHARS
-
-    at = run_page_without_preview()
-    assert at.text_area[0].max_chars == MAX_INGESTION_TEXT_CHARS
+    monkeypatch.setattr(requests, "post", post)
+    assert raw_ingestion.trigger_triage("Stack Exchange", tag, 1)["count"] == 1
+    assert calls[0][0].endswith("/webhook/wf10_triagem-llm-router_stackexchange")
+    assert calls[0][1]["json"] == {"tag": tag, "limit": 1}
+    assert calls[0][1]["headers"] == {"communitylab-api-key": "test-key"}
