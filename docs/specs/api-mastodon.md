@@ -14,7 +14,7 @@
 
 O WF09 avalia publicações do Mastodon previamente coletadas e armazenadas no bucket privado `communitylab-assets`. Classifica sentimento, intensidade e confiança, realiza avaliação editorial, encaminha os itens para geração, revisão ou descarte e persiste os resultados em JSON.
 
-O WF09 não consulta diretamente a API do Mastodon e não executa automaticamente o WF06. A coleta deve ser realizada separadamente. A seleção atual lista `raw/` e filtra chaves com prefixo `raw/mastodon` e sufixo `artificialintelligence.json`, sem diferenciar maiúsculas de minúsculas, como `raw/mastodon_artificialintelligence.json`. O nome local `raw_mastodon_artificialintelligence.json` corresponde à convenção de download; a chave no bucket mantém `raw/`.
+WF06 coleta as publicações separadamente e grava `raw/mastodon_<tag>.json`. WF09 lista `raw/` e compara a chave completa com a fonte e a tag solicitada, após converter para minúsculas e remover espaços em ambos os lados.
 
 O processamento espera publicações em `data[0].posts` após `Extract from File`. `Split Out` separa essa coleção; `Sanitize HTML Text` extrai o texto de `text` com seletor `body`, trim e limpeza habilitados. `Merge` reúne original e texto por posição. `Map Mastodon Fields` renomeia `id` para `post_id`, preserva metadados e remove URLs de `clean_text` com `/https?:\/\/\S+/g`, seguido de `trim()`. Não há validação explícita desse contrato de entrada antes da extração.
 
@@ -38,14 +38,14 @@ $response = Invoke-RestMethod `
     -Method POST `
     -Headers $headers `
     -ContentType 'application/json; charset=utf-8' `
-    -Body '{}' `
+    -Body '{"tag":"artificialintelligence","limit":5}' `
     -TimeoutSec 300 `
     -ErrorAction Stop
 
 $response | ConvertTo-Json -Depth 20
 ```
 
-O corpo vazio é intencional: `Define Search Parameters` define internamente `source = mastodon`, `file_type = .json` e `tag = artificial intelligence`. O corpo da requisição não controla tag, quantidade ou seleção de lote. O filtro exige o prefixo da fonte e o sufixo `tag.replace(' ','') + file_type`; essa expressão remove somente o primeiro espaço. Não há seleção explícita do arquivo mais recente.
+O POST recebe `tag` para selecionar a chave e `limit` para limitar o número de publicações avaliadas. O export local também define `tag_key`, sem consumidores no grafo.
 
 O webhook exige Header Auth pela credencial `Hackathon CommunityLab`. O exemplo usa `communitylab-api-key`, descrito em [Credenciais e endpoints](./n8n-credentials.md); confirme o nome na credencial do n8n, pois o export contém somente sua referência, sem nome ou valor do cabeçalho. Defina `COMMUNITYLAB_API_KEY` no ambiente com o segredo configurado antes de executar o comando.
 
@@ -53,22 +53,13 @@ A execução depende das credenciais S3/OCI e NVIDIA configuradas no n8n. Não i
 
 ### Resposta de sucesso configurada
 
-HTTP `200`:
-
-```json
-{
-  "status": "success",
-  "message": "Análise de sentimento feito e arquivo disponibilizado no bucket OCI."
-}
-```
-
-A mensagem acima reproduz a configuração atual. Embora mencione apenas sentimento, o fluxo também executa avaliação editorial e roteamento. A resposta ainda não detalha quantidades por rota nem os caminhos dos arquivos. Definição da persistência na [seção 9](#9-persistencia-e-resposta-final). 
+HTTP 200 com `success`, `status`, `source`, `tag`, `execution_id`, `count`, `items` e `storage`. O campo `storage.object_path` identifica o arquivo principal na OCI.
 
 ## 3. Limite de publicações e operação em produção
 
-O nó `Limit` está configurado com **`Max Items = 50`**. Atua após download, extração, limpeza e mapeamento, antes do `Sentiment Analysis`; não define quantas publicações o [WF06](../../n8n/workflows/wf06_coleta-mastodon.json) coleta nem limita o volume baixado do bucket. Não há ordenação ou amostragem explícita antes do limite.
+O nó `Limit` usa o valor de `limit` (padrão 50). Atua depois do mapeamento e antes da análise de sentimento.
 
-Para testes com menor consumo de tokens, reduza esse parâmetro no workflow. O webhook não permite alterá-lo. O ramo de metadados sai de `Map Mastodon Fields` diretamente para `Merge Infos`; somente o ramo enviado à análise passa por `Limit`, e a junção posterior combina os pares `post_id` + `source` correspondentes.
+O ramo de metadados sai de `Map Mastodon Fields` diretamente para `Merge Infos`. A análise passa por `Limit`, e a junção usa `post_id` e `source`.
 
 ## 4. Modelos de linguagem
 
@@ -473,7 +464,7 @@ O arquivo geral contém os campos definidos em `Edit Fields`: identificadores, t
 ## 10. Limitações do MVP
 
 - Limite atual: até 50 publicações enviadas à análise de sentimento por execução do nó `Limit`.
-- Seleção por fonte e sufixo da tag fixa, sem parâmetros de lote/tema recebidos pelo webhook. Não há deduplicação ou marcação dos arquivos brutos como processados; novas chamadas podem reavaliar as mesmas publicações.
+- O webhook seleciona a tag e o limite de itens. Sem deduplicação ou marcação dos brutos, chamadas repetidas podem reavaliar as mesmas publicações.
 - Não há contrato de erro personalizado nem resposta específica para ausência de arquivos ou publicações. Falhas de extração, parser, modelo ou upload não são tratadas pelo `Fallback`, que cobre apenas rotas sem correspondência no switch.
 - A junção inicial entre publicação e texto limpo é por posição; a junção entre metadados e sentimento é por `post_id` + `source`. Preservar cardinalidade na limpeza e conferir unicidade desses identificadores ao ampliar o lote.
 - A limpeza de `clean_text` ainda pode conter palavras unidas e resíduos de links, conforme as amostras avaliadas.

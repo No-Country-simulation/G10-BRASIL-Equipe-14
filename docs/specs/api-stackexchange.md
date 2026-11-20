@@ -10,7 +10,7 @@
 **Autenticação do webhook:** Header Auth, credencial `Hackathon CommunityLab`\
 **Resposta:** JSON; os arquivos resultantes são persistidos na OCI.
 
-**Estado do WF10:** implementado no arquivo local, com `active=true`, ID `fPkrXUK7Kre97d89` e versão `e4b52c9a-c85e-4cde-b32e-62c586fe0f67`. Esse atributo não comprova que a mesma versão esteja publicada no servidor. A configuração atual limita a entrada a cinco perguntas e agrupa as respostas em arquivos por lote/ramo, com nomes baseados na fonte e na tag. Os testes manuais de 09/11/2026 registrados anteriormente pertencem a outra versão e não validam esta configuração.
+O contrato abaixo descreve o [export versionado do WF10](../../n8n/workflows/wf10_triagem-llm-router_stackexchange.json).
 
 ## 1. Operações
 
@@ -33,7 +33,7 @@ Enviar um objeto JSON no corpo do POST, com `Content-Type: application/json`. Ca
 
 | Campo | Padrão | Validação implementada |
 | --- | --- | --- |
-| `tagged` | `artificial intelligence` | String não vazia, até 200 caracteres; padrão `^[a-zA-Z0-9.+#_;-]+$` |
+| `tagged` | `langsmith` nas chamadas HTTP | String não vazia após trim, até 200 caracteres. Padrão `^[a-zA-Z0-9.+#_;-]+$` |
 | `fromdate` | `1760929200` | Convertido com `Number`; inteiro seguro positivo, em segundos Unix, sem data futura |
 | `pagesize` | `100` | Convertido com `Number`; inteiro entre 1 e 100 |
 | `site` | `stackoverflow` | String não vazia, até 100 caracteres; padrão `^[a-z0-9.-]+$` |
@@ -49,7 +49,7 @@ Enviar um objeto JSON no corpo do POST, com `Content-Type: application/json`. Ca
 
 A coleta ordena por votos decrescentes e pagina até `has_more === false`, e `pagesize` não limita o total coletado. A validação de `site` verifica formato, sem consultar se a comunidade existe. Para o MVP, utilizar `stackoverflow`.
 
-WF05 não recebe filtro de download. WF08 e WF10 usam `source=stackoverflow`, por padrão, e extensão `.json` fixos nos nós de configuração; o corpo da requisição não altera esses valores.
+WF05 aceita `query.folder`, com padrão `processed/`. WF08 recebe `body.tagged` no webhook GET, com padrão `langsmith`. O teste manual do WF08 lê as tags de `social_topic`. WF10 aceita `tag` e `limit` no corpo do POST. Os dois fixam a fonte em `stackoverflow` e a extensão em `.json`.
 
 ## 3. Arquivos e dados
 
@@ -57,29 +57,29 @@ Todos os arquivos são armazenados no bucket `communitylab-assets`, acessado pel
 
 | Etapa | Chave do objeto / estrutura |
 | --- | --- |
-| WF02 | `sample_{site}-questions_{tagged}.json`: perguntas com `source_id` string, título, corpo HTML, autor, link, tags e métricas com sufixo `_question` |
-| WF03 | `sample_{site}-licenses_{tagged}.json`: `source_id` e `content_license_question` (pode ser `null`) |
-| WF04 | `sample_{site}-answers_{tagged_normalizada}.json`: `source_id` string, `answer_id` e campos dinâmicos como `body_answer_{account_id}`, autor, licença e métricas |
-| WF08 | `raw/{nome_derivado}.json`: um registro por `source_id`, campos da pergunta e licença, mais `answers` com os registros do WF04 |
+| WF02 | `collected/sample_{site}-questions_{tagged}.json`: perguntas com `source_id` string, título, corpo HTML, autor, link, tags e métricas com sufixo `_question` |
+| WF03 | `collected/sample_{site}-licenses_{tagged}.json`: `source_id` e `content_license_question` (pode ser `null`) |
+| WF04 | `collected/sample_{site}-answers_{tagged}.json`: `source_id` string, `answer_id` e campos dinâmicos como `body_answer_{account_id}`, autor, licença e métricas |
+| WF08 | `raw/stackoverflow_{tagged}.json`: um registro por `source_id`, campos da pergunta e licença, mais `answers` com os registros do WF04 |
 | WF10 | `processed/result_stackoverflow_{tagged}.json` e `processed/routing/{fila}/result_stackoverflow_{routing.destination}_{tagged}_{execution_id}.json`; cada item representa uma resposta, mas a conversão agrupa os itens recebidos em um arquivo por ramo |
 
-No WF04, a tag do nome do arquivo substitui `;`, `#`, `.` e `+` por `_`. Perguntas sem ID, título, corpo ou link são descartadas no WF02; licenças sem ID são descartadas no WF03. O WF04 descarta respostas sem campo `title_answer_` com sufixo numérico, incluindo registros cujo sufixo seja `unknown`. O HTML dos corpos é preservado.
+Os três coletores preservam a tag validada no nome do arquivo, inclusive `;`, `#`, `.` e `+`. WF02 descarta perguntas sem ID, título, corpo ou link. WF03 descarta licenças sem ID e gera um array vazio se não restarem registros. WF04 mantém respostas com campo `title_answer_` de sufixo numérico. O HTML dos corpos é preservado.
 
-O WF08 seleciona chaves que contêm `sample_stackoverflow` e terminam em `.json`, sem separar tag, período ou execução. Agrupa por ID e acumula respostas sem deduplicação; pode gerar registros sem pergunta. O nome de saída depende da primeira chave selecionada e remove o primeiro hífen da parte da tag (exemplo: `raw/stackoverflow_artificialintelligence.json`).
+O WF08 lista `collected/` e filtra as chaves por fonte e pelo sufixo `_<tagged>.json`. Agrupa perguntas, licenças e respostas por `source_id` e grava `raw/stackoverflow_<tagged>.json`. Tags sem objetos ou sem registros são ignoradas.
 
-O WF05 compacta os objetos listados de todo o bucket, incluindo outras fontes e pastas; não entrega somente dados do Stack Exchange. Retorna HTTP 200 com `Content-Type: application/zip`, `Content-Disposition: attachment` e `Cache-Control: no-store`.
+O WF05 compacta os objetos da pasta pedida. Retorna HTTP 200 com um ZIP, 400 para pasta inválida e 404 quando não encontra objetos.
 
 Os nomes da coleta, do WF08 e do resultado principal do WF10 não incluem identificador de execução; novas execuções podem sobrescrever objetos existentes. Os arquivos das filas do WF10 incluem fonte, destino, tag sem espaço e identificador de execução, sem identificar individualmente cada pergunta ou resposta.
 
 ## 4. Triagem atual — WF10
 
-O WF10 lista o prefixo `raw/` no bucket e seleciona chaves que começam com `raw/stackoverflow` e terminam em `{tagged}.json`, sem diferenciar maiúsculas de minúsculas. Os valores internos são `source=stackoverflow`, `file_type=.json` e `tag=artificial intelligence`; a expressão `tag.replace(' ', '')` remove espaço para seleção e nomes de saída. O corpo do POST não altera essa configuração. A seleção não separa período ou execução e pode corresponder a mais de um arquivo.
+O WF10 lista `raw/` e procura a chave exata `raw/stackoverflow_<tag>.json`, removendo espaços da tag para essa busca. O POST recebe `tag` e `limit` (padrão 1). A execução manual usa `langsmith` e limite 1.
 
 Após download e extração do JSON, `Split Out` separa `data`. O filtro mantém perguntas com `body_question` existente e não vazio e `is_answered_question=true`, com validação flexível de tipos. `Map StackOverflow Fields` prepara contexto e metadados, preserva `answers` e obtém `source_file` da chave do download. O fluxo aplica `Limit=5` antes do agente. 
 
 O filtro temporário `Filter1`, configurado para `source_id=79965487`, está desativado, porque é utilizado somente para avaliação dos dados. 
 
-O agente recebe até cinco perguntas por execução, cada uma com seu array de respostas; não há mecanismo de avanço para as próximas perguntas. O limite controla perguntas, não a quantidade de respostas avaliadas.
+O agente recebe até `limit` perguntas por execução, cada uma com seu array de respostas.
 
 ### Chamada do webhook
 
@@ -92,13 +92,13 @@ $response = Invoke-RestMethod `
     -Method POST `
     -Headers $headers `
     -ContentType 'application/json; charset=utf-8' `
-    -Body '{}' `
+    -Body ('{"tag":"langsmith","limit":1}') `
     -TimeoutSec 300 `
     -ErrorAction Stop
 $response | ConvertTo-Json -Depth 20
 ```
 
-O corpo vazio é intencional: os dados são lidos da OCI, não enviados nesta chamada. O exemplo não foi executado nesta revisão.
+Envie a tag usada pelo WF08 e o limite de perguntas a triar. Os registros são carregados da OCI.
 
 ### Avaliação e contrato por resposta
 
@@ -129,16 +129,9 @@ O `If Human Review` consulta `$json.needs_human_review`: quando verdadeiro, defi
 
 ## 5. Respostas e falhas
 
-WF02, WF03, WF04 e WF08 configuram HTTP 200 após o upload, com JSON contendo `status: "success"` e `message`. Não retornam contagem nem `download_url`. WF08 também configura o cabeçalho `filename`. O sucesso HTTP não comprova completude ou qualidade dos dados.
+WF02, WF03 e WF04 retornam HTTP 200 após o upload, com `status` e `message`. O WF08 devolve esses campos ao concluir as iterações e informa que tags sem arquivos ou registros foram ignoradas.
 
-No WF10, os oito caminhos de upload (resultado principal e sete filas) estão conectados ao `Merge`, configurado com oito entradas, e depois ao `Respond to Webhook`. A resposta configurada é HTTP 200 com o JSON abaixo, sem contagens, destinos, nomes de arquivos ou URL de download. A conclusão com ramos sem itens precisa ser verificada em execução da versão atual.
-
-```json
-{
-  "status": "success",
-  "message": "Análise de sentimento feito e arquivo disponibilizado no bucket OCI."
-}
-```
+O WF10 consolida os caminhos de upload e responde com `success`, `status`, `source`, `tag`, `execution_id`, `count`, `items` e `storage`. O campo `storage.object_path` identifica o resultado salvo.
 
 WF02, WF03 e WF04 respondem HTTP 400 para parâmetros inválidos:
 
@@ -182,17 +175,17 @@ Manter o bucket privado, usar HTTPS e guardar a chave fora do código e dos logs
 
 ## 6. Persistência no bucket
 
-Os arquivos são persistidos no bucket `communitylab-assets`. WF02, WF03 e WF04 gravam os dados coletados na raiz do bucket para consolidação pelo WF08. O WF08 grava o resultado em `raw/`, de onde o WF10 lê os dados para triagem. A configuração local do WF10 prevê os uploads abaixo; sua execução e o conteúdo dos objetos não foram verificados nesta revisão.
+No bucket `communitylab-assets`, `collected/` contém os três arquivos intermediários do Stack Overflow. O WF08 consolida esses arquivos em `raw/`, de onde o WF10 lê os dados para triagem.
 
 | Workflow produtor | Local de persistência | Consumidor e finalidade |
 | --- | --- | --- |
-| WF02 | Raiz do bucket: `sample_{site}-questions_{tagged}.json` | WF08: consolidação das perguntas |
-| WF03 | Raiz do bucket: `sample_{site}-questions-licenses_{tagged}.json` | WF08: associação das licenças às perguntas |
-| WF04 | Raiz do bucket: `sample_{site}-answers_{tagged_normalizada}.json` | WF08: associação das respostas às perguntas |
-| WF08 | `raw/{nome_derivado}.json` | WF10: leitura dos registros consolidados para triagem |
-| WF10 | `processed/result_stackoverflow_artificialintelligence.json` e arquivos em `processed/routing/{fila}/` | Aplicação: consumo previsto dos lotes de resultados e das filas editoriais |
+| WF02 | `collected/sample_{site}-questions_{tagged}.json` | WF08: consolidação das perguntas |
+| WF03 | `collected/sample_{site}-licenses_{tagged}.json` | WF08: associação das licenças às perguntas |
+| WF04 | `collected/sample_{site}-answers_{tagged}.json` | WF08: associação das respostas às perguntas |
+| WF08 | `raw/stackoverflow_{tagged}.json` | WF10: leitura dos registros consolidados para triagem |
+| WF10 | `processed/result_stackoverflow_{tag}.json` e arquivos em `processed/routing/{fila}/` | Aplicação: consumo previsto dos lotes de resultados e das filas editoriais |
 
-As filas configuradas são `human_review`, `success_case`, `faq`, `newsletter`, `moderation`, `discard` e `fallback`. A pasta identifica o ramo executado; nos ramos de moderação e fallback, `routing.destination` é `human_review`. Os arquivos das filas usam o nome `result_stackoverflow_{routing.destination}_artificialintelligence_{execution_id}.json`. Cada conversão reúne os itens recebidos em um único arquivo, podendo incluir respostas de perguntas diferentes. Os IDs individuais devem ser lidos dos registros, não do nome do arquivo.
+As filas configuradas são `human_review`, `success_case`, `faq`, `newsletter`, `moderation`, `discard` e `fallback`. A pasta identifica o ramo executado; nos ramos de moderação e fallback, `routing.destination` é `human_review`. Os arquivos das filas usam o nome `result_stackoverflow_{routing.destination}_{tag}_{execution_id}.json`. Cada conversão reúne os itens recebidos em um único arquivo, podendo incluir respostas de perguntas diferentes. Os IDs individuais devem ser lidos dos registros, não do nome do arquivo.
 
 O resultado principal é produzido diretamente após `Merge Classification`, antes de adicionar `routing.destination` e `routing.status`. Ele contém as classificações e os metadados de controle na raiz de cada item. As cópias encaminhadas às filas acrescentam `routing`. O arquivo principal é sobrescrito em novas execuções para a mesma fonte/tag; as filas incluem o ID da execução. Não há marcação dos arquivos de entrada como processados, deduplicação entre execuções ou remoção de resultados antigos.
 
@@ -200,6 +193,6 @@ O WF05 também lê os arquivos do bucket para disponibilizá-los em um ZIP ao so
 
 ## 7. Limitações do MVP
 
-- Rever o limite de cinco perguntas e a seleção de arquivos por coleta para evitar reprocessamento e mistura de conjuntos; repetir o lote maior e os casos anteriormente incompatíveis antes de ampliar o uso.
+- A triagem pode reprocessar o mesmo arquivo em novas chamadas com a mesma tag.
 - Homologar o caminho HTTP 502 de falhas do agente e de validação, incluindo lotes com sucesso parcial. O caminho está configurado, mas não foi executado nesta revisão.
 - Tratar explicitamente ausência de itens elegíveis e falhas de leitura ou gravação na OCI. Um array de respostas vazio é rejeitado por `Merge Classification` e encaminhado ao tratamento de erro; ausência de itens antes do agente ainda não tem resposta específica. Definir se a resposta HTTP deve incluir contagens, destinos e chaves dos objetos.
