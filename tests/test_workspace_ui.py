@@ -31,7 +31,20 @@ def test_text_and_action_colors_have_readable_contrast():
     assert (luminance("#FFFFFF") + 0.05) / (luminance(palette["action"]) + 0.05) >= 4.5
 
 
-def test_review_keeps_edits_and_allows_undo():
+def test_review_keeps_edits_and_allows_undo(monkeypatch, tmp_path):
+    import streamlit as st
+    import streamlit_shadcn_ui as ui
+
+    from src.services import curation_store
+
+    monkeypatch.setattr(curation_store, "DB_PATH", tmp_path / "curadoria.duckdb")
+    # AppTest can drive native widgets in place of the custom frontend controls.
+    monkeypatch.setattr(ui, "button", lambda label, *, key, on_click, variant=None: st.button(
+        label, key=key, on_click=on_click,
+    ))
+    monkeypatch.setattr(ui, "tabs", lambda options, *, value, key, label, format_func=str: st.radio(
+        label, options, index=options.index(value), key=key, format_func=format_func,
+    ))
     app = AppTest.from_file(str(STREAMLIT_MAIN_PATH), default_timeout=30).run()
     app.switch_page("views/curation.py").run()
     content_id = "pkg_2026_w42_001_0"
@@ -41,10 +54,12 @@ def test_review_keeps_edits_and_allows_undo():
     item = app.session_state["packages"][0]["suggested_content"][0]
     assert item["review_status"] == "approved"
     assert item["body"] == "Conteúdo revisado pela equipe."
-    app.radio(key="curation_status_pkg_2026_w42_001").set_value("approved").run()
+    assert curation_store.load_reviews()[content_id]["review_status"] == "approved"
+    app.radio(key="curation_status").set_value("approved").run()
     app.button(key=f"undo_{content_id}").click().run()
     assert not app.exception
     assert item["review_status"] == "pending"
+    assert curation_store.load_reviews()[content_id]["review_status"] == "pending"
 
 
 def test_treemap_positions_swap_and_respect_disabled_categories(monkeypatch):
