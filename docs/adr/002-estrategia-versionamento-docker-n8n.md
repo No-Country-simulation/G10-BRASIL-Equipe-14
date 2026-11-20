@@ -20,11 +20,11 @@ de Transformação e Distribuição para Comunidades Digitais
 
 ## 1. Contexto e Problema
 
-Durante o alinhamento de ambientes entre o desenvolvimento local e a infraestrutura na Oracle Cloud Infrastructure (OCI), foram identificadas discrepâncias de versões do motor de orquestração do n8n local (n8n local com versão `1.123.7` enquanto o servidor OCI opera na versão `2.41.3`).
+Durante o alinhamento de ambientes entre o desenvolvimento local e a infraestrutura na Oracle Cloud Infrastructure (OCI), foram identificadas discrepâncias de versões do motor de orquestração do n8n local (n8n local com versão `1.123.7` enquanto o servidor OCI opera na versão `2.47.7`).
 
 A utilização de tags flutuantes como `:latest` acarreta o risco de quebras silenciosas (*breaking changes*) em nós essenciais (`HTTP Request`, `Aggregate`, `Split Out`) caso caso o container seja recriado. 
 
-Adicionalmente, verificou-se empiricamente que o registry oficial do n8n (`docker.n8n.io` / `dockerhub: n8nio/n8n`) **não disponibiliza tags semânticas parciais** (ex.: `2.41`), resultando no erro `failed to resolve reference ... not found` durante o pull. As imagens são publicadas exclusivamente com o versionamento completo de patch.
+Adicionalmente, verificou-se empiricamente que o registry oficial do n8n (`docker.n8n.io` / `dockerhub: n8nio/n8n`) **não disponibiliza tags semânticas parciais** (ex.: `2.47`), resultando no erro `failed to resolve reference ... not found` durante o pull. As imagens são publicadas exclusivamente com o versionamento completo de patch.
 
 ---
 
@@ -34,7 +34,7 @@ Adoção da estratégia de **fixação estrita de versão por patch (Patch Pinni
 
 1. **Definição no Compose:** O serviço no `docker-compose.yml` utiliza interpolação de variáveis apontando para a tag de patch validada em produção:
    ```yaml
-   image: n8nio/n8n:${N8N_VERSION:-2.41.3}
+   image: n8nio/n8n:${N8N_VERSION:-2.47.7}
    ```
 2. **Ponto Único de Configuração:** A versão ativa deve ser sincronizada entre os integrantes do time via variável `N8N_VERSION` no `.env`.
 
