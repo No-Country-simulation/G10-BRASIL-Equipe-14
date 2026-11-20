@@ -46,21 +46,12 @@
           },
           "conditions": [
             {
-              "id": "3097698c-7678-4137-aa0d-2a86518b08f0",
-              "leftValue": "={{ $json.Key }}",
-              "rightValue": "={{ 'raw/' + $('Define Search Parameters').item.json.source }}",
-              "operator": {
-                "type": "string",
-                "operation": "startsWith"
-              }
-            },
-            {
               "id": "fb5c486d-2149-4a62-99e3-390abfffd08c",
               "leftValue": "={{ $json.Key }}",
-              "rightValue": "={{ $('Define Search Parameters').item.json.tag.replace(' ','') + $('Define Search Parameters').item.json.file_type }}",
+              "rightValue": "={{ (() => {\n  const { source, tag, file_type } = $('Define Search Parameters').first().json;\n  const normalizedTag = tag.trim().replace(/\\s+/g, '');\n  return `raw/${source}_${normalizedTag}${file_type}`;\n})() }}",
               "operator": {
                 "type": "string",
-                "operation": "endsWith"
+                "operation": "equals"
               }
             }
           ],
@@ -146,7 +137,7 @@
     },
     {
       "parameters": {
-        "maxItems": "=10"
+        "maxItems": "={{ $('Define Search Parameters').item.json.limit }}"
       },
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
@@ -164,20 +155,26 @@
             {
               "id": "2d00d052-bcca-4a10-b3df-3ad129ac76a0",
               "name": "file_type",
-              "value": ".json",
+              "value": "={{ '.json' }}",
               "type": "string"
             },
             {
               "id": "aa617609-6a7e-427f-9205-e0710215d344",
               "name": "source",
-              "value": "stackoverflow",
+              "value": "={{ 'stackoverflow' }}",
               "type": "string"
             },
             {
               "id": "5eccb1b2-0568-4104-8851-67cdee701c1b",
               "name": "tag",
-              "value": "job",
+              "value": "={{ $('Webhook').isExecuted\n  ? ($json.body?.tag ?? '')\n  : 'langsmith'\n}}",
               "type": "string"
+            },
+            {
+              "id": "ed24ac9d-2759-4dd0-95e5-edbf344c6956",
+              "name": "limit",
+              "value": "={{ $('Webhook').isExecuted\n  ? Number($json.body?.limit ?? 1)\n  : 1\n}}",
+              "type": "number"
             }
           ]
         },
@@ -309,16 +306,6 @@
               "operator": {
                 "type": "string",
                 "operation": "notEmpty",
-                "singleValue": true
-              }
-            },
-            {
-              "id": "f0fb6fe6-045b-4610-ba20-2dbc5180beb5",
-              "leftValue": "={{ $json.is_answered_question }}",
-              "rightValue": "",
-              "operator": {
-                "type": "boolean",
-                "operation": "true",
                 "singleValue": true
               }
             }
@@ -2030,7 +2017,7 @@
     "callerPolicy": "workflowsFromSameOwner",
     "availableInMCP": true
   },
-  "versionId": "26e06b0d-46cf-43b0-af37-07c1dfc97871",
+  "versionId": "c7779040-9b9a-4cbf-aa31-86b20823940c",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
