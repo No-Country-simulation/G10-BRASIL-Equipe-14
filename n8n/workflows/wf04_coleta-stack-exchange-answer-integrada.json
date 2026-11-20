@@ -16,7 +16,7 @@
       "parameters": {
         "operation": "upload",
         "bucketName": "communitylab-assets",
-        "fileName": "={{ $binary.data.fileName }}",
+        "fileName": "={{ \"collected/\" + $binary.data.fileName }}",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.s3",
@@ -35,47 +35,6 @@
           "name": "OCI Object Storage S3"
         }
       }
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "57af477e-861d-4b4c-87c8-cb11b08936a0",
-              "name": "=tagged",
-              "value": "={{ $json.body?.tagged ?? 'artificial-intelligence' }}",
-              "type": "string"
-            },
-            {
-              "id": "9d4b765f-9ede-45a4-af3c-95ea6727982f",
-              "name": "=fromdate",
-              "value": "={{ Number($json.body?.fromdate ?? 1760929200) }}",
-              "type": "number"
-            },
-            {
-              "id": "77559db9-b31d-4f85-beeb-4868d00fe9fe",
-              "name": "=pagesize",
-              "value": "={{ Number($json.body?.pagesize ?? 100) }}",
-              "type": "number"
-            },
-            {
-              "id": "2bf795cc-9235-4d68-933b-a22441648ccc",
-              "name": "site",
-              "value": "={{ $json.body?.site ?? 'stackoverflow' }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.5,
-      "position": [
-        144,
-        -32
-      ],
-      "id": "8861ff7b-b143-4bf0-91d1-250cbcfe73d2",
-      "name": "Definir Parâmetros de Busca"
     },
     {
       "parameters": {
@@ -120,53 +79,6 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all();\n\nconst ALLOWED_SITE_PATTERN = /^[a-z0-9.-]+$/;\nconst ALLOWED_TAGGED_PATTERN = /^[a-zA-Z0-9.+#_;-]+$/;\n\nreturn items.map((item) => {\n  const q = item.json;\n  const errors = [];\n\n  const { tagged, fromdate, pagesize, site } = q;\n\n  // Validar as tags de busca.\n  if (\n    typeof tagged !== 'string' ||\n    tagged.trim().length === 0 ||\n    tagged.trim().length > 200 ||\n    !ALLOWED_TAGGED_PATTERN.test(tagged.trim())\n  ) {\n    errors.push(\n      'tagged deve conter tags válidas separadas por ponto e vírgula.'\n    );\n  }\n\n  // Validar o identificador do site.\n  if (\n    typeof site !== 'string' ||\n    site.trim().length === 0 ||\n    site.trim().length > 100 ||\n    !ALLOWED_SITE_PATTERN.test(site.trim())\n  ) {\n    errors.push(\n      'site deve ser um identificador válido, como stackoverflow.'\n    );\n  }\n\n  // Validar o timestamp Unix em segundos.\n  if (\n    !Number.isSafeInteger(fromdate) ||\n    fromdate <= 0\n  ) {\n    errors.push(\n      'fromdate deve ser um timestamp Unix inteiro positivo em segundos.'\n    );\n  } else if (fromdate > Math.floor(Date.now() / 1000)) {\n    errors.push('fromdate não pode estar no futuro.');\n  }\n\n  // Validar o tamanho da página.\n  if (\n    !Number.isInteger(pagesize) ||\n    pagesize < 1 ||\n    pagesize > 100\n  ) {\n    errors.push(\n      'pagesize deve ser um inteiro entre 1 e 100.'\n    );\n  }\n\n  // Retornar os parâmetros e o resultado da validação.\n  if (errors.length > 0) {\n    return {\n      json: {\n        ...q,\n        _validation: {\n          valid: false,\n          message: errors.join(' '),\n        },\n      },\n    };\n  }\n\n  return {\n    json: {\n      ...q,\n      tagged: tagged.trim(),\n      fromdate,\n      pagesize,\n      site: site.trim().toLowerCase(),\n      _validation: {\n        valid: true,\n        message: '',\n      },\n    },\n  };\n});"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        368,
-        -32
-      ],
-      "id": "30cf27fc-a030-4802-8f51-9a500a8e0a5f",
-      "name": "Validar Parâmetros de Busca"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 3
-          },
-          "conditions": [
-            {
-              "id": "a0b8b364-27de-44c3-8f09-45af3321ebc8",
-              "leftValue": "={{ $json._validation.valid }}",
-              "rightValue": "",
-              "operator": {
-                "type": "boolean",
-                "operation": "true",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.3,
-      "position": [
-        592,
-        -32
-      ],
-      "id": "85f8fd98-9460-40df-8d00-9534dbe787da",
-      "name": "Parâmetros Válidos?"
-    },
-    {
-      "parameters": {
         "respondWith": "json",
         "responseBody": "={{\n  {\n    status: \"error\",\n    message: \"Parâmetros de busca inválidos.\",\n    details: $json._validation.message\n  }\n}}",
         "options": {
@@ -194,7 +106,7 @@
             },
             {
               "name": "pagesize",
-              "value": "={{ $('Definir Parâmetros de Busca').first().json.pagesize }}"
+              "value": "={{ $('Define Search Parameters').first().json.pagesize }}"
             },
             {
               "name": "order",
@@ -475,7 +387,7 @@
         "operation": "toJson",
         "options": {
           "format": true,
-          "fileName": "={{ \n  \"sample_\" \n  + $('Validar Parâmetros de Busca').first().json.site \n  + \"-answers_\" \n  + $('Validar Parâmetros de Busca').first().json.tagged.replace(/[;#.+]/g, \"_\")\n  + \".json\" \n}}"
+          "fileName": "={{\n  \"sample_\"\n  + $('Validade Search Parameters').first().json.site\n  + \"-answers_\"\n  + $('Validade Search Parameters').first().json.tagged\n  + \".json\"\n}}"
         }
       },
       "type": "n8n-nodes-base.convertToFile",
@@ -514,6 +426,94 @@
       ],
       "id": "cb328642-4f5a-4755-8bf1-03856ccdaafb",
       "name": "Split Out Answer"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "a0b8b364-27de-44c3-8f09-45af3321ebc8",
+              "leftValue": "={{ $json._validation.valid }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        592,
+        -32
+      ],
+      "id": "85f8fd98-9460-40df-8d00-9534dbe787da",
+      "name": "Check Valid Parameters"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst ALLOWED_SITE_PATTERN = /^[a-z0-9.-]+$/;\nconst ALLOWED_TAGGED_PATTERN = /^[a-zA-Z0-9.+#_;-]+$/;\n\nreturn items.map((item) => {\n  const q = item.json;\n  const errors = [];\n\n  const { tagged, fromdate, pagesize, site } = q;\n\n  // Validar as tags de busca.\n  if (\n    typeof tagged !== 'string' ||\n    tagged.trim().length === 0 ||\n    tagged.trim().length > 200 ||\n    !ALLOWED_TAGGED_PATTERN.test(tagged.trim())\n  ) {\n    errors.push(\n      'tagged deve conter tags válidas separadas por ponto e vírgula.'\n    );\n  }\n\n  // Validar o identificador do site.\n  if (\n    typeof site !== 'string' ||\n    site.trim().length === 0 ||\n    site.trim().length > 100 ||\n    !ALLOWED_SITE_PATTERN.test(site.trim())\n  ) {\n    errors.push(\n      'site deve ser um identificador válido, como stackoverflow.'\n    );\n  }\n\n  // Validar o timestamp Unix em segundos.\n  if (\n    !Number.isSafeInteger(fromdate) ||\n    fromdate <= 0\n  ) {\n    errors.push(\n      'fromdate deve ser um timestamp Unix inteiro positivo em segundos.'\n    );\n  } else if (fromdate > Math.floor(Date.now() / 1000)) {\n    errors.push('fromdate não pode estar no futuro.');\n  }\n\n  // Validar o tamanho da página.\n  if (\n    !Number.isInteger(pagesize) ||\n    pagesize < 1 ||\n    pagesize > 100\n  ) {\n    errors.push(\n      'pagesize deve ser um inteiro entre 1 e 100.'\n    );\n  }\n\n  // Retornar os parâmetros e o resultado da validação.\n  if (errors.length > 0) {\n    return {\n      json: {\n        ...q,\n        _validation: {\n          valid: false,\n          message: errors.join(' '),\n        },\n      },\n    };\n  }\n\n  return {\n    json: {\n      ...q,\n      tagged: tagged.trim(),\n      fromdate,\n      pagesize,\n      site: site.trim().toLowerCase(),\n      _validation: {\n        valid: true,\n        message: '',\n      },\n    },\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        368,
+        -32
+      ],
+      "id": "30cf27fc-a030-4802-8f51-9a500a8e0a5f",
+      "name": "Validade Search Parameters"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "57af477e-861d-4b4c-87c8-cb11b08936a0",
+              "name": "=tagged",
+              "value": "={{ $json.body?.tagged ?? 'langsmith' }}",
+              "type": "string"
+            },
+            {
+              "id": "9d4b765f-9ede-45a4-af3c-95ea6727982f",
+              "name": "=fromdate",
+              "value": "={{ Number($json.body?.fromdate ?? 1760929200) }}",
+              "type": "number"
+            },
+            {
+              "id": "77559db9-b31d-4f85-beeb-4868d00fe9fe",
+              "name": "=pagesize",
+              "value": "={{ Number($json.body?.pagesize ?? 100) }}",
+              "type": "number"
+            },
+            {
+              "id": "2bf795cc-9235-4d68-933b-a22441648ccc",
+              "name": "site",
+              "value": "={{ $json.body?.site ?? 'stackoverflow' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        144,
+        -32
+      ],
+      "id": "8861ff7b-b143-4bf0-91d1-250cbcfe73d2",
+      "name": "Define Search Parameters"
     }
   ],
   "pinData": {},
@@ -522,18 +522,7 @@
       "main": [
         [
           {
-            "node": "Definir Parâmetros de Busca",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Definir Parâmetros de Busca": {
-      "main": [
-        [
-          {
-            "node": "Validar Parâmetros de Busca",
+            "node": "Define Search Parameters",
             "type": "main",
             "index": 0
           }
@@ -544,7 +533,7 @@
       "main": [
         [
           {
-            "node": "Definir Parâmetros de Busca",
+            "node": "Define Search Parameters",
             "type": "main",
             "index": 0
           }
@@ -556,35 +545,6 @@
         [
           {
             "node": "Respond to Webhook",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Validar Parâmetros de Busca": {
-      "main": [
-        [
-          {
-            "node": "Parâmetros Válidos?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Parâmetros Válidos?": {
-      "main": [
-        [
-          {
-            "node": "HTTP Request Question",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Responder Erro de Validação",
             "type": "main",
             "index": 0
           }
@@ -689,6 +649,46 @@
           }
         ]
       ]
+    },
+    "Check Valid Parameters": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request Question",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Responder Erro de Validação",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validade Search Parameters": {
+      "main": [
+        [
+          {
+            "node": "Check Valid Parameters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Define Search Parameters": {
+      "main": [
+        [
+          {
+            "node": "Validade Search Parameters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
@@ -697,10 +697,10 @@
     "binaryMode": "separate",
     "timeSavedMode": "fixed",
     "callerPolicy": "workflowsFromSameOwner",
-    "availableInMCP": false,
+    "availableInMCP": true,
     "timezone": "America/Sao_Paulo"
   },
-  "versionId": "3a4358a6-72e4-4840-b48c-51085c313a21",
+  "versionId": "0161ed9e-4245-4e0e-b9c8-1a26cc791073",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"

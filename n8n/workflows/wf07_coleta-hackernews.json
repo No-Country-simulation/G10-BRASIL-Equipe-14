@@ -230,7 +230,7 @@
             {
               "id": "bda7a544-3660-41f9-81a6-4b7236242517",
               "name": "query",
-              "value": "artificial intelligence",
+              "value": "={{ $('Webhook').isExecuted\n  ? ($json.body?.query ?? '')\n  : 'langsmith'\n}}",
               "type": "string"
             },
             {
@@ -242,7 +242,7 @@
             {
               "id": "1b1f8b9a-be25-4172-982f-91765f8a2c30",
               "name": "limit",
-              "value": 2,
+              "value": "={{ $('Webhook').isExecuted\n  ? Number($json.body?.limit ?? 1)\n  : 1\n}}",
               "type": "number"
             },
             {
@@ -559,21 +559,11 @@
           "conditions": [
             {
               "id": "5c38d116-d6c1-4b95-b5f0-cf03351d6179",
-              "leftValue": "={{ $json._highlightResult?.story_text }}",
+              "leftValue": "={{ /^[1-9]\\d*$/.test(String($json.objectID ?? '')) }}",
               "rightValue": "",
               "operator": {
-                "type": "object",
-                "operation": "exists",
-                "singleValue": true
-              }
-            },
-            {
-              "id": "17aa483f-e361-4c74-b34d-fed2431ab4f3",
-              "leftValue": "={{ $json._highlightResult?.story_text }}",
-              "rightValue": "",
-              "operator": {
-                "type": "object",
-                "operation": "notEmpty",
+                "type": "boolean",
+                "operation": "true",
                 "singleValue": true
               }
             }
@@ -899,7 +889,7 @@
     "callerPolicy": "workflowsFromSameOwner",
     "availableInMCP": true
   },
-  "versionId": "dc03f81e-a945-4226-9066-705e7353ec74",
+  "versionId": "74b67cbd-71f6-454a-aeca-7afc9731cb77",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
