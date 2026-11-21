@@ -1,0 +1,38 @@
+[
+  {
+    "source_id": "91000101",
+    "owner_question": "Autora sintética",
+    "title_question": "Como limitar o tempo de espera de uma chamada HTTP?",
+    "body_question": "<p>Como limitar o tempo de espera de uma chamada HTTP?</p>",
+    "link_question": "https://example.invalid/stackoverflow/91000101",
+    "tags": [
+      "homologacao",
+      "backend"
+    ],
+    "score_question": 0,
+    "creation_date_question": 1794873600,
+    "last_activity_date_question": 1794873600,
+    "is_answered_question": true,
+    "answer_count_question": 1,
+    "accepted_answer_id_question": 91000201,
+    "view_count_question": 0,
+    "comment_count_question": 0,
+    "content_license_question": "CC BY-SA 4.0",
+    "answers": [
+      {
+        "answer_id": 91000201,
+        "source_id": "91000101",
+        "owner_answer_1": {
+          "display_name": "Autor sintético"
+        },
+        "is_accepted_answer_1": true,
+        "score_answer_1": 0,
+        "creation_date_answer_1": 1794873600,
+        "link_answer_1": "https://example.invalid/stackoverflow/91000101#91000201",
+        "content_license_answer_1": "CC BY-SA 4.0",
+        "title_answer_1": "Como limitar o tempo de espera de uma chamada HTTP?",
+        "body_answer_1": "<p>Defina um timeout de conexão e outro de leitura no cliente HTTP. Trate a exceção de timeout e registre em qual etapa ocorreu. Em operações com efeitos, só repita automaticamente quando a operação for idempotente.</p>"
+      }
+    ]
+  }
+]
