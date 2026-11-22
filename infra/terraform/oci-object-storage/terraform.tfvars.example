@@ -1,0 +1,7 @@
+# Copy to terraform.tfvars (git-ignored) and fill in your OCIDs.
+tenancy_ocid     = "ocid1.tenancy.oc1..replace_me"
+compartment_ocid = "ocid1.compartment.oc1..replace_me"
+
+# Defaults already match docs/specs/oci-object-storage-n8n.md
+# region      = "sa-saopaulo-1"
+# bucket_name = "communitylab-assets"

@@ -85,3 +85,21 @@ Desktop.ini
 # Documentacao de uso local
 /docs/specs/avaliacao-prompts-issues-8-9-10.md
 aprovados/
+
+# Terraform (state e variáveis contêm segredos; .terraform.lock.hcl deve ser versionado)
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+tfplan
+*.tfplan
