@@ -1,10 +1,31 @@
 <p align="center">
-  <img src="./docs/assets/social-media-wallpaper.jpg" width="100%"  alt="Capa do projeto" />
+  <img src="./docs/assets/logo-communitylab-white.svg" width="50%"  alt="Capa do projeto" />
 </p>
+
+<div align=center>
+  <h3><strong>Community LED Marketing Engine</strong></h3>
+  <h4><em>Das conversas da comunidade ao conhecimento que orienta decisões.</em></h4>
+</div>
 
 ---
 
-# 🚀 CommunityLab – Motor Inteligente de Transformação e Distribuição para Comunidades Digitais
+<p align="left">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/n8n-EA4B71?style=for-the-badge&logo=n8n&logoColor=white" alt="n8n">
+  <img src="https://img.shields.io/badge/DuckDB-FFF000?style=for-the-badge&logo=duckdb&logoColor=black" alt="DuckDB">
+  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit">
+  <img src="https://img.shields.io/badge/Pytest-0A9EDC?style=for-the-badge&logo=pytest&logoColor=white" alt="Pytest">
+  <img src="https://img.shields.io/badge/OCI-C74634?style=for-the-badge&logo=oracle&logoColor=white" alt="Oracle Cloud Infrastructure (OCI)">
+  
+</p>
+
+<p align="left">
+
+  ![Last Commit](https://img.shields.io/github/last-commit/No-Country-simulation/G10-BRASIL-Equipe-14?style=flat-square&logo=git&logoColor=white)
+  ![Open Issues](https://img.shields.io/github/issues/No-Country-simulation/G10-BRASIL-Equipe-14?style=flat-square&logo=github&logoColor=white)
+  ![License](https://img.shields.io/github/license/No-Country-simulation/G10-BRASIL-Equipe-14?style=flat-square&logo=github&logoColor=white)
+
+</p>
 
 ---
 
@@ -18,55 +39,110 @@ O **CommunityLab** é um ecossistema inteligente de automação projetado para t
 
 ## Sumário
 
-* [1. Objetivo](#1-objetivo)
-* [2. Tecnologias](#2-tecnologias)
-* [3. Arquitetura](#3-arquitetura)
-* [4. Estrutura de Diretórios](#4-estrutura-de-diretórios)
-* [5. Como Executar](#5-como-executar)
-* [6. Fluxo Git e Contribuição](#6-fluxo-git-e-contribuição)
-* [7. Cronograma Geral](#7-cronograma-geral)
-* [8. Documentação, Guias de Contribuição e Notas](#8-documentação-guias-de-contribuição-e-notas)
-* [9. Equipe](#9-equipe)
+* [1. Problema](#1-problema)
+* [2. Objetivo](#2-objetivo)
+* [3. Tecnologias](#3-tecnologias)
+* [4. Metodologia](#4-metodologia)
+* [5. Entregáveis](#5-entregáveis)
+* [6. Demo](#6-demo)
+* [7. Arquitetura da Solução](#7-arquitetura-da-solução)
+* [8. Estrutura de Diretórios](#8-estrutura-de-diretórios)
+* [9. Como Executar](#9-como-executar)
+* [10. Limitações e Próximos Passos](#10-limitações-e-próximos-passos)
+* [11. Documentação](#11-documentação)
+* [12. Equipe](#12-equipe)
 
 ---
 
-## 1. Objetivo
+## 1. Problema
 
-Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar triagens com IA, permitir curadoria humana (*Human-in-the-Loop*) e persistir pacotes de conteúdo estruturados na nuvem OCI.
+Equipes que acompanham comunidades técnicas lidam com canais dispersos, como Discord, Slack e fóruns online, onde depoimentos valiosos ficam perdidos em meio ao volume de dados diários. A isso se soma as dezenas de horas gastas para se realizar a triagem de forma manual e a baixa conversão, já que propagandas corporativas geram menos confiança do que recomendações de pares. 
 
 ---
 
-## 2. Tecnologias
+## 2. Objetivo
+
+Desenvolvimento de um MVP funcional capaz de resolver esse gargalo, capaz de unificar a ingestão de dados de comunidades, orquestrar triagens com IA, permitir curadoria humana (*Human-in-the-Loop*) e persistir pacotes de conteúdo estruturados na nuvem OCI. 
+
+---
+
+## 3. Tecnologias
 
 * **Linguagem:** Python 3.11+
 * **Interface / Curadoria:** Streamlit
 * **Engenharia de Dados:** DuckDB, Pandas, JSON Schema
 * **Orquestração:** n8n (Docker)
-* **Modelos de IA:** Google Gemini API (Camada Gratuita) / Groq / Nvidia API / OpenRouter
+* **Modelos de IA Gratuitos:** Google Gemini API (Camada Gratuita) / Groq / Nvidia API / OpenRouter
 * **Cloud & Armazenamento:** Oracle Cloud Infrastructure (OCI Object Storage Always Free)
+* **Versionamento:** Git e GitHub
 
 ---
 
-## 3. Arquitetura
+## 4. Metodologia
+
+Desenvolvimento iterativo com adoção das cerimônias Scrum e gestão de tarefas pela equipe via quadro Kanban através do GitHub Projects ao longo de 6 semanas:
+
+**Kanban do Projeto:**
+<p align="left">
+  <a href="https://github.com/orgs/No-Country-simulation/projects/565/views/1">
+        <img src="https://img.shields.io/badge/GitHub_Project-Kanban-1074e7?style=flat-square&logo=github&logoColor=white" alt="Kanban do Projeto" />
+  </a>
+</p>
+
+
+---
+
+## 5. Entregáveis
+
+Abaixo, encontram-se os principais produtos e artefatos desenvolvidos pelo projeto:
+
+| Entregável | Formato / Plataforma | Descrição | Link de Acesso |
+| :--- | :--- | :--- | :--- |
+| **Interface Streamlit** | Streamlit / Python | Painel para ingestão, análise de sentimentos, chat analítico e curadoria humana | [🖥️ Ver Interface](./src/main.py) |
+| **Workflows de Automação** | n8n / JSON | Coleção de workflows para ingestão, coleta, triagem, adaptação, consulta e análise de resultados | [🔄 Ver Workflows](./n8n/workflows/) |
+| **Contratos de Dados** | JSON Schema | Schemas formais usados para validar os dados de entrada e os pacotes de saída | [📋 Ver Contratos](./data/schemas/) |
+| **Banco Analítico** | DuckDB | Snapshot consolidado em `communitylab_oci.duckdb` e banco de revisões em `curadoria.duckdb` | [🗃️ Ver Scripts DuckDB](./src/scripts/) |
+| **Armazenamento Cloud** | OCI Object Storage | Persistência de dados brutos, resultados processados e pacotes aprovados no bucket OCI | [☁️ Ver Integração OCI](./src/services/oci_storage.py) |
+| **Documentação Técnica** | Markdown / Mermaid / PNG | Especificações da arquitetura, integrações, ADRs e documentação dos componentes | [📚 Ver Documentação](./docs/specs/) |
+| **Testes Automatizados** | Pytest / Python | Suíte de testes para ingestão, validação, OCI, Streamlit, Router e Adapters | [✅ Ver Testes](./tests/) |
+
+---
+
+## 6. Demo
 
 <p align="center">
-  <img src="./docs/assets/pipeline-architecture-v2.gif" alt="Arquitetura conceitual do pipeline multicanal" width=100% /> 
+  <picture>
+    <img src="./docs/assets/demo-communitylab.gif" alt="Demo da aplicação" width="80%">
+  </picture>
   <br>
-  <em>Fig. 01 - Arquitetura do pipeline multicanal</em>
+  <em>Fig. 01 - Demo da aplicação</em>
+</p>
+
+---
+
+## 7. Arquitetura da Solução
+
+<p align="center">
+  <picture>
+    <source srcset="./docs/assets/pipeline-architecture-v2.gif" type="image/gif">
+    <img src="./docs/assets/pipeline-architecture-v2.png" alt="Arquitetura conceitual do pipeline multicanal" width="100%">
+  </picture>
+  <br>
+  <em>Fig. 02 - Arquitetura do pipeline multicanal</em>
 </p>
 
 | Camada | Tecnologia / Ferramenta | Responsabilidade Técnica | Justificativa Arquitetural |
 | --- | --- | --- | --- |
 | **Entradas** | APIs REST, JSON e CSV | Coleta dados das APIs de Stack Exchange, Mastodon e Hacker News e aceita conteúdo manual pela interface. | Normaliza múltiplas fontes sem acoplar a interface aos provedores externos. |
-| **Orquestração** | **n8n** (Docker Compose) | Executa coletores, merges, triagem, roteamento, adaptação editorial e download do bucket. | Orquestração visual self-hosted, versionada como workflows JSON em `n8n/workflows/`. |
+| **Orquestração** | **n8n** (Docker Compose) | Executa coletores, merges, triagem, roteamento, adaptação editorial, consulta de resultados processados no WF12 e chat analítico no WF13. | Orquestração visual self-hosted, versionada como workflows JSON em `n8n/workflows/`. |
 | **Interface e Curadoria** | **Streamlit** + Python 3.11 | Exibe dashboards, processa ingestão, registra revisões HITL e exporta JSON aprovado. | Permite operação interna sem desenvolver uma aplicação web separada. |
-| **Engenharia de Dados** | **DuckDB** + JSON Schema | Mantém o snapshot consolidado `communitylab_oci.duckdb`, o banco `curadoria.duckdb` das revisões humanas e dados processados locais. | Processamento local rápido e separação entre dados analíticos e estado da curadoria. |
-| **Motor de LLM** | **Google Gemini / Groq / Nvidia API / Open Router** | Extrai sentimento, tópicos, relevância e sugere a classificação editorial. | APIs gratuitas ou de baixo custo podem ser escolhidas sem alterar o contrato do projeto. |
+| **Engenharia de Dados** | **DuckDB** + JSON Schema | Mantém `communitylab_oci.duckdb` como snapshot analítico consolidado, `curadoria.duckdb` como estado das revisões humanas e `duckdb_ui.duckdb` como banco auxiliar opcional da DuckDB UI. | Processamento local rápido e separação entre dados analíticos, interface auxiliar e estado da curadoria. |
+| **Motor de LLM** | **Gemini / Groq / NVIDIA / OpenRouter** | Os modelos participam da triagem, classificação e análise de sentimentos. | Provedores separados por finalidade permitem gerar classificações editoriais e respostas analíticas sem acoplamento direto ao OCI. |
 | **Persistência** | **OCI Object Storage** | Guarda dados brutos, processados e pacotes aprovados em pastas estruturadas. | Mantém os artefatos disponíveis para n8n e Streamlit dentro da cota OCI Always Free. |
 
 ---
 
-## 4. Estrutura de Diretórios
+## 8. Estrutura de Diretórios
 
 ```
 ├── 📁 .github/                                # Governança do GitHub
@@ -81,14 +157,15 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 │
 ├── 📁 data/                                   # Estrutura e contratos de dados
 │   ├── 📁 fixtures/                           # Dados sintéticos criados para teste 
-│   ├── 📁 processed/                          # Dados pós-processamento/DuckDB (conteúdo ignorado via .gitignore)
+│   ├── 📁 processed/                          # Dados JSON processados (conteúdo ignorado via .gitignore)
 │   ├── 📁 prompts/                            # Repositório de artefatos de prompt
-│   ├── 📁 raw/                                # Dados brutos baixados (conteúdo ignorado via .gitignore)
+│   ├── 📁 raw/                                # Dados brutos (conteúdo ignorado via .gitignore)
 │   ├── 📁 samples/                            # Exemplos de teste
 │   └── 📁 schemas/                            # Contratos JSON Schema obrigatórios
 │
 ├── 📁 docs/                                   # Documentação técnica e governança
 │   ├── 📁 adr/                                # Registro de decisões arquiteturais
+│   ├── 📁 benchmarks/                         # Resultados de testes executados
 │   ├── 📁 assets/                             # Imagens, fluxogramas e diagramas da documentação
 │   ├── 📁 meetings/                           # Atas das reuniões e rituais ágeis
 |   ├── 📁 notes/                              # Notas gerais e guias de contribuição
@@ -101,12 +178,17 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 ├── 📁 references/                             # Materiais externos de consulta do projeto
 │
 ├── 📁 src/                                    # Código-fonte da aplicação
+│   ├── 📁 infra/                              # Scripts de provisionamento do OCI Object Storage
 │   ├── 📁 pipeline/                           # Orquestração do fluxo de dados
+│   ├── 📁 scripts/                            # Scripts de execução DuckDB
 │   ├── 📁 services/                           # Integrações com serviços externos
 │   ├── 📁 utils/                              # Funções utilitárias e helpers
 │   ├── 📁 validation/                         # Validação contratual dos schemas
 │   ├── 📁 views/                              # Telas e interfaces modulares do Streamlit
-│   ├── 📄 config.py                           # Configurações da aplicação
+│   ├── 📄 config.py                           # Configurações globais da aplicação
+│   ├── 📄 design.py                           # Sistema visual e estilos da interface
+│   ├── 📄 ui.py                               # Componentes e configuração da interface
+│   ├── 📄 ui_localization.py                  # Localização de componentes nativos do Streamlit
 │   └── 📄 main.py                             # Ponto de entrada: uv run python -m streamlit run src/main.py
 │
 ├── 📁 tests/                                  # Testes automatizados
@@ -126,7 +208,7 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 
 ---
 
-## 5. Como Executar
+## 9. Como Executar
 
 ### Pré-requisitos
 
@@ -166,11 +248,17 @@ O comando acima cria o ambiente virtual `.venv` e instala todas as dependências
 Crie uma cópia do arquivo de exemplo `.env.example` para gerar o seu `.env` local:
 
 ```bash
+# Linux/macOS
 cp .env.example .env
-
 ```
 
-> Configure as chaves de API e credenciais necessárias dentro do arquivo `.env` gerado.
+No Windows PowerShell:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+> Configure as chaves de API e credenciais necessárias dentro do arquivo `.env` gerado. Antes de iniciar os containers Docker, defina `N8N_BASE_URL=http://n8n:5678` para permitir que o Streamlit comunique-se com o n8n pela rede interna do Docker Compose.
 
 #### 4. Iniciar os serviços com Docker
 
@@ -183,7 +271,7 @@ docker compose up -d
 
 #### 5. Verificar o status da aplicação
 
-Confirme se o container está com status **Up** e ouvindo na porta **5678**:
+Confirme se os containers estão com status **Up** e acessíveis nas portas configuradas:
 
 ```bash
 docker compose ps
@@ -203,7 +291,7 @@ docker compose logs -f n8n
 * Crie a sua conta de proprietário local (apenas no primeiro acesso).
 
 > [!TIP]
-> Todos os fluxos, credenciais e configurações criados no n8n ficam salvos no volume local mapeado (`./n8n/n8n_data`), garantindo que nenhum progresso seja perdido ao reiniciar os containers.
+Todos os fluxos, credenciais e configurações criados no n8n ficam salvos no volume local mapeado (`./n8n/n8n_data`), garantindo que nenhum progresso seja perdido ao reiniciar os containers. Essa pasta é criada pelo Docker e ignorada pelo Git.
 
 #### 7. Parar os serviços
 
@@ -238,7 +326,7 @@ uv run pytest tests/test_schema_validator.py::test_validate_data_returns_no_erro
 
 #### 9. Validar um JSON externo contra o contrato de entrada
 
-O script `src/validation/schema_validator.py` valida qualquer arquivo JSON contra um JSON Schema (por padrão, o contrato de entrada em `data/schemas/input_schema.json`):
+O script `src/validation/schema_validator.py` valida um arquivo JSON contra um JSON Schema informado explicitamente. Para validar contra o contrato de entrada:
 
 ```bash
 uv run python -m src.validation.schema_validator <caminho/para/dados.json> data/schemas/input_schema.json
@@ -287,66 +375,48 @@ docker compose up -d --build
 
 ---
 
-## 6. Fluxo Git e Contribuição
+## 10. Limitações e Próximos Passos
 
-  <a href="https://github.com/orgs/No-Country-simulation/projects/565/views/1">
-      <img src="https://img.shields.io/badge/GitHub_Project-Kanban-1074e7?style=flat-square&logo=github&logoColor=white" alt="Kanban do Projeto" />
-  </a>
+* **Publicação multicanal:** A curadoria gera e valida conteúdos para LinkedIn, Mastodon, FAQ e newsletters, mas a publicação direta nas redes permanece fora do MVP e requer a integração das APIs oficiais de cada canal.
 
-  <br />
+* **Implantação em nuvem:** A solução é executada localmente com Docker Compose e utiliza OCI Object Storage para persistência; como próximo passo, o ambiente pode ser implantado em OCI Compute com configuração de domínio, HTTPS e monitoramento.
 
-* Desenvolvimento iterativo gerenciado pelo quadro Kanban no GitHub Projects pela equipe
-
-* **Branch principal de trabalho:** `develop` (a branch `main` é protegida).
-
-* **Nomenclatura de branches:** `feat/S0-XX-descricao`, `fix/S0-XX-descricao`, `docs/S0-XX-descricao`.
-
-* **Commits:** Siga o padrão de Commit Semântico (`feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `build:`, `chore:`) e adicione (#número-da-issue) para realizar o link do commit com a task.
-
-* **Nomenclatura de commits:** `[S0-XX] feat: descricao-commit (#1)`, `[S0-XX] fix: descricao-commit (#1)`, `[S0-XX] docs: descricao-commit (#1)`
-
-* Toda PR deve usar o template fornecido em `.github/PULL_REQUEST_TEMPLATE.md`, sendo preciso ao menos **1 aprovação** para ser integrada à `develop`. Exceção somente para arquivos de documentação e configurações de ambiente que não envolvam execução de código.
-
-* Em caso de dúvidas, não exite em perguntar no grupo do discord.
+* **Resiliência e evolução operacional:** Ampliar o monitoramento das execuções do n8n, a cobertura de testes dos workflows, as políticas de retry e fallback dos provedores de IA e a observabilidade dos snapshots DuckDB.
 
 ---
 
-## 7. Cronograma Geral
+## 11. Documentação
 
-| Etapa | Data/Período | Foco | Status |
-|:---|:---|:---|:---|
-| Semana 0 | 12/10/2026 a 18/10/2026 | Alinhamento estratégico, documentação inicial e configurações base | Concluído ✅ |
-| Semana 1 | 19/10/2026 a 25/10/2026 | Engenharia de prompts, datasets e ingestão | Em andamento 🔄 |
-| Semana 2 | 26/10/2026 a 01/11/2026 | Orquestração condicional n8n e Módulos da interface | Em andamento 🔄 | 
-| Semana 3 | 02/11/2026 a 08/11/2026 | Geração consolidada, persistência e curadoria | Em andamento 🔄 |
-| Semana 4 | 09/11/2026 a 15/11/2026 | Homologação, OCI Compute e revisão | A iniciar ⏳ |
-| Semana 5 | 16/11/2026 a 22/11/2026 | Documentação, preparação da apresentação e revisão final | A iniciar ⏳ |
-| Semana 6 | 24/11/2026 e 26/11/2026 | Demo Day | A iniciar ⏳ |
-
----
-
-### 8. Documentação, Guias de Contribuição e Notas
-
+### Arquitetura e Escopo
 - [Escopo do Projeto](docs/escopo-projeto.md)
-- [Registro de Decisões Arquitetuais (ADR)](docs/adr/)
-- [Especificações de Arquitetura (SSD)](docs/spec/)
+- [Especificação de Arquitetura](docs/specs/arquitetura-projeto.md)
+- [Registro de Decisões Arquiteturais (ADR)](docs/adr/)
+
+### Integrações e Componentes
+- [Integração Streamlit e n8n](docs/specs/conexao-streamlit-n8n.md)
+- [Integração com OCI Object Storage](docs/specs/oci-object-storage-n8n.md)
+- [Arquitetura do Router](docs/specs/arquitetura-router.md)
+- [Arquitetura dos Adapters](docs/specs/arquitetura-adapters.md)
+- [Especificações das APIs](docs/specs/)
+
+### Governança e Evidências
 - [Atas de Reunião](docs/meetings/)
+- [Resultados dos Benchmarks](docs/benchmarks/)
 - [Padrões do GitHub Projects](docs/notes/github-projects-guide.md)
-- [Guia de Rebase e Resolução de Conflitos](docs/notes/git-rebase-guide.md)
-- [Notas de Brainstorming](docs/notes/brainstorming-notes.md)
+- [Guia de Rebase](docs/notes/git-rebase-guide.md)
 
 ---
 
-## 9. Equipe
+## 12. Equipe
 
-[David Lima](https://github.com/DavidLimm)
+- [Gustavo Silva](https://github.com/Gustavotuur)
+- [Michael Dambock](https://github.com/dammi01)
+- [Ricieri Rosa](https://github.com/garcezrosa)
+- [Rodrigo Aguiar](https://github.com/RAguiarEng)
+- [Vitor Pires](https://github.com/vikpires)
 
-[Gustavo Silva](https://github.com/Gustavotuur)
+---
 
-[Michael Dambock](https://github.com/dammi01)
+## Licença
 
-[Ricieri Rosa](https://github.com/garcezrosa)
-
-[Rodrigo Aguiar](https://github.com/RAguiarEng)
-
-[Vitor Pires](https://github.com/vikpires)
+Distribuído sob a licença MIT, conforme o arquivo [LICENSE](LICENSE). Copyright © 2026 No Country Simulation.
