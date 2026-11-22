@@ -38,9 +38,11 @@ PROCESSED_DATA_PATH = VIEWS_DIR / "processed_data.py"
 DATABASE_PATH = DATA_DIR / "communitylab_oci.duckdb"
 UI_DATABASE_PATH = DATA_DIR / "duckdb_ui.duckdb"
 
-# Configuração de caminhos de schemas e logo
+# Configuração de caminhos de schemas
 INPUT_SCHEMA_PATH = SCHEMAS_DATA_DIR / "input_schema.json"
 OUTPUT_SCHEMA_PATH = SCHEMAS_DATA_DIR / "output_schema.json"
+
+# Configuração da logo
 LOGO_PATH = PROJECT_ROOT / "docs/assets/logo-communitylab.svg"
 
 # Curadoria humana
@@ -53,8 +55,7 @@ DRAFTS_DIR = PROCESSED_DATA_DIR / "curation"
 DEFAULT_LIMIT = 10
 DEFAULT_TAG = "artificial-intelligence"
 DEFAULT_PERIOD = (
-    # 2025-10-20 03:00 UTC, período fixo definido pelo time (Rodrigo, 02/11)
-    1760929200
+    1760929200     # 2025-10-20 03:00 UTC, período fixo definido pelo time em 02/11
 )
 
 HEADERS = {
@@ -100,7 +101,7 @@ OCI_BUCKET_NAME = os.getenv("OCI_BUCKET_NAME", "communitylab-assets")
 OCI_S3_ACCESS_KEY_ID = os.getenv("OCI_S3_ACCESS_KEY_ID", "")
 OCI_S3_SECRET_ACCESS_KEY = os.getenv("OCI_S3_SECRET_ACCESS_KEY", "")
 OCI_ASSETS_PREFIX = (
-    "ativos"  # objeto final: ativos/YYYY-semana-XX/pacote-distribuicao.json
+    "ativos"  
 )
 
 # Configuração de parâmetros do Streamlit
