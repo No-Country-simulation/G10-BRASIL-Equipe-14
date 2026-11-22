@@ -5,10 +5,14 @@ from html import escape
 import streamlit as st
 from src.design import FONT_STACK, LIGHT_PALETTE, OPERATIONAL_TONES
 
-SOURCE_LABELS = {"mastodon": "Mastodon", "hackernews": "Hacker News", "stackoverflow": "Stack Overflow"}
-THEME_LABELS = {"artificial-intelligence": "Inteligência artificial", "docker": "Docker", "frontend": "Desenvolvimento de interfaces", "backend": "Desenvolvimento de sistemas", "devops": "DevOps", "mobile": "Desenvolvimento móvel", "machine-learning": "Aprendizado de máquina", "job": "Carreira e oportunidades"}
-SENTIMENT_LABELS = {"Excited": "Entusiasmado", "Happy": "Satisfeito", "Neutral": "Neutro", "Disappointed": "Decepcionado", "Angry": "Irritado"}
-EDITORIAL_LABELS = {"success_case": "Caso de sucesso", "faq": "FAQ", "newsletter": "Newsletter", "moderation": "Moderação", "discard": "Descarte", "other": "Outro", "fallback": "Encaminhamento alternativo"}
+SOURCE_LABELS = {"mastodon": "Mastodon",
+                 "hackernews": "Hacker News", "stackoverflow": "Stack Overflow"}
+THEME_LABELS = {"artificial-intelligence": "Inteligência artificial", "docker": "Docker", "frontend": "Desenvolvimento de interfaces", "backend": "Desenvolvimento de sistemas",
+                "devops": "DevOps", "mobile": "Desenvolvimento móvel", "machine-learning": "Aprendizado de máquina", "job": "Carreira e oportunidades"}
+SENTIMENT_LABELS = {"Excited": "Entusiasmado", "Happy": "Satisfeito",
+                    "Neutral": "Neutro", "Disappointed": "Decepcionado", "Angry": "Irritado"}
+EDITORIAL_LABELS = {"success_case": "Caso de sucesso", "faq": "FAQ", "newsletter": "Newsletter",
+                    "moderation": "Moderação", "discard": "Descarte", "other": "Outro", "fallback": "Encaminhamento alternativo"}
 
 
 def tokens():
@@ -88,29 +92,36 @@ def apply_theme():
 
 
 def page_header(title, description, section="Área de trabalho"):
-    st.markdown(f'<div class="cl-eyebrow">{escape(section)}</div>', unsafe_allow_html=True)
+    st.markdown(
+        f'<div class="cl-eyebrow">{escape(section)}</div>', unsafe_allow_html=True)
     st.title(title)
-    st.markdown(f'<p class="cl-description">{escape(description)}</p>', unsafe_allow_html=True)
+    st.markdown(
+        f'<p class="cl-description">{escape(description)}</p>', unsafe_allow_html=True)
 
 
 def metric_card(label, value, note=""):
-    st.markdown(f'<div class="cl-kpi"><div class="cl-kpi-label">{escape(str(label))}</div><div class="cl-kpi-value">{escape(str(value))}</div><div class="cl-kpi-note">{escape(str(note))}</div></div>', unsafe_allow_html=True)
+    st.markdown(
+        f'<div class="cl-kpi"><div class="cl-kpi-label">{escape(str(label))}</div><div class="cl-kpi-value">{escape(str(value))}</div><div class="cl-kpi-note">{escape(str(note))}</div></div>', unsafe_allow_html=True)
 
 
 def badges(items, states=None):
     states = states or []
     parts = []
     for index, item in enumerate(items):
-        tone = OPERATIONAL_TONES.get(states[index]) if index < len(states) else None
+        tone = OPERATIONAL_TONES.get(
+            states[index]) if index < len(states) else None
         style = f' style="background:{tone[0]};color:{tone[1]}"' if tone else ""
-        parts.append(f'<span class="cl-badge"{style}>{escape(str(item))}</span>')
+        parts.append(
+            f'<span class="cl-badge"{style}>{escape(str(item))}</span>')
     st.markdown("".join(parts), unsafe_allow_html=True)
 
 
 def style_chart(figure):
     p = tokens()
-    figure.update_layout(paper_bgcolor=p["surface"], plot_bgcolor=p["surface"], font=dict(color=p["text"], family=FONT_STACK), colorway=[p["action"], p["blue"], "#7C5318", "#4B326B"], margin=dict(l=16, r=16, t=40, b=16))
-    figure.update_layout(hoverlabel=dict(bgcolor=p["surface"], font_color=p["text"], bordercolor=p["border"]))
+    figure.update_layout(paper_bgcolor=p["surface"], plot_bgcolor=p["surface"], font=dict(color=p["text"], family=FONT_STACK), colorway=[
+                         p["action"], p["blue"], "#7C5318", "#4B326B"], margin=dict(l=16, r=16, t=40, b=16))
+    figure.update_layout(hoverlabel=dict(
+        bgcolor=p["surface"], font_color=p["text"], bordercolor=p["border"]))
     figure.update_layout(separators=",.")
     figure.update_xaxes(color=p["muted"], gridcolor=p["border"])
     figure.update_yaxes(color=p["muted"], gridcolor=p["border"])

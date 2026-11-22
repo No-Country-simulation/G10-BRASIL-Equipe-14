@@ -4,26 +4,21 @@ import hashlib
 import hmac
 import json
 import os
-import re
 from datetime import datetime, timezone
 from urllib.parse import quote
 
 import requests
 
-from src.config import MAX_UPLOAD_FILE_SIZE_BYTES, OCI_BUCKET_NAME, OCI_NAMESPACE, OCI_REGION
-
-SOURCES = {
-    "Mastodon": ("mastodon", "wf09_triagem-llm-router-mastodon", "id"),
-    "Stack Exchange": ("stackoverflow", "wf10_triagem-llm-router_stackexchange", "source_id"),
-    "Hacker News": ("hackernews", "wf11_triagem-llm-router_hackernews", "comment_id"),
-}
+from src.config import MAX_UPLOAD_FILE_SIZE_BYTES, OCI_BUCKET_NAME, OCI_NAMESPACE, OCI_REGION, SOURCES
+from src.utils.regex_patterns import UPLOAD_TAG_RE
 
 
 def prepare_upload(source, tag, raw):
     prefix, _, id_field = SOURCES[source]
     tag = tag.strip().lower()
-    if not re.fullmatch(r"[a-z0-9]+(?:[ -][a-z0-9]+)*", tag) or len(tag) > 80:
-        raise ValueError("Informe um tema de até 80 caracteres com letras sem acento, números, espaços ou hífens.")
+    if not UPLOAD_TAG_RE.fullmatch(tag) or len(tag) > 80:
+        raise ValueError(
+            "Informe um tema de até 80 caracteres com letras sem acento, números, espaços ou hífens.")
     if len(raw) > MAX_UPLOAD_FILE_SIZE_BYTES:
         raise ValueError("O arquivo excede o limite de tamanho.")
     try:
@@ -39,9 +34,11 @@ def prepare_upload(source, tag, raw):
             raise ValueError
         if prefix == "hackernews" and any("pub_story_id" not in row or "comment_text" not in row for row in records):
             raise ValueError
-        content = json.dumps(payload, ensure_ascii=False, separators=(",", ":"), allow_nan=False).encode("utf-8")
+        content = json.dumps(payload, ensure_ascii=False, separators=(
+            ",", ":"), allow_nan=False).encode("utf-8")
     except (ValueError, KeyError, TypeError):
-        raise ValueError(f"Envie um JSON bruto no formato que o workflow de {source} espera.") from None
+        raise ValueError(
+            f"Envie um JSON bruto no formato que o workflow de {source} espera.") from None
     digest = hashlib.sha256(content).hexdigest()
     workflow_tag = f"{tag.replace(' ', '-')}-upload{digest[:16]}"
     return workflow_tag, f"raw/{prefix}_{workflow_tag}.json", content, len(records)
@@ -51,7 +48,8 @@ def request_oci_object(method, key, content=b""):
     access = os.getenv("OCI_S3_ACCESS_KEY_ID", "").strip()
     secret = os.getenv("OCI_S3_SECRET_ACCESS_KEY", "").strip()
     if not access or not secret:
-        raise ValueError("Configure as credenciais S3 da OCI no servidor do Streamlit.")
+        raise ValueError(
+            "Configure as credenciais S3 da OCI no servidor do Streamlit.")
     host = f"{OCI_NAMESPACE}.compat.objectstorage.{OCI_REGION}.oci.customer-oci.com"
     path = quote(f"/{OCI_BUCKET_NAME}/{key}", safe="/")
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
@@ -63,9 +61,11 @@ def request_oci_object(method, key, content=b""):
         "x-amz-date": timestamp,
     }
     if method == "PUT":
-        headers.update({"content-type": "application/json", "if-none-match": "*"})
+        headers.update(
+            {"content-type": "application/json", "if-none-match": "*"})
     fields = ";".join(sorted(headers))
-    canonical = "".join(f"{name}:{headers[name]}\n" for name in sorted(headers))
+    canonical = "".join(
+        f"{name}:{headers[name]}\n" for name in sorted(headers))
     request = f"{method}\n{path}\n\n{canonical}\n{fields}\n{digest}"
     scope = f"{day}/{OCI_REGION}/s3/aws4_request"
     to_sign = f"AWS4-HMAC-SHA256\n{timestamp}\n{scope}\n{hashlib.sha256(request.encode()).hexdigest()}"
@@ -83,16 +83,19 @@ def request_oci_object(method, key, content=b""):
 def upload_raw(key, content):
     response = request_oci_object("PUT", key, content)
     if response.status_code == 412:
-        raise ValueError("Já existe um objeto com esta chave na OCI. Use outro tema para um novo envio.")
+        raise ValueError(
+            "Já existe um objeto com esta chave na OCI. Use outro tema para um novo envio.")
     if not 200 <= response.status_code < 300:
-        raise ValueError(f"A OCI não confirmou a gravação (HTTP {response.status_code}).")
+        raise ValueError(
+            f"A OCI não confirmou a gravação (HTTP {response.status_code}).")
 
 
 def trigger_triage(source, workflow_tag, limit):
     api_key = os.getenv("N8N_API_KEY", "").strip()
     if not api_key:
         raise ValueError("Configure N8N_API_KEY no servidor do Streamlit.")
-    base = os.getenv("N8N_TRIAGE_BASE_URL", "https://bot.rsa.ia.br").rstrip("/")
+    base = os.getenv("N8N_TRIAGE_BASE_URL",
+                     "https://bot.rsa.ia.br").rstrip("/")
     _, path, _ = SOURCES[source]
     response = requests.post(
         f"{base}/webhook/{path}",
@@ -110,5 +113,6 @@ def trigger_triage(source, workflow_tag, limit):
     if response.status_code != 200 or result.get("success") is not True:
         execution_id = result.get("execution_id")
         suffix = f" Execução: {execution_id}." if execution_id else ""
-        raise ValueError(f"O n8n não confirmou a triagem (HTTP {response.status_code}).{suffix}")
+        raise ValueError(
+            f"O n8n não confirmou a triagem (HTTP {response.status_code}).{suffix}")
     return result

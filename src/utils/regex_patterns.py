@@ -37,3 +37,19 @@ FAQ_TITLE_START_RE = re.compile(r"(Como|Por que|O que)\b")
 # Padrões para sanitização e limpeza de HTML em textos de canais
 HTML_TAG_RE = re.compile(r"<[^>]+>")
 WHITESPACE_RE = re.compile(r"\s+")
+
+# Padrões de identificadores e nomes gerados pelos workflows
+QUEUE_EXECUTION_FILE_RE = re.compile(r"_(\d+)\.json$")
+EXECUTION_ID_RE = re.compile(r"[0-9]+")
+DRAFT_PACKAGE_RE = re.compile(r"wf(?:09|10|11)-\d+")
+UPLOAD_TAG_RE = re.compile(r"[a-z0-9]+(?:[ -][a-z0-9]+)*")
+RECURRENCE_TAG_RE = re.compile(r"s4-01-recorrencia-upload[0-9a-f]{16}")
+
+# Padrões de análise e formatação de conteúdo
+NUMERIC_TIMESTAMP_RE = re.compile(r"\d+(?:\.\d+)?")
+PROCESSED_THEME_RE = re.compile(
+    r"^(processed_)?result_(mastodon|stackoverflow|hackernews)_"
+)
+HASHTAG_TOKEN_RE = re.compile(r"(?<!\S)#\w+")
+HORIZONTAL_SPACING_RE = re.compile(r"[ \t]{2,}")
+EXTRA_NEWLINES_RE = re.compile(r"\n{3,}")

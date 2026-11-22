@@ -12,9 +12,11 @@ from src.services.processed_duckdb import DATABASE_LOCK, refresh_oci_database
 
 logger = logging.getLogger(__name__)
 
+
 def render_processed_data() -> None:
     st.header("Dados processados")
-    st.caption("Registros coletados e avaliados, disponíveis para consulta por fonte e tag.")
+    st.caption(
+        "Registros coletados e avaliados, disponíveis para consulta por fonte e tag.")
     database = DATA_DIR / "communitylab_oci.duckdb"
     if st.button("Atualizar dados", type="primary"):
         try:
@@ -26,9 +28,11 @@ def render_processed_data() -> None:
                          database,
                          type(exc).__name__,
                          "".join(format_tb(exc.__traceback__)),
-            )
-            st.error("Não foi possível atualizar os dados. Confira as credenciais OCI, as permissões e a conexão.")
-            st.caption("A última carga concluída foi preservada. Feche outros processos que estejam usando o banco.")
+                         )
+            st.error(
+                "Não foi possível atualizar os dados. Confira as credenciais OCI, as permissões e a conexão.")
+            st.caption(
+                "A última carga concluída foi preservada. Feche outros processos que estejam usando o banco.")
         else:
             st.success("Dados atualizados com sucesso.")
     if not database.is_file():
@@ -42,7 +46,8 @@ def render_processed_data() -> None:
                 "SELECT count(*), max(loaded_at) FROM v_processed"
             ).fetchone()
             if not total:
-                st.info("A carga não contém registros. Atualize o banco e consulte novamente.")
+                st.info(
+                    "A carga não contém registros. Atualize o banco e consulte novamente.")
                 return
             sources = [row[0] for row in con.execute(
                 "SELECT DISTINCT source FROM v_processed ORDER BY source"
@@ -59,7 +64,8 @@ def render_processed_data() -> None:
                 tagged_records + "SELECT DISTINCT tag FROM tagged_records WHERE tag IS NOT NULL ORDER BY tag"
             ).fetchall()]
             selected_tag = st.selectbox("Tag", ["Todas", *tags])
-            query = tagged_records + "SELECT source, tag, record_id, title, content, url, sentiment, suggested_route FROM tagged_records"
+            query = tagged_records + \
+                "SELECT source, tag, record_id, title, content, url, sentiment, suggested_route FROM tagged_records"
             parameters = []
             conditions = []
             if selected != "Todas":
@@ -70,17 +76,21 @@ def render_processed_data() -> None:
                 parameters.append(selected_tag)
             if conditions:
                 query += " WHERE " + " AND ".join(conditions)
-            records = con.execute(query + " ORDER BY source, record_id", parameters).df()
+            records = con.execute(
+                query + " ORDER BY source, record_id", parameters).df()
     except duckdb.Error:
         logger.exception("Falha ao consultar o banco %s", database)
-        st.error("Não foi possível consultar os dados. Confira se a carga terminou e se o banco está disponível.")
-        st.caption("Feche processos que estejam gravando o banco e execute novamente a carga, se necessário.")
+        st.error(
+            "Não foi possível consultar os dados. Confira se a carga terminou e se o banco está disponível.")
+        st.caption(
+            "Feche processos que estejam gravando o banco e execute novamente a carga, se necessário.")
         return
 
     first, second = st.columns(2)
     first.metric("Registros no banco", total)
     second.metric("Registros exibidos", len(records))
-    last_load = loaded_at.astimezone(timezone.utc).strftime('%d/%m/%Y %H:%M:%S') if loaded_at else 'não informada'
+    last_load = loaded_at.astimezone(timezone.utc).strftime(
+        '%d/%m/%Y %H:%M:%S') if loaded_at else 'não informada'
     st.caption(f"Última carga (UTC): {last_load}")
     if records.empty:
         st.info("Nenhum registro para a combinação de fonte e tag selecionada.")
@@ -94,7 +104,8 @@ def render_processed_data() -> None:
             "sentiment": "Sentimento", "suggested_route": "Destino sugerido",
         },
     )
-    st.caption("Os dados representam a última carga concluída. Campos sem informação aparecem vazios.")
+    st.caption(
+        "Os dados representam a última carga concluída. Campos sem informação aparecem vazios.")
 
 
 render_processed_data()

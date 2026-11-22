@@ -5,28 +5,22 @@ from dotenv import load_dotenv
 # Configuração de diretórios relativos
 SRC_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SRC_DIR.parent
-LOGO_PATH = PROJECT_ROOT / "docs/assets/logo-communitylab.svg"
-STREAMLIT_MAIN_PATH = SRC_DIR / "main.py"
-VIEWS_DIR = SRC_DIR / "views"
-SENTIMENT_DASHBOARD_PATH = VIEWS_DIR / "sentiment_dashboard.py"
-PROCESSED_DATA_PATH = VIEWS_DIR / "processed_data.py"
 
 ENV_PATH = PROJECT_ROOT / ".env"
 if ENV_PATH.exists():
     load_dotenv(ENV_PATH)
 
 DATA_DIR = PROJECT_ROOT / "data"
-DATABASE_PATH = DATA_DIR / "communitylab_oci.duckdb"
-UI_DATABASE_PATH = DATA_DIR / "duckdb_ui.duckdb"
-RAW_DATA_DIR = DATA_DIR / "raw"
-PROMPTS_DATA_DIR = DATA_DIR / "prompts"
-PROCESSED_DATA_DIR = DATA_DIR / "processed"
+VIEWS_DIR = SRC_DIR / "views"
 VALIDATION_DIR = SRC_DIR / "validation"
+RAW_DATA_DIR = DATA_DIR / "raw"
+PROCESSED_DATA_DIR = DATA_DIR / "processed"
+PROMPTS_DATA_DIR = DATA_DIR / "prompts"
 SAMPLES_DATA_DIR = DATA_DIR / "samples"
 SCHEMAS_DATA_DIR = DATA_DIR / "schemas"
-INPUT_SCHEMA_PATH = SCHEMAS_DATA_DIR / "input_schema.json"
-OUTPUT_SCHEMA_PATH = SCHEMAS_DATA_DIR / "output_schema.json"
 FIXTURES_DIR = DATA_DIR / "fixtures"
+
+# Configuração de diretórios de prompts e outputs
 CASES_DIR = PROMPTS_DATA_DIR / "cases"
 OUTPUTS_DIR = PROMPTS_DATA_DIR / "outputs"
 PROMPTS_ROUTER_DIR = PROMPTS_DATA_DIR / "router"
@@ -37,11 +31,30 @@ ROUTER_CASES = [
 PROMPTS_ADAPTERS_DIR = PROMPTS_DATA_DIR / "adapters"
 ADAPTER_CASES = CASES_DIR / "adapters_cases.json"
 
+# Configuração de caminhos do Streamlit e dashboards
+STREAMLIT_MAIN_PATH = SRC_DIR / "main.py"
+SENTIMENT_DASHBOARD_PATH = VIEWS_DIR / "sentiment_dashboard.py"
+PROCESSED_DATA_PATH = VIEWS_DIR / "processed_data.py"
+DATABASE_PATH = DATA_DIR / "communitylab_oci.duckdb"
+UI_DATABASE_PATH = DATA_DIR / "duckdb_ui.duckdb"
+
+# Configuração de caminhos de schemas e logo
+INPUT_SCHEMA_PATH = SCHEMAS_DATA_DIR / "input_schema.json"
+OUTPUT_SCHEMA_PATH = SCHEMAS_DATA_DIR / "output_schema.json"
+LOGO_PATH = PROJECT_ROOT / "docs/assets/logo-communitylab.svg"
+
+# Curadoria humana
+CURATION_DB_PATH = DATA_DIR / "curadoria.duckdb"
+CURATION_EXPORT_DIR = PROJECT_ROOT / "aprovados"
+DB_PATH = CURATION_DB_PATH
+DRAFTS_DIR = PROCESSED_DATA_DIR / "curation"
+
 # Definindo os parâmetros padrões de coleta
 DEFAULT_LIMIT = 10
 DEFAULT_TAG = "artificial-intelligence"
 DEFAULT_PERIOD = (
-    1760929200  # 2025-10-20 03:00 UTC, período fixo definido pelo time (Rodrigo, 02/11)
+    # 2025-10-20 03:00 UTC, período fixo definido pelo time (Rodrigo, 02/11)
+    1760929200
 )
 
 HEADERS = {
@@ -89,7 +102,8 @@ OCI_S3_SECRET_ACCESS_KEY = os.getenv("OCI_S3_SECRET_ACCESS_KEY", "")
 OCI_ASSETS_PREFIX = (
     "ativos"  # objeto final: ativos/YYYY-semana-XX/pacote-distribuicao.json
 )
-# Streamlit
+
+# Configuração de parâmetros do Streamlit
 PAGE_TITLE = "CommunityLab"
 
 PROJECT_BRIEF = (
@@ -147,6 +161,7 @@ ENGAGEMENT_BADGES = {
     "high": ("🔥 engajamento alto", "default"),
 }
 
+# Configuração de integração com n8n
 N8N_BASE_URL = os.getenv("N8N_BASE_URL", "http://localhost:5678").rstrip("/")
 N8N_INGESTION_WEBHOOK_PATH = os.getenv(
     "N8N_INGESTION_WEBHOOK_PATH", "webhook/ingestion"
@@ -160,8 +175,10 @@ N8N_REQUEST_TIMEOUT = float(os.getenv("N8N_REQUEST_TIMEOUT", "30"))
 N8N_DOWNLOAD_TIMEOUT = float(os.getenv("N8N_DOWNLOAD_TIMEOUT", "120"))
 
 SENTIMENTS = ["Excited", "Happy", "Neutral", "Disappointed", "Angry"]
-EDITORIALS = ["success_case", "faq", "newsletter", "moderation", "discard", "other", "fallback", "Sem classificação"]
-THEMES = ["artificial-intelligence", "docker", "frontend", "backend", "devops", "mobile", "machine-learning", "job"]
+EDITORIALS = ["success_case", "faq", "newsletter", "moderation",
+              "discard", "other", "fallback", "Sem classificação"]
+THEMES = ["artificial-intelligence", "docker", "frontend",
+          "backend", "devops", "mobile", "machine-learning", "job"]
 
 TREEMAP_DIMENSIONS = ("source", "theme", "editorial", "sentiment")
 
@@ -175,6 +192,7 @@ MAX_TOTAL_UPLOAD_SIZE_MB = 100
 MAX_TOTAL_UPLOAD_SIZE_BYTES = MAX_TOTAL_UPLOAD_SIZE_MB * 1024 * 1024
 
 SCORE_TIP = "Média do score de relevância (0–100) das interações do lote."
+
 # Configuração de prompts e schemas
 ROUTER_VERSION = "0.4.1"  # Atualizado com o arquivo de spec router-prompt.md
 
@@ -332,7 +350,19 @@ RETRYABLE_ERROR_PREFIXES = (
     "suggested_route:",
 )
 
-# Curadoria humana (S3-04)
-CURATION_DB_PATH = DATA_DIR / "curadoria.duckdb"
-CURATION_EXPORT_DIR = PROJECT_ROOT / "aprovados"
 
+# Configuração de campos de ativos aprovados para publicação
+ASSET_FIELDS = ("target", "title", "body", "potential_engagement")
+
+# Configuração de fontes de dados e seus campos de identificação
+SOURCES = {
+    "Mastodon": ("mastodon", "wf09_triagem-llm-router-mastodon", "id"),
+    "Stack Exchange": ("stackoverflow", "wf10_triagem-llm-router_stackexchange", "source_id"),
+    "Hacker News": ("hackernews", "wf11_triagem-llm-router_hackernews", "comment_id"),
+}
+
+# Configuração de labels para fontes e editoriais
+SOURCE_LABELS = {"mastodon": "Mastodon",
+                 "hackernews": "Hacker News", "stackoverflow": "Stack Overflow"}
+EDITORIAL_LABELS = {"success_case": "Caso de sucesso", "faq": "FAQ", "newsletter": "Newsletter",
+                    "moderation": "Moderação", "discard": "Descarte", "other": "Outro", "fallback": "Fallback"}

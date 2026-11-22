@@ -21,7 +21,8 @@ def test_download_passes_folder_and_auth(monkeypatch, folder):
     monkeypatch.setattr(bucket_download.requests, 'get', get)
     assert bucket_download.download_folder(folder) == content.getvalue()
     assert get.call_args.kwargs['params'] == {'folder': folder}
-    assert get.call_args.kwargs['headers'] == {'communitylab-api-key': 'test-key'}
+    assert get.call_args.kwargs['headers'] == {
+        'communitylab-api-key': 'test-key'}
     response.raise_for_status.assert_called_once()
 
 
@@ -30,7 +31,7 @@ def test_invalid_folder_and_missing_key(monkeypatch):
     with pytest.raises(ValueError, match='Pasta inválida'):
         bucket_download.download_folder('../')
     with pytest.raises(ValueError, match='N8N_API_KEY'):
-        bucket_download.download_folder('raw/')
+        bucket_download.download_folder("raw/")
 
 
 def test_rejects_non_zip_response(monkeypatch):
@@ -38,15 +39,17 @@ def test_rejects_non_zip_response(monkeypatch):
     response = MagicMock()
     response.__enter__.return_value = response
     response.content = b'{"error": "failed"}'
-    monkeypatch.setattr(bucket_download.requests, 'get', lambda *a, **k: response)
+    monkeypatch.setattr(bucket_download.requests,
+                        'get', lambda *a, **k: response)
     with pytest.raises(ValueError, match='ZIP válido'):
-        bucket_download.download_folder('raw/')
+        bucket_download.download_folder("raw/")
 
 
 def test_handles_request_exception(monkeypatch):
     monkeypatch.setenv("N8N_API_KEY", "test-key")
     original_error = ConnectionError("Erro de conexão")
-    monkeypatch.setattr(bucket_download.requests, "get", MagicMock(side_effect=original_error))
+    monkeypatch.setattr(bucket_download.requests, "get",
+                        MagicMock(side_effect=original_error))
 
     with pytest.raises(
         bucket_download.BucketDownloadError,

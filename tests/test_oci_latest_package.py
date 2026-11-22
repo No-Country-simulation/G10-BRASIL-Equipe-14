@@ -54,14 +54,14 @@ def test_retorna_nome_e_sha_do_mais_recente():
     assert sha == "deadbeef"
 
 
-def test_erro_na_listagem_propaga_em_vez_de_virar_none():
+def test_listing_error_propagates_instead_of_becoming_none():
     client = FakeClient(list_error=_svc_error(403))
 
     with pytest.raises(oci.exceptions.ServiceError):
         _latest_pacote(client, "bucket", "ativos/2026-W45/")
 
 
-def test_erro_no_head_propaga_em_vez_de_virar_none():
+def test_head_error_propagates_instead_of_becoming_none():
     client = FakeClient(objects=[_obj("ativos/2026-W45/pacote-x.json")],
                         head_error=_svc_error(500))
 
@@ -69,7 +69,7 @@ def test_erro_no_head_propaga_em_vez_de_virar_none():
         _latest_pacote(client, "bucket", "ativos/2026-W45/")
 
 
-def test_chamadas_usam_retry_strategy_do_sdk():
+def test_calls_use_sdk_retry_strategy():
     client = FakeClient(objects=[_obj("ativos/2026-W45/pacote-x.json")])
 
     _latest_pacote(client, "bucket", "ativos/2026-W45/")

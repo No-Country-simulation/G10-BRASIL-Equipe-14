@@ -20,7 +20,8 @@ def view():
     # A view renderiza a página no import (`render_ingestion()` no fim do arquivo). Para testar as funções sem esse
     # efeito colateral (que deixa o contexto de formulário do Streamlit aberto e quebra os testes com AppTest),
     # executamos o código do módulo sem a chamada final.
-    path = Path(__file__).resolve().parent.parent / "src" / "views" / "ingestion.py"
+    path = Path(__file__).resolve().parent.parent / \
+        "src" / "views" / "ingestion.py"
     source = path.read_text(encoding="utf-8")
     assert source.rstrip().endswith("render_ingestion()")
     source = source.rstrip().removesuffix("render_ingestion()")
@@ -59,9 +60,11 @@ def fake_st(view, monkeypatch):
 
 def test_collect_items_accepts_valid_json_file_and_pasted_text(view):
     files = [make_file("ok.json", json.dumps(VALID_RECORD))]
-    items, errors = view.collect_items(files, json.dumps([VALID_RECORD, VALID_RECORD]))
+    items, errors = view.collect_items(
+        files, json.dumps([VALID_RECORD, VALID_RECORD]))
     assert errors == []
-    assert [(name, len(records)) for name, records in items] == [("ok.json", 1), ("texto colado", 2)]
+    assert [(name, len(records)) for name, records in items] == [
+        ("ok.json", 1), ("texto colado", 2)]
 
 
 @pytest.mark.parametrize("content", ["42", '"texto"', "[1, 2]", "[]", '[{"a": 1}, 3]'])
@@ -81,7 +84,8 @@ def test_collect_items_rejects_non_object_json(view, content):
     ],
 )
 def test_collect_items_rejects_records_outside_schema(view, record):
-    items, errors = view.collect_items([make_file("r.json", json.dumps(record))], "")
+    items, errors = view.collect_items(
+        [make_file("r.json", json.dumps(record))], "")
     assert items == []
     assert "fora do schema de entrada" in errors[0]
 
@@ -109,7 +113,8 @@ def test_collect_items_reports_partial_failures_across_files(view):
 
 
 def test_collect_items_rejects_too_many_files(view):
-    files = [make_file(f"{index}.json", json.dumps(VALID_RECORD)) for index in range(MAX_UPLOAD_FILE_COUNT + 1)]
+    files = [make_file(f"{index}.json", json.dumps(VALID_RECORD))
+             for index in range(MAX_UPLOAD_FILE_COUNT + 1)]
     items, errors = view.collect_items(files, "")
     assert items == []
     assert any("no máximo" in error for error in errors)
@@ -117,7 +122,8 @@ def test_collect_items_rejects_too_many_files(view):
 
 def test_collect_items_rejects_total_size_above_limit(view, monkeypatch):
     monkeypatch.setattr(view, "MAX_TOTAL_UPLOAD_SIZE_BYTES", 100)
-    files = [make_file(f"{i}.json", json.dumps(VALID_RECORD), size=60) for i in range(2)]
+    files = [make_file(f"{i}.json", json.dumps(
+        VALID_RECORD), size=60) for i in range(2)]
     items, errors = view.collect_items(files, "")
     assert items == []
     assert len(errors) == 1 and "tamanho total" in errors[0]
@@ -125,13 +131,15 @@ def test_collect_items_rejects_total_size_above_limit(view, monkeypatch):
 
 def test_collect_items_accepts_total_size_at_limit(view, monkeypatch):
     monkeypatch.setattr(view, "MAX_TOTAL_UPLOAD_SIZE_BYTES", 120)
-    files = [make_file(f"{i}.json", json.dumps(VALID_RECORD), size=60) for i in range(2)]
+    files = [make_file(f"{i}.json", json.dumps(
+        VALID_RECORD), size=60) for i in range(2)]
     items, errors = view.collect_items(files, "")
     assert errors == [] and len(items) == 2
 
 
 def test_collect_items_accepts_exactly_the_file_limit(view):
-    files = [make_file(f"{index}.json", json.dumps(VALID_RECORD)) for index in range(MAX_UPLOAD_FILE_COUNT)]
+    files = [make_file(f"{index}.json", json.dumps(VALID_RECORD))
+             for index in range(MAX_UPLOAD_FILE_COUNT)]
     items, errors = view.collect_items(files, "")
     assert errors == [] and len(items) == MAX_UPLOAD_FILE_COUNT
 
@@ -172,8 +180,10 @@ def test_send_items_counts_2xx_as_success(view, fake_st, monkeypatch, status):
 
 
 def test_send_items_reports_partial_failure_per_record(view, fake_st, monkeypatch):
-    stub_send(monkeypatch, view, [200, 500, requests.ConnectionError("down"), 202])
-    items = [("a.json", [VALID_RECORD, VALID_RECORD]), ("b.csv", [VALID_RECORD, VALID_RECORD])]
+    stub_send(monkeypatch, view, [
+              200, 500, requests.ConnectionError("down"), 202])
+    items = [("a.json", [VALID_RECORD, VALID_RECORD]),
+             ("b.csv", [VALID_RECORD, VALID_RECORD])]
     assert view.send_items(items) == (2, 2)
     errors = [m for kind, m in fake_st.messages if kind == "error"]
     assert errors == [
@@ -184,7 +194,8 @@ def test_send_items_reports_partial_failure_per_record(view, fake_st, monkeypatc
 
 @pytest.mark.parametrize(
     ("sent", "failed", "kind", "text"),
-    [(3, 0, "success", "3 de 3"), (2, 1, "warning", "Envio parcial"), (0, 2, "error", "Nenhum registro")],
+    [(3, 0, "success", "3 de 3"), (2, 1, "warning", "Envio parcial"),
+     (0, 2, "error", "Nenhum registro")],
 )
 def test_render_send_summary(view, fake_st, sent, failed, kind, text):
     view.render_send_summary(sent, failed)
@@ -197,20 +208,23 @@ def test_render_send_summary(view, fake_st, sent, failed, kind, text):
 
 def test_input_signature_changes_with_text_and_files(view):
     base = view.input_signature([], "a")
-    assert view.input_signature([], " a \n") == base  # espaços nas bordas não contam
+    # espaços nas bordas não contam
+    assert view.input_signature([], " a \n") == base
     assert view.input_signature([], "b") != base
     assert view.input_signature([make_file("x.json", "{}")], "a") != base
-    assert view.input_signature([make_file("x.json", "{}")], "a") != view.input_signature([make_file("x.json", "[]")], "a")
-
+    assert view.input_signature([make_file("x.json", "{}")], "a") != view.input_signature(
+        [make_file("x.json", "[]")], "a")
 
 
 def test_raw_ingestion_page_requires_source_theme_and_file():
     from streamlit.testing.v1 import AppTest
 
-    page = Path(__file__).resolve().parent.parent / "src" / "views" / "ingestion.py"
+    page = Path(__file__).resolve().parent.parent / \
+        "src" / "views" / "ingestion.py"
     at = AppTest.from_file(str(page)).run()
     assert not at.exception
-    source = next(widget for widget in at.selectbox if widget.label == "Fonte dos dados")
+    source = next(
+        widget for widget in at.selectbox if widget.label == "Fonte dos dados")
     assert source.options == ["Mastodon", "Stack Exchange", "Hacker News"]
     assert at.number_input[0].value == 1
     assert all(button.label != "Upload" for button in at.button)
@@ -223,7 +237,8 @@ def test_raw_ingestion_page_requires_source_theme_and_file():
 def test_stack_exchange_raw_sample_and_routing(monkeypatch):
     from src.services import raw_ingestion
 
-    sample = Path(__file__).resolve().parents[1] / "data/raw/raw_stackoverflow_artificialintelligence.json"
+    sample = Path(__file__).resolve(
+    ).parents[1] / "data/raw/raw_stackoverflow_artificialintelligence.json"
     tag, key, content, count = raw_ingestion.prepare_upload(
         "Stack Exchange", "artificial-intelligence", sample.read_bytes()
     )
@@ -243,6 +258,7 @@ def test_stack_exchange_raw_sample_and_routing(monkeypatch):
 
     monkeypatch.setattr(requests, "post", post)
     assert raw_ingestion.trigger_triage("Stack Exchange", tag, 1)["count"] == 1
-    assert calls[0][0].endswith("/webhook/wf10_triagem-llm-router_stackexchange")
+    assert calls[0][0].endswith(
+        "/webhook/wf10_triagem-llm-router_stackexchange")
     assert calls[0][1]["json"] == {"tag": tag, "limit": 1}
     assert calls[0][1]["headers"] == {"communitylab-api-key": "test-key"}

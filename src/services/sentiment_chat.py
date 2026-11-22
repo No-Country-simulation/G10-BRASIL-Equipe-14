@@ -39,9 +39,11 @@ def build_context(frame, filters, loaded_at, quality):
         return result
 
     def theme_score(data, column, maximum):
-        raw = data[column] if column in data else pd.Series(index=data.index, dtype=float)
+        raw = data[column] if column in data else pd.Series(
+            index=data.index, dtype=float)
         values = pd.to_numeric(raw, errors="coerce")
-        valid = values.between(0, maximum) & ~raw.map(lambda value: isinstance(value, bool))
+        valid = values.between(0, maximum) & ~raw.map(
+            lambda value: isinstance(value, bool))
         if column == "relevance":
             valid &= values.mod(1).eq(0)
         values = values[valid]
@@ -51,7 +53,8 @@ def build_context(frame, filters, loaded_at, quality):
             "mean": float(values.mean()) if len(values) else None,
         }
 
-    theme_interactions = frame.drop_duplicates(["theme", "identity"], keep="last")
+    theme_interactions = frame.drop_duplicates(
+        ["theme", "identity"], keep="last")
     scores_by_theme = [
         {
             "theme": str(theme),
@@ -62,7 +65,8 @@ def build_context(frame, filters, loaded_at, quality):
         for theme, group in theme_interactions.groupby("theme", sort=True)
     ]
 
-    topics = frame.explode("topics").dropna(subset=["topics"]).drop_duplicates(["identity", "topics"])
+    topics = frame.explode("topics").dropna(
+        subset=["topics"]).drop_duplicates(["identity", "topics"])
     metrics = {
         "unique_interactions": len(unique),
         "sentiment_counts": counts(unique, "sentiment"),
@@ -78,7 +82,8 @@ def build_context(frame, filters, loaded_at, quality):
             "aggregation": "Estatísticas sobre interações únicas do recorte. Valores ausentes ou fora de 0 a 1 são excluídos, sem substituição por zero. Não inferir outras segmentações a partir das médias gerais ou da amostra.",
         },
         "assessment_scores_by_sentiment": [
-            {"sentiment": sentiment, "unique_interactions": len(group), **score_summary(group)}
+            {"sentiment": sentiment, "unique_interactions": len(
+                group), **score_summary(group)}
             for sentiment, group in unique.groupby("sentiment", sort=True)
         ],
         "sentiment_by_editorial": cross(unique, ["editorial", "sentiment"]),
@@ -88,7 +93,8 @@ def build_context(frame, filters, loaded_at, quality):
         "top_topics": [{"topic": k, "count": v} for k, v in sorted(counts(topics, "topics").items(), key=lambda pair: (-pair[1], pair[0]))[:30]],
     }
     evidence = []
-    samples = unique.sort_values(["relevance", "identity"], ascending=[False, True], na_position="last").head(15).copy()
+    samples = unique.sort_values(["relevance", "identity"], ascending=[
+                                 False, True], na_position="last").head(15).copy()
     for column in ["strength", "confidence"]:
         samples[column] = valid_scores(samples, column)
     for row in samples.to_dict("records"):
@@ -103,7 +109,8 @@ def build_context(frame, filters, loaded_at, quality):
             "url": row["url"],
         })
     stamp = pd.to_datetime(loaded_at, utc=True).isoformat()
-    signature = json.dumps({"loaded_at": stamp, "filters": filters, "metrics": metrics}, sort_keys=True, ensure_ascii=False)
+    signature = json.dumps({"loaded_at": stamp, "filters": filters,
+                           "metrics": metrics}, sort_keys=True, ensure_ascii=False)
     return {
         "snapshot_id": hashlib.sha256(signature.encode()).hexdigest(),
         "loaded_at": stamp, "filters": filters, "metrics": metrics,
@@ -121,7 +128,8 @@ def build_context(frame, filters, loaded_at, quality):
 def ask_agent(question, history, context, session_id):
     key = os.getenv("N8N_API_KEY", "").strip()
     if not key:
-        raise ValueError("Configure N8N_API_KEY no .env e reinicie o Streamlit.")
+        raise ValueError(
+            "Configure N8N_API_KEY no .env e reinicie o Streamlit.")
     request_id = str(uuid4())
     payload = {
         "request_id": request_id, "session_id": session_id,
@@ -130,18 +138,23 @@ def ask_agent(question, history, context, session_id):
         "context": context,
     }
     if len(json.dumps(payload, ensure_ascii=False)) > 180000:
-        raise ValueError("O contexto excedeu o limite do chat. Restrinja os filtros e tente novamente.")
+        raise ValueError(
+            "O contexto excedeu o limite do chat. Restrinja os filtros e tente novamente.")
     try:
         response = requests.post(
-            os.getenv("N8N_SENTIMENT_CHAT_WEBHOOK_URL") or N8N_SENTIMENT_CHAT_DEFAULT_URL,
+            os.getenv(
+                "N8N_SENTIMENT_CHAT_WEBHOOK_URL") or N8N_SENTIMENT_CHAT_DEFAULT_URL,
             json=payload, headers={"communitylab-api-key": key}, timeout=(10, 120),
         )
     except requests.Timeout:
-        raise ValueError("O agente demorou para responder. Tente novamente.") from None
+        raise ValueError(
+            "O agente demorou para responder. Tente novamente.") from None
     except requests.RequestException:
-        raise ValueError("Não foi possível conectar ao agente. Tente novamente.") from None
+        raise ValueError(
+            "Não foi possível conectar ao agente. Tente novamente.") from None
     if response.status_code != 200:
-        raise ValueError(f"O serviço não concluiu a análise (HTTP {response.status_code}).")
+        raise ValueError(
+            f"O serviço não concluiu a análise (HTTP {response.status_code}).")
     try:
         data = response.json()
     except ValueError:
@@ -150,5 +163,6 @@ def ask_agent(question, history, context, session_id):
             or data.get("request_id") != request_id
             or data.get("snapshot_id") != context["snapshot_id"]
             or not isinstance(data.get("answer"), str) or not data["answer"].strip()):
-        raise ValueError("A resposta do agente não corresponde à pergunta e ao snapshot enviados.")
+        raise ValueError(
+            "A resposta do agente não corresponde à pergunta e ao snapshot enviados.")
     return data["answer"].strip()
