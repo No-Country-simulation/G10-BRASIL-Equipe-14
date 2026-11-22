@@ -45,8 +45,9 @@ def render_home():
                          label="Investigar sentimentos e tópicos", icon=":material/arrow_forward:")
     st.subheader("Próximos passos")
     st.caption("Acesse a etapa de trabalho que você precisa realizar.")
-    steps = [("01 · Preparar", "Envie interações e valide os dados antes do processamento.", "views/ingestion.py", "Adicionar dados"), ("02 · Analisar", "Explore sentimentos, assuntos recorrentes e destinos editoriais.",
-                                                                                                                                        "views/sentiment_dashboard.py", "Explorar indicadores"), ("03 · Revisar", "Avalie sugestões para FAQ, newsletter e redes sociais.", "views/curation.py", "Abrir curadoria")]
+    steps = [("01 · Preparar", "Envie interações e valide os dados antes do processamento.", "views/ingestion.py", "Adicionar dados"), 
+             ("02 · Analisar", "Explore sentimentos, assuntos recorrentes e destinos editoriais.", "views/sentiment_dashboard.py", "Explorar indicadores"), 
+             ("03 · Revisar", "Avalie sugestões para FAQ, newsletter e redes sociais.", "views/curation.py", "Abrir curadoria")]
     for col, (title, description, path, label) in zip(st.columns(3), steps):
         with col, st.container(border=True):
             st.subheader(title)
