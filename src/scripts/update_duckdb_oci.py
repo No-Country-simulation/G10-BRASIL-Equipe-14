@@ -1,14 +1,17 @@
-import argparse
-import sys
-from pathlib import Path
+"""
+To update with files from processed/, run:
+python src/scripts/update_duckdb_oci.py --folder processed
 
+To update with files from processed/routing/faq, run:
+python src/scripts/update_duckdb_oci.py --folder processed/routing/success_case --database data/success_case.duckdb
+"""
+
+import argparse
+from pathlib import Path
 import duckdb
 
 
 # Permite executar o arquivo diretamente a partir do diretório scripts.
-if __name__ == "__main__" and not __package__:
-    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-
 from src.config import (
     DATABASE_PATH,
     OCI_BUCKET_NAME,
@@ -23,25 +26,25 @@ def sql_literal(value: str) -> str:
     return "'" + value.replace("'", "''") + "'"
 
 
-def atualizar(pasta: str, banco: Path) -> None:
+def update_database(folder: str, database: Path) -> None:
     if not OCI_S3_ACCESS_KEY_ID or not OCI_S3_SECRET_ACCESS_KEY:
         raise ValueError(
             "Configure OCI_S3_ACCESS_KEY_ID e "
             "OCI_S3_SECRET_ACCESS_KEY no .env."
         )
 
-    pasta = pasta.strip("/")
-    if not pasta or any(char in pasta for char in "*?[]\\"):
+    folder = folder.strip("/")
+    if not folder or any(char in folder for char in "*?[]\\"):
         raise ValueError("Informe uma pasta sem curingas, como processed.")
 
     # Lê apenas JSONs diretamente nessa pasta, sem percorrer subpastas.
-    pattern = f"s3://{OCI_BUCKET_NAME}/{pasta}/*.json"
+    pattern = f"s3://{OCI_BUCKET_NAME}/{folder}/*.json"
 
-    banco.parent.mkdir(parents=True, exist_ok=True)
+    database.parent.mkdir(parents=True, exist_ok=True)
 
-    with duckdb.connect(str(banco)) as con:
-        con.execute("INSTALL httpfs")
-        con.execute("LOAD httpfs")
+    with duckdb.connect(str(database)) as connection:
+        connection.execute("INSTALL httpfs")
+        connection.execute("LOAD httpfs")
 
         options = {
             "KEY_ID": OCI_S3_ACCESS_KEY_ID,
@@ -52,11 +55,11 @@ def atualizar(pasta: str, banco: Path) -> None:
                 f"{OCI_REGION}.oraclecloud.com"
             ),
             "URL_STYLE": "path",
-            "SCOPE": f"s3://{OCI_BUCKET_NAME}/{pasta}/",
+            "SCOPE": f"s3://{OCI_BUCKET_NAME}/{folder}/",
         }
 
         # Secret temporário: as credenciais não são persistidas no banco.
-        con.execute(
+        connection.execute(
             "CREATE OR REPLACE TEMPORARY SECRET communitylab_oci "
             "(TYPE s3, USE_SSL true, "
             + ", ".join(
@@ -66,9 +69,9 @@ def atualizar(pasta: str, banco: Path) -> None:
             + ")"
         )
 
-        con.execute("BEGIN TRANSACTION")
+        connection.execute("BEGIN TRANSACTION")
         try:
-            con.execute(
+            connection.execute(
                 """
                 CREATE OR REPLACE TABLE processed_records AS
                 SELECT
@@ -84,7 +87,7 @@ def atualizar(pasta: str, banco: Path) -> None:
                 [pattern],
             )
 
-            invalidos = con.execute(
+            invalid_record_count = connection.execute(
                 """
                 SELECT count(*)
                 FROM processed_records
@@ -92,46 +95,42 @@ def atualizar(pasta: str, banco: Path) -> None:
                 """
             ).fetchone()[0]
 
-            if invalidos:
+            if invalid_record_count:
                 raise ValueError(
-                    f"Foram encontrados {invalidos} registros "
+                    f"Foram encontrados {invalid_record_count} registros "
                     "que não são objetos JSON."
                 )
 
-            con.execute("COMMIT")
+            connection.execute("COMMIT")
         except Exception:
-            con.execute("ROLLBACK")
+            connection.execute("ROLLBACK")
             raise
 
-        arquivos, registros = con.execute(
+        file_count, record_count = connection.execute(
             """
             SELECT count(DISTINCT object_key), count(*)
             FROM processed_records
             """
         ).fetchone()
 
-        print(f"Banco atualizado: {banco}")
+        print(f"Banco atualizado: {database}")
         print(f"Origem: {pattern}")
-        print(f"Arquivos com registros: {arquivos}")
-        print(f"Registros carregados: {registros}")
+        print(f"Arquivos com registros: {file_count}")
+        print(f"Registros carregados: {record_count}")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Atualiza um snapshot DuckDB com JSONs da OCI."
     )
-    parser.add_argument("--pasta", required=True)
+    parser.add_argument("--folder", "--pasta", dest="folder", required=True)
     parser.add_argument(
+        "--database",
         "--banco",
+        dest="database",
         type=Path,
         default=DATABASE_PATH,
     )
     args = parser.parse_args()
 
-    atualizar(args.pasta, args.banco)
-
-# Para atualizar com os arquivos de processed/, execute:
-# python scripts/atualizar_duckdb_oci.py --pasta processed
-
-# Para atualizar com os arquivos de processed/routing/faq, execute:
-# python scripts/atualizar_duckdb_oci.py --pasta processed/routing/success_case --banco data/success_case.duckdb
+    update_database(args.folder, args.database)
