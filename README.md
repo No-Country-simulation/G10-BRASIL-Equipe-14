@@ -3,8 +3,11 @@
 </p>
 
 <div align=center>
-  <h3> Community LED Marketing Engine </h3>
+  <h3><strong>Community LED Marketing Engine</strong></h3>
+  <h4><em>Das conversas da comunidade ao conhecimento que orienta decisões.</em></h4>
 </div>
+
+---
 
 <p align="left">
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
@@ -30,7 +33,7 @@
 
 O **CommunityLab** é um ecossistema inteligente de automação projetado para transformar o fluxo contínuo de discussões e dúvidas de comunidades técnicas em ativos estruturados de valor educacional e marketing.
 
-Projeto desenvolvido pelo **Grupo 14 - Turma G10** para o Hackathon ONE - G10 Brasil, do programa **ONE - Oracle Next Education**.
+>Projeto desenvolvido pelo **Grupo 14 - Turma G10** para o Hackathon ONE - G10 Brasil, do programa **ONE - Oracle Next Education**.
 
 ---
 
@@ -39,9 +42,9 @@ Projeto desenvolvido pelo **Grupo 14 - Turma G10** para o Hackathon ONE - G10 Br
 * [1. Problema](#1-problema)
 * [2. Objetivo](#2-objetivo)
 * [3. Tecnologias](#3-tecnologias)
-* [4. Entregáveis](#4-entregáveis)
-* [5. Fases do Projeto](#5-fases-do-projeto)
-* [6. Demo](#6-arquitetura-da-solução)
+* [4. Metodologia](#4-metodologia)
+* [5. Entregáveis](#5-entregáveis)
+* [6. Demo](#6-demo)
 * [7. Arquitetura da Solução](#7-arquitetura-da-solução)
 * [8. Estrutura de Diretórios](#8-estrutura-de-diretórios)
 * [9. Como Executar](#9-como-executar)
@@ -75,7 +78,21 @@ Desenvolvimento de um MVP funcional capaz de resolver esse gargalo, capaz de uni
 
 ---
 
-## 4. Entregáveis
+## 4. Metodologia
+
+Desenvolvimento iterativo com adoção das cerimônias Scrum e gestão de tarefas pela equipe via quadro Kanban através do GitHub Projects ao longo de 6 semanas:
+
+**Kanban do Projeto:**
+<p align="left">
+  <a href="https://github.com/orgs/No-Country-simulation/projects/565/views/1">
+        <img src="https://img.shields.io/badge/GitHub_Project-Kanban-1074e7?style=flat-square&logo=github&logoColor=white" alt="Kanban do Projeto" />
+  </a>
+</p>
+
+
+---
+
+## 5. Entregáveis
 
 Abaixo, encontram-se os principais produtos e artefatos desenvolvidos pelo projeto:
 
@@ -91,36 +108,14 @@ Abaixo, encontram-se os principais produtos e artefatos desenvolvidos pelo proje
 
 ---
 
-## 5. Fases do Projeto
-
-Desenvolvimento iterativo gerenciado via quadro Kanban no GitHub Projects pela equipe ao longo de 6 semanas:
-
-<p align="left">
-  <a href="https://github.com/orgs/No-Country-simulation/projects/565/views/1">
-        <img src="https://img.shields.io/badge/GitHub_Project-Kanban-1074e7?style=flat-square&logo=github&logoColor=white" alt="Kanban do Projeto" />
-  </a>
-</p>
-
-| Período | Foco | Principais Entregas |
-| :--- | :---: | :--- |
-| Semana 00 | Alinhamento Estratégico, Documentação Inicial e Configurações base | Escopo e infraestrutura base |
-| Semana 01 | Engenharia de Prompts, Datasets & Ingestão | Schemas, contrato de dados e webhooks de ingestão de dados |
-| Semana 02 | Orquestração Condicional n8n & Módulos da Interface | Webhooks de triagem e roteamento, desenvolvimento das interfaces de entrada e conexão com OCI |
-| Semana 03 | Geração Consolidada, Persistência e Curadoria | Interface de curadoria humana, integração n8n/streamlit/OCI e dashboard de sentimentos e tópicos  |
-| Semana 04 | Homologação e Revisão | Dicionário de dados, arquitetura do pipeline, homologação dos 3 cenários, revisão de código |
-| Semana 05 | Documentação, Apresentação e Revisão Final | Revisão da documentação, atualização do README, elaboração de slides e vídeo, e code freeze |
-| Semana 06 | Demo Day | Ensaios e apresentação do projeto |
-
----
-
 ## 6. Demo
 
 <p align="center">
   <picture>
-    <img src="./docs/assets/pipeline-architecture-v2.png" alt="Arquitetura conceitual do pipeline multicanal" width="100%">
+    <img src="./docs/assets/demo-communitylab.gif" alt="Demo da aplicação" width="80%">
   </picture>
   <br>
-  <em>Fig. 01 - Arquitetura do pipeline multicanal</em>
+  <em>Fig. 01 - Demo da aplicação</em>
 </p>
 
 ---
@@ -414,11 +409,14 @@ docker compose up -d --build
 
 ## 12. Equipe
 
-<div align="center">
+- [Gustavo Silva](https://github.com/Gustavotuur)
+- [Michael Dambock](https://github.com/dammi01)
+- [Ricieri Rosa](https://github.com/garcezrosa)
+- [Rodrigo Aguiar](https://github.com/RAguiarEng)
+- [Vitor Pires](https://github.com/vikpires)
 
-| | | |
-|:---:|:---:|:---:|
-| <img src="https://github.com/Gustavotuur.png" width="72"><br>[Gustavo Silva](https://github.com/Gustavotuur) | <img src="https://github.com/dammi01.png" width="72"><br>[Michael Dambock](https://github.com/dammi01) | <img src="https://github.com/garcezrosa.png" width="72"><br>[Ricieri Rosa](https://github.com/garcezrosa) |
-| <img src="https://github.com/RAguiarEng.png" width="72"><br>[Rodrigo Aguiar](https://github.com/RAguiarEng) | <img src="https://github.com/vikpires.png" width="72"><br>[Vitor Pires](https://github.com/vikpires) | |
+---
 
-</div>
+## Licença
+
+Distribuído sob a licença MIT, conforme o arquivo [LICENSE](LICENSE). Copyright © 2026 No Country Simulation.
