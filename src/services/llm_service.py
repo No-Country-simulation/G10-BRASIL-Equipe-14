@@ -87,7 +87,8 @@ def call_gemini(
 
     parts = candidates[0].get("content", {}).get("parts", [])
 
-    text = "".join(part.get("text", "") for part in parts if not part.get("thought"))
+    text = "".join(part.get("text", "")
+                   for part in parts if not part.get("thought"))
 
     if not text:
         raise RuntimeError("Resposta vazia do Gemini.")
@@ -139,7 +140,8 @@ def call_groq(
     try:
         content = choices[0]["message"]["content"]
     except (KeyError, TypeError) as exc:
-        raise RuntimeError("Resposta da Groq sem conteúdo de mensagem.") from exc
+        raise RuntimeError(
+            "Resposta da Groq sem conteúdo de mensagem.") from exc
 
     if not isinstance(content, str) or not content:
         raise RuntimeError("Resposta vazia da Groq.")

@@ -1,17 +1,17 @@
 """Pacote de recorrência a partir do lote controlado do WF11."""
 
-import re
 from collections import Counter
 from datetime import datetime, timezone
 
 from src.services.faq_drafts import DRAFTS_DIR, save_new_draft_package
+from src.utils.regex_patterns import EXECUTION_ID_RE, RECURRENCE_TAG_RE
 
 
 def generate_recurrence_from_triage(result, drafts_dir=DRAFTS_DIR):
     if (
         result.get("success") is not True
         or result.get("source") != "hackernews"
-        or not re.fullmatch(r"s4-01-recorrencia-upload[0-9a-f]{16}", result.get("tag", ""))
+        or not RECURRENCE_TAG_RE.fullmatch(result.get("tag", ""))
     ):
         return None
 
@@ -20,18 +20,22 @@ def generate_recurrence_from_triage(result, drafts_dir=DRAFTS_DIR):
     for item in items:
         unique.setdefault(str(item["comment_id"]), item)
     if len(unique) < 2:
-        raise ValueError("O cenário de recorrência precisa de pelo menos dois comentários distintos.")
+        raise ValueError(
+            "O cenário de recorrência precisa de pelo menos dois comentários distintos.")
     if len({item["post_id"] for item in unique.values()}) != 1:
-        raise ValueError("O cenário de recorrência precisa de uma única discussão.")
+        raise ValueError(
+            "O cenário de recorrência precisa de uma única discussão.")
     evidence = [
         item for item in unique.values()
         if item["suggested_route"] == "faq" and item["needs_human_review"] is False
     ]
     if not evidence:
-        raise ValueError("A triagem não encaminhou orientação técnica para FAQ.")
+        raise ValueError(
+            "A triagem não encaminhou orientação técnica para FAQ.")
     execution_id = str(result.get("execution_id", ""))
-    if not re.fullmatch(r"[0-9]+", execution_id):
-        raise ValueError("O WF11 retornou um identificador de execução inválido.")
+    if not EXECUTION_ID_RE.fullmatch(execution_id):
+        raise ValueError(
+            "O WF11 retornou um identificador de execução inválido.")
     batch_id = f"wf11-{execution_id}"
     dates = [
         datetime.fromtimestamp(int(item["comment"]["time"]), timezone.utc)
@@ -40,7 +44,8 @@ def generate_recurrence_from_triage(result, drafts_dir=DRAFTS_DIR):
     ]
     feelings = {"Neutral": "neutral", "Happy": "positive", "Excited": "positive",
                 "Angry": "negative", "Disappointed": "negative"}
-    counts = Counter(feelings[item["comment"]["sentiment"]] for item in unique.values())
+    counts = Counter(feelings[item["comment"]["sentiment"]]
+                     for item in unique.values())
     post = evidence[0]["post"]
     excerpts = [
         f'“{item["comment"]["text"].strip()}” (comentário {item["comment_id"]})'
@@ -77,7 +82,8 @@ def generate_recurrence_from_triage(result, drafts_dir=DRAFTS_DIR):
                  f"ao repetir um POST após timeout. A triagem retornou {len(items)} registros. "
                  f"Registros com o mesmo ID foram contados uma vez.\n\nFonte: {post['url']}"),
                 ("faq", post["title"],
-                 "Orientação registrada na discussão:\n\n" + "\n\n".join(excerpts)
+                 "Orientação registrada na discussão:\n\n" +
+                 "\n\n".join(excerpts)
                  + f"\n\nFonte: {post['url']}"),
             ]
         ],

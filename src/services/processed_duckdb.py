@@ -33,7 +33,8 @@ def refresh_oci_database(database: str | Path) -> None:
 def configure_oci(connection: duckdb.DuckDBPyConnection) -> str:
     """Cria um secret temporário; não grava credenciais no banco."""
     if not OCI_S3_ACCESS_KEY_ID.strip() or not OCI_S3_SECRET_ACCESS_KEY.strip():
-        raise ValueError("Configure OCI_S3_ACCESS_KEY_ID e OCI_S3_SECRET_ACCESS_KEY no .env.")
+        raise ValueError(
+            "Configure OCI_S3_ACCESS_KEY_ID e OCI_S3_SECRET_ACCESS_KEY no .env.")
 
     endpoint = f"{OCI_NAMESPACE}.compat.objectstorage.{OCI_REGION}.oraclecloud.com"
     scope = f"s3://{OCI_BUCKET_NAME}/processed/"
@@ -68,7 +69,8 @@ def refresh(connection, pattern) -> None:
             "OR json_extract_string(payload, '$.source') IS NULL"
         ).fetchone()[0]
         if invalid:
-            raise ValueError(f"{invalid} registros sem objeto JSON ou campo source.")
+            raise ValueError(
+                f"{invalid} registros sem objeto JSON ou campo source.")
         connection.execute("""
             CREATE OR REPLACE VIEW v_processed AS
             SELECT
@@ -90,7 +92,8 @@ def refresh(connection, pattern) -> None:
         connection.execute("COMMIT")
         committed = True
     except (duckdb.Error, ValueError, OSError) as exc:
-        exc.add_note("Falha ao atualizar o snapshot de dados processados no DuckDB.")
+        exc.add_note(
+            "Falha ao atualizar o snapshot de dados processados no DuckDB.")
         raise
     finally:
         if not committed:
@@ -100,18 +103,21 @@ def refresh(connection, pattern) -> None:
             except duckdb.Error as rollback_error:
                 if failure is None:
                     raise
-                failure.add_note(f"Falha no rollback do snapshot ({type(rollback_error).__name__}).")
+                failure.add_note(
+                    f"Falha no rollback do snapshot ({type(rollback_error).__name__}).")
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--oci", action="store_true", help="Ler processed/ diretamente da OCI")
+    parser.add_argument("--oci", action="store_true",
+                        help="Ler processed/ diretamente da OCI")
     parser.add_argument("--database", default="data/communitylab.duckdb")
     args = parser.parse_args()
     database = Path(args.database)
     database.parent.mkdir(parents=True, exist_ok=True)
     with duckdb.connect(str(database)) as connection:
-        pattern = configure_oci(connection) if args.oci else str(PROJECT_ROOT / "data/processed/*.json")
+        pattern = configure_oci(connection) if args.oci else str(
+            PROJECT_ROOT / "data/processed/*.json")
         refresh(connection, pattern)
         print(f"DuckDB {duckdb.__version__} | Banco: {database}")
         for source, count in connection.execute(

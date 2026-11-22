@@ -4,7 +4,6 @@ import io
 import os
 import zipfile
 from typing import Literal
-
 import requests
 
 from src.config import N8N_BASE_URL, N8N_DOWNLOAD_TIMEOUT
@@ -23,7 +22,8 @@ def download_folder(folder: FolderType) -> bytes:
     api_key = os.getenv("N8N_API_KEY", "")
     if not api_key:
         raise ValueError("Configure N8N_API_KEY no .env para acessar o WF05.")
-    url = os.getenv("N8N_DOWNLOAD_WEBHOOK_URL") or f"{N8N_BASE_URL}/webhook/wf05-download-bucket-OCI"
+    url = os.getenv(
+        "N8N_DOWNLOAD_WEBHOOK_URL") or f"{N8N_BASE_URL}/webhook/wf05-download-bucket-OCI"
     try:
         with requests.get(
             url, params={"folder": folder},

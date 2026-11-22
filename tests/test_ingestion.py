@@ -38,12 +38,15 @@ def test_send_to_ingestion_returns_response_with_idempotency_key(monkeypatch):
 
     monkeypatch.setattr(ingestion.requests, "post", fake_post)
     assert send_to_ingestion({"ok": 1}, "http://x").status_code == 202
-    assert captured["headers"]["Idempotency-Key"] == ingestion.idempotency_key({"ok": 1})
+    assert captured["headers"]["Idempotency-Key"] == ingestion.idempotency_key({
+                                                                               "ok": 1})
 
 
 def test_idempotency_key_is_stable_across_key_order():
-    assert ingestion.idempotency_key({"a": 1, "b": 2}) == ingestion.idempotency_key({"b": 2, "a": 1})
-    assert ingestion.idempotency_key({"a": 1}) != ingestion.idempotency_key({"a": 2})
+    assert ingestion.idempotency_key(
+        {"a": 1, "b": 2}) == ingestion.idempotency_key({"b": 2, "a": 1})
+    assert ingestion.idempotency_key(
+        {"a": 1}) != ingestion.idempotency_key({"a": 2})
 
 
 def test_send_to_ingestion_propagates_network_errors(monkeypatch):
@@ -77,18 +80,21 @@ def test_parse_input_rejects_empty_list_and_primitives():
 
 def test_parse_input_dispatches_by_format():
     assert parse_input('{"a": 1}', as_csv=False) == [{"a": 1}]
-    assert parse_input('[{"a": 1}, {"a": 2}]', as_csv=False) == [{"a": 1}, {"a": 2}]
+    assert parse_input('[{"a": 1}, {"a": 2}]', as_csv=False) == [
+        {"a": 1}, {"a": 2}]
     assert parse_input("a;b\n1;2", as_csv=True) == [{"a": "1", "b": "2"}]
 
 
 @pytest.mark.parametrize("sep", [",", ";", "\t", "|"])
 def test_parse_csv_detects_delimiter(sep):
     raw = f"id{sep}source\n1{sep}a\n2{sep}b\n"
-    assert parse_csv(raw) == [{"id": "1", "source": "a"}, {"id": "2", "source": "b"}]
+    assert parse_csv(raw) == [{"id": "1", "source": "a"}, {
+        "id": "2", "source": "b"}]
 
 
 def test_parse_csv_quoted_header_with_other_delimiter_inside():
-    assert parse_csv('"last, first";x\n"a, b";1\n') == [{"last, first": "a, b", "x": "1"}]
+    assert parse_csv('"last, first";x\n"a, b";1\n') == [
+        {"last, first": "a, b", "x": "1"}]
 
 
 def test_parse_csv_rejects_duplicate_headers():
@@ -158,7 +164,8 @@ def test_validate_input_csv_decodes_json_cells_and_drops_empty():
 def test_validate_input_csv_without_interactions_fails():
     from src.services.ingestion import validate_input
 
-    assert validate_input([{"id": "1", "source": "mastodon", "url": "https://example.com/1"}], True)[1]
+    assert validate_input(
+        [{"id": "1", "source": "mastodon", "url": "https://example.com/1"}], True)[1]
 
 
 def test_default_webhook_url_is_used_when_none_given(monkeypatch):
@@ -181,7 +188,8 @@ def test_default_webhook_url_falls_back_to_base_url_and_path(monkeypatch):
 
     from src import config
 
-    monkeypatch.setattr("dotenv.load_dotenv", lambda *a, **k: False)  # ignora o .env local do desenvolvedor
+    # ignora o .env local do desenvolvedor
+    monkeypatch.setattr("dotenv.load_dotenv", lambda *a, **k: False)
     for var in ("N8N_BASE_URL", "N8N_INGESTION_WEBHOOK_PATH", "N8N_INGESTION_WEBHOOK_URL"):
         monkeypatch.delenv(var, raising=False)
     try:
@@ -194,7 +202,8 @@ def test_default_webhook_url_falls_back_to_base_url_and_path(monkeypatch):
 
 @pytest.mark.parametrize(
     "record",
-    [{"id": "1"}, {**VALID_RECORD, "source": "twitter"}, {**VALID_RECORD, "url": "nope"}, {**VALID_RECORD, "x": 1}],
+    [{"id": "1"}, {**VALID_RECORD, "source": "twitter"},
+        {**VALID_RECORD, "url": "nope"}, {**VALID_RECORD, "x": 1}],
 )
 def test_validate_input_rejects_records_outside_schema(record):
     from src.services.ingestion import validate_input

@@ -3,7 +3,7 @@ import json
 
 import pytest
 
-from scripts.validate_output import _main, validate_output
+from src.validation.validate_output import _main, validate_output
 from src.config import OUTPUT_SCHEMA_PATH
 from src.validation.schema_validator import load_json
 
@@ -103,7 +103,8 @@ def test_missing_storage_bucket_is_reported(tmp_path):
 
 def test_unknown_top_level_property_is_rejected(tmp_path):
     package = copy.deepcopy(VALID_PACKAGE)
-    package["linked_batch_id"] = "lote-se-001"  # campo presente nos samples, fora do contrato
+    # campo presente nos samples, fora do contrato
+    package["linked_batch_id"] = "lote-se-001"
 
     errors = validate_output(_write(tmp_path, package))
 

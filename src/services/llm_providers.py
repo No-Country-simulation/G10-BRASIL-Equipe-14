@@ -42,7 +42,8 @@ def call_llm(
         )
 
     if not callable(function):
-        raise RuntimeError(f"Função não configurada para o provedor {provider!r}.")
+        raise RuntimeError(
+            f"Função não configurada para o provedor {provider!r}.")
 
     provider_function: ProviderFunction = function
 

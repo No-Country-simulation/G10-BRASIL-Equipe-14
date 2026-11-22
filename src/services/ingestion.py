@@ -32,7 +32,8 @@ def parse_json(raw: bytes | str) -> list[dict[str, Any]]:
     try:
         data = json.loads(_decode(raw))
     except json.JSONDecodeError as exc:
-        raise ValueError(f"JSON inválido (linha {exc.lineno}, coluna {exc.colno}): {exc.msg}") from None
+        raise ValueError(
+            f"JSON inválido (linha {exc.lineno}, coluna {exc.colno}): {exc.msg}") from None
     return _as_records(data)
 
 
@@ -49,7 +50,8 @@ def _detect_delimiter(text: str) -> str:
 def parse_csv(raw: bytes | str) -> list[dict[str, str]]:
     text = _decode(raw)
     try:
-        reader = csv.DictReader(io.StringIO(text), delimiter=_detect_delimiter(text))
+        reader = csv.DictReader(io.StringIO(
+            text), delimiter=_detect_delimiter(text))
         if not reader.fieldnames:
             raise ValueError("CSV está vazio")
         if len(set(reader.fieldnames)) != len(reader.fieldnames):
@@ -57,7 +59,8 @@ def parse_csv(raw: bytes | str) -> list[dict[str, str]]:
         records = []
         for row in reader:
             if None in row or None in row.values():
-                raise ValueError(f"CSV inválido (linha {reader.line_num}): número de colunas diferente do cabeçalho")
+                raise ValueError(
+                    f"CSV inválido (linha {reader.line_num}): número de colunas diferente do cabeçalho")
             records.append(row)
     except csv.Error as exc:
         raise ValueError(f"CSV inválido: {exc}") from None
@@ -77,7 +80,8 @@ def parse_pasted_text_with_format(text: str) -> tuple[list[dict[str, Any]], bool
         try:
             return parse_csv(text), True
         except ValueError as csv_error:
-            raise (json_error if text.lstrip().startswith(("{", "[")) else csv_error) from None
+            raise (json_error if text.lstrip().startswith(
+                ("{", "[")) else csv_error) from None
 
 
 def parse_pasted_text(text: str) -> list[dict[str, Any]]:
@@ -119,7 +123,8 @@ def validate_input(records: list[dict[str, Any]], as_csv: bool = False) -> tuple
 
 
 def idempotency_key(data: Any) -> str:
-    canonical = json.dumps(data, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+    canonical = json.dumps(data, sort_keys=True,
+                           ensure_ascii=False, separators=(",", ":"))
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
 

@@ -1,5 +1,3 @@
-import requests
-
 from src.utils import http_client
 
 

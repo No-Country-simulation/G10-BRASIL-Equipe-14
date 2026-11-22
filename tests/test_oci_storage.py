@@ -38,11 +38,12 @@ def client():
 
 
 def _existing(client, name, sha):
-    client.list_objects.return_value.data.objects = [SimpleNamespace(name=name)]
+    client.list_objects.return_value.data.objects = [
+        SimpleNamespace(name=name)]
     client.head_object.return_value.headers = {"opc-meta-sha256": sha}
 
 
-def test_objeto_novo_grava_uma_vez(client):
+def test_new_object_writes_once(client):
     key = publish_package(_valid_payload(), week=WEEK, client=client)
 
     assert key.startswith(PREFIX)
@@ -53,9 +54,10 @@ def test_objeto_novo_grava_uma_vez(client):
     assert kwargs["if_none_match"] == "*"
 
 
-def test_mesmo_conteudo_nao_regrava(client):
+def test_same_content_does_not_rewrite(client):
     payload = _valid_payload()
-    _existing(client, ANTIGO, sha256_hex(payload))  # hash do conteúdo sem storage
+    # hash do conteúdo sem storage
+    _existing(client, ANTIGO, sha256_hex(payload))
 
     key = publish_package(copy.deepcopy(payload), week=WEEK, client=client)
 
@@ -63,7 +65,7 @@ def test_mesmo_conteudo_nao_regrava(client):
     assert key == ANTIGO
 
 
-def test_conteudo_diferente_grava_novo_objeto(client):
+def test_different_content_writes_new_object(client):
     _existing(client, ANTIGO, "sha-antigo")
 
     key = publish_package(_valid_payload(), week=WEEK, client=client)
@@ -73,7 +75,7 @@ def test_conteudo_diferente_grava_novo_objeto(client):
     assert client.put_object.call_args.args[2] == key
 
 
-def test_payload_invalido_nao_chama_cliente(client):
+def test_invalid_payload_does_not_call_client(client):
     payload = _valid_payload()
     del payload["package_id"]
 

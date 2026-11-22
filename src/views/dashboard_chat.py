@@ -14,8 +14,10 @@ def render_chat(frame, filters, loaded_at, quality):
         "scope": context["snapshot_id"], "session_id": str(uuid4()), "messages": [],
     })
     if state["scope"] != context["snapshot_id"]:
-        state.update(scope=context["snapshot_id"], session_id=str(uuid4()), messages=[])
-        st.info("Os filtros ou dados mudaram. Uma nova conversa foi iniciada para este recorte.")
+        state.update(scope=context["snapshot_id"],
+                     session_id=str(uuid4()), messages=[])
+        st.info(
+            "Os filtros ou dados mudaram. Uma nova conversa foi iniciada para este recorte.")
     if st.button("Limpar conversa", key="clear_sentiment_chat"):
         state.update(session_id=str(uuid4()), messages=[])
     conversation = st.container(key="sentiment_messages")
@@ -42,7 +44,8 @@ def render_chat(frame, filters, loaded_at, quality):
         with st.chat_message("assistant"):
             try:
                 with st.spinner("Analisando os dados…"):
-                    answer = ask_agent(question, state["messages"], context, state["session_id"])
+                    answer = ask_agent(
+                        question, state["messages"], context, state["session_id"])
             except ValueError as exc:
                 st.error(str(exc))
                 return

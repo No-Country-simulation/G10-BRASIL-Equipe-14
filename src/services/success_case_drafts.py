@@ -1,9 +1,9 @@
 """Rascunhos de caso de sucesso a partir do retorno do WF09."""
 
-import re
 from datetime import datetime, timezone
 
 from src.services.faq_drafts import DRAFTS_DIR, save_new_draft_package
+from src.utils.regex_patterns import EXECUTION_ID_RE
 
 
 def generate_success_case_from_triage(result, drafts_dir=DRAFTS_DIR):
@@ -17,8 +17,9 @@ def generate_success_case_from_triage(result, drafts_dir=DRAFTS_DIR):
     if len(eligible) != 1:
         return None
     execution_id = str(result.get("execution_id", ""))
-    if not re.fullmatch(r"[0-9]+", execution_id):
-        raise ValueError("O WF09 retornou um identificador de execução inválido.")
+    if not EXECUTION_ID_RE.fullmatch(execution_id):
+        raise ValueError(
+            "O WF09 retornou um identificador de execução inválido.")
     item = eligible[0]
     source_text = item["clean_text"].strip()
     if not source_text:
@@ -26,7 +27,8 @@ def generate_success_case_from_triage(result, drafts_dir=DRAFTS_DIR):
     batch_id = f"wf09-{execution_id}"
     stamp = datetime.fromisoformat(item["created_at"])
     if stamp.tzinfo is None:
-        raise ValueError("O WF09 deve fornecer a data da publicação com fuso horário.")
+        raise ValueError(
+            "O WF09 deve fornecer a data da publicação com fuso horário.")
     date = stamp.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
     editorial = item["editorial"]
     summary = editorial["summary"].strip() or source_text

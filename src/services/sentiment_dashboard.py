@@ -1,20 +1,20 @@
 """Leitura analítica do snapshot, sem modificar o banco ou reavaliar com IA."""
 
 import json
-import re
 from pathlib import Path
 
 import duckdb
 import pandas as pd
 
 from src.config import DATABASE_PATH, EDITORIALS, SENTIMENTS
+from src.utils.regex_patterns import NUMERIC_TIMESTAMP_RE, PROCESSED_THEME_RE
 
 
 def timestamp(value):
     if value is None:
         return pd.NaT
     try:
-        if re.fullmatch(r"\d+(\.\d+)?", str(value)):
+        if NUMERIC_TIMESTAMP_RE.fullmatch(str(value)):
             return pd.to_datetime(float(value), unit="s", utc=True)
         return pd.to_datetime(value, utc=True, errors="coerce")
     except (ValueError, OverflowError):
@@ -40,9 +40,10 @@ def normalize(payload, object_key, loaded_at):
     else:
         raise ValueError(f"Fonte não suportada no arquivo {object_key}")
     filename = str(object_key).replace("\\", "/").rsplit("/", 1)[-1]
-    theme = re.sub(r"^(processed_)?result_(mastodon|stackoverflow|hackernews)_", "", filename)
+    theme = PROCESSED_THEME_RE.sub("", filename)
     theme = theme.removesuffix(".json")
-    theme = {"artificialintelligence": "artificial-intelligence"}.get(theme, theme)
+    theme = {
+        "artificialintelligence": "artificial-intelligence"}.get(theme, theme)
     for index, unit in enumerate(units):
         editorial = unit.get("editorial") or {}
         if source == "mastodon":
@@ -59,7 +60,8 @@ def normalize(payload, object_key, loaded_at):
             date = answer_field(unit, "creation_date_answer")
             url = f"https://stackoverflow.com/a/{identity}" if identity else None
         instance = payload.get("source", "") if source == "mastodon" else ""
-        route = editorial.get("suggested_route") or payload.get("suggested_route")
+        route = editorial.get(
+            "suggested_route") or payload.get("suggested_route")
         route = "newsletter" if route == "newsletter_only" else route
         yield {
             "identity": f"{source}/{instance}/{identity}" if identity is not None else f"missing/{object_key}/{index}",
@@ -78,7 +80,8 @@ def normalize(payload, object_key, loaded_at):
 
 def load_snapshot(database: Path = DATABASE_PATH):
     if not database.is_file():
-        raise FileNotFoundError("O snapshot OCI ainda não foi carregado neste ambiente.")
+        raise FileNotFoundError(
+            "O snapshot OCI ainda não foi carregado neste ambiente.")
     with duckdb.connect(str(database), read_only=True) as connection:
         raw = connection.execute(
             "SELECT payload, object_key, loaded_at FROM processed_records ORDER BY object_key"
@@ -91,9 +94,11 @@ def load_snapshot(database: Path = DATABASE_PATH):
     frame = pd.DataFrame(rows)
     if frame.empty:
         return frame, {"records": 0, "duplicates": 0, "missing_ids": 0, "conflicts": 0}
-    conflicts = int((frame.groupby("identity")["sentiment"].nunique() > 1).sum())
+    conflicts = int((frame.groupby("identity")[
+                    "sentiment"].nunique() > 1).sum())
     # Mantém uma avaliação por interação e tema. O resumo global deduplica também entre temas.
-    frame = frame.sort_values(["loaded_at", "object_key"]).drop_duplicates(["identity", "theme"], keep="last")
+    frame = frame.sort_values(["loaded_at", "object_key"]).drop_duplicates(
+        ["identity", "theme"], keep="last")
     return frame, {
         "records": len(rows), "duplicates": len(rows) - frame.identity.nunique(),
         "missing_ids": int(frame.missing_id.sum()), "conflicts": conflicts,

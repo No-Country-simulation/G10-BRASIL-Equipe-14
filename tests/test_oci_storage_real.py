@@ -40,8 +40,9 @@ def client():
     return ObjectStorageClient(oci.config.from_file())
 
 
-def test_grava_em_tests_e_nao_toca_ativos(client):
-    key = publish_package(_payload(), week=WEEK, client=client, base_prefix="tests")
+def test_writes_to_tests_and_does_not_touch_assets(client):
+    key = publish_package(_payload(), week=WEEK,
+                          client=client, base_prefix="tests")
 
     assert key.startswith(f"tests/{WEEK}/")
     assert not key.startswith(OCI_ASSETS_PREFIX)
@@ -53,9 +54,11 @@ def test_grava_em_tests_e_nao_toca_ativos(client):
     assert saved["storage"]["object_path"] == key
 
 
-def test_segunda_chamada_com_mesmo_conteudo_nao_regrava(client):
+def test_second_call_with_same_content_does_not_rewrite(client):
     payload = _payload()
-    first = publish_package(payload, week=WEEK, client=client, base_prefix="tests")
-    second = publish_package(payload, week=WEEK, client=client, base_prefix="tests")
+    first = publish_package(
+        payload, week=WEEK, client=client, base_prefix="tests")
+    second = publish_package(
+        payload, week=WEEK, client=client, base_prefix="tests")
 
     assert second == first

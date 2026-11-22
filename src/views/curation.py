@@ -1,4 +1,3 @@
-import re
 from datetime import datetime
 
 import streamlit as st
@@ -18,6 +17,11 @@ from src.services.approved_packages import can_publish, publish_approved_package
 from src.services.faq_drafts import load_draft_packages, save_draft_review
 from src.services.output_packages import list_output_packages
 from src.services.curation_store import export_approved, load_reviews, save_review
+from src.utils.regex_patterns import (
+    EXTRA_NEWLINES_RE,
+    HASHTAG_TOKEN_RE,
+    HORIZONTAL_SPACING_RE,
+)
 
 
 def load_suggested_content() -> list[dict]:
@@ -52,7 +56,8 @@ def set_review(content: dict, status: str) -> None:
 
 
 def format_period(reference_period: str) -> str:
-    start, end = (datetime.fromisoformat(part) for part in reference_period.split("/"))
+    start, end = (datetime.fromisoformat(part)
+                  for part in reference_period.split("/"))
     return f"{start:%d/%m/%Y} → {end:%d/%m/%Y}"
 
 
@@ -61,13 +66,15 @@ def render_package_header(package: dict) -> None:
         st.caption("Lote")
         st.title(package["linked_batch_id"], anchor=False)
         ui.badges(
-            [PACKAGE_STATUS_BADGES[package["status"]], (package["package_id"], "outline")],
+            [PACKAGE_STATUS_BADGES[package["status"]],
+                (package["package_id"], "outline")],
             key=f"pkg_status_{package['package_id']}",
         )
 
 
 def render_reference_period(package: dict) -> None:
-    st.markdown(f"**Período de referência:** {format_period(package['reference_period'])}")
+    st.markdown(
+        f"**Período de referência:** {format_period(package['reference_period'])}")
 
 
 def render_feeling_card(feeling: str) -> None:
@@ -92,7 +99,8 @@ def render_processing_summary(package: dict) -> None:
     st.subheader("Resumo do processamento", anchor=False)
     col1, col2 = st.columns(2)
     with col1:
-        ui.metric_card(label="Interações processadas", value=str(total), key=f"ps_total_{pid}")
+        ui.metric_card(label="Interações processadas",
+                       value=str(total), key=f"ps_total_{pid}")
     with col2:
         render_feeling_card(summary["predominant_feeling"])
     st.markdown("**Interações por origem**")
@@ -106,7 +114,8 @@ def render_processing_summary(package: dict) -> None:
                 key=f"ps_source_{pid}_{source}",
             )
     st.markdown("**Principais tópicos**")
-    ui.badges([(topic, "secondary") for topic in summary["main_topics"]], key=f"ps_topics_{pid}")
+    ui.badges([(topic, "secondary")
+              for topic in summary["main_topics"]], key=f"ps_topics_{pid}")
 
 
 def render_content_badges(content: dict) -> None:
@@ -122,9 +131,11 @@ def render_content_badges(content: dict) -> None:
 def render_pending_content(content: dict) -> None:
     with st.container(border=True):
         render_content_badges(content)
-        content["body"] = st.text_area(content["title"], content["body"], key=f"body_{content['id']}", height=160)
+        content["body"] = st.text_area(
+            content["title"], content["body"], key=f"body_{content['id']}", height=160)
         with st.container(horizontal=True, gap="xsmall"):
-            ui.button("Aprovar", key=f"ok_{content['id']}", on_click=lambda c=content: set_review(c, "approved"))
+            ui.button("Aprovar", key=f"ok_{content['id']}", on_click=lambda c=content: set_review(
+                c, "approved"))
             ui.button(
                 "Rejeitar",
                 key=f"no_{content['id']}",
@@ -134,10 +145,10 @@ def render_pending_content(content: dict) -> None:
 
 
 def split_body(body: str) -> tuple[str, str]:
-    tags = " ".join(re.findall(r"(?<!\S)#\w+", body))
-    text = re.sub(r"(?<!\S)#\w+", "", body)
-    text = re.sub(r"[ \t]{2,}", " ", text)
-    return re.sub(r"\n{3,}", "\n\n", text).strip(), tags
+    tags = " ".join(HASHTAG_TOKEN_RE.findall(body))
+    text = HASHTAG_TOKEN_RE.sub("", body)
+    text = HORIZONTAL_SPACING_RE.sub(" ", text)
+    return EXTRA_NEWLINES_RE.sub("\n\n", text).strip(), tags
 
 
 def render_copyable_parts(content: dict) -> None:
@@ -168,7 +179,8 @@ def render_reviewed_content(content: dict) -> None:
 def render_suggested_content(package: dict) -> None:
     contents = package["suggested_content"]
     st.subheader("Conteúdos sugeridos", anchor=False)
-    counts = {status: sum(c["review_status"] == status for c in contents) for status in STATUSES_ENUM}
+    counts = {status: sum(c["review_status"] == status for c in contents)
+              for status in STATUSES_ENUM}
     status = ui.tabs(
         list(STATUSES_ENUM),
         value="pending",
@@ -178,7 +190,8 @@ def render_suggested_content(package: dict) -> None:
     )
     shown = [c for c in contents if c["review_status"] == status]
     if not shown:
-        st.info(f"Nenhum conteúdo {STATUSES_ENUM[status].lower()} neste pacote.")
+        st.info(
+            f"Nenhum conteúdo {STATUSES_ENUM[status].lower()} neste pacote.")
         return
     render = render_pending_content if status == "pending" else render_reviewed_content
     for content in shown:
@@ -198,7 +211,8 @@ def render_approved_upload(package: dict) -> None:
         try:
             key = publish_approved_package(package)
         except RequestException:
-            st.error("Não foi possível confirmar a gravação na OCI. Você pode tentar novamente.")
+            st.error(
+                "Não foi possível confirmar a gravação na OCI. Você pode tentar novamente.")
             return
         except ValueError as error:
             st.error(str(error))
@@ -210,13 +224,14 @@ def render_curation() -> None:
     st.header("Curadoria")
     if "packages" not in st.session_state:
         st.session_state["packages"] = load_suggested_content()
-    packages = {p["linked_batch_id"]: p for p in st.session_state["packages"] + load_draft_packages()}
+    packages = {p["linked_batch_id"]                : p for p in st.session_state["packages"] + load_draft_packages()}
     if not packages:
         st.info("Nenhum pacote disponível para curadoria.")
         return
     request = st.session_state.get("nav_request", {})
     requested_batch = request.get("batch")
-    default_batch = requested_batch if requested_batch in packages else next(iter(packages))
+    default_batch = requested_batch if requested_batch in packages else next(
+        iter(packages))
     batch_id = ui.tabs(
         list(packages),
         value=default_batch,

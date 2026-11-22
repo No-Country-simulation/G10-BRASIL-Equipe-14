@@ -1,14 +1,18 @@
 """Geração e curadoria local de rascunhos a partir da fila FAQ do WF10."""
 
 import json
-import re
 from datetime import datetime, timezone
 from html import unescape
 from html.parser import HTMLParser
 from pathlib import Path
 from tempfile import NamedTemporaryFile
-
-DRAFTS_DIR = Path("data/processed/curation")
+from src.config import DRAFTS_DIR
+from src.utils.regex_patterns import (
+    DRAFT_PACKAGE_RE,
+    EXECUTION_ID_RE,
+    QUEUE_EXECUTION_FILE_RE,
+    WHITESPACE_RE,
+)
 
 
 class _Paragraphs(HTMLParser):
@@ -53,9 +57,10 @@ def _paragraphs(html):
 
 def generate_faq_package(queue_file, drafts_dir=DRAFTS_DIR):
     queue_file = Path(queue_file)
-    match = re.search(r"_(\d+)\.json$", queue_file.name)
+    match = QUEUE_EXECUTION_FILE_RE.search(queue_file.name)
     if not match:
-        raise ValueError("O nome do arquivo da fila deve terminar com o ID da execução.")
+        raise ValueError(
+            "O nome do arquivo da fila deve terminar com o ID da execução.")
     rows = json.loads(queue_file.read_text(encoding="utf-8-sig"))
     if not isinstance(rows, list) or len(rows) != 1:
         raise ValueError("O piloto espera um item na fila FAQ.")
@@ -73,8 +78,9 @@ def generate_faq_from_triage(result, drafts_dir=DRAFTS_DIR):
     if len(items) != 1:
         return None
     execution_id = str(result.get("execution_id", ""))
-    if not re.fullmatch(r"[0-9]+", execution_id):
-        raise ValueError("O WF10 retornou um identificador de execução inválido.")
+    if not EXECUTION_ID_RE.fullmatch(execution_id):
+        raise ValueError(
+            "O WF10 retornou um identificador de execução inválido.")
     return _generate_package(items[0], execution_id, drafts_dir)
 
 
@@ -86,23 +92,29 @@ def _generate_package(item, execution_id, drafts_dir, queue_file=None):
 
     destination = item["routing"]["destination"] if queue_file else item["suggested_route"]
     if item["source"] != "stackoverflow" or destination != "faq":
-        raise ValueError("O piloto espera um item Stack Exchange roteado para FAQ.")
-    answers = [row for row in item["answers"] if str(row["answer_id"]) == str(item["answer_id"])]
+        raise ValueError(
+            "O piloto espera um item Stack Exchange roteado para FAQ.")
+    answers = [row for row in item["answers"] if str(
+        row["answer_id"]) == str(item["answer_id"])]
     if len(answers) != 1:
-        raise ValueError("O ID roteado deve identificar exatamente uma resposta na fila.")
+        raise ValueError(
+            "O ID roteado deve identificar exatamente uma resposta na fila.")
     answer = answers[0]
-    owners = [key.removeprefix("owner_answer_") for key in answer if key.startswith("owner_answer_")]
+    owners = [key.removeprefix("owner_answer_")
+              for key in answer if key.startswith("owner_answer_")]
     if len(owners) != 1:
         raise ValueError("O registro deve identificar o autor da resposta.")
     suffix = owners[0]
     paragraphs = _paragraphs(answer[f"body_answer_{suffix}"])
     if not paragraphs:
-        raise ValueError("A resposta precisa conter uma explicação para gerar os rascunhos.")
+        raise ValueError(
+            "A resposta precisa conter uma explicação para gerar os rascunhos.")
     author = answer[f"owner_answer_{suffix}"]["display_name"]
     link = answer[f"link_answer_{suffix}"]
     license_name = answer[f"content_license_answer_{suffix}"]
     attribution = f"Fonte: {author}, Stack Overflow. {link} | Licença: {license_name}."
-    stamp = datetime.fromtimestamp(answer[f"creation_date_answer_{suffix}"], timezone.utc)
+    stamp = datetime.fromtimestamp(
+        answer[f"creation_date_answer_{suffix}"], timezone.utc)
     iso_stamp = stamp.isoformat().replace("+00:00", "Z")
     feeling = {
         "Neutral": "neutral", "Happy": "positive", "Excited": "positive",
@@ -112,7 +124,7 @@ def _generate_package(item, execution_id, drafts_dir, queue_file=None):
     if not title:
         raise ValueError("A pergunta precisa ter um título.")
     faq_text = "\n\n".join(paragraphs)
-    excerpt = re.sub(r"\s+", " ", paragraphs[0])
+    excerpt = WHITESPACE_RE.sub(" ", paragraphs[0])
     if len(excerpt) > 320:
         excerpt = excerpt[:317].rsplit(" ", 1)[0] + "…"
     drafts = [
@@ -163,17 +175,18 @@ def load_draft_packages(drafts_dir=DRAFTS_DIR):
     return [
         json.loads(path.read_text(encoding="utf-8"))
         for path in sorted(drafts_dir.glob("wf*.json"))
-        if re.fullmatch(r"wf(?:09|10|11)-\d+", path.stem)
+        if DRAFT_PACKAGE_RE.fullmatch(path.stem)
     ]
 
 
 def save_draft_review(content, status, body, drafts_dir=DRAFTS_DIR):
     package_id = content["id"].split("_", 1)[0]
-    if not re.fullmatch(r"wf(?:09|10|11)-\d+", package_id):
+    if not DRAFT_PACKAGE_RE.fullmatch(package_id):
         raise ValueError("Identificador de pacote inválido.")
     path = drafts_dir / f"{package_id}.json"
     package = json.loads(path.read_text(encoding="utf-8"))
-    stored = next(item for item in package["suggested_content"] if item["id"] == content["id"])
+    stored = next(
+        item for item in package["suggested_content"] if item["id"] == content["id"])
     stored.update(body=body, review_status=status)
     with NamedTemporaryFile(mode="w", encoding="utf-8", dir=drafts_dir, delete=False) as temp:
         json.dump(package, temp, ensure_ascii=False, indent=2)

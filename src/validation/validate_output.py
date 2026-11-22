@@ -1,8 +1,8 @@
 """Valida o pacote de distribuição final contra data/schemas/output_schema.json.
 
 Uso (CI ou local):
-    python -m scripts.validate_output caminho/pacote.json
-    python -m scripts.validate_output --week 2026-W44      # busca o último pacote da semana no bucket
+    python -m src.validation.validate_output caminho/pacote.json
+    python -m src.validation.validate_output --week 2026-W44      # busca o último pacote da semana no bucket
 
 Códigos de saída: 0 = válido, 1 = inválido, 2 = erro de uso, arquivo ou bucket.
 """
@@ -41,18 +41,24 @@ def fetch_from_bucket(object_key: str, client=None, dest_dir: str | Path | None 
 def fetch_latest_pacote(week_label: str, client=None, dest_dir: str | Path | None = None) -> Path:
     """Baixa o pacote mais recente da semana (ex.: 2026-W44). Levanta FileNotFoundError se não houver."""
     client = client or ObjectStorageClient(oci.config.from_file())
-    found = _latest_pacote(client, OCI_BUCKET_NAME, f"{OCI_ASSETS_PREFIX}/{week_label}/")
+    found = _latest_pacote(client, OCI_BUCKET_NAME,
+                           f"{OCI_ASSETS_PREFIX}/{week_label}/")
     if found is None:
-        raise FileNotFoundError(f"Nenhum pacote no bucket para a semana {week_label}.")
+        raise FileNotFoundError(
+            f"Nenhum pacote no bucket para a semana {week_label}.")
     name, _sha = found
     return fetch_from_bucket(name, client=client, dest_dir=dest_dir)
 
 
 def _main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Valida o pacote de saída contra o output_schema.json.")
-    parser.add_argument("data", nargs="?", help="Caminho local do JSON do pacote a validar.")
-    parser.add_argument("--week", help="Semana no formato YYYY-Www: valida o último pacote do bucket.")
-    parser.add_argument("--schema", default=str(OUTPUT_SCHEMA_PATH), help="Schema de saída (padrão: output_schema.json).")
+    parser = argparse.ArgumentParser(
+        description="Valida o pacote de saída contra o output_schema.json.")
+    parser.add_argument("data", nargs="?",
+                        help="Caminho local do JSON do pacote a validar.")
+    parser.add_argument(
+        "--week", help="Semana no formato YYYY-Www: valida o último pacote do bucket.")
+    parser.add_argument("--schema", default=str(OUTPUT_SCHEMA_PATH),
+                        help="Schema de saída (padrão: output_schema.json).")
     args = parser.parse_args(argv)
 
     if bool(args.data) == bool(args.week):
@@ -65,7 +71,8 @@ def _main(argv: list[str] | None = None) -> int:
         else:
             data_path = Path(args.data)
             if not data_path.is_file():
-                print(f"Erro: arquivo não encontrado: {data_path}", file=sys.stderr)
+                print(
+                    f"Erro: arquivo não encontrado: {data_path}", file=sys.stderr)
                 return 2
         errors = validate_output(data_path, args.schema)
     except FileNotFoundError as exc:

@@ -33,6 +33,7 @@ def test_case_result_to_dict():
     assert d["retry_used"] is True
     assert d["token_usage"]["total_tokens"] == 30
 
+
 def test_merge_token_usage():
     """Valida a consolidação de tokens entre chamadas[cite: 12]."""
     t1 = {"prompt_tokens": 5, "completion_tokens": 5, "total_tokens": 10}

@@ -1,7 +1,6 @@
 import copy
 import json
 import sys
-from pathlib import Path
 
 from src.validation.schema_validator import (
     _main,

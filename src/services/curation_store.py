@@ -4,9 +4,7 @@ from pathlib import Path
 
 import duckdb
 
-from src.config import CURATION_DB_PATH, CURATION_EXPORT_DIR
-
-DB_PATH = CURATION_DB_PATH
+from src.config import CURATION_EXPORT_DIR, DB_PATH
 
 
 SCHEMA = """
@@ -55,17 +53,17 @@ def load_reviews() -> dict[str, dict]:
     DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     with duckdb.connect(str(DB_PATH)) as con:
         con.execute(SCHEMA)
-        rows = con.execute("SELECT content_id, status, body FROM curadoria").fetchall()
+        rows = con.execute(
+            "SELECT content_id, status, body FROM curadoria").fetchall()
     return {cid: {"review_status": status, "body": body} for cid, status, body in rows}
-    
- 
-    
-    
+
+
 def export_approved(package: dict, contents: list[dict]) -> Path:
     """Exporta só os aprovados no formato de suggested_content. Rejeitados não entram."""
     CURATION_EXPORT_DIR.mkdir(parents=True, exist_ok=True)
     now = datetime.now()
-    path = CURATION_EXPORT_DIR / f"pacote-{package['linked_batch_id']}-{now:%Y%m%d-%H%M%S}.json"
+    path = CURATION_EXPORT_DIR / \
+        f"pacote-{package['linked_batch_id']}-{now:%Y%m%d-%H%M%S}.json"
     payload = {
         "package_id": package["package_id"],
         "linked_batch_id": package["linked_batch_id"],
@@ -81,5 +79,6 @@ def export_approved(package: dict, contents: list[dict]) -> Path:
             if c["review_status"] == "approved"
         ],
     }
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    path.write_text(json.dumps(payload, ensure_ascii=False,
+                    indent=2), encoding="utf-8")
     return path

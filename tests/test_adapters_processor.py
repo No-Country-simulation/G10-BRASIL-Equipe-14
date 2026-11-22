@@ -1,5 +1,5 @@
 from unittest.mock import patch, MagicMock
-from src.pipeline.adapters_processor import execute_case, CaseResult
+from src.pipeline.adapters_processor import execute_case
 
 
 def test_execute_case_dry_run_returns_mock_output():

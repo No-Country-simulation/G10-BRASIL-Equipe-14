@@ -4,7 +4,7 @@ from types import SimpleNamespace
 import oci
 import pytest
 
-from scripts.validate_output import fetch_from_bucket, fetch_latest_pacote, validate_output
+from src.validation.validate_output import fetch_from_bucket, fetch_latest_pacote, validate_output
 from src.config import OCI_ASSETS_PREFIX
 from src.validation.schema_validator import load_json
 from src.config import OUTPUT_SCHEMA_PATH
@@ -46,7 +46,7 @@ def _obj(name):
     return SimpleNamespace(name=name)
 
 
-def test_fetch_from_bucket_grava_conteudo_e_usa_chave_certa(tmp_path):
+def test_fetch_from_bucket_writes_content_and_uses_correct_key(tmp_path):
     client = FakeClient(content=b'{"ok": true}')
 
     path = fetch_from_bucket(KEY, client=client, dest_dir=tmp_path)
@@ -56,14 +56,14 @@ def test_fetch_from_bucket_grava_conteudo_e_usa_chave_certa(tmp_path):
     assert client.requested_keys == [KEY]
 
 
-def test_fetch_from_bucket_propaga_erro_do_bucket(tmp_path):
+def test_fetch_from_bucket_propagates_bucket_error(tmp_path):
     client = FakeClient(get_error=_svc_error(404))
 
     with pytest.raises(oci.exceptions.ServiceError):
         fetch_from_bucket(KEY, client=client, dest_dir=tmp_path)
 
 
-def test_fetch_latest_pacote_baixa_o_mais_recente_da_semana(tmp_path):
+def test_fetch_latest_package_downloads_most_recent_in_week(tmp_path):
     client = FakeClient(
         objects=[_obj(f"{OCI_ASSETS_PREFIX}/2026-W44/pacote-distribuicao-20261026T100000000000Z.json"),
                  _obj(KEY)],
@@ -76,12 +76,12 @@ def test_fetch_latest_pacote_baixa_o_mais_recente_da_semana(tmp_path):
     assert validate_output(path) == []
 
 
-def test_fetch_latest_pacote_sem_pacote_levanta_file_not_found(tmp_path):
+def test_fetch_latest_package_missing_package_raises_file_not_found(tmp_path):
     with pytest.raises(FileNotFoundError):
         fetch_latest_pacote("2026-W45", client=FakeClient(), dest_dir=tmp_path)
 
 
-def test_fetch_latest_pacote_propaga_erro_de_listagem(tmp_path):
+def test_fetch_latest_package_propagates_listing_error(tmp_path):
     client = FakeClient(list_error=_svc_error(403))
 
     with pytest.raises(oci.exceptions.ServiceError):

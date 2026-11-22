@@ -26,6 +26,7 @@ def iso_week_label(d: date) -> str:
     year, week, _ = d.isocalendar()
     return f"{year}-W{week:02d}"
 
+
 def _load_schema() -> dict:
     return json.loads(Path(OUTPUT_SCHEMA_PATH).read_text(encoding="utf-8"))
 
@@ -40,12 +41,14 @@ def _latest_pacote(client, bucket: str, prefix: str):
     ).data.objects
     if not objects:
         return None
-    latest = max(objects, key=lambda o: o.name)  # timestamp de largura fixa ordena como texto
+    # timestamp de largura fixa ordena como texto
+    latest = max(objects, key=lambda o: o.name)
     head = client.head_object(
         OCI_NAMESPACE, bucket, latest.name,
         retry_strategy=oci.retry.DEFAULT_RETRY_STRATEGY,
     )
     return latest.name, head.headers.get("opc-meta-sha256")
+
 
 def publish_package(payload: dict, week: str | None = None, client=None,
                     base_prefix: str = OCI_ASSETS_PREFIX) -> str:
@@ -54,7 +57,8 @@ def publish_package(payload: dict, week: str | None = None, client=None,
     prefix = f"{base_prefix}/{week}/"
     key = f"{prefix}pacote-distribuicao-{now:%Y%m%dT%H%M%S%fZ}.json"
     # 1. preencher storage antes de validar, porque o schema exige o bloco
-    payload["storage"] = {"bucket": OCI_BUCKET_NAME, "object_path": key, "status": "success"}
+    payload["storage"] = {"bucket": OCI_BUCKET_NAME,
+                          "object_path": key, "status": "success"}
     errors = validate_data(payload, _load_schema())
     if errors:
         raise ValueError("Payload inválido:\n" + "\n".join(errors))
