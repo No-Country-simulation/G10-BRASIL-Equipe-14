@@ -13,11 +13,11 @@
 
 O WF11 avalia comentários do Hacker News coletados pelo WF07 e armazenados no bucket `communitylab-assets`. Identifica idioma, sentimento, intensidade e confiança, realiza avaliação editorial e encaminha candidatos para geração, revisão ou descarte. A publicação serve apenas de contexto; a unidade de avaliação é um comentário.
 
-O WF11 não consulta diretamente o Hacker News nem executa o WF07. O WF07 (`GSt04wCSnpgFwNgT`) foi consultado no n8n em 11/11/2026: versão `dc03f81e-a945-4226-9066-705e7353ec74`, ativa e publicada, idêntica ao rascunho. O export local foi atualizado para essa mesma versão e contém o acesso opcional do filtro publicado. A configuração do WF11 permanece baseada na avaliação anterior. Foi consultada a execução existente `10431` do WF07, sem disparar novas execuções nesta revisão.
+WF07 e WF11 são chamados separadamente. O WF07 grava os dados na OCI para o WF11. Esta seção descreve os exports locais.
 
 ### Coleta no WF07
 
-O [WF07](../../n8n/workflows/wf07_coleta-hackernews.json) pesquisa em `https://hn.algolia.com/api/v1/search`, separa `hits` e retém resultados com o objeto `_highlightResult.story_text` existente e não vazio. O filtro publicado usa acesso opcional, conforme a seção 2. Consulta cada publicação e seus comentários diretos (`kids`) em `https://hacker-news.firebaseio.com/v0/item/<id>.json`.
+O [WF07](../../n8n/workflows/wf07_coleta-hackernews.json) busca no Algolia, separa `hits` e retém resultados cujo `objectID` representa um inteiro positivo. Consulta publicações e comentários diretos (`kids`) na Firebase.
 
 `Merge` combina `pub_story_id` com `comment_parent`, em `enrichInput1`, preservando campos `pub_*` e acrescentando `comment_*` quando há correspondência. Não agrupa comentários em array por publicação nem percorre `comment_kids`. `Prepare comments` limita os IDs de `kids` antes das consultas. `pub_maxComments` registra o total de comentários diretos indicado por `kids`, não a quantidade efetivamente coletada. Os campos `pub_depth` permanecem como metadados, sem recursão.
 
@@ -25,7 +25,7 @@ O JSON é enviado a `communitylab-assets`, em `raw/hackernews_<tema>.json`. O te
 
 ### Entrada do WF11
 
-`Define Search Parameters` fixa `source = hackernews`, `file_type = .json` e `tag = artificial intelligence`. A listagem usa `raw/`; o filtro exige prefixo `raw/hackernews` e sufixo `artificialintelligence.json`, sem diferenciar maiúsculas de minúsculas. Não há escolha explícita do arquivo mais recente.
+WF11 fixa `source = hackernews` e `file_type = .json`. Usa a tag do POST para selecionar a chave em `raw/`. Na execução manual, usa `langsmith`.
 
 Após download e extração JSON, `Split Out` separa `data`. `Filter Comments` exige que `comment_text` exista e não esteja vazio. Não há filtro explícito por `deleted`, `dead` ou tipo de comentário. `Map HackerNews Fields` constrói:
 
@@ -62,27 +62,18 @@ $response = Invoke-RestMethod `
     -Method POST `
     -Headers $headers `
     -ContentType 'application/json; charset=utf-8' `
-    -Body '{}' `
+    -Body '{"tag":"artificialintelligence","limit":5}' `
     -TimeoutSec 300 `
     -ErrorAction Stop
 
 $response | ConvertTo-Json -Depth 20
 ```
 
-O corpo não controla tema, lote ou limite. O nome de cabeçalho acima segue a documentação local da credencial compartilhada; o export do WF11 só contém a referência à credencial, sem nome ou valor do cabeçalho. Confirme-o na configuração do n8n e defina o segredo no ambiente.
+Envie `tag` como string não vazia e `limit` como inteiro positivo no corpo. O fluxo responde HTTP 400 quando esses parâmetros são inválidos.
 
 ### Resposta de sucesso configurada — WF11
 
-HTTP `200`:
-
-```json
-{
-  "status": "success",
-  "message": "Análise de sentimento feito e arquivo disponibilizado no bucket OCI."
-}
-```
-
-A mensagem também cobre uma execução com avaliação editorial e roteamento, sem informar quantidades ou chaves dos arquivos. Timeout do cliente não comprova ausência de uploads; verificar a execução antes de repetir.
+HTTP 200 com `success`, `status`, `source`, `tag`, `execution_id`, `count`, `items` e `storage`. O campo `storage.object_path` identifica o arquivo principal na OCI.
 
 ### Endpoint de coleta — WF07
 
@@ -125,21 +116,7 @@ Os parâmetros opcionais usam precedência corpo, URL e raiz. Os limites convert
 
 `Split Out Hits` e `Filter` usam `Always Output Data`. `Has Eligible Publication` verifica a presença de `objectID`: true segue para `Limit` e consulta; false responde sem upload.
 
-#### Revisão do filtro publicado — 11/11/2026
-
-As duas condições de `Filter` usam Object, operadores `exists` e `notEmpty`, combinador AND e validação estrita. Ambas usam a expressão abaixo no JSON exportado, com somente um `=` inicial:
-
-```javascript
-={{ $json._highlightResult?.story_text }}
-```
-
-No editor de expressões, o conteúdo é `{{ $json._highlightResult?.story_text }}`. O `=` extra foi removido, e Object corresponde ao objeto de destaque retornado pela Algolia. O acesso opcional evita acessar `story_text` sobre `_highlightResult` ausente. `Always Output Data` permanece ativado no filtro.
-
-A execução manual `10431`, de 11/11/2026 às 17:35 (America/Sao_Paulo), terminou com sucesso em `Convert to File`. A saída aprovada do filtro contém os IDs `50068036` e `50152302`, ambos com objeto `story_text`; a saída rejeitada inclui publicações sem esse campo. Os dois itens aprovados seguiram pelo ramo true de `Has Eligible Publication`. Isso confirma a seleção observada após a correção, mas a execução foi parcial: não comprova upload nem resposta HTTP.
-
-A validação é do objeto, não do texto em `story_text.value`: um objeto com metadados e `value` vazio pode satisfazer `notEmpty`. Não é necessário mudar para String para verificar a existência de um objeto de destaque não vazio. Uma exigência de texto não vazio precisaria de uma condição específica sobre `.value`.
-
-Permanece pendente validar uma busca sem hits ou com todos os hits rejeitados, para comprovar o caminho de resposta sem upload; a execução consultada não cobre esses casos nem o objeto vazio. O arquivo local já foi sincronizado com a versão publicada consultada.
+O filtro atual valida `objectID` com `/^[1-9]\d*$/` e mantém `Always Output Data` ativo.
 
 Respostas configuradas do WF07:
 
@@ -155,7 +132,7 @@ Busca Algolia e upload têm repetição em falha habilitada, intervalo de 3 segu
 
 ## 3. Limite de publicações e operação em produção
 
-O nó `Limit` do WF11 usa **`Max Items = 5`**, depois do filtro de comentários e mapeamento, antes do agente. Limita itens de comentário, não cinco publicações distintas. Não limita downloads, coleta do WF07 ou comentários consultados na Firebase. Não há ordenação ou amostragem explícita antes do limite; o webhook não permite alterá-lo.
+O nó `Limit` usa o `limit` do POST ou 5 na execução manual. Atua sobre itens de comentário depois do filtro e mapeamento, antes do agente.
 
 ## 4. Modelos de linguagem
 
@@ -593,11 +570,11 @@ Os oito uploads estão ligados a entradas distintas de `Merge`, configurado com 
 ## 10. Limitações do MVP
 
 - WF07 sem paginação ou recursão; limites de publicações e comentários são aplicados somente após a busca Algolia.
-- O filtro publicado usa Object e acesso opcional, sem o `=` extra. Valida o objeto `story_text`, sem exigir texto não vazio em `.value`. A seleção foi observada na execução parcial `10431`; o caminho sem hits ou sem itens aprovados ainda precisa de validação.
+- O filtro mantém resultados com `objectID` inteiro positivo.
 - `kids` ausente é tratado sem acesso inseguro a `.length`, mas a continuidade de `Split Out comments` e `Merge` quando não há comentários ainda precisa de validação. Falhas Firebase não têm resposta personalizada.
 - O nome sanitizado pode ficar sem tema para entradas compostas somente por caracteres removidos pela expressão. Arquivos da mesma chave continuam sujeitos a sobrescrita.
-- WF11 usa tag fixa, até cinco itens de comentário por execução do `Limit`, sem seleção de lote pelo corpo, deduplicação ou marcação dos brutos como processados.
+- WF11 aceita seleção de tag e limite no POST. Os brutos podem ser reavaliados em novas chamadas.
 - Não há limpeza HTML antes do agente; o conteúdo dos links não é consultado. O agente deve tratar todos os valores como dados não confiáveis e não pode alegar verificação técnica.
-- WF11 não possui contrato de erro personalizado para extração, parser, modelo, validação ou upload. O fallback de modelo não é tratamento geral de erros, e o fallback do switch só cobre rotas sem correspondência.
+- WF11 responde HTTP 400 para entrada inválida e HTTP 502 pelas saídas de erro configuradas para classificação ou persistência. O fallback do switch cobre rotas sem correspondência.
 - A configuração dos merges não substitui validação em execução de cardinalidade, preservação dos vínculos e ramos vazios. Nenhuma nova execução externa foi disparada nesta avaliação; a consulta à execução existente do WF07 não valida os merges do WF11.
 - Avaliação editorial e confiança do modelo estão sujeitas a erro. `pending_generation` indica candidato para etapa posterior; curadoria humana permanece necessária antes de publicar.

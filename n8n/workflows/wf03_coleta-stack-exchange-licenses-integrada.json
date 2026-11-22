@@ -6,8 +6,8 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -80,
-        -16
+        -352,
+        256
       ],
       "id": "93bbf0d0-9b4c-4489-89d8-e4442add09f1",
       "name": "When clicking ‘Execute workflow’"
@@ -57,6 +57,10 @@
             }
           ]
         },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": []
+        },
         "options": {
           "pagination": {
             "pagination": {
@@ -77,8 +81,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.5,
       "position": [
-        816,
-        -208
+        992,
+        272
       ],
       "id": "993b3060-9ea2-4869-a601-1c18df87585f",
       "name": "HTTP Request",
@@ -93,24 +97,25 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        1040,
-        -208
+        1216,
+        272
       ],
       "id": "0d5781da-ec1d-42de-b0f1-59a305671971",
-      "name": "Split Out"
+      "name": "Split Out",
+      "alwaysOutputData": true
     },
     {
       "parameters": {
         "operation": "upload",
         "bucketName": "communitylab-assets",
-        "fileName": "={{ $binary.data.fileName }}",
+        "fileName": "={{ \"collected/\" + $binary.data.fileName }}",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.s3",
       "typeVersion": 1,
       "position": [
-        1936,
-        -208
+        2112,
+        304
       ],
       "id": "07b3d64f-fa01-437a-a736-351f81db8e51",
       "name": "Upload a file",
@@ -130,7 +135,7 @@
             {
               "id": "57af477e-861d-4b4c-87c8-cb11b08936a0",
               "name": "=tagged",
-              "value": "={{ $json.body?.tagged ?? 'artificial-intelligence' }}",
+              "value": "={{ $prevNode.name === 'Get Tag'\n    ? $json.tag\n    : ($json.body?.tagged ?? 'langsmith') }}",
               "type": "string"
             },
             {
@@ -158,8 +163,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.5,
       "position": [
-        144,
-        -112
+        96,
+        368
       ],
       "id": "47e43fe8-97e6-4520-ab45-739979974a46",
       "name": "Definir Parâmetros de Busca"
@@ -175,8 +180,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        -80,
-        -208
+        -128,
+        448
       ],
       "id": "a5a2c63e-330f-49cf-a16d-ecb3807f2234",
       "name": "Webhook",
@@ -199,8 +204,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        2160,
-        -208
+        992,
+        80
       ],
       "id": "2df04ed3-167c-4dbd-867f-0add21d9bba1",
       "name": "Respond to Webhook"
@@ -212,8 +217,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        368,
-        -112
+        320,
+        368
       ],
       "id": "ff463f54-560e-4b06-97c5-9373d33cca2f",
       "name": "Validar Parâmetros de Busca"
@@ -246,8 +251,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        592,
-        -112
+        544,
+        368
       ],
       "id": "9e156c1e-4571-4d52-8eee-b4f42b70c07c",
       "name": "Parâmetros Válidos?"
@@ -263,11 +268,79 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        816,
-        -16
+        768,
+        448
       ],
       "id": "7d7c8837-373d-4b0c-b2c2-38342cd0df6d",
       "name": "Responder Erro de Validação"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst sanitized = [];\nlet rejected = 0;\n\nfor (const item of items) {\n  const q = item.json;\n  const sourceId = String(q.source_id ?? '').trim();\n\n  if (!sourceId) {\n    rejected++;\n    continue;\n  }\n\n  const licenseQuestion =\n    typeof q.content_license_question === 'string'\n      ? q.content_license_question.trim() || null\n      : null;\n\n  sanitized.push({\n    source_id: sourceId,\n    content_license_question: licenseQuestion,\n  });\n}\n\nconsole.log(\n  `Registros preservados: ${sanitized.length}; rejeitados: ${rejected}.`\n);\n\n// Sempre retorna um item para permitir a geração do arquivo.\n// Quando não existem registros válidos, o conteúdo será [].\nconst conteudo = JSON.stringify(sanitized, null, 2);\n\nreturn [{\n  json: {\n    conteudoBase64: Buffer.from(conteudo, 'utf8').toString('base64'),\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1664,
+        272
+      ],
+      "id": "b12ef254-3859-46cd-b679-e8963ddcf002",
+      "name": "Sanitizar e Validar Licencas"
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "conteudoBase64",
+        "options": {
+          "fileName": "={{ \"sample_\"\n   + $('Loop Over Items').first(1, $runIndex).json.site\n   + \"-licenses_\"\n   + $('Loop Over Items').first(1, $runIndex).json.tagged\n   + \".json\" }}",
+          "mimeType": "application/json"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1888,
+        272
+      ],
+      "id": "a59754b4-a425-4f03-b2dc-a18562912c17",
+      "name": "Gerar JSON de Licencas"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        768,
+        256
+      ],
+      "id": "58d77d08-b2a8-4652-9e1a-d58303616a72",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "w0KGwztYZwHjyYtu",
+          "mode": "list",
+          "cachedResultName": "social_topic",
+          "cachedResultUrl": "/projects/PV5HpBB1ukWLMwz1/datatables/w0KGwztYZwHjyYtu"
+        },
+        "returnAll": true,
+        "orderBy": true,
+        "orderByColumn": "id",
+        "orderByDirection": "ASC"
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        -128,
+        256
+      ],
+      "id": "34ca1f14-2d93-4f79-a737-8d2518cd8f0f",
+      "name": "Get Tag"
     },
     {
       "parameters": {
@@ -292,41 +365,27 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.5,
       "position": [
-        1264,
-        -208
+        1440,
+        272
       ],
-      "id": "35126827-4b2b-4866-9fde-3552426a9552",
+      "id": "0426569c-ba26-49de-8474-f1db6bf0947d",
       "name": "Padronizar Licencas"
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all();\nconst sanitized = [];\nlet rejected = 0;\n\nfor (const item of items) {\n  const q = item.json;\n  const sourceId = String(q.source_id ?? '').trim();\n\n  if (!sourceId) {\n    rejected++;\n    continue;\n  }\n\n  const license_question =\n    typeof q.content_license_question === 'string'\n      ? q.content_license_question.trim() || null\n      : null;\n\n  sanitized.push({\n    json: {\n      source_id: sourceId,\n      content_license_question: license_question,\n    },\n  });\n}\n\nconsole.log(\n  `Registros preservados: ${sanitized.length}; rejeitados por falta de source_id: ${rejected}.`\n);\n\nreturn sanitized;"
+        "content": "# Não publicar \nNão publicar esse workflow para manter a versão que está validada para o Hackathon.",
+        "height": 128,
+        "width": 336,
+        "color": 3
       },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
+      "type": "n8n-nodes-base.stickyNote",
       "position": [
-        1488,
-        -208
+        1312,
+        32
       ],
-      "id": "b12ef254-3859-46cd-b679-e8963ddcf002",
-      "name": "Sanitizar e Validar Licencas"
-    },
-    {
-      "parameters": {
-        "operation": "toJson",
-        "options": {
-          "format": true,
-          "fileName": "={{ \"sample_\" + $('Definir Parâmetros de Busca').item.json.site + \"-questions-licenses_\" + $('Definir Parâmetros de Busca').item.json.tagged + \".json\" }}"
-        }
-      },
-      "type": "n8n-nodes-base.convertToFile",
-      "typeVersion": 1.1,
-      "position": [
-        1712,
-        -208
-      ],
-      "id": "a59754b4-a425-4f03-b2dc-a18562912c17",
-      "name": "Gerar JSON de Licencas"
+      "typeVersion": 1,
+      "id": "dacac6c9-2e12-4dc4-b72d-95e07e961073",
+      "name": "Sticky Note"
     }
   ],
   "pinData": {},
@@ -335,7 +394,7 @@
       "main": [
         [
           {
-            "node": "Definir Parâmetros de Busca",
+            "node": "Get Tag",
             "type": "main",
             "index": 0
           }
@@ -390,7 +449,7 @@
       "main": [
         [
           {
-            "node": "Respond to Webhook",
+            "node": "Loop Over Items",
             "type": "main",
             "index": 0
           }
@@ -412,7 +471,7 @@
       "main": [
         [
           {
-            "node": "HTTP Request",
+            "node": "Loop Over Items",
             "type": "main",
             "index": 0
           }
@@ -420,17 +479,6 @@
         [
           {
             "node": "Responder Erro de Validação",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Padronizar Licencas": {
-      "main": [
-        [
-          {
-            "node": "Sanitizar e Validar Licencas",
             "type": "main",
             "index": 0
           }
@@ -458,6 +506,46 @@
           }
         ]
       ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Tag": {
+      "main": [
+        [
+          {
+            "node": "Definir Parâmetros de Busca",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Padronizar Licencas": {
+      "main": [
+        [
+          {
+            "node": "Sanitizar e Validar Licencas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
@@ -466,10 +554,10 @@
     "binaryMode": "separate",
     "timeSavedMode": "fixed",
     "callerPolicy": "workflowsFromSameOwner",
-    "availableInMCP": false,
+    "availableInMCP": true,
     "timezone": "America/Sao_Paulo"
   },
-  "versionId": "e6372aab-b554-480d-9b8f-07a793023c0f",
+  "versionId": "9b0c4237-a407-41d5-aad6-f7392d04cb92",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"

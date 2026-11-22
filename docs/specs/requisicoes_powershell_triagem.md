@@ -13,8 +13,8 @@ $headers = @{
 }
 
 $body = @{
-    source = "mastodon"
-    message = "Teste de invocação do workflow WF09."
+    tag   = "artificialintelligence"
+    limit = 5
 } | ConvertTo-Json -Depth 10
 
 $response = Invoke-RestMethod `
@@ -32,7 +32,7 @@ $response | ConvertTo-Json -Depth 20
 Triagem de cada resposta aos questionamentos publicados no `source`.
 
 ```powershell
-$webhookUrl = "https://bot.rsa.ia.br/webhook/wf10_triagem-llm-router_stackoverflow"
+$webhookUrl = "https://bot.rsa.ia.br/webhook/wf10_triagem-llm-router_stackexchange"
 
 $headers = @{
     "Content-Type" = "application/json"
@@ -40,8 +40,8 @@ $headers = @{
 }
 
 $body = @{
-    source = "stackoverflow"
-    file_type = ".json"
+    tag   = "langsmith"
+    limit = 1
 } | ConvertTo-Json -Depth 10
 
 $response = Invoke-RestMethod `

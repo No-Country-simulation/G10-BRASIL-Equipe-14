@@ -43,7 +43,7 @@
       "parameters": {
         "operation": "upload",
         "bucketName": "communitylab-assets",
-        "fileName": "={{ $binary.data.fileName }}",
+        "fileName": "={{ 'raw/' + $binary.data.fileName }}",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.s3",
@@ -69,7 +69,7 @@
         "operation": "toJson",
         "options": {
           "format": true,
-          "fileName": "={{ 'sample_mastodon-' + $('Prepare Search Parameter').first().json.tag + '.json'}}"
+          "fileName": "={{ 'mastodon_' + $('Prepare Search Parameter').first().json.tag + '.json'}}"
         }
       },
       "type": "n8n-nodes-base.convertToFile",
@@ -85,6 +85,7 @@
       "parameters": {
         "httpMethod": "POST",
         "path": "wf06-coleta-mastodon",
+        "authentication": "headerAuth",
         "responseMode": "responseNode",
         "options": {}
       },
@@ -96,7 +97,13 @@
       ],
       "id": "b26919f2-de38-4ba6-8d6d-0c69e85047cc",
       "name": "Webhook",
-      "webhookId": "69484af8-4268-413c-8165-b5f7e607f2db"
+      "webhookId": "69484af8-4268-413c-8165-b5f7e607f2db",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "QNmmh3RzZbp9CXSq",
+          "name": "Hackathon CommunityLab"
+        }
+      }
     },
     {
       "parameters": {
@@ -231,7 +238,7 @@
             {
               "id": "8b6b3d0b-92a6-4873-a1f2-bf450a2e9110",
               "name": "tag",
-              "value": "={{ $json.body?.tag || 'artificialintelligence' }}",
+              "value": "={{ $json.body?.tag || 'langsmith' }}",
               "type": "string"
             }
           ]
@@ -498,9 +505,12 @@
   "active": true,
   "settings": {
     "executionOrder": "v1",
-    "binaryMode": "separate"
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": true
   },
-  "versionId": "ddeaa4e4-e9d4-42be-9835-adc1165b1659",
+  "versionId": "221c479a-4ac6-4d0d-b659-06e4397f4d5a",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
