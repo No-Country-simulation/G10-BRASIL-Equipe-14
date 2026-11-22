@@ -50,7 +50,7 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 ## 3. Arquitetura
 
 <p align="center">
-  <img src="./docs/assets/pipeline-architecture-v2.gif" alt="Arquitetura conceitual do pipeline multicanal" width=100% />
+  <img src="./docs/assets/pipeline-architecture-v2.gif" alt="Arquitetura conceitual do pipeline multicanal" width=100% /> 
   <br>
   <em>Fig. 01 - Arquitetura do pipeline multicanal</em>
 </p>
@@ -60,7 +60,7 @@ Desenvolver um MVP funcional capaz de ingerir dados de comunidades, orquestrar t
 | **Entradas** | APIs REST, JSON e CSV | Coleta dados das APIs de Stack Exchange, Mastodon e Hacker News e aceita conteúdo manual pela interface. | Normaliza múltiplas fontes sem acoplar a interface aos provedores externos. |
 | **Orquestração** | **n8n** (Docker Compose) | Executa coletores, merges, triagem, roteamento, adaptação editorial e download do bucket. | Orquestração visual self-hosted, versionada como workflows JSON em `n8n/workflows/`. |
 | **Interface e Curadoria** | **Streamlit** + Python 3.11 | Exibe dashboards, processa ingestão, registra revisões HITL e exporta JSON aprovado. | Permite operação interna sem desenvolver uma aplicação web separada. |
-| **Engenharia de Dados** | **DuckDB** + JSON Schema | Gera snapshots analíticos, consulta dados processados do OCI e persiste o estado da curadoria. | Processamento local rápido e persistência. |
+| **Engenharia de Dados** | **DuckDB** + JSON Schema | Mantém o snapshot consolidado `communitylab_oci.duckdb`, o banco `curadoria.duckdb` das revisões humanas e dados processados locais. | Processamento local rápido e separação entre dados analíticos e estado da curadoria. |
 | **Motor de LLM** | **Google Gemini / Groq / Nvidia API / Open Router** | Extrai sentimento, tópicos, relevância e sugere a classificação editorial. | APIs gratuitas ou de baixo custo podem ser escolhidas sem alterar o contrato do projeto. |
 | **Persistência** | **OCI Object Storage** | Guarda dados brutos, processados e pacotes aprovados em pastas estruturadas. | Mantém os artefatos disponíveis para n8n e Streamlit dentro da cota OCI Always Free. |
 

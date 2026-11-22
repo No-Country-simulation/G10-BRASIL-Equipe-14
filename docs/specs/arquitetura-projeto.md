@@ -49,10 +49,9 @@ A arquitetura orienta-se por cinco princípios fundamentais:
 
 O diagrama abaixo representa a implementação atual da arquitetura do pipeline do projeto.
 
-![Diagrama de Arquitetura](/docs/assets/pipeline-architecture-v2.gif)
+![Diagrama de Arquitetura](/docs/assets/pipeline-architecture-v2.png) 
 
-<p align=center>Fig. 01 - Arquitetura do pipeline multicanal</p>
-
+<p align= center>Fig. 01 - Arquitetura do pipeline multicanal</p>
 
 ---
 
@@ -61,9 +60,9 @@ O diagrama abaixo representa a implementação atual da arquitetura do pipeline 
 | Camada | Tecnologia / Ferramenta | Responsabilidade Técnica | Justificativa Arquitetural |
 | --- | --- | --- | --- |
 | **Entradas** | APIs REST, JSON e CSV | Coleta dados das APIs de Stack Exchange, Mastodon e Hacker News e aceita conteúdo manual pela interface. | Normaliza múltiplas fontes sem acoplar a interface aos provedores externos. |
-| **Orquestração** | **n8n** (Docker Compose) | Executa coletores, merges, triagem, roteamento, adaptação editorial e download do bucket. | Orquestração visual self-hosted, versionada como workflows JSON em `n8n/workflows/`. |
+| **Orquestração** | **n8n** | Executa coletores, merges, triagem, roteamento, adaptação editorial e download do bucket. | Orquestração visual self-hosted, versionada como workflows JSON em `n8n/workflows/`. |
 | **Interface e Curadoria** | **Streamlit** + Python 3.11 | Exibe dashboards, processa ingestão, registra revisões HITL e exporta JSON aprovado. | Permite operação interna sem desenvolver uma aplicação web separada. |
-| **Engenharia de Dados** | **DuckDB** + JSON Schema | Gera snapshots analíticos, consulta dados processados do OCI e persiste o estado da curadoria. | Processamento local rápido e persistência. |
+| **Engenharia de Dados** | **DuckDB** + JSON Schema | Mantém o snapshot consolidado `communitylab_oci.duckdb`, o banco `curadoria.duckdb` das revisões humanas e dados processados locais. | Processamento local rápido e separação entre dados analíticos e estado da curadoria. |
 | **Motor de LLM** | **Google Gemini / Groq / Nvidia API / Open Router** | Extrai sentimento, tópicos, relevância e sugere a classificação editorial. | APIs gratuitas ou de baixo custo podem ser escolhidas sem alterar o contrato do projeto. |
 | **Persistência** | **OCI Object Storage** | Guarda dados brutos, processados e pacotes aprovados em pastas estruturadas. | Mantém os artefatos disponíveis para n8n e Streamlit dentro da cota OCI Always Free. |
 
@@ -106,16 +105,19 @@ OCI Object Storage - pacote aprovado e distribuível
 
 1. Os workflows do n8n normalizam e agrupam os registros coletados.
 
-2. O Streamlit usa DuckDB para:
+2. O Streamlit usa diferentes bancos DuckDB para finalidades distintas:
+    * `communitylab_oci.duckdb`: snapshot consolidado usado pelo dashboard de sentimentos e pelo chat, atualizado a partir dos JSONs processados da OCI.
+    * `curadoria.duckdb`: estado das revisões humanas, com aprovações, rejeições e textos editados.
+    * `duckdb_ui.duckdb`: banco auxiliar usado pela interface opcional do DuckDB UI.
     * Ler JSON processados da pasta local `data/processed/` ou diretamente do OCI via compatibilidade S3.
     * Criar uma view analítica unificada dos campos normalizados.
-    * Persistir separadamente as revisões humanas em `data/curation.duckdb`.
+    * Persistir separadamente as revisões humanas em `data/curadoria.duckdb`.
 
 3. O lote processado é persistido em `data/processed/` e pode ser enviado ao OCI Object Storage.
 
 ### 4.3. Estágio 3: Enriquecimento Cognitivo e Roteamento (LLM Engine)
 
-1. O lote higienizado alimenta os prompts estruturados no motor de LLM (Google Gemini Flash, com fallback para Groq).
+1. O lote higienizado alimenta os prompts estruturados no motor de LLM.
 
 2. O modelo extrai sentimentos, tópicos e calcula um score de relevância.
 
