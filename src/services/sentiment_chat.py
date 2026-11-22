@@ -38,6 +38,30 @@ def build_context(frame, filters, loaded_at, quality):
             }
         return result
 
+    def theme_score(data, column, maximum):
+        raw = data[column] if column in data else pd.Series(index=data.index, dtype=float)
+        values = pd.to_numeric(raw, errors="coerce")
+        valid = values.between(0, maximum) & ~raw.map(lambda value: isinstance(value, bool))
+        if column == "relevance":
+            valid &= values.mod(1).eq(0)
+        values = values[valid]
+        return {
+            "count": len(values),
+            "missing_or_invalid_count": len(data) - len(values),
+            "mean": float(values.mean()) if len(values) else None,
+        }
+
+    theme_interactions = frame.drop_duplicates(["theme", "identity"], keep="last")
+    scores_by_theme = [
+        {
+            "theme": str(theme),
+            "unique_interactions": len(group),
+            "confidence": theme_score(group, "confidence", 1),
+            "relevance_score": theme_score(group, "relevance", 100),
+        }
+        for theme, group in theme_interactions.groupby("theme", sort=True)
+    ]
+
     topics = frame.explode("topics").dropna(subset=["topics"]).drop_duplicates(["identity", "topics"])
     metrics = {
         "unique_interactions": len(unique),
@@ -47,6 +71,7 @@ def build_context(frame, filters, loaded_at, quality):
         "theme_counts": counts(frame, "theme"),
         "needs_review_count": int(unique.needs_review.eq(True).sum()),
         "assessment_scores": score_summary(unique),
+        "assessment_scores_by_theme": scores_by_theme,
         "assessment_score_definitions": {
             "strength": "Intensidade do sentimento atribuída pelo agente, de 0 a 1; não indica sentimento positivo ou negativo.",
             "confidence": "Confiança atribuída pelo agente à classificação de sentimento, de 0 a 1; não é uma probabilidade de acerto calibrada.",

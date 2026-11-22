@@ -57,6 +57,7 @@ data/staging/*
 !data/staging/.gitkeep
 data/temp/*
 !data/temp/.gitkeep
+!data/raw/raw_stackoverflow_artificialintelligence.json
 
 # Testes e Qualidade de Código
 .pytest_cache/

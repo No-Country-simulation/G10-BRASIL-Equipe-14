@@ -4,8 +4,7 @@ COPY --from=ghcr.io/astral-sh/uv:0.5 /uv /usr/local/bin/uv
 
 ARG TIMEZONE=America/Sao_Paulo
 
-ENV UV_COMPILE_BYTECODE=1 \
-    UV_LINK_MODE=copy \
+ENV UV_LINK_MODE=copy \
     PYTHONUNBUFFERED=1 \
     TZ=${TIMEZONE}
 
