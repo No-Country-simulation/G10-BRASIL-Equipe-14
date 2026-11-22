@@ -4,8 +4,10 @@
 de Transformação e Distribuição para Comunidades Digitais
 - **Responsáveis:** Equipe 14 - Turma G10
 - **Status:** Aprovado / Em Implementação
-- **Versão:** 2.0 (Semana 1)
-- **Última Atualização:** 23 de Outubro de 2026
+- **Versão:** 3.0
+- **Data de Elaboração:** 18 de Outubro de 2026
+- **Última Atualização:** 21 de Novembro de 2026
+
 
 ---
 
@@ -43,103 +45,13 @@ A arquitetura orienta-se por cinco princípios fundamentais:
 
 ---
 
-## 2. Diagrama de Arquitetura Conceitual 
+## 2. Diagrama de Arquitetura do Pipeline Multicanal
 
-```mermaid
-flowchart TD
-    %% Estilos Visuais
-    classDef source fill:#f8fafc,stroke:#3b82f6,stroke-width:2px,color:#0f172a;
-    classDef n8n fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a;
-    classDef router fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#0f172a;
-    classDef data fill:#eff6ff,stroke:#2563eb,stroke-width:2px,color:#0f172a;
-    classDef channel fill:#f5f3ff,stroke:#7c3aed,stroke-width:2px,color:#0f172a;
-    classDef ui fill:#fdf2f8,stroke:#db2777,stroke-width:2px,color:#0f172a;
-    classDef oci fill:#f0fdf4,stroke:#16a34a,stroke-width:2px,color:#0f172a;
+O diagrama abaixo representa a implementação atual da arquitetura do pipeline do projeto.
 
-    %% 1. Fontes de Dados
-    subgraph Sources ["1. Fontes da Comunidade"]
-        SRC_SO["Stack Overflow / Stack Exchange API"]:::source
-        SRC_MST["Mastodon API - Instâncias Tech"]:::source
-        SRC_HN["Hacker News API"]:::source
-    end
+![Diagrama de Arquitetura](/docs/assets/pipeline-architecture-v2.png) 
 
-    %% 2. Ingestão Primária
-    subgraph Ingestion ["2. Ingestão Primária (n8n Webhook / Coletor)"]
-        HOOK["Webhook n8n Receptor<br/><code>/webhook/ingestion</code>"]:::n8n
-        RAW_SAVE["Persiste Payload Bruto<br/><code>data/raw/</code>"]:::n8n
-    end
-
-    %% 3. Engenharia de Dados Integrada (Pipeline In-Line)
-    subgraph DataEngine ["3. Engenharia de Dados (DuckDB e Python 3.11+)"]
-        DUCK_CLEAN["DuckDB: Sanitização e Deduplicação<br/>• Remoção de HTML/ruído<br/>• Deduplicação por hash"]:::data
-        DUCK_SCHEMA["Validação Contratual<br/><code>input_schema.json</code>"]:::data
-        DUCK_AGG["DuckDB: Agrupamento Analítico<br/>• Janelas de tempo (Resumo Semanal)<br/>• Persiste em <code>data/processed/</code>"]:::data
-    end
-
-    %% 4. Cognição e Roteamento
-    subgraph Cognition ["4. Motor Cognitivo e Roteamento (n8n + LLM)"]
-        LLM["LLM Engine (Gemini Flash / Fallback Groq)<br/>• Análise de Sentimento<br/>• Extração de Tópicos<br/>• Score de Relevância"]:::n8n
-        ROUTER{"Nó Condicional<br/>(Router)"}:::router
-
-        CASE["Case de Sucesso / Destaque"]:::n8n
-        FAQ["Dica Técnica / FAQ"]:::n8n
-        WEEKLY["Resumo Semanal<br/>(Community Highlights)"]:::n8n
-    end
-
-    %% 5. Adapters
-    subgraph Channels ["5. Adapters de Copy por Canal"]
-        ADAPT["Adapters de Formatação de Copy"]:::channel
-        CH_LI["LinkedIn Post<br/>tom inspirador e técnico"]:::channel
-        CH_FAST["Microblogging (Mastodon)<br/>tom conciso e direto"]:::channel
-        CH_NEWS["Digest / Artigo<br/>tom editorial e síntese"]:::channel
-    end
-
-    %% 6. Curadoria HITL
-    subgraph HITL ["6. Curadoria Humana (Streamlit HITL)"]
-        CURADORIA["Painel de Curadoria (Streamlit)<br/>• Leitura do lote processado<br/>• Revisão e edição de copy<br/>• Aprovação / Descarte"]:::ui
-        EXPORT_PKG["Validação Contratual de Saída<br/><code>output_schema.json</code>"]:::ui
-    end
-
-    %% 7. Persistência
-    subgraph CloudStorage ["7. Nuvem OCI Always Free"]
-        OCI_BUCKET["OCI Object Storage - Bucket<br/><code>pacote-distribuicao-timestamp.json</code>"]:::oci
-        PUBLICAR["Disponível para Publicação / Disparo"]:::oci
-    end
-
-    %% Conexões Lineares Integradas
-    SRC_SO -->|"REST API"| HOOK
-    SRC_MST -->|"REST API"| HOOK
-    SRC_HN -->|"REST API"| HOOK
-
-    HOOK --> RAW_SAVE
-    RAW_SAVE --> DUCK_CLEAN
-    DUCK_CLEAN --> DUCK_SCHEMA
-    DUCK_SCHEMA --> DUCK_AGG
-
-    DUCK_AGG -->|"Dados higienizados e agregados"| LLM
-    LLM --> ROUTER
-
-    ROUTER -->|"Score alto + sentimento positivo"| CASE
-    ROUTER -->|"Dúvida recorrente / resolvido"| FAQ
-    ROUTER -->|"Janela semanal agregada (DuckDB)"| WEEKLY
-
-    CASE --> ADAPT
-    FAQ --> ADAPT
-    WEEKLY --> ADAPT
-
-    ADAPT --> CH_LI
-    ADAPT --> CH_FAST
-    ADAPT --> CH_NEWS
-
-    CH_LI --> CURADORIA
-    CH_FAST --> CURADORIA
-    CH_NEWS --> CURADORIA
-
-    CURADORIA --> EXPORT_PKG
-    EXPORT_PKG -->|"Upload OCI SDK (Always Free)"| OCI_BUCKET
-    CURADORIA -->|"Exportação / 1-clique"| PUBLICAR
-
-```
+<p align= center>Fig. 01 - Arquitetura do pipeline multicanal</p>
 
 ---
 
@@ -147,12 +59,12 @@ flowchart TD
 
 | Camada | Tecnologia / Ferramenta | Responsabilidade Técnica | Justificativa Arquitetural |
 | --- | --- | --- | --- |
-| **Ingestão Externa** | Python Scripts / APIs REST | Coleta programática de tópicos, perguntas e discussões das APIs do Stack Exchange e instâncias do Mastodon. | Fontes ricas em dúvidas técnicas reais com cotas de acesso gratuitas disponíveis. |
-| **Orquestração** | **n8n v1** (Docker Compose) | Recepção de webhooks, roteamento condicional de mensagens e chamadas encadeadas aos serviços de IA. | Low-code extensível, flexível, self-hosted e sem custo de licença. |
-| **Engenharia de Dados** | **DuckDB** + Python 3.11 | Tratamento colunar, deduplicação, normalização estrutural e filtragem rápida sem subir instâncias pesadas de banco. | Desempenho analítico superior minimizando o consumo de memória RAM e processamento computacional. |
-| **Motor de LLM** | **Google Gemini API** (Fallback: Groq) | Análise de sentimento, categorização de tópicos e geração de ativos (LinkedIn, FAQ e Resumos). | Camada gratuita estável com suporte a modelos rápidos (Flash). |
-| **Curadoria (HITL)** | **Streamlit** | Interface gráfica modular para visualização dos ativos gerados, edição de copy, aprovação/rejeição e disparo de gravação. | Desenvolvimento ágil em Python puro, interativo e desacoplado. |
-| **Persistência Nuvem** | **OCI Object Storage** | Armazenamento final dos pacotes consolidados em formato JSON (`pacote-distribuicao-{timestamp}.json`). | Serviço com 10 GB gratuitos disponíveis na cota Always Free. |
+| **Entradas** | APIs REST, JSON e CSV | Coleta dados das APIs de Stack Exchange, Mastodon e Hacker News e aceita conteúdo manual pela interface. | Normaliza múltiplas fontes sem acoplar a interface aos provedores externos. |
+| **Orquestração** | **n8n** | Executa coletores, merges, triagem, roteamento, adaptação editorial e download do bucket. | Orquestração visual self-hosted, versionada como workflows JSON em `n8n/workflows/`. |
+| **Interface e Curadoria** | **Streamlit** + Python 3.11 | Exibe dashboards, processa ingestão, registra revisões HITL e exporta JSON aprovado. | Permite operação interna sem desenvolver uma aplicação web separada. |
+| **Engenharia de Dados** | **DuckDB** + JSON Schema | Mantém o snapshot consolidado `communitylab_oci.duckdb`, o banco `curadoria.duckdb` das revisões humanas e dados processados locais. | Processamento local rápido e separação entre dados analíticos e estado da curadoria. |
+| **Motor de LLM** | **Google Gemini / Groq / Nvidia API / Open Router** | Extrai sentimento, tópicos, relevância e sugere a classificação editorial. | APIs gratuitas ou de baixo custo podem ser escolhidas sem alterar o contrato do projeto. |
+| **Persistência** | **OCI Object Storage** | Guarda dados brutos, processados e pacotes aprovados em pastas estruturadas. | Mantém os artefatos disponíveis para n8n e Streamlit dentro da cota OCI Always Free. |
 
 ---
 
@@ -161,31 +73,51 @@ flowchart TD
 O fluxo operacional de dados divide-se em 5 estágios:
 
 ```text
-[Fontes] ──▶ [1. Ingestão / n8n] ──▶ [2. DuckDB Engine] ──▶ [3. LLM + Router] ──▶ [4. Adapters] ──▶ [5. Curadoria HITL / OCI]
-
+Entradas
+  ├── APIs REST (Stack Exchange, Mastodon e Hacker News)
+  └── Upload manual (JSON ou CSV)
+           |
+           v
+n8n - ingestão, higienização, LLM e adaptação por canal
+           |
+           v
+DuckDB - leitura analítica e snapshot processado
+           |
+           v
+Streamlit - dashboard, chat e curadoria humana
+           |
+           v
+Validação pelo output_schema.json
+           |
+           v
+OCI Object Storage - pacote aprovado e distribuível
 ```
 
 ### 4.1. Estágio 1: Ingestão Primária e Armazenamento Bruto
 
-1. Os coletores programáticos consultam as APIs do Stack Exchange e do Mastodon.
+1. Os workflows do n8n consultam Stack Exchange, Mastodon e Hacker News.
 
-2. Os dados brutos coletados são persistidos em `data/raw/` como payloads JSON e disponibilizados para o pipeline via endpoint do webhook do n8n (`/webhook/ingestion`).
+2. A ingestão manual pelo Streamlit valida JSON ou CSV com `input_schema.json` e envia cada registro ao webhook `/webhook/ingestion`.
+
+3. O webhook e os coletores persistem os payloads brutos localmente em `data/raw/` ou no bucket OCI, conforme o workflow configurado.
 
 ### 4.2. Estágio 2: Engenharia de Dados e Normalização com DuckDB
 
-1. O DuckDB carrega os registros brutos em memória.
+1. Os workflows do n8n normalizam e agrupam os registros coletados.
 
-2. Executa operações vetoriais de:
-    * Remoção de tags HTML, emojis corrompidos e caracteres de controle.
-    * Deduplicação baseada no hash do conteúdo da mensagem.
-    * Validação da estrutura de entrada conforme o `input_schema.json`.
-    * Agrupamento analítico temporal (necessário para consolidar o Resumo Semanal).
+2. O Streamlit usa diferentes bancos DuckDB para finalidades distintas:
+    * `communitylab_oci.duckdb`: snapshot consolidado usado pelo dashboard de sentimentos e pelo chat, atualizado a partir dos JSONs processados da OCI.
+    * `curadoria.duckdb`: estado das revisões humanas, com aprovações, rejeições e textos editados.
+    * `duckdb_ui.duckdb`: banco auxiliar usado pela interface opcional do DuckDB UI.
+    * Ler JSON processados da pasta local `data/processed/` ou diretamente do OCI via compatibilidade S3.
+    * Criar uma view analítica unificada dos campos normalizados.
+    * Persistir separadamente as revisões humanas em `data/curadoria.duckdb`.
 
-3. O lote higienizado é persistido em `data/processed/`.
+3. O lote processado é persistido em `data/processed/` e pode ser enviado ao OCI Object Storage.
 
 ### 4.3. Estágio 3: Enriquecimento Cognitivo e Roteamento (LLM Engine)
 
-1. O lote higienizado alimenta os prompts estruturados no motor de LLM (Google Gemini Flash, com fallback para Groq).
+1. O lote higienizado alimenta os prompts estruturados no motor de LLM.
 
 2. O modelo extrai sentimentos, tópicos e calcula um score de relevância.
 
@@ -212,7 +144,7 @@ O fluxo operacional de dados divide-se em 5 estágios:
 
 3. Os itens validados são empacotados e validados contra o `output_schema.json`.
 
-4. O pacote consolidado final é enviado via OCI Python SDK para o bucket no **OCI Object Storage**.
+4. Os aprovados são exportados localmente. Quando publicados pelo fluxo OCI, são enviados via OCI Python SDK para `ativos/{YYYY-Www}/pacote-distribuicao-<timestamp>.json`.
 
 ---
 
@@ -230,5 +162,6 @@ Para garantir o desacoplamento e a governança entre as etapas do pipeline, os f
 
 | Versão | Data de Alteração | Alteração Realizada |
 |---|---|---|
-| Versão 1.0 | 18/10/26 | Adicionadas as especificações da arquitetura do projeto.|
+| Versão 3.0 | 21/11/26 | Consolida o diagrama em uma arquitetura única alinhada ao Docker Compose, aos workflows n8n e aos módulos Streamlit/DuckDB reais. |
 | Versão 2.0 | 23/10/26 | Adicionada a Hacker News API como fonte de dados, junto ao Stack Overflow/Stack Exchange API e Mastodon API. |
+| Versão 1.0 | 18/10/26 | Adicionadas as especificações da arquitetura do projeto.|
